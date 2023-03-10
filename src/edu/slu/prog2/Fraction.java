@@ -170,7 +170,7 @@ public class Fraction {
      *
      * @param other other Fraction to add with
      * @return sum of a Fraction and another Fraction
-     * // TODO: @throws ZeroDenominatorException
+     * @throws ZeroDenominatorException
      */
     /*
         Algorithm:

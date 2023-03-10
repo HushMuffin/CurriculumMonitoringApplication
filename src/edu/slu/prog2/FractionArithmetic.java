@@ -221,9 +221,7 @@ public class FractionArithmetic {
 
         try {
             String inputPane = JOptionPane.showInputDialog(null,
-                    "<html><h1 style='font-family: Calibri; font-size: 18pt; '>Enter " + part + " of Fraction "
-                            + fractionNumber + " : ",
-                    "Fraction " + fractionNumber,
+                    "<html><h1 style='font-family: Calibri; font-size: 18pt; '>Enter " + part + " of Fraction " + fractionNumber + " : ", "Fraction " + fractionNumber,
                     JOptionPane.QUESTION_MESSAGE);
 
             // Terminates the program when the user clicked cancel or X button
@@ -233,11 +231,7 @@ public class FractionArithmetic {
 
             input = Integer.parseInt(inputPane);
             if (part.equalsIgnoreCase("denominator") && input == 0) {
-                JOptionPane.showMessageDialog(null,
-                        "<html><h1 style='font-family: Calibri; font-size: 18pt;'>" +
-                                "Please enter a valid number! Denominator cannot be zero.",
-                        "Fraction Arithmetic Program",
-                        JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "<html><h1 style='font-family: Calibri; font-size: 18pt;'>" + "Please enter a valid number! Denominator cannot be zero.", "Fraction Arithmetic Program", JOptionPane.INFORMATION_MESSAGE);
                 input = requestFractionData(part, fractionNumber);
             }
 
@@ -274,7 +268,6 @@ public class FractionArithmetic {
      */
     public static int showChoices() {
         int answer = 0;
-
         do {
             try {
                 String inputPane = JOptionPane.showInputDialog(null,

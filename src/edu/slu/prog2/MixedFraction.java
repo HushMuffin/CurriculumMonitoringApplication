@@ -502,33 +502,31 @@ public class MixedFraction extends Fraction {
            - Display the Mixed Fraction in the form: whole numerator/denominator
      */
     public String toString() {
-        // If whole part is 0, return only the rational part
-        if (this.getWhole() == 0)
-            return String.format("%d/%d", this.getNumerator(), this.getDenominator());
-
-            // If denominator is 0 or 1, return only the sum of whole part and numerator
-        else if (this.getDenominator() == 0 || this.getDenominator() == 1)
-            return ("" + (this.getWhole() + this.getNumerator()));
+        // If denominator is 0 or 1, return only the sum of whole part and numerator
+        if (this.getDenominator() == 1)
+            return String.format("%d", this.getNumerator());
 
             // If numerator is 0, return only the whole part
-        else if (this.getNumerator() == 0)
+       else if (this.getNumerator() == 0)
             return String.format("%d", this.getWhole());
 
-            // Otherwise, return the entire representation of the mixed fraction.
-        else
+        // If whole part is 0, return only the rational part
+        else if (this.getWhole() == 0)
+            return String.format("%d/%d", this.getNumerator(), this.getDenominator());
+
+        else // Otherwise, return the entire representation of the mixed fraction.
             return String.format("%d %d/%d", this.getWhole(), this.getNumerator(), this.getDenominator());
     } // end of the toString override method
 
-    //TODO: Marius check all ZeroDenominatorException class.
     /**
      * Method that returns the MixedFraction in double format <br>
      *
      * @return double format of a Mixed Fraction
-     * // TODO @throws ZeroDenominatorException
+     * @throws ZeroDenominatorException
      */
-    public double toDouble() { // TODO: throws ZeroDenominatorException { add ZeroDenominatorException in package
+    public double toDouble()  throws ZeroDenominatorException {
         if (this.getDenominator() == 0) {
-            // TODO: throw new ZeroDenominatorException();
+            throw new ZeroDenominatorException();
         }
         return (this.whole + 1.0 * this.getNumerator() / this.getDenominator());
     } // end of toDouble method
