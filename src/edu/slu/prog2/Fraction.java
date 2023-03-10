@@ -140,7 +140,7 @@ public class Fraction {
     public String toString() {
         // If denominator is 1, return only the numerator
         if (this.getDenominator() == 1)
-            return String.format("%d", this.getNumerator());
+            return String.valueOf(this.getNumerator());
 
             // If numerator is 0, return only 0
         else if (this.getNumerator() == 0)
@@ -246,7 +246,7 @@ public class Fraction {
      *
      * @param other another Fraction that serves as the divisor
      * @return quotient of a Fraction and another Fraction
-     * // TODO @throws ZeroDenominatorException
+     * @throws ZeroDenominatorException
      */
     /*
         Algorithm:
@@ -256,7 +256,7 @@ public class Fraction {
         4. return the "quotient" variable.
     */
 
-    public Fraction divideBy(Fraction other) { // TODO: throws ZeroDenominatorException { add ZeroDenominatorException in package
+    public Fraction divideBy(Fraction other)  throws ZeroDenominatorException {
         Fraction quotient = new Fraction();
         quotient.numerator = this.numerator * other.denominator;
         quotient.denominator = this.denominator * other.numerator;
