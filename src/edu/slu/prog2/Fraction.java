@@ -183,7 +183,7 @@ public class Fraction {
         5. Call the reduceFraction method.
         6. Return the "sum" variable.
     */
-    public Fraction add(Fraction other) { // TODO: throws ZeroDenominatorException { add ZeroDenominatorException in package
+    public Fraction add(Fraction other) throws ZeroDenominatorException {
         int commonDenominator = this.computeLCM(this.denominator, other.denominator);
         int numerator1 = this.numerator * (commonDenominator / this.denominator);
         int numerator2 = other.numerator * (commonDenominator / other.denominator);
