@@ -246,7 +246,7 @@ public class FractionArithmetic extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     } // end of FractionArithmeticCalculator constructor
 
-    //TODO: Marius add codes in this class on this new GUI that was pushed
+    //TODO: Marius add codes in this class on this new GUI that was pushed.
     /*TODO: Marius put a javadoc comment of the description of the class and a
             multi-line comment that shows the algorithm.
      */
