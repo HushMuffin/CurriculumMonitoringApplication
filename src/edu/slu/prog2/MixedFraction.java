@@ -183,7 +183,7 @@ public class MixedFraction extends Fraction {
         return sum;
     } // end of sum override method
 
-    //TODO: Nash check Add arithmetic overload method
+
     /**
      * Method that adds two Mixed Fractions and overloads the add method of Fraction. <br>
      *

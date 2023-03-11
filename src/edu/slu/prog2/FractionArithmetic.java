@@ -208,7 +208,6 @@ public class FractionArithmetic {
         }
     } // end of requestMixedFraction method
 
-    //TODO: Nash check requestFraction Data.
     /**
      * This method asks for the specific part of a Fraction.
      *
@@ -391,7 +390,7 @@ public class FractionArithmetic {
         }
     } // end of arithmeticRoutines method
 
-    //TODO: Nash and Kaetlyn check pickFraction method.
+    //TODO:Kaetlyn check pickFraction method.
     /**
      * Method to let the user pick which fraction to modify between fraction 1 and fraction 2.
      *
