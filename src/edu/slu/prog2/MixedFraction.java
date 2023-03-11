@@ -63,9 +63,9 @@ public class MixedFraction extends Fraction {
      * @param whole receives the whole number for the Mixed Fraction
      * @param numerator receives the numerator for the Mixed Fraction
      * @param denominator receives the denominator for the Mixed Fraction
-     * //TODO @throws ZeroDenominatorException
+     * @throws ZeroDenominatorException
      */
-    public MixedFraction(int whole, int numerator, int denominator) { // TODO: throws ZeroDenominatorException { add ZeroDenominatorException in package
+    public MixedFraction(int whole, int numerator, int denominator) throws ZeroDenominatorException {
         super(numerator, denominator);
         this.whole = whole;
     } // end of MixedFraction constructor
@@ -137,7 +137,6 @@ public class MixedFraction extends Fraction {
         setNumerator(getNumerator() % getDenominator());
     } // end of toMixedFraction method
 
-    //TODO: Julienne check add arithmetic override method
     /**
      * Method that adds two Mixed Fractions and overrides the add method of Fraction. <br>
      *
@@ -182,7 +181,6 @@ public class MixedFraction extends Fraction {
         sum.toMixedFraction();
         return sum;
     } // end of sum override method
-
 
     /**
      * Method that adds two Mixed Fractions and overloads the add method of Fraction. <br>
@@ -235,7 +233,6 @@ public class MixedFraction extends Fraction {
         return sum;
     } // end of sum overload method
 
-    //TODO: Julienne check subtract arithmetic override method
     /**
      * Method that computes for the difference of two Fractions and overrides subtract method. <br>
      *
@@ -282,7 +279,6 @@ public class MixedFraction extends Fraction {
         return subtract;
     } // end of subtract override method
 
-    //TODO: Nash check Subtract arithmetic overload method
     /**
      * Method that computes for the difference of two Fractions and overloads subtract method. <br>
      *
@@ -331,7 +327,6 @@ public class MixedFraction extends Fraction {
         return subtract;
     } // end of subtract overload method
 
-    //TODO: Marius check multiplyBy Arithmetic overrides method.
     /**
      * Method that computes the product of a Mixed Fraction and another Fraction, and overrides multiplyBy method. <br>
      *
@@ -403,7 +398,6 @@ public class MixedFraction extends Fraction {
         return product;
     } // end of multiplyBy overload method
 
-    //TODO: Marius check divideBy Arithmetic overrides method.
     /**
      * Method that computes for the quotient of a Mixed Fraction and other Fraction, and overrides divideBy method. <br>
      *
@@ -524,7 +518,7 @@ public class MixedFraction extends Fraction {
      * @return double format of a Mixed Fraction
      * @throws ZeroDenominatorException
      */
-    public double toDouble()  throws ZeroDenominatorException {
+    public double toDouble() throws ZeroDenominatorException {
         if (this.getDenominator() == 0) {
             throw new ZeroDenominatorException();
         }

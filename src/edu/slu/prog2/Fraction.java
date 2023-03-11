@@ -263,9 +263,10 @@ public class Fraction {
         return quotient;
     } // end of divideBy method
 
-    //TODO: Charles, Marius, and Kaetlyn check reduceFraction method, also in other classes.
     /**
      * Method to reduce the fraction to its lowest form.
+     *
+     * @return
      */
     /*
         Algorithm:
@@ -300,7 +301,7 @@ public class Fraction {
            - secondNumber modulo '%' by firstNumber
            - firstNumber
     */
-    private static int computeGCD(int firstNumber, int secondNumber) {
+    protected static int computeGCD(int firstNumber, int secondNumber) {
         if (firstNumber == 0)
             return secondNumber;
         return computeGCD(secondNumber % firstNumber, firstNumber);
