@@ -452,8 +452,6 @@ public class FractionArithmetic {
      */
 
     //TODO: ALL Check the formatResult method
-    //TODO: Fix the bug where the fraction should display only the numerator when the denominator is 1
-    //TODO: Fix the bug where the fraction should display only 0 when the numerator is 0
     public static void formatFinalResult(MixedFraction result, int choice, String operation, int pickFraction){
         if (choice<5){
             DecimalFormat format = new DecimalFormat("##.00");
