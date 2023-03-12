@@ -182,7 +182,6 @@ public class FractionArithmetic extends JFrame {
      */
     private static int HEIGHT = 300;
 
-
     /**
      * Constructor that creates the main window of the fraction arithmetic calculator application.
      * It initializes all the GUI components (labels, text fields, buttons) and sets their
@@ -248,25 +247,26 @@ public class FractionArithmetic extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     } // end of FractionArithmeticCalculator constructor
+
      /**
      * A class that handles the addition of two mixed fractions and displays the result.
      */
      /*
-    Algorithm:
-            1. Declare and initialize variables for the input string entry, an array of String fdata,
-               a MixedFraction object first, and three integers firstWholeNumber, firstNumerator, and
-               firstDenominator.
-            2. Try to get the input string from the first text field and split it into an array
-               of strings using the regular expression /|\s+.
-            3. Check the length of the array to determine whether the input represents a whole number,
-                a proper fraction, or a mixed fraction. Assign the appropriate values to the firstWholeNumber,
-               firstNumerator, and firstDenominator variables.
-            4. Create a new MixedFraction object first using the extracted values.
-            5. If the input is not a valid fraction (e.g., if a decimal number is entered), show a warning
-               message using a JOptionPane and return from the method.
-            6. If the denominator of the fraction is zero, show a warning message using a JOptionPane.
-            7. Otherwise, reduce the fraction using the reduceFraction method of the MixedFraction class
-                and display the result in the result text field using the toString method of theMixedFraction class.
+        Algorithm:
+        1. Declare and initialize variables for the input string entry, an array of String fdata,
+           a MixedFraction object first, and three integers firstWholeNumber, firstNumerator, and
+           firstDenominator.
+        2. Try to get the input string from the first text field and split it into an array
+           of strings using the regular expression /|\s+.
+        3. Check the length of the array to determine whether the input represents a whole number,
+           a proper fraction, or a mixed fraction. Assign the appropriate values to the firstWholeNumber,
+           firstNumerator, and firstDenominator variables.
+        4. Create a new MixedFraction object first using the extracted values.
+        5. If the input is not a valid fraction (e.g., if a decimal number is entered), show a warning
+           message using a JOptionPane and return from the method.
+        6. If the denominator of the fraction is zero, show a warning message using a JOptionPane.
+        7. Otherwise, reduce the fraction using the reduceFraction method of the MixedFraction class
+           and display the result in the result text field using the toString method of theMixedFraction class.
       */
     private class AddButtonHandler implements ActionListener {
         /**
@@ -279,68 +279,75 @@ public class FractionArithmetic extends JFrame {
             String[] fdata = new String[3];
             String[] sdata = new String[3];
             MixedFraction first = null, second = null, result = null;
-            int firstWholeNumber = 0, firstNumerator=0, firstDenominator=0, secondWholeNumber = 0 , secondNumerator=0, secondDenominator=0;
+            int firstWholeNumber = 0, firstNumerator=0, firstDenominator=0, secondWholeNumber = 0 ,
+                    secondNumerator=0, secondDenominator=0;
+
             try {
                 fEntry = firstTF.getText();
                 fdata = fEntry.split("/|\\s+");
                 if (fdata.length == 1) { // handle whole numbers without a fraction
-                    firstWholeNumber = 0;
-                    firstNumerator = Integer.parseInt(fdata[0]);
+                    firstWholeNumber = Integer.parseInt(fdata[0]);
+                    firstNumerator = 0;
                     firstDenominator = 1;
-                    System.out.println("first\n"+firstWholeNumber);
-                    System.out.println(firstNumerator);
-                    System.out.println(firstDenominator);
-                } else if (fdata.length < 3) {
+                } else if (fdata.length == 2) {
                     firstWholeNumber = 0;
                     firstNumerator = Integer.parseInt(fdata[0]);
                     firstDenominator = Integer.parseInt(fdata[1]);
-                    System.out.println("first\n"+firstWholeNumber);
-                    System.out.println(firstNumerator);
-                    System.out.println(firstDenominator);
                 } else {
                     firstWholeNumber = Integer.parseInt(fdata[0]);
                     firstNumerator = Integer.parseInt(fdata[1]);
                     firstDenominator = Integer.parseInt(fdata[2]);
-                    System.out.println("first\n"+firstWholeNumber);
-                    System.out.println(firstNumerator);
-                    System.out.println(firstDenominator);
                 }
-                first = new MixedFraction(firstWholeNumber, firstNumerator, firstDenominator);
 
+                first = new MixedFraction(firstWholeNumber, firstNumerator, firstDenominator);
 
                 sEntry = secondTF.getText();
                 sdata = sEntry.split("/|\\s+");
                 if (sdata.length == 1) { // handle whole numbers without a fraction
-                    secondWholeNumber = 0;
-                    secondNumerator = Integer.parseInt(fdata[0]);
+                    secondWholeNumber = Integer.parseInt(sdata[0]);
+                    secondNumerator = 0;
                     secondDenominator = 1;
-                    System.out.println("second\n"+secondWholeNumber);
-                    System.out.println(secondNumerator);
-                    System.out.println(secondDenominator);
-                } else if (fdata.length < 3) {
+                } else if (sdata.length == 2) {
                     secondWholeNumber = 0;
                     secondNumerator = Integer.parseInt(sdata[0]);
                     secondDenominator = Integer.parseInt(sdata[1]);
-                    System.out.println("second\n"+secondWholeNumber);
-                    System.out.println(secondNumerator);
-                    System.out.println(secondDenominator);
                 } else {
                     secondWholeNumber = Integer.parseInt(sdata[0]);
                     secondNumerator = Integer.parseInt(sdata[1]);
                     secondDenominator = Integer.parseInt(sdata[2]);
-                    System.out.println("second\n"+secondWholeNumber);
-                    System.out.println(secondNumerator);
-                    System.out.println(secondDenominator);
                 }
+
                 second = new MixedFraction(secondWholeNumber, secondNumerator, secondDenominator);
             } catch ( NumberFormatException x ){
-                x.printStackTrace();
+                // Show warning panel if decimal number is entered
+                JOptionPane.showMessageDialog(null, "Invalid input! Please enter a " +
+                                "valid fraction.",
+                        "Warning!",
+                        JOptionPane.ERROR_MESSAGE);
+
+                return;
             }
-            result = first.add(second);
-            resultTF.setText(""+result);
+
+            if (firstDenominator == 0) {
+                JOptionPane.showMessageDialog(null,
+                        "<html><h1 style='font-family: Calibri; font-size: 18pt;'>" +
+                                "Please enter a valid number! Denominator cannot be zero for the first fraction.",
+                        "Warning!",
+                        JOptionPane.ERROR_MESSAGE);
+            } else if (secondDenominator == 0) {
+                JOptionPane.showMessageDialog(null,
+                        "<html><h1 style='font-family: Calibri; font-size: 18pt;'>" +
+                                "Please enter a valid number! Denominator cannot be zero for the second fraction.",
+                        "Warning!",
+                        JOptionPane.ERROR_MESSAGE);
+            } else {
+                result = first.add(second);
+                showResult(result);
+            }
         } // end of actionPerformed method
     }// end of AddButtonHandler class
 
+    //TODO: Julienne add codes in this class on the new GUI that was pushed
     /*TODO: Julienne put a javadoc comment of the description of the class and a
             multi-line comment that shows the algorithm.
      */
@@ -352,69 +359,7 @@ public class FractionArithmetic extends JFrame {
          * @param e the event to be processed
          */
         public void actionPerformed(ActionEvent e) {
-            String fEntry = "", sEntry="";
-            String[] fdata = new String[3];
-            String[] sdata = new String[3];
-            MixedFraction first = null, second = null, result = null;
-            int firstWholeNumber = 0, firstNumerator=0, firstDenominator=0, secondWholeNumber = 0 , secondNumerator=0, secondDenominator=0;
-            try {
-                fEntry = firstTF.getText();
-                fdata = fEntry.split("/|\\s+");
-                if (fdata.length == 1) { // handle whole numbers without a fraction
-                    firstWholeNumber = 0;
-                    firstNumerator = Integer.parseInt(fdata[0]);
-                    firstDenominator = 1;
-                    System.out.println("first\n"+firstWholeNumber);
-                    System.out.println(firstNumerator);
-                    System.out.println(firstDenominator);
-                } else if (fdata.length < 3) {
-                    firstWholeNumber = 0;
-                    firstNumerator = Integer.parseInt(fdata[0]);
-                    firstDenominator = Integer.parseInt(fdata[1]);
-                    System.out.println("first\n"+firstWholeNumber);
-                    System.out.println(firstNumerator);
-                    System.out.println(firstDenominator);
-                } else {
-                    firstWholeNumber = Integer.parseInt(fdata[0]);
-                    firstNumerator = Integer.parseInt(fdata[1]);
-                    firstDenominator = Integer.parseInt(fdata[2]);
-                    System.out.println("first\n"+firstWholeNumber);
-                    System.out.println(firstNumerator);
-                    System.out.println(firstDenominator);
-                }
-                first = new MixedFraction(firstWholeNumber, firstNumerator, firstDenominator);
-
-
-                sEntry = secondTF.getText();
-                sdata = sEntry.split("/|\\s+");
-                if (sdata.length == 1) { // handle whole numbers without a fraction
-                    secondWholeNumber = 0;
-                    secondNumerator = Integer.parseInt(fdata[0]);
-                    secondDenominator = 1;
-                    System.out.println("second\n"+secondWholeNumber);
-                    System.out.println(secondNumerator);
-                    System.out.println(secondDenominator);
-                } else if (fdata.length < 3) {
-                    secondWholeNumber = 0;
-                    secondNumerator = Integer.parseInt(sdata[0]);
-                    secondDenominator = Integer.parseInt(sdata[1]);
-                    System.out.println("second\n"+secondWholeNumber);
-                    System.out.println(secondNumerator);
-                    System.out.println(secondDenominator);
-                } else {
-                    secondWholeNumber = Integer.parseInt(sdata[0]);
-                    secondNumerator = Integer.parseInt(sdata[1]);
-                    secondDenominator = Integer.parseInt(sdata[2]);
-                    System.out.println("second\n"+secondWholeNumber);
-                    System.out.println(secondNumerator);
-                    System.out.println(secondDenominator);
-                }
-                second = new MixedFraction(secondWholeNumber, secondNumerator, secondDenominator);
-            } catch ( NumberFormatException x ){
-                x.printStackTrace();
-            }
-            result = first.subtract(second);
-            resultTF.setText(""+result);
+            //TODO: Julienne add codes here
         } // end of actionPerformed method
     }// end of SubtractButtonHandler class
 
@@ -434,7 +379,7 @@ public class FractionArithmetic extends JFrame {
         } // end of actionPerformed method
     } // end of MultiplyButtonHandler class
 
-    //TODO: Kaetlyn add codes in this class on this new GUI that was pushed
+    //TODO: Katelyn add codes in this class on this new GUI that was pushed
     /*TODO: Katelyn put a javadoc comment of the description of the class and a
             multi-line comment that shows the algorithm.
      */
@@ -446,7 +391,7 @@ public class FractionArithmetic extends JFrame {
          * @param e the event to be processed
          */
         public void actionPerformed(ActionEvent e) {
-            //TODO: Kaetlyn add codes here
+            //TODO: Katelyn add codes here
         } // end of actionPerformed method
     } // end of DivideButtonHandler class
 
@@ -636,7 +581,7 @@ public class FractionArithmetic extends JFrame {
         public void actionPerformed(ActionEvent e){
             showExit();
             System.exit(0);
-        }
+        } // end of actionPerformed method
     } // end of ExitButtonHandler class
 
     //TODO: Nash add codes in this method on this new GUI that was pushed
@@ -651,12 +596,7 @@ public class FractionArithmetic extends JFrame {
     public static void showIntroduction() {
         JOptionPane pane = new JOptionPane(
                 "<html><h1 style='font-family: Calibri; font-size: 18pt;'>" +
-                        "Welcome! This program shows the computation result of the addition, subtraction, <br>" +
-                        "multiplication, division, and the simplification of a fraction. <br><br>" +
-                        "You will be asked to enter the values of the whole number, numerator, and denominator <br> " +
-                        "of both fractions and then a menu will be shown from which you can choose to <br> " +
-                        "enter value for fraction 1, for fraction 2, add, subtract, multiply, divide <br> " +
-                        "the fractions, reduce, and quit from the program.",
+                        "<ADD HERE>", //TODO: Nash add codes of the message for the introduction statement
                 JOptionPane.INFORMATION_MESSAGE,
                 JOptionPane.DEFAULT_OPTION);
 
@@ -667,10 +607,8 @@ public class FractionArithmetic extends JFrame {
                 System.exit(0);
             }
         });
-
         dialog.setVisible(true);
     } // end of showIntroduction method
-
 
     /*TODO: Katelyn put a javadoc comment of the description of the method along with its parameter and a
             multi-line comment that shows the method algorithm.
@@ -693,7 +631,6 @@ public class FractionArithmetic extends JFrame {
         resultTF.setText(stringResult + " ~ " + formattedResult);
     } // end of showResult method
 
-
     //TODO: Nash add codes in this method on this new GUI that was pushed
     /**
      * Method to display the program closing statement.
@@ -711,7 +648,7 @@ public class FractionArithmetic extends JFrame {
         multi-line comment that shows the method algorithm.
     */
     public static void main(String[] args){
-      showIntroduction();
+        showIntroduction();
         FractionArithmetic calculatorObject = new FractionArithmetic();
     } // end of main method
 } // end of FractionArithmeticCalculator class
