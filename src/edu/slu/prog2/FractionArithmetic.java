@@ -60,6 +60,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class FractionArithmetic extends JFrame {
+
     // Declare the objects for FractionArithmeticCalculator.
     /**
      * Holds the first fraction label.
@@ -180,6 +181,7 @@ public class FractionArithmetic extends JFrame {
      * Holds the height width.
      */
     private static int HEIGHT = 300;
+
 
     /**
      * Constructor that creates the main window of the fraction arithmetic calculator application.
@@ -647,7 +649,26 @@ public class FractionArithmetic extends JFrame {
        1. Print an introduction statement of the program.
      */
     public static void showIntroduction() {
-        //TODO: Nash add codes here
+        JOptionPane pane = new JOptionPane(
+                "<html><h1 style='font-family: Calibri; font-size: 18pt;'>" +
+                        "Welcome! This program shows the computation result of the addition, subtraction, <br>" +
+                        "multiplication, division, and the simplification of a fraction. <br><br>" +
+                        "You will be asked to enter the values of the whole number, numerator, and denominator <br> " +
+                        "of both fractions and then a menu will be shown from which you can choose to <br> " +
+                        "enter value for fraction 1, for fraction 2, add, subtract, multiply, divide <br> " +
+                        "the fractions, reduce, and quit from the program.",
+                JOptionPane.INFORMATION_MESSAGE,
+                JOptionPane.DEFAULT_OPTION);
+
+        JDialog dialog = pane.createDialog("Fraction Arithmetic Program");
+        dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        dialog.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent we) {
+                System.exit(0);
+            }
+        });
+
+        dialog.setVisible(true);
     } // end of showIntroduction method
 
 
@@ -690,7 +711,7 @@ public class FractionArithmetic extends JFrame {
         multi-line comment that shows the method algorithm.
     */
     public static void main(String[] args){
-        //TODO: Nash add showIntroduction() method on this line
+      showIntroduction();
         FractionArithmetic calculatorObject = new FractionArithmetic();
     } // end of main method
 } // end of FractionArithmeticCalculator class
