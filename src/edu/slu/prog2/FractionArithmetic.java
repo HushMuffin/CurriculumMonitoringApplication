@@ -207,8 +207,9 @@ public class FractionArithmetic extends JFrame {
         //TODO: Nash add constructor multiply along with the MultiplyButtonHandler class on this new GUI that was pushed
         // multiplyB = ;
 
-        //TODO: Katelyn add constructor divide along with the DivideButtonHandler class on this new GUI that was pushed
-        // divideB = ;
+        divideB = new JButton("Divide");
+        divideHandler = new DivideButtonHandler();
+        divideB.addActionListener(divideHandler);
 
         reduceF = new JButton("Reduce First Fraction");
         reduceFHandler = new ReduceFirstButtonHandler();
@@ -391,7 +392,76 @@ public class FractionArithmetic extends JFrame {
          * @param e the event to be processed
          */
         public void actionPerformed(ActionEvent e) {
-            //TODO: Katelyn add codes here
+            String entry = "", secondEntry="";
+            String[] fdata = new String[3];
+            String[] sdata = new String[3];
+            MixedFraction first = null;
+            MixedFraction second = null;
+            MixedFraction result = null;
+
+            int firstWholeNumber = 0, firstNumerator=0, firstDenominator=0, secondWholeNumber = 0,
+                    secondNumerator=0, secondDenominator=0;
+
+            try {
+                entry = firstTF.getText();
+                fdata = entry.split("/|\\s+");
+                if(fdata.length == 1) {
+                    firstWholeNumber = Integer.parseInt(fdata[0]);
+                    firstNumerator = 0;
+                    firstDenominator = 1;
+                } else if(fdata.length == 2) {
+                    firstWholeNumber = 0;
+                    firstNumerator = Integer.parseInt(fdata[0]);
+                    firstDenominator = Integer.parseInt(fdata[1]);
+                } else {
+                    firstWholeNumber = Integer.parseInt(fdata[0]);
+                    firstNumerator = Integer.parseInt(fdata[1]);
+                    firstDenominator = Integer.parseInt(fdata[2]);
+                }
+
+                first = new MixedFraction(firstWholeNumber, firstNumerator, firstDenominator);
+
+                secondEntry = secondTF.getText();
+                sdata = secondEntry.split("/|\\s+");
+                if(sdata.length == 1) {
+                    secondWholeNumber = Integer.parseInt(sdata[0]);
+                    secondNumerator = 0;
+                    secondDenominator = 1;
+                } else if(sdata.length == 2) {
+                    secondWholeNumber = 0;
+                    secondNumerator = Integer.parseInt(sdata[0]);
+                    secondDenominator = Integer.parseInt(sdata[1]);
+                } else {
+                    secondWholeNumber = Integer.parseInt(sdata[0]);
+                    secondNumerator = Integer.parseInt(sdata[1]);
+                    secondDenominator = Integer.parseInt(sdata[2]);
+                }
+                second = new MixedFraction(secondWholeNumber, secondNumerator, secondDenominator);
+            } catch ( NumberFormatException x ){
+                // Show warning panel if decimal number is entered
+                JOptionPane.showMessageDialog(null, "Invalid input! Please enter a " +
+                                "valid fraction.",
+                        "Warning!",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (firstDenominator == 0) {
+                JOptionPane.showMessageDialog(null,
+                        "<html><h1 style='font-family: Calibri; font-size: 18pt;'>" +
+                                "Please enter a valid number! Denominator cannot be zero for the first fraction.",
+                        "Warning!",
+                        JOptionPane.ERROR_MESSAGE);
+            } else if (secondDenominator == 0) {
+                JOptionPane.showMessageDialog(null,
+                        "<html><h1 style='font-family: Calibri; font-size: 18pt;'>" +
+                                "Please enter a valid number! Denominator cannot be zero for the second fraction.",
+                        "Warning!",
+                        JOptionPane.ERROR_MESSAGE);
+            } else {
+                result = first.divideBy(second);
+                showResult(result);
+            }
         } // end of actionPerformed method
     } // end of DivideButtonHandler class
 
