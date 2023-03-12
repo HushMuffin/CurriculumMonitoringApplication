@@ -380,10 +380,30 @@ public class FractionArithmetic extends JFrame {
         } // end of actionPerformed method
     } // end of MultiplyButtonHandler class
 
-    //TODO: Katelyn add codes in this class on this new GUI that was pushed
-    /*TODO: Katelyn put a javadoc comment of the description of the class and a
-            multi-line comment that shows the algorithm.
+    /**
+     *Private class that implements the ActionListener interface to handle the action of dividing two fractions.
      */
+    /*
+        Algorithm:
+        1. Initialize variables and objects:
+            entry, secondEntry (strings to hold the user input for the two fractions)
+            fdata, sdata (arrays of strings to hold the parsed input for the two fractions)
+            first, second, result (MixedFraction objects to hold the two fractions
+                and their quotient, respectively)
+            firstWholeNumber, firstNumerator, firstDenominator, secondWholeNumber,
+            secondNumerator, secondDenominator (integers to hold the values of the
+                whole number, numerator, and denominator of the two fractions)
+        2. Get user input for the two fractions from the text fields firstTF and secondTF.
+        3. Parse the input strings using the split method to separate the whole number,
+           numerator, and denominator, and store them in the corresponding integer variables.
+        4. Create MixedFraction objects for the two fractions using the values
+           of the three integers obtained from parsing the input strings.
+        5. Check for division by zero errors by checking if either of the two denominators is zero.
+           If so, display an error message using JOptionPane.showMessageDialog().
+        6. If there are no division by zero errors, divide the first fraction by the second fraction
+           using the divideBy() method of the MixedFraction class and store the result in the result variable.
+        7. Pass the result variable to the showResult() method to display the quotient in the result text field.
+    */
     private class DivideButtonHandler implements ActionListener{
 
         /**
