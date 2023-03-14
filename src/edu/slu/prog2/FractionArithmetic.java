@@ -700,9 +700,27 @@ public class FractionArithmetic extends JFrame {
         dialog.setVisible(true);
     } // end of showIntroduction method
 
-    /*TODO: Katelyn put a javadoc comment of the description of the method along with its parameter and a
-            multi-line comment that shows the method algorithm.
-     */
+    /**
+     * This method is responsible for displaying the result of dividing two mixed fractions
+     * */
+    /*
+        Algorithm:
+        1. Convert the MixedFraction object result to a decimal value using the toDouble() method and
+           assign the value to decimalResult.
+        2. Format decimalResult to 2 decimal places and assign the value to formattedResult using
+           the String.format() method.
+        3. Check the components of result MixedFraction object using if-else statements:
+            If the denominator is equal to 1, format the result as a whole number and
+                assign the value to stringResult using the String.format() method.
+            Else if the numerator is equal to 0, format result as a whole number and
+                assign the value to stringResult using the String.format() method.
+            Else if the whole number is equal to 0, format result as a fraction and
+                assign the value to stringResult using the String.format() method.
+            Else, format result as a mixed fraction and assign the value to stringResult
+                using the String.format() method.
+        4. Set the text of resultTF text field to stringResult concatenated with " ~ " and
+                formattedResult using the setText() method.
+    */
     private void showResult(MixedFraction result) {
         double decimalResult = result.toDouble();
         String formattedResult = String.format("%.2f", decimalResult);
