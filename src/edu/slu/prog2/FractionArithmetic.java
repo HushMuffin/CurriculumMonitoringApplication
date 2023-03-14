@@ -752,8 +752,15 @@ public class FractionArithmetic extends JFrame {
         //TODO: Nash add codes here
     } // end of showExit method
 
-    /*TODO: Katelyn put a javadoc comment of the description of the method along with its parameter and a
-        multi-line comment that shows the method algorithm.
+    /**
+     Below is the method that initializes the calculator object and shows the introduction to the user.
+     */
+    /*
+        Algorithm:
+        1. Define a public static method named "main" that takes a String array "args" as an argument.
+        2. Call the method "showIntroduction" within the "main" method.
+        3. Instantiate a new object of the class "FractionArithmetic" and assign it to
+           a variable named "calculatorObject".
     */
     public static void main(String[] args){
         showIntroduction();
