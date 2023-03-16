@@ -364,8 +364,22 @@ public class FractionArithmetic extends JFrame {
             //TODO: Julienne add codes here
         } // end of actionPerformed method
     }// end of SubtractButtonHandler class
-
-
+    /**
+     * A class that handles the multiplication of two mixed fractions and displays the result.
+     */
+    /*
+    Algorithm:
+    1. Get the input for the first mixed fraction from the text field.
+    2. Parse the input into the whole number, numerator, and denominator
+       parts and create a MixedFraction object with them.
+    3. Get the input for the second mixed fraction from the text field.
+    4. Parse the input into the whole number, numerator, and denominator
+      parts and create a MixedFraction object with them.
+    5. If either denominator is zero, show a warning message.
+    6. Multiply the two mixed fractions using the multiplyBy method of the
+       MixedFraction class and store the result in a new MixedFraction object.
+    7. Show the result in the output area using the showResult method.
+     */
     private class MultiplyButtonHandler implements ActionListener{
 
         /**
@@ -373,7 +387,7 @@ public class FractionArithmetic extends JFrame {
          *
          * @param e the event to be processed
          */
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {// code for getting input and performing multiplication
             String entry = "", secondEntry="";
             String[] fdata = new String[3];
             String[] sdata = new String[3];
