@@ -40,7 +40,7 @@
  * The FractionArithmetic Class is the main class that is the super class for the
  * Fraction and MixedFraction subclasses.
  * <p>
- * General Algorithm: TODO: Kaetlyn put the general algorithm here after the whole code is finalized and completed.
+ * General Algorithm: TODO: Katelyn put the general algorithm here after the whole code is finalized and completed.
  * 1.
  * <p>
  * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -252,8 +252,8 @@ public class FractionArithmetic extends JFrame {
     } // end of FractionArithmeticCalculator constructor
 
      /**
-     * A class that handles the addition of two mixed fractions and displays the result.
-     */
+      * A class that handles the addition of two mixed fractions and displays the result.
+      */
      /*
         Algorithm:
         1. Declare and initialize variables for the input string entry, an array of String fdata,
@@ -352,24 +352,24 @@ public class FractionArithmetic extends JFrame {
 
     /**
      * A class that handles the subtraction of two mixed fractions and displays the results.
-     **/
-
-    /**
-     Algorithm:
-     1. Get the input for the first mixed fraction from the user.
-     2. Parse the input into the whole number, numerator, and denominator
-     parts and create a MixedFraction object with them.
-     3. Get the input for the second mixed fraction from the user.
-     4. Parse the input into the whole number, numerator, and denominator
-     parts and create a MixedFraction object with them.
-     5. Check for zero denominators. If either denominator is zero, show a warning message.
-     6. Subtract the second mixed fraction from the first and store the result in a new MixedFraction object.
-     7. Show the result in the output area using the showResult method.
-     **/
-
+     */
+    /*
+        Algorithm:
+        1. Get the input for the first mixed fraction from the user.
+        2. Parse the input into the whole number, numerator, and denominator
+           parts and create a MixedFraction object with them.
+        3. Get the input for the second mixed fraction from the user.
+        4. Parse the input into the whole number, numerator, and denominator
+           parts and create a MixedFraction object with them.
+        5. Check for zero denominators. If either denominator is zero, show a warning message.
+        6. Subtract the second mixed fraction from the first and store the result in a new MixedFraction object.
+        7. Show the result in the output area using the showResult method.
+     */
     private class SubtractButtonHandler implements ActionListener {
+
         /*
          * Method to handle the action of getting the difference of the two fractions.
+         *
          * @param e the event to be processed
          */
         public void actionPerformed(ActionEvent e) { // gets the input and perform subtraction
@@ -450,17 +450,17 @@ public class FractionArithmetic extends JFrame {
      * A class that handles the multiplication of two mixed fractions and displays the result.
      */
     /*
-    Algorithm:
-    1. Get the input for the first mixed fraction from the text field.
-    2. Parse the input into the whole number, numerator, and denominator
-       parts and create a MixedFraction object with them.
-    3. Get the input for the second mixed fraction from the text field.
-    4. Parse the input into the whole number, numerator, and denominator
-      parts and create a MixedFraction object with them.
-    5. If either denominator is zero, show a warning message.
-    6. Multiply the two mixed fractions using the multiplyBy method of the
-       MixedFraction class and store the result in a new MixedFraction object.
-    7. Show the result in the output area using the showResult method.
+        Algorithm:
+        1. Get the input for the first mixed fraction from the text field.
+        2. Parse the input into the whole number, numerator, and denominator
+        parts and create a MixedFraction object with them.
+        3. Get the input for the second mixed fraction from the text field.
+        4. Parse the input into the whole number, numerator, and denominator
+        parts and create a MixedFraction object with them.
+        5. If either denominator is zero, show a warning message.
+        6. Multiply the two mixed fractions using the multiplyBy method of the
+        MixedFraction class and store the result in a new MixedFraction object.
+        7. Show the result in the output area using the showResult method.
      */
     private class MultiplyButtonHandler implements ActionListener{
 
@@ -544,7 +544,7 @@ public class FractionArithmetic extends JFrame {
     } // end of MultiplyButtonHandler class
 
     /**
-     *Private class that implements the ActionListener interface to handle the action of dividing two fractions.
+     * Private class that implements the ActionListener interface to handle the action of dividing two fractions.
      */
     /*
         Algorithm:
