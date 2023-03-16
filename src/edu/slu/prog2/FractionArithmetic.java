@@ -355,17 +355,18 @@ public class FractionArithmetic extends JFrame {
      **/
 
     /**
-    Algorithm:
-    1. Get the input for the first mixed fraction from the user.
-    2. Parse the input into the whole number, numerator, and denominator
-       parts and create a MixedFraction object with them.
-    3. Get the input for the second mixed fraction from the user.
-    4. Parse the input into the whole number, numerator, and denominator
-      parts and create a MixedFraction object with them.
-    5. Check for zero denominators. If either denominator is zero, show a warning message.
-    6. Subtract the second mixed fraction from the first and store the result in a new MixedFraction object.
-    7. Show the result in the output area using the showResult method.
+     Algorithm:
+     1. Get the input for the first mixed fraction from the user.
+     2. Parse the input into the whole number, numerator, and denominator
+     parts and create a MixedFraction object with them.
+     3. Get the input for the second mixed fraction from the user.
+     4. Parse the input into the whole number, numerator, and denominator
+     parts and create a MixedFraction object with them.
+     5. Check for zero denominators. If either denominator is zero, show a warning message.
+     6. Subtract the second mixed fraction from the first and store the result in a new MixedFraction object.
+     7. Show the result in the output area using the showResult method.
      **/
+
     private class SubtractButtonHandler implements ActionListener {
         /*
          * Method to handle the action of getting the difference of the two fractions.
