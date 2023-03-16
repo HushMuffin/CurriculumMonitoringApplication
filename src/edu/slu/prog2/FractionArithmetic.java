@@ -354,7 +354,7 @@ public class FractionArithmetic extends JFrame {
      * A class that handles the subtraction of two mixed fractions and displays the results.
      **/
 
-    /**
+    /*
      Algorithm:
      1. Get the input for the first mixed fraction from the user.
      2. Parse the input into the whole number, numerator, and denominator
