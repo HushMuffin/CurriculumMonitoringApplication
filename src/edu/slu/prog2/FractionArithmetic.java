@@ -227,6 +227,8 @@ public class FractionArithmetic extends JFrame {
         //TODO: Charles add constructor exitB along with the ExitButtonHandler class on this new GUI that was pushed
         // exitB = ;
 
+        //TODO: Nash, Marius, and Lourdene design the GUI for better visualization of results
+
         setTitle("Fraction Arithmetic Calculator");
         Container pane = getContentPane();
 
@@ -247,6 +249,7 @@ public class FractionArithmetic extends JFrame {
         pane.add(exitB);
 
         setSize(WIDTH, HEIGHT);
+        setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     } // end of FractionArithmeticCalculator constructor
