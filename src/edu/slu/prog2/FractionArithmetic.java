@@ -95,42 +95,42 @@ public class FractionArithmetic extends JFrame {
     /**
      * Holds the addition button.
      */
-    private JButton addB;
+    private RoundRectangleButton addB;
 
     /**
      * Holds the subtraction button.
      */
-    private JButton subtractB;
+    private RoundRectangleButton subtractB;
 
     /**
      * Holds the multiplication button.
      */
-    private JButton multiplyB;
+    private RoundRectangleButton multiplyB;
 
     /**
      * Holds the division button.
      */
-    private JButton divideB;
+    private RoundRectangleButton divideB;
 
     /**
      * Holds the reduce button for the first fraction.
      */
-    private JButton reduceF;
+    private RoundRectangleButton reduceF;
 
     /**
      * Holds the reduce button for the second fraction.
      */
-    private JButton reduceS;
+    private RoundRectangleButton reduceS;
 
     /**
      * Holds the clear button.
      */
-    private JButton clearB;
+    private RoundRectangleButton clearB;
 
     /**
      * Holds the exit button.
      */
-    private JButton exitB;
+    private RoundRectangleButton exitB;
 
     /**
      * Holds the handler of addition button.
@@ -181,13 +181,13 @@ public class FractionArithmetic extends JFrame {
      * Holds the height width.
      */
     private static int HEIGHT = 300;
-
     /**
      * Constructor that creates the main window of the fraction arithmetic calculator application.
      * It initializes all the GUI components (labels, text fields, buttons) and sets their
      * properties, event handlers, and layout.
      */
     public FractionArithmetic(){
+        Color pink = new Color(255, 175, 204);
         firstL = new JLabel("Enter the first fraction: ", SwingConstants.RIGHT);
         secondL = new JLabel("Enter the second fraction: " , SwingConstants.RIGHT);
         resultL = new JLabel("Result: " , SwingConstants.RIGHT);
@@ -197,27 +197,43 @@ public class FractionArithmetic extends JFrame {
         resultTF = new JTextField(10);
         resultTF.setEnabled(false);
 
-        addB = new JButton("ADD");
+        addB = new RoundRectangleButton("ADD");
+        addB.setBackground(Color.GREEN);
+        addB.setForeground(Color.WHITE);
+        addB.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                addB.setBackground(pink); // set a new color when mouse hovers over the button
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                addB.setBackground(Color.GREEN);
+                addB.setForeground(Color.WHITE);// set back the original color when the mouse leaves the button
+            }
+        });
         addHandler = new AddButtonHandler();
         addB.addActionListener(addHandler);
 
-        subtractB = new JButton("Subtract");
+        subtractB = new RoundRectangleButton("Subtract");
         subtractHandler = new SubtractButtonHandler();
         subtractB.addActionListener(subtractHandler);
 
-        multiplyB = new JButton("Multiply");
+        multiplyB = new RoundRectangleButton("Multiply");
         multiplyHandler = new MultiplyButtonHandler();
         multiplyB.addActionListener(multiplyHandler);
 
-        divideB = new JButton("Divide");
+        divideB = new RoundRectangleButton("Divide");
         divideHandler = new DivideButtonHandler();
         divideB.addActionListener(divideHandler);
 
-        reduceF = new JButton("Reduce First Fraction");
+        reduceF = new RoundRectangleButton("Reduce First Fraction");
         reduceFHandler = new ReduceFirstButtonHandler();
         reduceF.addActionListener(reduceFHandler);
 
-        reduceS = new JButton("Reduce Second Fraction");
+        reduceS = new RoundRectangleButton("Reduce Second Fraction");
         reduceSHandler = new ReduceSecondButtonHandler();
         reduceS.addActionListener(reduceSHandler);
 
