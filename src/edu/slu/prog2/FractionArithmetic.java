@@ -182,60 +182,65 @@ public class FractionArithmetic extends JFrame {
      */
     private static int HEIGHT = 300;
     /**
+     * Holds the colors used in the GUI of the program.
+     */
+    static Color pink = new Color(255, 175, 204);
+    static Color peach = new Color(255, 229, 212);
+    static Color darkPurple = new Color(105, 79, 93);
+    static Color lightBlue = new Color(184, 193, 236);
+    static Color navy = new Color(58, 79, 122);
+    static Color purple = new Color(205, 180, 219);
+    /**
      * Constructor that creates the main window of the fraction arithmetic calculator application.
      * It initializes all the GUI components (labels, text fields, buttons) and sets their
      * properties, event handlers, and layout.
      */
     public FractionArithmetic(){
-        Color pink = new Color(255, 175, 204);
-        firstL = new JLabel("Enter the first fraction: ", SwingConstants.RIGHT);
-        secondL = new JLabel("Enter the second fraction: " , SwingConstants.RIGHT);
-        resultL = new JLabel("Result: " , SwingConstants.RIGHT);
+        //TODO: Kaetlyn do the design for the HEADER
+        firstL = new JLabel("Enter the First Fraction: ", SwingConstants.RIGHT);
+        firstL.setFont(new Font("Helvetica", Font.BOLD | Font.ITALIC, 13));
+
+        secondL = new JLabel("Enter the Second Fraction: ", SwingConstants.RIGHT);
+        secondL.setFont(new Font("Helvetica", Font.BOLD | Font.ITALIC, 13));
+
+        resultL = new JLabel("Result: ", SwingConstants.RIGHT);
+        resultL.setFont(new Font("Helvetica", Font.BOLD | Font.ITALIC, 13));
 
         firstTF = new JTextField(10);
         secondTF = new JTextField(10);
         resultTF = new JTextField(10);
         resultTF.setEnabled(false);
 
-        addB = new RoundRectangleButton("ADD");
-        addB.setBackground(Color.GREEN);
-        addB.setForeground(Color.WHITE);
-        addB.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                addB.setBackground(pink); // set a new color when mouse hovers over the button
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                addB.setBackground(Color.GREEN);
-                addB.setForeground(Color.WHITE);// set back the original color when the mouse leaves the button
-            }
-        });
+        addB = new RoundRectangleButton("Add");
+        buttonDesign(addB);
         addHandler = new AddButtonHandler();
         addB.addActionListener(addHandler);
 
         subtractB = new RoundRectangleButton("Subtract");
+        buttonDesign(subtractB);
         subtractHandler = new SubtractButtonHandler();
         subtractB.addActionListener(subtractHandler);
 
         multiplyB = new RoundRectangleButton("Multiply");
+        buttonDesign(multiplyB);
         multiplyHandler = new MultiplyButtonHandler();
         multiplyB.addActionListener(multiplyHandler);
 
         divideB = new RoundRectangleButton("Divide");
+        buttonDesign(divideB);
         divideHandler = new DivideButtonHandler();
         divideB.addActionListener(divideHandler);
 
         reduceF = new RoundRectangleButton("Reduce First Fraction");
+        buttonDesign(reduceF);
         reduceFHandler = new ReduceFirstButtonHandler();
         reduceF.addActionListener(reduceFHandler);
 
         reduceS = new RoundRectangleButton("Reduce Second Fraction");
+        buttonDesign(reduceS);
         reduceSHandler = new ReduceSecondButtonHandler();
         reduceS.addActionListener(reduceSHandler);
+
 
         //TODO: Charles add constructor clear along with the ClearButtonHandler class on this new GUI that was pushed
         // clearB = ;
@@ -855,8 +860,41 @@ public class FractionArithmetic extends JFrame {
             System.exit(0);
         } // end of actionPerformed method
     } // end of ExitButtonHandler class
+    //TODO: Nash put a multi-line comment that shows the algorithm.
+    private static void buttonDesign(RoundRectangleButton button) {
+        button.setFont(new Font("Helvetica", Font.BOLD, 13));
+        button.setBackground(pink);
+        button.setForeground(navy);
+        button.addMouseListener(new MouseAdapter() {
 
+            /**
+             * Method that changes the cursor to a hand cursor and sets the background
+             * color of the button to purple to indicate that the button can be clicked.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                button.setBackground(purple); // set a new color when mouse hovers over the button
+            }
 
+            /**
+             * Method that sets the background color of the button back to pink and the
+             * foreground color back to navy to indicate that the button is no longer being
+             * hovered over.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                button.setBackground(pink);
+                button.setForeground(navy);// set back the original color when the mouse leaves the button
+            }
+        });
+    } // end of buttonDesign method
     /**
      * Method to print an introduction statement that displays information about the purpose
      * of the program and guidelines for the user.
