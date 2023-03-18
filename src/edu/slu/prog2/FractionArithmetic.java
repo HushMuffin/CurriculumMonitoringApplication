@@ -860,7 +860,21 @@ public class FractionArithmetic extends JFrame {
             System.exit(0);
         } // end of actionPerformed method
     } // end of ExitButtonHandler class
-    //TODO: Nash put a multi-line comment that shows the algorithm.
+
+    /**
+     Algorithm:
+     1. Set the font of the button to "Helvetica" with a bold style and size of 13.
+     2. Set the background color of the button to a pink color.
+     3. Set the foreground color of the button to a navy color.
+     4. Add a mouse listener to the button.
+     5. In the mouseEntered method of the mouse listener:
+       a. Set the cursor to a hand cursor.
+       b. Set the background color of the button to purple to indicate that the button can be clicked.
+     6. In the mouseExited method of the mouse listener:
+       a. Set the background color of the button back to pink.
+       b. Set the foreground color of the button back to navy to indicate that the button is no longer being hovered over.
+     7. End of method.
+     */
     private static void buttonDesign(RoundRectangleButton button) {
         button.setFont(new Font("Helvetica", Font.BOLD, 13));
         button.setBackground(pink);
