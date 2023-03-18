@@ -929,6 +929,7 @@ public class FractionArithmetic extends JFrame {
      12. Set the location of the dialog relative to null using the setLocationRelativeTo method.
      13. Make the dialog visible using the setVisible method.
      14. Set the default close operation of the dialog to DISPOSE_ON_CLOSE using the setDefaultCloseOperation method.
+
      */
 
     private static void denominatorWarningPanel() {
