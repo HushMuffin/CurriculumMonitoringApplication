@@ -245,8 +245,17 @@ public class FractionArithmetic extends JFrame {
         //TODO: Charles add constructor clear along with the ClearButtonHandler class on this new GUI that was pushed
         // clearB = ;
 
+        clearB = new RoundRectangleButton("Clear");
+        clearHandler = new ClearButtonHandler();
+        clearB.addActionListener(clearHandler);
+
+
         //TODO: Charles add constructor exitB along with the ExitButtonHandler class on this new GUI that was pushed
         // exitB = ;
+
+        exitB = new RoundRectangleButton("Exit");
+        ebHandler =new ExitButtonHandler();
+        exitB.addActionListener(ebHandler);
 
         //TODO: Nash, Marius, and Lourdene design the GUI for better visualization of results
 
@@ -821,8 +830,18 @@ public class FractionArithmetic extends JFrame {
     } // end of ReduceSecondButtonHandler class
 
     //TODO: Charles add codes in this class on this new GUI that was pushed
+
     /*TODO: Charles put a javadoc comment of the description of the class and a
             multi-line comment that shows the algorithm.
+     */
+    /**
+
+     The ClearButtonHandler class is responsible for handling the action of resetting the three text fields in the GUI
+
+     to empty strings when the clear button is pressed.
+     */
+    /**
+     * This class handles the action of resetting the three text fields in the GUI to empty strings.
      */
     private class ClearButtonHandler implements ActionListener{
 
@@ -831,18 +850,23 @@ public class FractionArithmetic extends JFrame {
          *
          * @param e the event to be processed
          */
-        /*
-            Algorithm:
-            1. Set the text of the first text field to an empty string.
-            2. Set the text of the second text field to an empty string.
-            3. Set the text of the result text field to an empty string.
-         */
+
+    /*
+        Algorithm:
+        1. Set the text of the first text field to an empty string.
+        2. Set the text of the second text field to an empty string.
+        3. Set the text of the result text field to an empty string.
+     */
         public void actionPerformed(ActionEvent e){
-            //TODO: Charles add codes here
+            firstTF.setText("");
+            secondTF.setText("");
+            resultTF.setText("");
         } // end of actionPerformed method
     } // end of ClearButtonHandler class
 
-    //TODO: Charles put a javadoc comment of the description of the class
+    /**
+     * This class handles the action of closing the program when the user clicks on the "Exit" button.
+     */
     private class ExitButtonHandler implements ActionListener {
 
         /**
@@ -850,11 +874,11 @@ public class FractionArithmetic extends JFrame {
          *
          * @param e the event to be processed
          */
-        /*
-            Algorithm:
-            1. Call the showExit method.
-            2. Terminate the program and close all its windows.
-         */
+    /*
+        Algorithm:
+        1. Call the showExit method.
+        2. Terminate the program and close all its windows.
+     */
         public void actionPerformed(ActionEvent e){
             showExit();
             System.exit(0);
