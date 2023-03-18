@@ -244,9 +244,15 @@ public class FractionArithmetic extends JFrame {
 
         //TODO: Charles add constructor clear along with the ClearButtonHandler class on this new GUI that was pushed
         // clearB = ;
+        clearB = new RoundRectangleButton("Clear");
+        clearHandler = new ClearButtonHandler();
+        clearB.addActionListener(clearHandler);
 
         //TODO: Charles add constructor exitB along with the ExitButtonHandler class on this new GUI that was pushed
         // exitB = ;
+        exitB = new RoundRectangleButton("Exit");
+        ebHandler = new ExitButtonHandler();
+        exitB.addActionListener(ebHandler);
 
         //TODO: Nash, Marius, and Lourdene design the GUI for better visualization of results
 
