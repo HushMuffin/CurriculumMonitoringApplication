@@ -908,14 +908,61 @@ public class FractionArithmetic extends JFrame {
      * Method that displays a warning dialog box whenever
      * an invalid denominator value is entered by the user.
      */
-    //TODO: Nash put a multi-line comment that shows the algorithm. (refer to the warningPanel method's algorithm)
-    //TODO: Nash add the codes for denominatorWarningPanel
+    /**
+     Algorithm:
+     1. Create a new JDialog object.
+     2. Set the title of the dialog to "Warning!" using the setTitle method.
+     3. Set the modality of the dialog to true using the setModal method.
+     4. Create a new JLabel object with the warning message and center it
+        using the SwingConstants.CENTER constant. Set the font and foreground color of the label.
+     5. Create a new button object with the label "Back".
+     6. Style the button using the buttonDesign method.
+     7. Create an anonymous ActionListener object and attach it to the
+        button using the addActionListener method. When the button is clicked,
+        the actionPerformed method should dispose of the dialog using the dispose method.
+     8. Create a new JPanel object for the button and add the button to it.
+     9. Create a new JPanel object for the warning message and add the JLabel object to it.
+     10. Add the button panel to the warning panel using BorderLayout.SOUTH and add the warning
+         panel to the dialog's content pane using the getContentPane method and the add method with
+         the warning panel as an argument.
+     11. Set the size of the dialog using the setSize method.
+     12. Set the location of the dialog relative to null using the setLocationRelativeTo method.
+     13. Make the dialog visible using the setVisible method.
+     14. Set the default close operation of the dialog to DISPOSE_ON_CLOSE using the setDefaultCloseOperation method.
+     */
+
     private static void denominatorWarningPanel() {
         JDialog warnDialog = new JDialog();
         warnDialog.setTitle("Warning!");
         warnDialog.setModal(true);
 
-        //TODO: Nash add the codes here
+        JLabel warningLabel = new JLabel("<html>Please enter a valid number! <br>" +
+                "Denominator cannot be zero for a fraction.</html>", SwingConstants.CENTER);
+        warningLabel.setFont(new Font("Helvetica", Font.BOLD, 16));
+        warningLabel.setForeground(darkPurple);
+
+        RoundRectangleButton backButton = new RoundRectangleButton("Back");
+        buttonDesign(backButton);
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                warnDialog.dispose();
+            }
+        });
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 8));
+        buttonPanel.setBackground(peach);
+        buttonPanel.add(backButton);
+
+        JPanel warningPanel = new JPanel(new BorderLayout());
+        warningPanel.setBackground(peach);
+        warningPanel.add(warningLabel, BorderLayout.CENTER);
+        warningPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        warnDialog.getContentPane().add(warningPanel);
+        warnDialog.setSize(400, 170);
+        warnDialog.setLocationRelativeTo(null);
+        warnDialog.setVisible(true);
+        warnDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     } // end of denominatorWarningPanel method
 
     /**
