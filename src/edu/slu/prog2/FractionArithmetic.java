@@ -843,11 +843,17 @@ public class FractionArithmetic extends JFrame {
             2. Set the text of the second text field to an empty string.
             3. Set the text of the result text field to an empty string.
          */
+
         public void actionPerformed(ActionEvent e){
-            //TODO: Charles add codes here
+            firstTF.setText("");
+            // Set the text of the first text field to an empty string
+            secondTF.setText("");
+            // Set the text of the second text field to an empty string
+            resultTF.setText("");
+            // Set the text of the result text field to an empty string
         } // end of actionPerformed method
     } // end of ClearButtonHandler class
-
+    //TODO: Charles add codes here
     //TODO: Charles put a javadoc comment of the description of the class
     private class ExitButtonHandler implements ActionListener {
 
@@ -863,7 +869,9 @@ public class FractionArithmetic extends JFrame {
          */
         public void actionPerformed(ActionEvent e){
             showExit();
+            // calls the Exit method
             System.exit(0);
+            // ends the program
         } // end of actionPerformed method
     } // end of ExitButtonHandler class
     //TODO: Nash put a multi-line comment that shows the algorithm.
