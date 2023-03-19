@@ -5,7 +5,7 @@
  * Members:
  * Ang, Julienne - 2232357
  * Angobung, Charles Jacob - 2232594
- * Bacasen, Kaetlyn Ann - 2212033
+ * Bacasen, Katelyn Ann - 2212033
  * Dacanay, Kurt Jonas - 2232981
  * Nonato, Marius Glenn - 2232731
  * Santos, Lourdene Eira - 2233120
@@ -40,7 +40,7 @@
  * The FractionArithmetic Class is the main class that is the super class for the
  * Fraction and MixedFraction subclasses.
  * <p>
- * General Algorithm: TODO: Katelyn put the general algorithm here after the whole code is finalized and completed.
+ * General Algorithm: TODO: Katelyn put the general algorithm here after the whole code is finalized and completed
  * 1.
  * <p>
  * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -48,7 +48,7 @@
  *  Authors:
  *  @author Ang, Julienne
  *  @author Angobung, Charles Jacob
- *  @author Bacasen, Kaetlyn Ann
+ *  @author Bacasen, Katelyn Ann
  *  @author Dacanay, Kurt Jonas
  *  @author Nonato, Marius Glenn
  *  @author Santos, Lourdene Eira
@@ -60,8 +60,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class FractionArithmetic extends JFrame {
-
-    // Declare the objects for FractionArithmeticCalculator.
+    // Declare the objects for FractionArithmetic.
     /**
      * Holds the first fraction label.
      */
@@ -175,12 +174,13 @@ public class FractionArithmetic extends JFrame {
     /**
      * Holds the default width.
      */
-    private static int WIDTH = 400;
+    private static int WIDTH = 430;
 
     /**
      * Holds the height width.
      */
-    private static int HEIGHT = 300;
+    private static int HEIGHT = 450;
+
     /**
      * Holds the colors used in the GUI of the program.
      */
@@ -190,13 +190,15 @@ public class FractionArithmetic extends JFrame {
     static Color lightBlue = new Color(184, 193, 236);
     static Color navy = new Color(58, 79, 122);
     static Color purple = new Color(205, 180, 219);
+
     /**
      * Constructor that creates the main window of the fraction arithmetic calculator application.
      * It initializes all the GUI components (labels, text fields, buttons) and sets their
      * properties, event handlers, and layout.
      */
-    public FractionArithmetic(){
-        //TODO: Kaetlyn do the design for the HEADER
+    public FractionArithmetic() {
+        //TODO: Katelyn add the codes here for the header
+
         firstL = new JLabel("Enter the First Fraction: ", SwingConstants.RIGHT);
         firstL.setFont(new Font("Helvetica", Font.BOLD | Font.ITALIC, 13));
 
@@ -241,49 +243,54 @@ public class FractionArithmetic extends JFrame {
         reduceSHandler = new ReduceSecondButtonHandler();
         reduceS.addActionListener(reduceSHandler);
 
-
-        //TODO: Charles add constructor clear along with the ClearButtonHandler class on this new GUI that was pushed
-        // clearB = ;
         clearB = new RoundRectangleButton("Clear");
+        buttonDesign(clearB);
         clearHandler = new ClearButtonHandler();
         clearB.addActionListener(clearHandler);
 
-        //TODO: Charles add constructor exitB along with the ExitButtonHandler class on this new GUI that was pushed
-        // exitB = ;
         exitB = new RoundRectangleButton("Exit");
+        buttonDesign(exitB);
         ebHandler = new ExitButtonHandler();
         exitB.addActionListener(ebHandler);
 
-        //TODO: Nash, Marius, and Lourdene design the GUI for better visualization of results
+        setTitle("Fraction Arithmetic Program");
 
-        setTitle("Fraction Arithmetic Calculator");
+        //TODO: Katelyn add the codes for the header panel
+
+        JPanel gridPanel = new JPanel(new GridLayout(7, 2, 13, 10));
+        gridPanel.setBackground(lightBlue);
+        gridPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        gridPanel.add(firstL);
+        gridPanel.add(firstTF);
+        gridPanel.add(secondL);
+        gridPanel.add(secondTF);
+        gridPanel.add(resultL);
+        gridPanel.add(resultTF);
+        gridPanel.add(addB);
+        gridPanel.add(subtractB);
+        gridPanel.add(multiplyB);
+        gridPanel.add(divideB);
+        gridPanel.add(reduceF);
+        gridPanel.add(reduceS);
+        gridPanel.add(clearB);
+        gridPanel.add(exitB);
+
         Container pane = getContentPane();
-
-        pane.setLayout(new GridLayout(7,2));
-        pane.add(firstL);
-        pane.add(firstTF);
-        pane.add(secondL);
-        pane.add(secondTF);
-        pane.add(resultL);
-        pane.add(resultTF);
-        pane.add(addB);
-        pane.add(subtractB);
-        pane.add(multiplyB);
-        pane.add(divideB);
-        pane.add(reduceF);
-        pane.add(reduceS);
-        pane.add(clearB);
-        pane.add(exitB);
+        pane.setBackground(lightBlue);
+        pane.setLayout(new BorderLayout());
+        //TODO: Katelyn uncomment this line of code below after adding the codes for the header label and panel.
+        //pane.add(headerPanel, BorderLayout.NORTH);
+        pane.add(gridPanel, BorderLayout.CENTER);
 
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-    } // end of FractionArithmeticCalculator constructor
+    } // end of FractionArithmetic constructor
 
-     /**
-      * A class that handles the addition of two mixed fractions and displays the result.
-      */
+    /**
+     * A class that handles the addition of two mixed fractions and displays the result.
+     */
      /*
         Algorithm:
         1. Declare and initialize variables for the input string entry, an array of String fdata,
@@ -302,27 +309,31 @@ public class FractionArithmetic extends JFrame {
            and display the result in the result text field using the toString method of theMixedFraction class.
       */
     private class AddButtonHandler implements ActionListener {
+
         /**
          * Method to handle the action of getting the sum of the two fractions.
          *
          * @param e the event to be processed
          */
         public void actionPerformed(ActionEvent e) {
-            String fEntry = "", sEntry="";
+            String entry = "", secondEntry="";
             String[] fdata = new String[3];
             String[] sdata = new String[3];
-            MixedFraction first = null, second = null, result = null;
-            int firstWholeNumber = 0, firstNumerator=0, firstDenominator=0, secondWholeNumber = 0 ,
+            MixedFraction first = null;
+            MixedFraction second = null;
+            MixedFraction result = null;
+
+            int firstWholeNumber = 0, firstNumerator=0, firstDenominator=0, secondWholeNumber = 0,
                     secondNumerator=0, secondDenominator=0;
 
             try {
-                fEntry = firstTF.getText();
-                fdata = fEntry.split("/|\\s+");
-                if (fdata.length == 1) { // handle whole numbers without a fraction
+                entry = firstTF.getText();
+                fdata = entry.split("/|\\s+");
+                if(fdata.length == 1) {
                     firstWholeNumber = Integer.parseInt(fdata[0]);
                     firstNumerator = 0;
                     firstDenominator = 1;
-                } else if (fdata.length == 2) {
+                } else if(fdata.length == 2) {
                     firstWholeNumber = 0;
                     firstNumerator = Integer.parseInt(fdata[0]);
                     firstDenominator = Integer.parseInt(fdata[1]);
@@ -334,13 +345,13 @@ public class FractionArithmetic extends JFrame {
 
                 first = new MixedFraction(firstWholeNumber, firstNumerator, firstDenominator);
 
-                sEntry = secondTF.getText();
-                sdata = sEntry.split("/|\\s+");
-                if (sdata.length == 1) { // handle whole numbers without a fraction
+                secondEntry = secondTF.getText();
+                sdata = secondEntry.split("/|\\s+");
+                if(sdata.length == 1) {
                     secondWholeNumber = Integer.parseInt(sdata[0]);
                     secondNumerator = 0;
                     secondDenominator = 1;
-                } else if (sdata.length == 2) {
+                } else if(sdata.length == 2) {
                     secondWholeNumber = 0;
                     secondNumerator = Integer.parseInt(sdata[0]);
                     secondDenominator = Integer.parseInt(sdata[1]);
@@ -351,28 +362,15 @@ public class FractionArithmetic extends JFrame {
                 }
 
                 second = new MixedFraction(secondWholeNumber, secondNumerator, secondDenominator);
-            } catch ( NumberFormatException x ){
-                // Show warning panel if decimal number is entered
-                JOptionPane.showMessageDialog(null, "Invalid input! Please enter a " +
-                                "valid fraction.",
-                        "Warning!",
-                        JOptionPane.ERROR_MESSAGE);
 
+            } catch (NumberFormatException x){
+                // Show warning panel if decimal number is entered
+                warningPanel();
                 return;
             }
 
-            if (firstDenominator == 0) {
-                JOptionPane.showMessageDialog(null,
-                        "<html><h1 style='font-family: Calibri; font-size: 18pt;'>" +
-                                "Please enter a valid number! Denominator cannot be zero for the first fraction.",
-                        "Warning!",
-                        JOptionPane.ERROR_MESSAGE);
-            } else if (secondDenominator == 0) {
-                JOptionPane.showMessageDialog(null,
-                        "<html><h1 style='font-family: Calibri; font-size: 18pt;'>" +
-                                "Please enter a valid number! Denominator cannot be zero for the second fraction.",
-                        "Warning!",
-                        JOptionPane.ERROR_MESSAGE);
+            if (firstDenominator == 0 || secondDenominator == 0) {
+                denominatorWarningPanel();
             } else {
                 result = first.add(second);
                 showResult(result);
@@ -397,12 +395,12 @@ public class FractionArithmetic extends JFrame {
      */
     private class SubtractButtonHandler implements ActionListener {
 
-        /*
+        /**
          * Method to handle the action of getting the difference of the two fractions.
          *
          * @param e the event to be processed
          */
-        public void actionPerformed(ActionEvent e) { // gets the input and perform subtraction
+        public void actionPerformed(ActionEvent e) {
             String entry = "", secondEntry = "";
             String[] fdata = new String[3];
             String[] sdata = new String[3];
@@ -450,31 +448,18 @@ public class FractionArithmetic extends JFrame {
                 second = new MixedFraction(secondWholeNumber, secondNumerator, secondDenominator);
             } catch (NumberFormatException x) {
                 // Show warning panel if decimal number is entered
-                JOptionPane.showMessageDialog(null, "Invalid input! Please enter a " +
-                                "valid fraction.",
-                        "Warning!",
-                        JOptionPane.ERROR_MESSAGE);
+                warningPanel();
                 return;
             }
 
-            if (firstDenominator == 0) {
-                JOptionPane.showMessageDialog(null,
-                        "<html><h1 style='font-family: Calibri; font-size: 18pt;'>" +
-                                "Please enter a valid number! Denominator cannot be zero for the first fraction.",
-                        "Warning!",
-                        JOptionPane.ERROR_MESSAGE);
-            } else if (secondDenominator == 0) {
-                JOptionPane.showMessageDialog(null,
-                        "<html><h1 style='font-family: Calibri; font-size: 18pt;'>" +
-                                "Please enter a valid number! Denominator cannot be zero for the second fraction.",
-                        "Warning!",
-                        JOptionPane.ERROR_MESSAGE);
+            if (firstDenominator == 0 || secondDenominator == 0) {
+                denominatorWarningPanel();
             } else {
                 result = first.subtract(second);
                 showResult(result);
             }
         } // end of actionPerformed method
-    } // end of SubtractButtonHandler class
+    }// end of SubtractButtonHandler class
 
     /**
      * A class that handles the multiplication of two mixed fractions and displays the result.
@@ -499,7 +484,7 @@ public class FractionArithmetic extends JFrame {
          *
          * @param e the event to be processed
          */
-        public void actionPerformed(ActionEvent e) {// code for getting input and performing multiplication
+        public void actionPerformed(ActionEvent e) {
             String entry = "", secondEntry="";
             String[] fdata = new String[3];
             String[] sdata = new String[3];
@@ -547,25 +532,12 @@ public class FractionArithmetic extends JFrame {
                 second = new MixedFraction(secondWholeNumber, secondNumerator, secondDenominator);
             } catch ( NumberFormatException x ){
                 // Show warning panel if decimal number is entered
-                JOptionPane.showMessageDialog(null, "Invalid input! Please enter a " +
-                                "valid fraction.",
-                        "Warning!",
-                        JOptionPane.ERROR_MESSAGE);
+                warningPanel();
                 return;
             }
 
-            if (firstDenominator == 0) {
-                JOptionPane.showMessageDialog(null,
-                        "<html><h1 style='font-family: Calibri; font-size: 18pt;'>" +
-                                "Please enter a valid number! Denominator cannot be zero for the first fraction.",
-                        "Warning!",
-                        JOptionPane.ERROR_MESSAGE);
-            } else if (secondDenominator == 0) {
-                JOptionPane.showMessageDialog(null,
-                        "<html><h1 style='font-family: Calibri; font-size: 18pt;'>" +
-                                "Please enter a valid number! Denominator cannot be zero for the second fraction.",
-                        "Warning!",
-                        JOptionPane.ERROR_MESSAGE);
+            if (firstDenominator == 0 || secondDenominator == 0) {
+                denominatorWarningPanel();
             } else {
                 result = first.multiplyBy(second);
                 showResult(result);
@@ -652,25 +624,12 @@ public class FractionArithmetic extends JFrame {
                 second = new MixedFraction(secondWholeNumber, secondNumerator, secondDenominator);
             } catch ( NumberFormatException x ){
                 // Show warning panel if decimal number is entered
-                JOptionPane.showMessageDialog(null, "Invalid input! Please enter a " +
-                                "valid fraction.",
-                        "Warning!",
-                        JOptionPane.ERROR_MESSAGE);
+                warningPanel();
                 return;
             }
 
-            if (firstDenominator == 0) {
-                JOptionPane.showMessageDialog(null,
-                        "<html><h1 style='font-family: Calibri; font-size: 18pt;'>" +
-                                "Please enter a valid number! Denominator cannot be zero for the first fraction.",
-                        "Warning!",
-                        JOptionPane.ERROR_MESSAGE);
-            } else if (secondDenominator == 0) {
-                JOptionPane.showMessageDialog(null,
-                        "<html><h1 style='font-family: Calibri; font-size: 18pt;'>" +
-                                "Please enter a valid number! Denominator cannot be zero for the second fraction.",
-                        "Warning!",
-                        JOptionPane.ERROR_MESSAGE);
+            if (firstDenominator == 0 || secondDenominator == 0) {
+                denominatorWarningPanel();
             } else {
                 result = first.divideBy(second);
                 showResult(result);
@@ -733,17 +692,12 @@ public class FractionArithmetic extends JFrame {
                 first = new MixedFraction(firstWholeNumber, firstNumerator, firstDenominator);
             } catch ( NumberFormatException x ){
                 // Show warning panel if decimal number is entered
-                JOptionPane.showMessageDialog(null, "Invalid input! Please enter a " + "valid fraction.", "Warning!",
-                        JOptionPane.ERROR_MESSAGE);
+                warningPanel();
                 return;
             }
 
             if (firstDenominator == 0) {
-                JOptionPane.showMessageDialog(null,
-                        "<html><h1 style='font-family: Calibri; font-size: 18pt;'>" +
-                                "Please enter a valid number! Denominator cannot be zero for the first fraction.",
-                        "Warning!",
-                        JOptionPane.ERROR_MESSAGE);
+                denominatorWarningPanel();
             } else {
                 first.reduceFraction();
                 showResult(first);
@@ -806,19 +760,12 @@ public class FractionArithmetic extends JFrame {
                 second = new MixedFraction(secondWholeNumber, secondNumerator, secondDenominator);
             } catch ( NumberFormatException x ){
                 // Show warning panel if decimal number is entered
-                JOptionPane.showMessageDialog(null, "Invalid input! Please enter a " +
-                                "valid fraction.",
-                        "Warning!",
-                        JOptionPane.ERROR_MESSAGE);
+                warningPanel();
                 return;
             }
 
             if (secondDenominator == 0) {
-                JOptionPane.showMessageDialog(null,
-                        "<html><h1 style='font-family: Calibri; font-size: 18pt;'>" +
-                                "Please enter a valid number! Denominator cannot be zero for the second fraction.",
-                        "Warning!",
-                        JOptionPane.ERROR_MESSAGE);
+                denominatorWarningPanel();
             } else {
                 second.reduceFraction();
                 showResult(second);
@@ -826,9 +773,9 @@ public class FractionArithmetic extends JFrame {
         } // end of actionPerformed method
     } // end of ReduceSecondButtonHandler class
 
-    //TODO: Charles add codes in this class on this new GUI that was pushed
-    /*TODO: Charles put a javadoc comment of the description of the class and a
-            multi-line comment that shows the algorithm.
+    /**
+     * Private class that implements the ActionListener interface. It is responsible for handling
+     * the action of clearing the values of the first and second fraction on the text fields.
      */
     private class ClearButtonHandler implements ActionListener{
 
@@ -843,18 +790,17 @@ public class FractionArithmetic extends JFrame {
             2. Set the text of the second text field to an empty string.
             3. Set the text of the result text field to an empty string.
          */
-
         public void actionPerformed(ActionEvent e){
-            firstTF.setText("");
-            // Set the text of the first text field to an empty string
-            secondTF.setText("");
-            // Set the text of the second text field to an empty string
-            resultTF.setText("");
-            // Set the text of the result text field to an empty string
+            firstTF.setText(""); // Set the text of the first text field to an empty string
+            secondTF.setText(""); // Set the text of the second text field to an empty string
+            resultTF.setText(""); // Set the text of the result text field to an empty string
         } // end of actionPerformed method
     } // end of ClearButtonHandler class
-    //TODO: Charles add codes here
-    //TODO: Charles put a javadoc comment of the description of the class
+
+    /**
+     * Private class that implements the ActionListener interface. It is responsible for handling
+     * the action of exiting the program through termination.
+     */
     private class ExitButtonHandler implements ActionListener {
 
         /**
@@ -869,12 +815,31 @@ public class FractionArithmetic extends JFrame {
          */
         public void actionPerformed(ActionEvent e){
             showExit();
-            // calls the Exit method
             System.exit(0);
-            // ends the program
         } // end of actionPerformed method
     } // end of ExitButtonHandler class
-    //TODO: Nash put a multi-line comment that shows the algorithm.
+
+    /**
+     * Method that sets the font, background, and foreground colors of the button, and adds
+     * a mouse listener to change the button's background color based on the user's mouse hovers.
+     *
+     * @param button the button to be designed
+     */
+    /*
+         Algorithm:
+         1. Set the font of the button to "Helvetica" with a bold style and size of 13.
+         2. Set the background color of the button to a pink color.
+         3. Set the foreground color of the button to a navy color.
+         4. Add a mouse listener to the button.
+         5. In the mouseEntered method of the mouse listener:
+            a. Set the cursor to a hand cursor.
+            b. Set the background color of the button to purple to indicate that the
+               button can be clicked.
+         6. In the mouseExited method of the mouse listener:
+            a. Set the background color of the button back to pink.
+            b. Set the foreground color of the button back to navy to indicate that
+               the button is no longer being hovered over.
+     */
     private static void buttonDesign(RoundRectangleButton button) {
         button.setFont(new Font("Helvetica", Font.BOLD, 13));
         button.setBackground(pink);
@@ -892,7 +857,7 @@ public class FractionArithmetic extends JFrame {
                 super.mouseEntered(e);
                 button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 button.setBackground(purple); // set a new color when mouse hovers over the button
-            }
+            } // end of mouseEntered method
 
             /**
              * Method that sets the background color of the button back to pink and the
@@ -906,42 +871,178 @@ public class FractionArithmetic extends JFrame {
                 super.mouseExited(e);
                 button.setBackground(pink);
                 button.setForeground(navy);// set back the original color when the mouse leaves the button
-            }
+            } // end of mouseExited method
         });
     } // end of buttonDesign method
+
+    /**
+     * Method that displays a warning dialog box whenever
+     * an invalid input is entered by the user.
+     */
+    /*
+       Algorithm:
+       1. Display the warning dialog box in a new pane.
+       2. Dispose the dialog box once the "Back" button is clicked or when closed by the user
+     */
+    private static void warningPanel() {
+        JDialog warnDialog = new JDialog();
+        warnDialog.setTitle("Warning!");
+        warnDialog.setModal(true);
+
+        JLabel warningLabel = new JLabel("<html>Invalid input! <br>" +
+                "Please enter a valid fraction.</html>", SwingConstants.CENTER);
+        warningLabel.setFont(new Font("Helvetica", Font.BOLD, 17));
+        warningLabel.setForeground(darkPurple);
+
+        RoundRectangleButton backButton = new RoundRectangleButton("Back");
+        buttonDesign(backButton);
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                warnDialog.dispose();
+            }
+        });
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        buttonPanel.setBackground(peach);
+        buttonPanel.add(backButton);
+
+        JPanel warningPanel = new JPanel(new BorderLayout());
+        warningPanel.setBackground(peach);
+        warningPanel.add(warningLabel, BorderLayout.CENTER);
+        warningPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        warnDialog.getContentPane().add(warningPanel);
+        warnDialog.setSize(360, 150);
+        warnDialog.setLocationRelativeTo(null);
+        warnDialog.setVisible(true);
+        warnDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    } // end of warningPanel method
+
+    /**
+     * Method that displays a warning dialog box whenever
+     * an invalid denominator value is entered by the user.
+     */
+    /*
+         Algorithm:
+         1. Create a new JDialog object.
+         2. Set the title of the dialog to "Warning!" using the setTitle method.
+         3. Set the modality of the dialog to true using the setModal method.
+         4. Create a new JLabel object with the warning message and center it
+            using the SwingConstants.CENTER constant. Set the font and foreground
+            color of the label.
+         5. Create a new button object with the label "Back".
+         6. Style the button using the buttonDesign method.
+         7. Create an anonymous ActionListener object and attach it to the
+            button using the addActionListener method. When the button is clicked,
+            the actionPerformed method should dispose of the dialog using the
+            dispose method.
+         8. Create a new JPanel object for the button and add the button to it.
+         9. Create a new JPanel object for the warning message and add the JLabel
+            object to it.
+         10. Add the button panel to the warning panel using BorderLayout.SOUTH
+             and add the warning panel to the dialog's content pane using the
+             getContentPane method and the add method with
+             the warning panel as an argument.
+         11. Set the size of the dialog using the setSize method.
+         12. Set the location of the dialog relative to null using the setLocationRelativeTo method.
+         13. Make the dialog visible using the setVisible method.
+         14. Set the default close operation of the dialog to DISPOSE_ON_CLOSE using
+             the setDefaultCloseOperation method.
+     */
+    private static void denominatorWarningPanel() {
+        JDialog warnDialog = new JDialog();
+        warnDialog.setTitle("Warning!");
+        warnDialog.setModal(true);
+
+        JLabel warningLabel = new JLabel("<html>Please enter a valid number! <br>" +
+                "Denominator cannot be zero for a fraction.</html>", SwingConstants.CENTER);
+        warningLabel.setFont(new Font("Helvetica", Font.BOLD, 16));
+        warningLabel.setForeground(darkPurple);
+
+        RoundRectangleButton backButton = new RoundRectangleButton("Back");
+        buttonDesign(backButton);
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                warnDialog.dispose();
+            }
+        });
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 8));
+        buttonPanel.setBackground(peach);
+        buttonPanel.add(backButton);
+
+        JPanel warningPanel = new JPanel(new BorderLayout());
+        warningPanel.setBackground(peach);
+        warningPanel.add(warningLabel, BorderLayout.CENTER);
+        warningPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        warnDialog.getContentPane().add(warningPanel);
+        warnDialog.setSize(400, 170);
+        warnDialog.setLocationRelativeTo(null);
+        warnDialog.setVisible(true);
+        warnDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    } // end of denominatorWarningPanel method
+
     /**
      * Method to print an introduction statement that displays information about the purpose
      * of the program and guidelines for the user.
      */
     /*
        Algorithm:
-       1. Print an introduction statement of the program.
+       1. Display an introduction statement of the program in a new pane.
+       2. Dispose the dialog box once the "Next" button is clicked or when closed by the user
      */
     public static void showIntroduction() {
-        JOptionPane pane = new JOptionPane(
-                "<html><h1 style='font-family: Calibri; font-size: 18pt;'>" +
-                        "Welcome! This program shows the computation result of the addition, <br> " +
-                        "subtraction, multiplication, and division of a fraction. <br><br>" +
-                        "You are required to enter the values of two fractions or mixed fractions and <br>" +
-                        "buttons are provided from which you can choose to perform arithmetic operations <br>" +
-                        "such as add, subtract, multiply and divide the fractions. You can also choose to <br>" +
-                        "reduce a specific fraction, clear the input box, and quit from the application program.",
-                JOptionPane.INFORMATION_MESSAGE,
-                JOptionPane.DEFAULT_OPTION);
+        JDialog introDialog = new JDialog();
+        introDialog.setTitle("Fraction Arithmetic Program");
+        introDialog.setModal(true);
 
-        JDialog dialog = pane.createDialog("Fraction Arithmetic Program");
-        dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-        dialog.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent we) {
-                System.exit(0);
+        JLabel headerLabel = new JLabel("Fraction Arithmetic Application", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 22));
+        headerLabel.setForeground(pink);
+        headerLabel.setBackground(navy);
+        headerLabel.setOpaque(true);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JLabel introLabel = new JLabel("<html>Welcome! This program shows the computation result of the<br>" +
+                "addition, subtraction, multiplication, and division of a fraction.<br><br>" +
+                "You are required to enter the values of two fractions or mixed fractions and " +
+                "buttons are provided from which you can choose to perform arithmetic operations " +
+                "such as add, subtract, multiply and divide the fractions. You can also choose to " +
+                "reduce a specific fraction, clear the input box, and quit from the application program.</html>",
+                SwingConstants.CENTER);
+        introLabel.setFont(new Font("Helvetica", Font.BOLD, 18));
+        introLabel.setForeground(navy);
+        introLabel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        RoundRectangleButton nextButton = new RoundRectangleButton("Next");
+        buttonDesign(nextButton);
+        nextButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                introDialog.dispose();
             }
         });
-        dialog.setVisible(true);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
+        buttonPanel.setBackground(navy);
+        buttonPanel.add(nextButton);
+
+        JPanel introPanel = new JPanel(new BorderLayout());
+        introPanel.setBackground(lightBlue);
+        introPanel.add(headerLabel, BorderLayout.NORTH);
+        introPanel.add(introLabel, BorderLayout.CENTER);
+        introPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        introDialog.getContentPane().add(introPanel);
+        introDialog.setSize(615, 380);
+        introDialog.setLocationRelativeTo(null);
+        introDialog.setVisible(true);
+        introDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     } // end of showIntroduction method
 
     /**
-     * This method is responsible for displaying the result of dividing two mixed fractions
-     * */
+     * Method to display the result of performing arithmetic operations on two fractions.
+     */
     /*
         Algorithm:
         1. Convert the MixedFraction object result to a decimal value using the toDouble() method and
@@ -983,30 +1084,53 @@ public class FractionArithmetic extends JFrame {
      */
     /*
        Algorithm:
-       1. Print the program closing statement.
-       2. Terminate the program.
+       1. Display the program closing statement in a new pane.
+       2. Dispose the dialog box when closed by the user
+       3. Terminate the program.
      */
-    private static void showExit() {
-        JOptionPane.showMessageDialog(null,
-                "<html><h1 style='font-family: Calibri; font-size: 18pt;'>" +
-                        "Thank you for using the program!",
-                "Fraction Arithmetic Program",
-                JOptionPane.INFORMATION_MESSAGE);
-        System.exit(0);
+    private void showExit() {
+        JDialog exitDialog = new JDialog(this, "Fraction Arithmetic Program", true);
+
+        JLabel exitL = new JLabel("Thank you for using the program!", SwingConstants.CENTER);
+        exitL.setFont(new Font("Helvetica", Font.BOLD, 20));
+        exitL.setForeground(pink);
+
+        JPanel exitPanel = new JPanel(new BorderLayout()); // use BorderLayout for exitPanel
+        exitPanel.setBackground(navy);
+        exitPanel.add(exitL, BorderLayout.CENTER); // add exitL to the center of exitPanel
+
+        exitDialog.getContentPane().add(exitPanel); // add exitPanel to the content pane of exitDialog
+        exitDialog.setSize(400, 120);
+        exitDialog.setLocationRelativeTo(null);
+        exitDialog.setVisible(true);
+        exitDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     } // end of showExit method
 
     /**
-     Below is the method that initializes the calculator object and shows the introduction to the user.
+     * Method that runs the program, which shows the introduction to the user and initializes
+     * calculatorObject as a new FractionArithmetic object.
      */
     /*
         Algorithm:
-        1. Define a public static method named "main" that takes a String array "args" as an argument.
-        2. Call the method "showIntroduction" within the "main" method.
-        3. Instantiate a new object of the class "FractionArithmetic" and assign it to
+        1. Call the method "showIntroduction" within the "run" method.
+        2. Instantiate a new object of the class "FractionArithmetic" and assign it to
            a variable named "calculatorObject".
     */
-    public static void main(String[] args){
+    private static void run(){
         showIntroduction();
         FractionArithmetic calculatorObject = new FractionArithmetic();
+    } // end of run method
+
+    /**
+     * Main method for running the main functionality of the application program.
+     *
+     * @param args
+     */
+    /*
+        Algorithm:
+        1. Invoke the "run" method.
+    */
+    public static void main(String[] args){
+        run();
     } // end of main method
 } // end of FractionArithmeticCalculator class
