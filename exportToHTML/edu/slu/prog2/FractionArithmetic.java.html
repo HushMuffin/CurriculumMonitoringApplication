@@ -1,0 +1,1184 @@
+<html>
+<head>
+<title>FractionArithmetic.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #629755; font-style: italic;}
+.s1 { color: #77b767; font-style: italic;}
+.s2 { color: #629755; font-weight: bold; font-style: italic;}
+.s3 { color: #a9b7c6;}
+.s4 { color: #cc7832;}
+.s5 { color: #808080;}
+.s6 { color: #6897bb;}
+.s7 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+FractionArithmetic.java</font>
+</center></td></tr></table>
+<pre><span class="s0">/**</span>
+ <span class="s0">* 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓</span>
+ <span class="s0">* </span><span class="s1">&lt;p&gt;</span>
+ <span class="s0">* Team Number: 6</span>
+ <span class="s0">* Members:</span>
+ <span class="s0">* Ang, Julienne - 2232357</span>
+ <span class="s0">* Angobung, Charles Jacob - 2232594</span>
+ <span class="s0">* Bacasen, Katelyn Ann - 2212033</span>
+ <span class="s0">* Dacanay, Kurt Jonas - 2232981</span>
+ <span class="s0">* Nonato, Marius Glenn - 2232731</span>
+ <span class="s0">* Santos, Lourdene Eira - 2233120</span>
+ <span class="s0">* </span><span class="s1">&lt;p&gt;</span>
+ <span class="s0">* CLASS CODE &amp; Schedule: 9301 CS 122 7:30 - 8:30 &amp; 9:00 - 10:30 TF</span>
+ <span class="s0">* Date of Programming: March-1-2023</span>
+ <span class="s0">* Activity Name: Midterm Project 1</span>
+ <span class="s0">* </span><span class="s1">&lt;p&gt;</span>
+ <span class="s0">* 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓</span>
+ <span class="s0">* </span><span class="s1">&lt;p&gt;</span>
+ <span class="s0">* Problem Description:</span>
+ <span class="s0">* Create a program that facilitates addition, subtraction, multiplication and division of mixed numbers</span>
+ <span class="s0">* (similar with the first activity) but this time all the inputs/outputs may involve fractions, mixed</span>
+ <span class="s0">* fractions or combination.</span>
+ <span class="s0">* </span><span class="s1">&lt;p&gt;</span>
+ <span class="s0">* 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓</span>
+ <span class="s0">* </span><span class="s1">&lt;p&gt;</span>
+ <span class="s0">* Inputs:</span>
+ <span class="s0">* whole number of a mixed fraction</span>
+ <span class="s0">* numerator of a fraction</span>
+ <span class="s0">* denominator of a fraction</span>
+ <span class="s0">* </span><span class="s1">&lt;p&gt;</span>
+ <span class="s0">* Outputs:</span>
+ <span class="s0">* sum of two fractions</span>
+ <span class="s0">* difference of two fractions</span>
+ <span class="s0">* product of two fractions</span>
+ <span class="s0">* quotient of two fractions</span>
+ <span class="s0">* fraction in its lowest terms</span>
+ <span class="s0">* </span><span class="s1">&lt;p&gt;</span>
+ <span class="s0">* 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓</span>
+ <span class="s0">* </span><span class="s1">&lt;p&gt;</span>
+ <span class="s0">* The FractionArithmetic Class is the main class that is the super class for the</span>
+ <span class="s0">* Fraction and MixedFraction subclasses.</span>
+ <span class="s0">* </span><span class="s1">&lt;p&gt;</span>
+ <span class="s0">* General Algorithm:</span>
+ <span class="s0">* 1. Define the FractionArithmetic class with appropriate data members and methods.</span>
+ <span class="s0">* 2. Define a constructor that takes in the numerator and denominator of a fraction,</span>
+ <span class="s0">*    as well as the whole number (if any) of a mixed fraction. Store these values as data members.</span>
+ <span class="s0">* 3. Define a method to convert a mixed fraction to an improper fraction.</span>
+ <span class="s0">*    This method should take in the whole number, numerator, and denominator, and</span>
+ <span class="s0">*    return the equivalent improper fraction as a tuple (numerator, denominator).</span>
+ <span class="s0">* 4. Define a method to reduce a fraction to its lowest terms.</span>
+ <span class="s0">*    This method should divide the numerator and denominator by their greatest common divisor (GCD).</span>
+ <span class="s0">*    Use Euclid's algorithm to find the GCD.</span>
+ <span class="s0">* 5. Define methods to perform the four arithmetic operations (addition, subtraction, multiplication, and division)</span>
+ <span class="s0">*    on fractions. These methods should take in another fraction as input, perform the appropriate operation, and</span>
+ <span class="s0">*    return the result as a new FractionArithmetic object in its lowest terms.</span>
+ <span class="s0">* 6. In each arithmetic method, if either of the fractions is a mixed fraction,</span>
+ <span class="s0">*    convert it to an improper fraction before performing the operation.</span>
+ <span class="s0">* 7. Define a method to print the fraction as a string in the form &quot;numerator/denominator&quot;.</span>
+ <span class="s0">*    This method should be used for debugging purposes.</span>
+ <span class="s0">* 8. Define a method to print the fraction as a mixed fraction string in the form &quot;whole_num numerator/denominator&quot;.</span>
+ <span class="s0">*    This method should be used to display the fraction to the user.</span>
+ <span class="s0">* 9. Write a main method that creates two FractionArithmetic objects, performs all four arithmetic operations on them,</span>
+ <span class="s0">*    and displays the results to the user as mixed fraction strings.</span>
+ <span class="s0">* </span><span class="s1">&lt;p&gt;</span>
+ <span class="s0">* 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓</span>
+ <span class="s0">* </span><span class="s1">&lt;p&gt;</span>
+ <span class="s0">*  Authors:</span>
+ <span class="s0">*  </span><span class="s2">@author </span><span class="s0">Ang, Julienne</span>
+ <span class="s0">*  </span><span class="s2">@author </span><span class="s0">Angobung, Charles Jacob</span>
+ <span class="s0">*  </span><span class="s2">@author </span><span class="s0">Bacasen, Katelyn Ann</span>
+ <span class="s0">*  </span><span class="s2">@author </span><span class="s0">Dacanay, Kurt Jonas</span>
+ <span class="s0">*  </span><span class="s2">@author </span><span class="s0">Nonato, Marius Glenn</span>
+ <span class="s0">*  </span><span class="s2">@author </span><span class="s0">Santos, Lourdene Eira</span>
+ <span class="s0">*/</span>
+<span class="s4">package </span><span class="s3">edu.slu.prog2</span><span class="s4">;</span>
+
+<span class="s4">import </span><span class="s3">javax.swing.*</span><span class="s4">;</span>
+<span class="s4">import </span><span class="s3">java.awt.*</span><span class="s4">;</span>
+<span class="s4">import </span><span class="s3">java.awt.event.*</span><span class="s4">;</span>
+
+<span class="s4">public class </span><span class="s3">FractionArithmetic </span><span class="s4">extends </span><span class="s3">JFrame {</span>
+    <span class="s5">// Declare the objects for FractionArithmetic.</span>
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the first fraction label.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">JLabel firstL</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the second fraction label.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">JLabel secondL</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the result label.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">JLabel resultL</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the first fraction text field.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">JTextField firstTF</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the second fraction text field.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">JTextField secondTF</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the result text field.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">JTextField resultTF</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the addition button.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">RoundRectangleButton addB</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the subtraction button.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">RoundRectangleButton subtractB</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the multiplication button.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">RoundRectangleButton multiplyB</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the division button.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">RoundRectangleButton divideB</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the reduce button for the first fraction.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">RoundRectangleButton reduceF</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the reduce button for the second fraction.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">RoundRectangleButton reduceS</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the clear button.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">RoundRectangleButton clearB</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the exit button.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">RoundRectangleButton exitB</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the handler of addition button.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">AddButtonHandler addHandler</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the handler of subtraction button.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">SubtractButtonHandler subtractHandler</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the handler of multiplication button.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">MultiplyButtonHandler multiplyHandler</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the handler of division button.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">DivideButtonHandler divideHandler</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the handler of reduce button of the first fraction.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">ReduceFirstButtonHandler reduceFHandler</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the handler of reduce button of the second fraction.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">ReduceSecondButtonHandler reduceSHandler</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the handler of clear button.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">ClearButtonHandler clearHandler</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the handler of exit button.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private </span><span class="s3">ExitButtonHandler ebHandler</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the default width.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private static int </span><span class="s3">WIDTH = </span><span class="s6">430</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the height width.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private static int </span><span class="s3">HEIGHT = </span><span class="s6">450</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the colors used in the GUI of the program.</span>
+     <span class="s0">*/</span>
+    <span class="s4">static </span><span class="s3">Color pink = </span><span class="s4">new </span><span class="s3">Color(</span><span class="s6">255</span><span class="s4">, </span><span class="s6">175</span><span class="s4">, </span><span class="s6">204</span><span class="s3">)</span><span class="s4">;</span>
+    <span class="s4">static </span><span class="s3">Color peach = </span><span class="s4">new </span><span class="s3">Color(</span><span class="s6">255</span><span class="s4">, </span><span class="s6">229</span><span class="s4">, </span><span class="s6">212</span><span class="s3">)</span><span class="s4">;</span>
+    <span class="s4">static </span><span class="s3">Color darkPurple = </span><span class="s4">new </span><span class="s3">Color(</span><span class="s6">105</span><span class="s4">, </span><span class="s6">79</span><span class="s4">, </span><span class="s6">93</span><span class="s3">)</span><span class="s4">;</span>
+    <span class="s4">static </span><span class="s3">Color lightBlue = </span><span class="s4">new </span><span class="s3">Color(</span><span class="s6">184</span><span class="s4">, </span><span class="s6">193</span><span class="s4">, </span><span class="s6">236</span><span class="s3">)</span><span class="s4">;</span>
+    <span class="s4">static </span><span class="s3">Color navy = </span><span class="s4">new </span><span class="s3">Color(</span><span class="s6">58</span><span class="s4">, </span><span class="s6">79</span><span class="s4">, </span><span class="s6">122</span><span class="s3">)</span><span class="s4">;</span>
+    <span class="s4">static </span><span class="s3">Color purple = </span><span class="s4">new </span><span class="s3">Color(</span><span class="s6">205</span><span class="s4">, </span><span class="s6">180</span><span class="s4">, </span><span class="s6">219</span><span class="s3">)</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Constructor that creates the main window of the fraction arithmetic calculator application.</span>
+     <span class="s0">* It initializes all the GUI components (labels, text fields, buttons) and sets their</span>
+     <span class="s0">* properties, event handlers, and layout.</span>
+     <span class="s0">*/</span>
+    <span class="s4">public </span><span class="s3">FractionArithmetic() {</span>
+        <span class="s3">JLabel headerLabel = </span><span class="s4">new </span><span class="s3">JLabel(</span><span class="s7">&quot;Fraction Arithmetic Application&quot;</span><span class="s4">, </span><span class="s3">SwingConstants.CENTER)</span><span class="s4">;</span>
+        <span class="s3">headerLabel.setFont(</span><span class="s4">new </span><span class="s3">Font(</span><span class="s7">&quot;Helvetica&quot;</span><span class="s4">, </span><span class="s3">Font.BOLD</span><span class="s4">, </span><span class="s6">22</span><span class="s3">))</span><span class="s4">;</span>
+        <span class="s3">headerLabel.setForeground(pink)</span><span class="s4">;</span>
+        <span class="s3">headerLabel.setBackground(navy)</span><span class="s4">;</span>
+        <span class="s3">headerLabel.setOpaque(</span><span class="s4">true</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">headerLabel.setBorder(BorderFactory.createEmptyBorder(</span><span class="s6">10</span><span class="s4">, </span><span class="s6">10</span><span class="s4">, </span><span class="s6">10</span><span class="s4">, </span><span class="s6">10</span><span class="s3">))</span><span class="s4">;</span>
+        <span class="s3">firstL = </span><span class="s4">new </span><span class="s3">JLabel(</span><span class="s7">&quot;Enter the First Fraction: &quot;</span><span class="s4">, </span><span class="s3">SwingConstants.RIGHT)</span><span class="s4">;</span>
+        <span class="s3">firstL.setFont(</span><span class="s4">new </span><span class="s3">Font(</span><span class="s7">&quot;Helvetica&quot;</span><span class="s4">, </span><span class="s3">Font.BOLD | Font.ITALIC</span><span class="s4">, </span><span class="s6">13</span><span class="s3">))</span><span class="s4">;</span>
+
+        <span class="s3">secondL = </span><span class="s4">new </span><span class="s3">JLabel(</span><span class="s7">&quot;Enter the Second Fraction: &quot;</span><span class="s4">, </span><span class="s3">SwingConstants.RIGHT)</span><span class="s4">;</span>
+        <span class="s3">secondL.setFont(</span><span class="s4">new </span><span class="s3">Font(</span><span class="s7">&quot;Helvetica&quot;</span><span class="s4">, </span><span class="s3">Font.BOLD | Font.ITALIC</span><span class="s4">, </span><span class="s6">13</span><span class="s3">))</span><span class="s4">;</span>
+
+        <span class="s3">resultL = </span><span class="s4">new </span><span class="s3">JLabel(</span><span class="s7">&quot;Result: &quot;</span><span class="s4">, </span><span class="s3">SwingConstants.RIGHT)</span><span class="s4">;</span>
+        <span class="s3">resultL.setFont(</span><span class="s4">new </span><span class="s3">Font(</span><span class="s7">&quot;Helvetica&quot;</span><span class="s4">, </span><span class="s3">Font.BOLD | Font.ITALIC</span><span class="s4">, </span><span class="s6">13</span><span class="s3">))</span><span class="s4">;</span>
+
+        <span class="s3">firstTF = </span><span class="s4">new </span><span class="s3">JTextField(</span><span class="s6">10</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">secondTF = </span><span class="s4">new </span><span class="s3">JTextField(</span><span class="s6">10</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">resultTF = </span><span class="s4">new </span><span class="s3">JTextField(</span><span class="s6">10</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">resultTF.setEnabled(</span><span class="s4">false</span><span class="s3">)</span><span class="s4">;</span>
+
+        <span class="s3">addB = </span><span class="s4">new </span><span class="s3">RoundRectangleButton(</span><span class="s7">&quot;Add&quot;</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">buttonDesign(addB)</span><span class="s4">;</span>
+        <span class="s3">addHandler = </span><span class="s4">new </span><span class="s3">AddButtonHandler()</span><span class="s4">;</span>
+        <span class="s3">addB.addActionListener(addHandler)</span><span class="s4">;</span>
+
+        <span class="s3">subtractB = </span><span class="s4">new </span><span class="s3">RoundRectangleButton(</span><span class="s7">&quot;Subtract&quot;</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">buttonDesign(subtractB)</span><span class="s4">;</span>
+        <span class="s3">subtractHandler = </span><span class="s4">new </span><span class="s3">SubtractButtonHandler()</span><span class="s4">;</span>
+        <span class="s3">subtractB.addActionListener(subtractHandler)</span><span class="s4">;</span>
+
+        <span class="s3">multiplyB = </span><span class="s4">new </span><span class="s3">RoundRectangleButton(</span><span class="s7">&quot;Multiply&quot;</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">buttonDesign(multiplyB)</span><span class="s4">;</span>
+        <span class="s3">multiplyHandler = </span><span class="s4">new </span><span class="s3">MultiplyButtonHandler()</span><span class="s4">;</span>
+        <span class="s3">multiplyB.addActionListener(multiplyHandler)</span><span class="s4">;</span>
+
+        <span class="s3">divideB = </span><span class="s4">new </span><span class="s3">RoundRectangleButton(</span><span class="s7">&quot;Divide&quot;</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">buttonDesign(divideB)</span><span class="s4">;</span>
+        <span class="s3">divideHandler = </span><span class="s4">new </span><span class="s3">DivideButtonHandler()</span><span class="s4">;</span>
+        <span class="s3">divideB.addActionListener(divideHandler)</span><span class="s4">;</span>
+
+        <span class="s3">reduceF = </span><span class="s4">new </span><span class="s3">RoundRectangleButton(</span><span class="s7">&quot;Reduce First Fraction&quot;</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">buttonDesign(reduceF)</span><span class="s4">;</span>
+        <span class="s3">reduceFHandler = </span><span class="s4">new </span><span class="s3">ReduceFirstButtonHandler()</span><span class="s4">;</span>
+        <span class="s3">reduceF.addActionListener(reduceFHandler)</span><span class="s4">;</span>
+
+        <span class="s3">reduceS = </span><span class="s4">new </span><span class="s3">RoundRectangleButton(</span><span class="s7">&quot;Reduce Second Fraction&quot;</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">buttonDesign(reduceS)</span><span class="s4">;</span>
+        <span class="s3">reduceSHandler = </span><span class="s4">new </span><span class="s3">ReduceSecondButtonHandler()</span><span class="s4">;</span>
+        <span class="s3">reduceS.addActionListener(reduceSHandler)</span><span class="s4">;</span>
+
+        <span class="s3">clearB = </span><span class="s4">new </span><span class="s3">RoundRectangleButton(</span><span class="s7">&quot;Clear&quot;</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">buttonDesign(clearB)</span><span class="s4">;</span>
+        <span class="s3">clearHandler = </span><span class="s4">new </span><span class="s3">ClearButtonHandler()</span><span class="s4">;</span>
+        <span class="s3">clearB.addActionListener(clearHandler)</span><span class="s4">;</span>
+
+        <span class="s3">exitB = </span><span class="s4">new </span><span class="s3">RoundRectangleButton(</span><span class="s7">&quot;Exit&quot;</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">buttonDesign(exitB)</span><span class="s4">;</span>
+        <span class="s3">ebHandler = </span><span class="s4">new </span><span class="s3">ExitButtonHandler()</span><span class="s4">;</span>
+        <span class="s3">exitB.addActionListener(ebHandler)</span><span class="s4">;</span>
+
+        <span class="s3">setTitle(</span><span class="s7">&quot;Fraction Arithmetic Program&quot;</span><span class="s3">)</span><span class="s4">;</span>
+
+        <span class="s3">JPanel headerPanel = </span><span class="s4">new </span><span class="s3">JPanel(</span><span class="s4">new </span><span class="s3">BorderLayout())</span><span class="s4">;</span>
+        <span class="s3">headerPanel.add(headerLabel</span><span class="s4">, </span><span class="s3">BorderLayout.CENTER)</span><span class="s4">;</span>
+
+        <span class="s3">JPanel gridPanel = </span><span class="s4">new </span><span class="s3">JPanel(</span><span class="s4">new </span><span class="s3">GridLayout(</span><span class="s6">7</span><span class="s4">, </span><span class="s6">2</span><span class="s4">, </span><span class="s6">13</span><span class="s4">, </span><span class="s6">10</span><span class="s3">))</span><span class="s4">;</span>
+        <span class="s3">gridPanel.setBackground(lightBlue)</span><span class="s4">;</span>
+        <span class="s3">gridPanel.setBorder(BorderFactory.createEmptyBorder(</span><span class="s6">10</span><span class="s4">, </span><span class="s6">10</span><span class="s4">, </span><span class="s6">10</span><span class="s4">, </span><span class="s6">10</span><span class="s3">))</span><span class="s4">;</span>
+        <span class="s3">gridPanel.add(firstL)</span><span class="s4">;</span>
+        <span class="s3">gridPanel.add(firstTF)</span><span class="s4">;</span>
+        <span class="s3">gridPanel.add(secondL)</span><span class="s4">;</span>
+        <span class="s3">gridPanel.add(secondTF)</span><span class="s4">;</span>
+        <span class="s3">gridPanel.add(resultL)</span><span class="s4">;</span>
+        <span class="s3">gridPanel.add(resultTF)</span><span class="s4">;</span>
+        <span class="s3">gridPanel.add(addB)</span><span class="s4">;</span>
+        <span class="s3">gridPanel.add(subtractB)</span><span class="s4">;</span>
+        <span class="s3">gridPanel.add(multiplyB)</span><span class="s4">;</span>
+        <span class="s3">gridPanel.add(divideB)</span><span class="s4">;</span>
+        <span class="s3">gridPanel.add(reduceF)</span><span class="s4">;</span>
+        <span class="s3">gridPanel.add(reduceS)</span><span class="s4">;</span>
+        <span class="s3">gridPanel.add(clearB)</span><span class="s4">;</span>
+        <span class="s3">gridPanel.add(exitB)</span><span class="s4">;</span>
+
+        <span class="s3">Container pane = getContentPane()</span><span class="s4">;</span>
+        <span class="s3">pane.setBackground(lightBlue)</span><span class="s4">;</span>
+        <span class="s3">pane.setLayout(</span><span class="s4">new </span><span class="s3">BorderLayout())</span><span class="s4">;</span>
+
+        <span class="s3">pane.add(headerPanel</span><span class="s4">, </span><span class="s3">BorderLayout.NORTH)</span><span class="s4">;</span>
+        <span class="s3">pane.add(gridPanel</span><span class="s4">, </span><span class="s3">BorderLayout.CENTER)</span><span class="s4">;</span>
+
+        <span class="s3">setSize(WIDTH</span><span class="s4">, </span><span class="s3">HEIGHT)</span><span class="s4">;</span>
+        <span class="s3">setLocationRelativeTo(</span><span class="s4">null</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">setVisible(</span><span class="s4">true</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">setDefaultCloseOperation(EXIT_ON_CLOSE)</span><span class="s4">;</span>
+    <span class="s3">} </span><span class="s5">// end of FractionArithmetic constructor</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* A class that handles the addition of two mixed fractions and displays the result.</span>
+     <span class="s0">*/</span>
+     <span class="s5">/* 
+        Algorithm: 
+        1. Declare and initialize variables for the input string entry, an array of String fdata, 
+           a MixedFraction object first, and three integers firstWholeNumber, firstNumerator, and 
+           firstDenominator. 
+        2. Try to get the input string from the first text field and split it into an array 
+           of strings using the regular expression /|\s+. 
+        3. Check the length of the array to determine whether the input represents a whole number, 
+           a proper fraction, or a mixed fraction. Assign the appropriate values to the firstWholeNumber, 
+           firstNumerator, and firstDenominator variables. 
+        4. Create a new MixedFraction object first using the extracted values. 
+        5. If the input is not a valid fraction (e.g., if a decimal number is entered), show a warning 
+           message using a JOptionPane and return from the method. 
+        6. If the denominator of the fraction is zero, show a warning message using a JOptionPane. 
+        7. Otherwise, reduce the fraction using the reduceFraction method of the MixedFraction class 
+           and display the result in the result text field using the toString method of theMixedFraction class. 
+      */</span>
+    <span class="s4">private class </span><span class="s3">AddButtonHandler </span><span class="s4">implements </span><span class="s3">ActionListener {</span>
+
+        <span class="s0">/**</span>
+         <span class="s0">* Method to handle the action of getting the sum of the two fractions.</span>
+         <span class="s0">*</span>
+         <span class="s0">* </span><span class="s2">@param </span><span class="s0">e the event to be processed</span>
+         <span class="s0">*/</span>
+        <span class="s4">public void </span><span class="s3">actionPerformed(ActionEvent e) {</span>
+            <span class="s3">String entry = </span><span class="s7">&quot;&quot;</span><span class="s4">, </span><span class="s3">secondEntry=</span><span class="s7">&quot;&quot;</span><span class="s4">;</span>
+            <span class="s3">String[] fdata = </span><span class="s4">new </span><span class="s3">String[</span><span class="s6">3</span><span class="s3">]</span><span class="s4">;</span>
+            <span class="s3">String[] sdata = </span><span class="s4">new </span><span class="s3">String[</span><span class="s6">3</span><span class="s3">]</span><span class="s4">;</span>
+            <span class="s3">MixedFraction first = </span><span class="s4">null;</span>
+            <span class="s3">MixedFraction second = </span><span class="s4">null;</span>
+            <span class="s3">MixedFraction result = </span><span class="s4">null;</span>
+
+            <span class="s4">int </span><span class="s3">firstWholeNumber = </span><span class="s6">0</span><span class="s4">, </span><span class="s3">firstNumerator=</span><span class="s6">0</span><span class="s4">, </span><span class="s3">firstDenominator=</span><span class="s6">0</span><span class="s4">, </span><span class="s3">secondWholeNumber = </span><span class="s6">0</span><span class="s4">,</span>
+                    <span class="s3">secondNumerator=</span><span class="s6">0</span><span class="s4">, </span><span class="s3">secondDenominator=</span><span class="s6">0</span><span class="s4">;</span>
+
+            <span class="s4">try </span><span class="s3">{</span>
+                <span class="s3">entry = firstTF.getText()</span><span class="s4">;</span>
+                <span class="s3">fdata = entry.split(</span><span class="s7">&quot;/|</span><span class="s4">\\</span><span class="s7">s+&quot;</span><span class="s3">)</span><span class="s4">;</span>
+                <span class="s4">if</span><span class="s3">(fdata.length == </span><span class="s6">1</span><span class="s3">) {</span>
+                    <span class="s3">firstWholeNumber = Integer.parseInt(fdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">firstNumerator = </span><span class="s6">0</span><span class="s4">;</span>
+                    <span class="s3">firstDenominator = </span><span class="s6">1</span><span class="s4">;</span>
+                <span class="s3">} </span><span class="s4">else if</span><span class="s3">(fdata.length == </span><span class="s6">2</span><span class="s3">) {</span>
+                    <span class="s3">firstWholeNumber = </span><span class="s6">0</span><span class="s4">;</span>
+                    <span class="s3">firstNumerator = Integer.parseInt(fdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">firstDenominator = Integer.parseInt(fdata[</span><span class="s6">1</span><span class="s3">])</span><span class="s4">;</span>
+                <span class="s3">} </span><span class="s4">else </span><span class="s3">{</span>
+                    <span class="s3">firstWholeNumber = Integer.parseInt(fdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">firstNumerator = Integer.parseInt(fdata[</span><span class="s6">1</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">firstDenominator = Integer.parseInt(fdata[</span><span class="s6">2</span><span class="s3">])</span><span class="s4">;</span>
+                <span class="s3">}</span>
+
+                <span class="s3">first = </span><span class="s4">new </span><span class="s3">MixedFraction(firstWholeNumber</span><span class="s4">, </span><span class="s3">firstNumerator</span><span class="s4">, </span><span class="s3">firstDenominator)</span><span class="s4">;</span>
+
+                <span class="s3">secondEntry = secondTF.getText()</span><span class="s4">;</span>
+                <span class="s3">sdata = secondEntry.split(</span><span class="s7">&quot;/|</span><span class="s4">\\</span><span class="s7">s+&quot;</span><span class="s3">)</span><span class="s4">;</span>
+                <span class="s4">if</span><span class="s3">(sdata.length == </span><span class="s6">1</span><span class="s3">) {</span>
+                    <span class="s3">secondWholeNumber = Integer.parseInt(sdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">secondNumerator = </span><span class="s6">0</span><span class="s4">;</span>
+                    <span class="s3">secondDenominator = </span><span class="s6">1</span><span class="s4">;</span>
+                <span class="s3">} </span><span class="s4">else if</span><span class="s3">(sdata.length == </span><span class="s6">2</span><span class="s3">) {</span>
+                    <span class="s3">secondWholeNumber = </span><span class="s6">0</span><span class="s4">;</span>
+                    <span class="s3">secondNumerator = Integer.parseInt(sdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">secondDenominator = Integer.parseInt(sdata[</span><span class="s6">1</span><span class="s3">])</span><span class="s4">;</span>
+                <span class="s3">} </span><span class="s4">else </span><span class="s3">{</span>
+                    <span class="s3">secondWholeNumber = Integer.parseInt(sdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">secondNumerator = Integer.parseInt(sdata[</span><span class="s6">1</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">secondDenominator = Integer.parseInt(sdata[</span><span class="s6">2</span><span class="s3">])</span><span class="s4">;</span>
+                <span class="s3">}</span>
+
+                <span class="s3">second = </span><span class="s4">new </span><span class="s3">MixedFraction(secondWholeNumber</span><span class="s4">, </span><span class="s3">secondNumerator</span><span class="s4">, </span><span class="s3">secondDenominator)</span><span class="s4">;</span>
+
+            <span class="s3">} </span><span class="s4">catch </span><span class="s3">(NumberFormatException x){</span>
+                <span class="s5">// Show warning panel if decimal number is entered</span>
+                <span class="s3">warningPanel()</span><span class="s4">;</span>
+                <span class="s4">return;</span>
+            <span class="s3">}</span>
+
+            <span class="s4">if </span><span class="s3">(firstDenominator == </span><span class="s6">0 </span><span class="s3">|| secondDenominator == </span><span class="s6">0</span><span class="s3">) {</span>
+                <span class="s3">denominatorWarningPanel()</span><span class="s4">;</span>
+            <span class="s3">} </span><span class="s4">else </span><span class="s3">{</span>
+                <span class="s3">result = first.add(second)</span><span class="s4">;</span>
+                <span class="s3">showResult(result)</span><span class="s4">;</span>
+            <span class="s3">}</span>
+        <span class="s3">} </span><span class="s5">// end of actionPerformed method</span>
+    <span class="s3">}</span><span class="s5">// end of AddButtonHandler class</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* A class that handles the subtraction of two mixed fractions and displays the results.</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+        Algorithm: 
+        1. Get the input for the first mixed fraction from the user. 
+        2. Parse the input into the whole number, numerator, and denominator 
+           parts and create a MixedFraction object with them. 
+        3. Get the input for the second mixed fraction from the user. 
+        4. Parse the input into the whole number, numerator, and denominator 
+           parts and create a MixedFraction object with them. 
+        5. Check for zero denominators. If either denominator is zero, show a warning message. 
+        6. Subtract the second mixed fraction from the first and store the result in a new MixedFraction object. 
+        7. Show the result in the output area using the showResult method. 
+     */</span>
+    <span class="s4">private class </span><span class="s3">SubtractButtonHandler </span><span class="s4">implements </span><span class="s3">ActionListener {</span>
+
+        <span class="s0">/**</span>
+         <span class="s0">* Method to handle the action of getting the difference of the two fractions.</span>
+         <span class="s0">*</span>
+         <span class="s0">* </span><span class="s2">@param </span><span class="s0">e the event to be processed</span>
+         <span class="s0">*/</span>
+        <span class="s4">public void </span><span class="s3">actionPerformed(ActionEvent e) {</span>
+            <span class="s3">String entry = </span><span class="s7">&quot;&quot;</span><span class="s4">, </span><span class="s3">secondEntry = </span><span class="s7">&quot;&quot;</span><span class="s4">;</span>
+            <span class="s3">String[] fdata = </span><span class="s4">new </span><span class="s3">String[</span><span class="s6">3</span><span class="s3">]</span><span class="s4">;</span>
+            <span class="s3">String[] sdata = </span><span class="s4">new </span><span class="s3">String[</span><span class="s6">3</span><span class="s3">]</span><span class="s4">;</span>
+            <span class="s3">MixedFraction first = </span><span class="s4">null;</span>
+            <span class="s3">MixedFraction second = </span><span class="s4">null;</span>
+            <span class="s3">MixedFraction result = </span><span class="s4">null;</span>
+
+            <span class="s4">int </span><span class="s3">firstWholeNumber = </span><span class="s6">0</span><span class="s4">, </span><span class="s3">firstNumerator = </span><span class="s6">0</span><span class="s4">, </span><span class="s3">firstDenominator = </span><span class="s6">0</span><span class="s4">, </span><span class="s3">secondWholeNumber = </span><span class="s6">0</span><span class="s4">,</span>
+                    <span class="s3">secondNumerator = </span><span class="s6">0</span><span class="s4">, </span><span class="s3">secondDenominator = </span><span class="s6">0</span><span class="s4">;</span>
+
+            <span class="s4">try </span><span class="s3">{</span>
+                <span class="s3">entry = firstTF.getText()</span><span class="s4">;</span>
+                <span class="s3">fdata = entry.split(</span><span class="s7">&quot;/|</span><span class="s4">\\</span><span class="s7">s+&quot;</span><span class="s3">)</span><span class="s4">;</span>
+                <span class="s4">if </span><span class="s3">(fdata.length == </span><span class="s6">1</span><span class="s3">) {</span>
+                    <span class="s3">firstWholeNumber = Integer.parseInt(fdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">firstNumerator = </span><span class="s6">0</span><span class="s4">;</span>
+                    <span class="s3">firstDenominator = </span><span class="s6">1</span><span class="s4">;</span>
+                <span class="s3">} </span><span class="s4">else if </span><span class="s3">(fdata.length == </span><span class="s6">2</span><span class="s3">) {</span>
+                    <span class="s3">firstWholeNumber = </span><span class="s6">0</span><span class="s4">;</span>
+                    <span class="s3">firstNumerator = Integer.parseInt(fdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">firstDenominator = Integer.parseInt(fdata[</span><span class="s6">1</span><span class="s3">])</span><span class="s4">;</span>
+                <span class="s3">} </span><span class="s4">else </span><span class="s3">{</span>
+                    <span class="s3">firstWholeNumber = Integer.parseInt(fdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">firstNumerator = Integer.parseInt(fdata[</span><span class="s6">1</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">firstDenominator = Integer.parseInt(fdata[</span><span class="s6">2</span><span class="s3">])</span><span class="s4">;</span>
+                <span class="s3">}</span>
+
+                <span class="s3">first = </span><span class="s4">new </span><span class="s3">MixedFraction(firstWholeNumber</span><span class="s4">, </span><span class="s3">firstNumerator</span><span class="s4">, </span><span class="s3">firstDenominator)</span><span class="s4">;</span>
+
+                <span class="s3">secondEntry = secondTF.getText()</span><span class="s4">;</span>
+                <span class="s3">sdata = secondEntry.split(</span><span class="s7">&quot;/|</span><span class="s4">\\</span><span class="s7">s+&quot;</span><span class="s3">)</span><span class="s4">;</span>
+                <span class="s4">if </span><span class="s3">(sdata.length == </span><span class="s6">1</span><span class="s3">) {</span>
+                    <span class="s3">secondWholeNumber = Integer.parseInt(sdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">secondNumerator = </span><span class="s6">0</span><span class="s4">;</span>
+                    <span class="s3">secondDenominator = </span><span class="s6">1</span><span class="s4">;</span>
+                <span class="s3">} </span><span class="s4">else if </span><span class="s3">(sdata.length == </span><span class="s6">2</span><span class="s3">) {</span>
+                    <span class="s3">secondWholeNumber = </span><span class="s6">0</span><span class="s4">;</span>
+                    <span class="s3">secondNumerator = Integer.parseInt(sdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">secondDenominator = Integer.parseInt(sdata[</span><span class="s6">1</span><span class="s3">])</span><span class="s4">;</span>
+                <span class="s3">} </span><span class="s4">else </span><span class="s3">{</span>
+                    <span class="s3">secondWholeNumber = Integer.parseInt(sdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">secondNumerator = Integer.parseInt(sdata[</span><span class="s6">1</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">secondDenominator = Integer.parseInt(sdata[</span><span class="s6">2</span><span class="s3">])</span><span class="s4">;</span>
+                <span class="s3">}</span>
+                <span class="s3">second = </span><span class="s4">new </span><span class="s3">MixedFraction(secondWholeNumber</span><span class="s4">, </span><span class="s3">secondNumerator</span><span class="s4">, </span><span class="s3">secondDenominator)</span><span class="s4">;</span>
+            <span class="s3">} </span><span class="s4">catch </span><span class="s3">(NumberFormatException x) {</span>
+                <span class="s5">// Show warning panel if decimal number is entered</span>
+                <span class="s3">warningPanel()</span><span class="s4">;</span>
+                <span class="s4">return;</span>
+            <span class="s3">}</span>
+
+            <span class="s4">if </span><span class="s3">(firstDenominator == </span><span class="s6">0 </span><span class="s3">|| secondDenominator == </span><span class="s6">0</span><span class="s3">) {</span>
+                <span class="s3">denominatorWarningPanel()</span><span class="s4">;</span>
+            <span class="s3">} </span><span class="s4">else </span><span class="s3">{</span>
+                <span class="s3">result = first.subtract(second)</span><span class="s4">;</span>
+                <span class="s3">showResult(result)</span><span class="s4">;</span>
+            <span class="s3">}</span>
+        <span class="s3">} </span><span class="s5">// end of actionPerformed method</span>
+    <span class="s3">}</span><span class="s5">// end of SubtractButtonHandler class</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* A class that handles the multiplication of two mixed fractions and displays the result.</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+        Algorithm: 
+        1. Get the input for the first mixed fraction from the text field. 
+        2. Parse the input into the whole number, numerator, and denominator 
+        parts and create a MixedFraction object with them. 
+        3. Get the input for the second mixed fraction from the text field. 
+        4. Parse the input into the whole number, numerator, and denominator 
+        parts and create a MixedFraction object with them. 
+        5. If either denominator is zero, show a warning message. 
+        6. Multiply the two mixed fractions using the multiplyBy method of the 
+        MixedFraction class and store the result in a new MixedFraction object. 
+        7. Show the result in the output area using the showResult method. 
+     */</span>
+    <span class="s4">private class </span><span class="s3">MultiplyButtonHandler </span><span class="s4">implements </span><span class="s3">ActionListener{</span>
+
+        <span class="s0">/**</span>
+         <span class="s0">* Method to handle the action of getting the product of the two fractions.</span>
+         <span class="s0">*</span>
+         <span class="s0">* </span><span class="s2">@param </span><span class="s0">e the event to be processed</span>
+         <span class="s0">*/</span>
+        <span class="s4">public void </span><span class="s3">actionPerformed(ActionEvent e) {</span>
+            <span class="s3">String entry = </span><span class="s7">&quot;&quot;</span><span class="s4">, </span><span class="s3">secondEntry=</span><span class="s7">&quot;&quot;</span><span class="s4">;</span>
+            <span class="s3">String[] fdata = </span><span class="s4">new </span><span class="s3">String[</span><span class="s6">3</span><span class="s3">]</span><span class="s4">;</span>
+            <span class="s3">String[] sdata = </span><span class="s4">new </span><span class="s3">String[</span><span class="s6">3</span><span class="s3">]</span><span class="s4">;</span>
+            <span class="s3">MixedFraction first = </span><span class="s4">null;</span>
+            <span class="s3">MixedFraction second = </span><span class="s4">null;</span>
+            <span class="s3">MixedFraction result = </span><span class="s4">null;</span>
+
+            <span class="s4">int </span><span class="s3">firstWholeNumber = </span><span class="s6">0</span><span class="s4">, </span><span class="s3">firstNumerator=</span><span class="s6">0</span><span class="s4">, </span><span class="s3">firstDenominator=</span><span class="s6">0</span><span class="s4">, </span><span class="s3">secondWholeNumber = </span><span class="s6">0</span><span class="s4">,</span>
+                    <span class="s3">secondNumerator=</span><span class="s6">0</span><span class="s4">, </span><span class="s3">secondDenominator=</span><span class="s6">0</span><span class="s4">;</span>
+
+            <span class="s4">try </span><span class="s3">{</span>
+                <span class="s3">entry = firstTF.getText()</span><span class="s4">;</span>
+                <span class="s3">fdata = entry.split(</span><span class="s7">&quot;/|</span><span class="s4">\\</span><span class="s7">s+&quot;</span><span class="s3">)</span><span class="s4">;</span>
+                <span class="s4">if</span><span class="s3">(fdata.length == </span><span class="s6">1</span><span class="s3">) {</span>
+                    <span class="s3">firstWholeNumber = Integer.parseInt(fdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">firstNumerator = </span><span class="s6">0</span><span class="s4">;</span>
+                    <span class="s3">firstDenominator = </span><span class="s6">1</span><span class="s4">;</span>
+                <span class="s3">} </span><span class="s4">else if</span><span class="s3">(fdata.length == </span><span class="s6">2</span><span class="s3">) {</span>
+                    <span class="s3">firstWholeNumber = </span><span class="s6">0</span><span class="s4">;</span>
+                    <span class="s3">firstNumerator = Integer.parseInt(fdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">firstDenominator = Integer.parseInt(fdata[</span><span class="s6">1</span><span class="s3">])</span><span class="s4">;</span>
+                <span class="s3">} </span><span class="s4">else </span><span class="s3">{</span>
+                    <span class="s3">firstWholeNumber = Integer.parseInt(fdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">firstNumerator = Integer.parseInt(fdata[</span><span class="s6">1</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">firstDenominator = Integer.parseInt(fdata[</span><span class="s6">2</span><span class="s3">])</span><span class="s4">;</span>
+                <span class="s3">}</span>
+
+                <span class="s3">first = </span><span class="s4">new </span><span class="s3">MixedFraction(firstWholeNumber</span><span class="s4">, </span><span class="s3">firstNumerator</span><span class="s4">, </span><span class="s3">firstDenominator)</span><span class="s4">;</span>
+
+                <span class="s3">secondEntry = secondTF.getText()</span><span class="s4">;</span>
+                <span class="s3">sdata = secondEntry.split(</span><span class="s7">&quot;/|</span><span class="s4">\\</span><span class="s7">s+&quot;</span><span class="s3">)</span><span class="s4">;</span>
+                <span class="s4">if</span><span class="s3">(sdata.length == </span><span class="s6">1</span><span class="s3">) {</span>
+                    <span class="s3">secondWholeNumber = Integer.parseInt(sdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">secondNumerator = </span><span class="s6">0</span><span class="s4">;</span>
+                    <span class="s3">secondDenominator = </span><span class="s6">1</span><span class="s4">;</span>
+                <span class="s3">} </span><span class="s4">else if</span><span class="s3">(sdata.length == </span><span class="s6">2</span><span class="s3">) {</span>
+                    <span class="s3">secondWholeNumber = </span><span class="s6">0</span><span class="s4">;</span>
+                    <span class="s3">secondNumerator = Integer.parseInt(sdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">secondDenominator = Integer.parseInt(sdata[</span><span class="s6">1</span><span class="s3">])</span><span class="s4">;</span>
+                <span class="s3">} </span><span class="s4">else </span><span class="s3">{</span>
+                    <span class="s3">secondWholeNumber = Integer.parseInt(sdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">secondNumerator = Integer.parseInt(sdata[</span><span class="s6">1</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">secondDenominator = Integer.parseInt(sdata[</span><span class="s6">2</span><span class="s3">])</span><span class="s4">;</span>
+                <span class="s3">}</span>
+                <span class="s3">second = </span><span class="s4">new </span><span class="s3">MixedFraction(secondWholeNumber</span><span class="s4">, </span><span class="s3">secondNumerator</span><span class="s4">, </span><span class="s3">secondDenominator)</span><span class="s4">;</span>
+            <span class="s3">} </span><span class="s4">catch </span><span class="s3">( NumberFormatException x ){</span>
+                <span class="s5">// Show warning panel if decimal number is entered</span>
+                <span class="s3">warningPanel()</span><span class="s4">;</span>
+                <span class="s4">return;</span>
+            <span class="s3">}</span>
+
+            <span class="s4">if </span><span class="s3">(firstDenominator == </span><span class="s6">0 </span><span class="s3">|| secondDenominator == </span><span class="s6">0</span><span class="s3">) {</span>
+                <span class="s3">denominatorWarningPanel()</span><span class="s4">;</span>
+            <span class="s3">} </span><span class="s4">else </span><span class="s3">{</span>
+                <span class="s3">result = first.multiplyBy(second)</span><span class="s4">;</span>
+                <span class="s3">showResult(result)</span><span class="s4">;</span>
+            <span class="s3">}</span>
+        <span class="s3">} </span><span class="s5">// end of actionPerformed method</span>
+    <span class="s3">} </span><span class="s5">// end of MultiplyButtonHandler class</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Private class that implements the ActionListener interface to handle the action of dividing two fractions.</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+        Algorithm: 
+        1. Initialize variables and objects: 
+            entry, secondEntry (strings to hold the user input for the two fractions) 
+            fdata, sdata (arrays of strings to hold the parsed input for the two fractions) 
+            first, second, result (MixedFraction objects to hold the two fractions 
+                and their quotient, respectively) 
+            firstWholeNumber, firstNumerator, firstDenominator, secondWholeNumber, 
+            secondNumerator, secondDenominator (integers to hold the values of the 
+                whole number, numerator, and denominator of the two fractions) 
+        2. Get user input for the two fractions from the text fields firstTF and secondTF. 
+        3. Parse the input strings using the split method to separate the whole number, 
+           numerator, and denominator, and store them in the corresponding integer variables. 
+        4. Create MixedFraction objects for the two fractions using the values 
+           of the three integers obtained from parsing the input strings. 
+        5. Check for division by zero errors by checking if either of the two denominators is zero. 
+           If so, display an error message using JOptionPane.showMessageDialog(). 
+        6. If there are no division by zero errors, divide the first fraction by the second fraction 
+           using the divideBy() method of the MixedFraction class and store the result in the result variable. 
+        7. Pass the result variable to the showResult() method to display the quotient in the result text field. 
+    */</span>
+    <span class="s4">private class </span><span class="s3">DivideButtonHandler </span><span class="s4">implements </span><span class="s3">ActionListener{</span>
+
+        <span class="s0">/**</span>
+         <span class="s0">* Method to handle the action of getting the quotient of the two fractions.</span>
+         <span class="s0">*</span>
+         <span class="s0">* </span><span class="s2">@param </span><span class="s0">e the event to be processed</span>
+         <span class="s0">*/</span>
+        <span class="s4">public void </span><span class="s3">actionPerformed(ActionEvent e) {</span>
+            <span class="s3">String entry = </span><span class="s7">&quot;&quot;</span><span class="s4">, </span><span class="s3">secondEntry=</span><span class="s7">&quot;&quot;</span><span class="s4">;</span>
+            <span class="s3">String[] fdata = </span><span class="s4">new </span><span class="s3">String[</span><span class="s6">3</span><span class="s3">]</span><span class="s4">;</span>
+            <span class="s3">String[] sdata = </span><span class="s4">new </span><span class="s3">String[</span><span class="s6">3</span><span class="s3">]</span><span class="s4">;</span>
+            <span class="s3">MixedFraction first = </span><span class="s4">null;</span>
+            <span class="s3">MixedFraction second = </span><span class="s4">null;</span>
+            <span class="s3">MixedFraction result = </span><span class="s4">null;</span>
+
+            <span class="s4">int </span><span class="s3">firstWholeNumber = </span><span class="s6">0</span><span class="s4">, </span><span class="s3">firstNumerator=</span><span class="s6">0</span><span class="s4">, </span><span class="s3">firstDenominator=</span><span class="s6">0</span><span class="s4">, </span><span class="s3">secondWholeNumber = </span><span class="s6">0</span><span class="s4">,</span>
+                    <span class="s3">secondNumerator=</span><span class="s6">0</span><span class="s4">, </span><span class="s3">secondDenominator=</span><span class="s6">0</span><span class="s4">;</span>
+
+            <span class="s4">try </span><span class="s3">{</span>
+                <span class="s3">entry = firstTF.getText()</span><span class="s4">;</span>
+                <span class="s3">fdata = entry.split(</span><span class="s7">&quot;/|</span><span class="s4">\\</span><span class="s7">s+&quot;</span><span class="s3">)</span><span class="s4">;</span>
+                <span class="s4">if</span><span class="s3">(fdata.length == </span><span class="s6">1</span><span class="s3">) {</span>
+                    <span class="s3">firstWholeNumber = Integer.parseInt(fdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">firstNumerator = </span><span class="s6">0</span><span class="s4">;</span>
+                    <span class="s3">firstDenominator = </span><span class="s6">1</span><span class="s4">;</span>
+                <span class="s3">} </span><span class="s4">else if</span><span class="s3">(fdata.length == </span><span class="s6">2</span><span class="s3">) {</span>
+                    <span class="s3">firstWholeNumber = </span><span class="s6">0</span><span class="s4">;</span>
+                    <span class="s3">firstNumerator = Integer.parseInt(fdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">firstDenominator = Integer.parseInt(fdata[</span><span class="s6">1</span><span class="s3">])</span><span class="s4">;</span>
+                <span class="s3">} </span><span class="s4">else </span><span class="s3">{</span>
+                    <span class="s3">firstWholeNumber = Integer.parseInt(fdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">firstNumerator = Integer.parseInt(fdata[</span><span class="s6">1</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">firstDenominator = Integer.parseInt(fdata[</span><span class="s6">2</span><span class="s3">])</span><span class="s4">;</span>
+                <span class="s3">}</span>
+
+                <span class="s3">first = </span><span class="s4">new </span><span class="s3">MixedFraction(firstWholeNumber</span><span class="s4">, </span><span class="s3">firstNumerator</span><span class="s4">, </span><span class="s3">firstDenominator)</span><span class="s4">;</span>
+
+                <span class="s3">secondEntry = secondTF.getText()</span><span class="s4">;</span>
+                <span class="s3">sdata = secondEntry.split(</span><span class="s7">&quot;/|</span><span class="s4">\\</span><span class="s7">s+&quot;</span><span class="s3">)</span><span class="s4">;</span>
+                <span class="s4">if</span><span class="s3">(sdata.length == </span><span class="s6">1</span><span class="s3">) {</span>
+                    <span class="s3">secondWholeNumber = Integer.parseInt(sdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">secondNumerator = </span><span class="s6">0</span><span class="s4">;</span>
+                    <span class="s3">secondDenominator = </span><span class="s6">1</span><span class="s4">;</span>
+                <span class="s3">} </span><span class="s4">else if</span><span class="s3">(sdata.length == </span><span class="s6">2</span><span class="s3">) {</span>
+                    <span class="s3">secondWholeNumber = </span><span class="s6">0</span><span class="s4">;</span>
+                    <span class="s3">secondNumerator = Integer.parseInt(sdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">secondDenominator = Integer.parseInt(sdata[</span><span class="s6">1</span><span class="s3">])</span><span class="s4">;</span>
+                <span class="s3">} </span><span class="s4">else </span><span class="s3">{</span>
+                    <span class="s3">secondWholeNumber = Integer.parseInt(sdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">secondNumerator = Integer.parseInt(sdata[</span><span class="s6">1</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">secondDenominator = Integer.parseInt(sdata[</span><span class="s6">2</span><span class="s3">])</span><span class="s4">;</span>
+                <span class="s3">}</span>
+                <span class="s3">second = </span><span class="s4">new </span><span class="s3">MixedFraction(secondWholeNumber</span><span class="s4">, </span><span class="s3">secondNumerator</span><span class="s4">, </span><span class="s3">secondDenominator)</span><span class="s4">;</span>
+            <span class="s3">} </span><span class="s4">catch </span><span class="s3">( NumberFormatException x ){</span>
+                <span class="s5">// Show warning panel if decimal number is entered</span>
+                <span class="s3">warningPanel()</span><span class="s4">;</span>
+                <span class="s4">return;</span>
+            <span class="s3">}</span>
+
+            <span class="s4">if </span><span class="s3">(firstDenominator == </span><span class="s6">0 </span><span class="s3">|| secondDenominator == </span><span class="s6">0</span><span class="s3">) {</span>
+                <span class="s3">denominatorWarningPanel()</span><span class="s4">;</span>
+            <span class="s3">} </span><span class="s4">else </span><span class="s3">{</span>
+                <span class="s3">result = first.divideBy(second)</span><span class="s4">;</span>
+                <span class="s3">showResult(result)</span><span class="s4">;</span>
+            <span class="s3">}</span>
+        <span class="s3">} </span><span class="s5">// end of actionPerformed method</span>
+    <span class="s3">} </span><span class="s5">// end of DivideButtonHandler class</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Private class that implements the ActionListener interface. It is responsible for handling</span>
+     <span class="s0">* the action of reducing the first fraction entered on the graphical user interface (GUI).</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+        Algorithm: 
+        1. Declare and initialize variables for the input string entry, an array of String fdata, 
+           a MixedFraction object first, and three integers firstWholeNumber, firstNumerator, and 
+           firstDenominator. 
+        2. Try to get the input string from the first text field and split it into an array 
+           of strings using the regular expression /|\s+. 
+        3. Check the length of the array to determine whether the input represents a whole number, 
+           a proper fraction, or a mixed fraction. Assign the appropriate values to the firstWholeNumber, 
+           firstNumerator, and firstDenominator variables. 
+        4. Create a new MixedFraction object first using the extracted values. 
+        5. If the input is not a valid fraction (e.g., if a decimal number is entered), show a warning 
+           message using a JOptionPane and return from the method. 
+        6. If the denominator of the fraction is zero, show a warning message using a JOptionPane. 
+        7. Otherwise, reduce the fraction using the reduceFraction method of the MixedFraction class 
+           and display the result in the result text field using the toString method of the 
+           MixedFraction class. 
+     */</span>
+    <span class="s4">private class </span><span class="s3">ReduceFirstButtonHandler </span><span class="s4">implements </span><span class="s3">ActionListener{</span>
+
+        <span class="s0">/**</span>
+         <span class="s0">* Method to handle the action of reducing the first fraction its lowest terms.</span>
+         <span class="s0">*</span>
+         <span class="s0">* </span><span class="s2">@param </span><span class="s0">e the event to be processed</span>
+         <span class="s0">*/</span>
+        <span class="s4">public void </span><span class="s3">actionPerformed(ActionEvent e) {</span>
+            <span class="s3">String entry = </span><span class="s7">&quot;&quot;</span><span class="s4">;</span>
+            <span class="s3">String[] fdata = </span><span class="s4">new </span><span class="s3">String[</span><span class="s6">3</span><span class="s3">]</span><span class="s4">;</span>
+            <span class="s3">MixedFraction first = </span><span class="s4">null;</span>
+            <span class="s4">int </span><span class="s3">firstWholeNumber = </span><span class="s6">0</span><span class="s4">, </span><span class="s3">firstNumerator=</span><span class="s6">0</span><span class="s4">, </span><span class="s3">firstDenominator=</span><span class="s6">0</span><span class="s4">;</span>
+
+            <span class="s4">try </span><span class="s3">{</span>
+                <span class="s3">entry = firstTF.getText()</span><span class="s4">;</span>
+                <span class="s3">fdata = entry.split(</span><span class="s7">&quot;/|</span><span class="s4">\\</span><span class="s7">s+&quot;</span><span class="s3">)</span><span class="s4">;</span>
+                <span class="s4">if</span><span class="s3">(fdata.length == </span><span class="s6">1</span><span class="s3">) {</span>
+                    <span class="s3">firstWholeNumber = Integer.parseInt(fdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">firstNumerator = </span><span class="s6">0</span><span class="s4">;</span>
+                    <span class="s3">firstDenominator = </span><span class="s6">1</span><span class="s4">;</span>
+                <span class="s3">} </span><span class="s4">else if</span><span class="s3">(fdata.length == </span><span class="s6">2</span><span class="s3">) {</span>
+                    <span class="s3">firstWholeNumber = </span><span class="s6">0</span><span class="s4">;</span>
+                    <span class="s3">firstNumerator = Integer.parseInt(fdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">firstDenominator = Integer.parseInt(fdata[</span><span class="s6">1</span><span class="s3">])</span><span class="s4">;</span>
+                <span class="s3">} </span><span class="s4">else </span><span class="s3">{</span>
+                    <span class="s3">firstWholeNumber = Integer.parseInt(fdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">firstNumerator = Integer.parseInt(fdata[</span><span class="s6">1</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">firstDenominator = Integer.parseInt(fdata[</span><span class="s6">2</span><span class="s3">])</span><span class="s4">;</span>
+                <span class="s3">}</span>
+
+                <span class="s3">first = </span><span class="s4">new </span><span class="s3">MixedFraction(firstWholeNumber</span><span class="s4">, </span><span class="s3">firstNumerator</span><span class="s4">, </span><span class="s3">firstDenominator)</span><span class="s4">;</span>
+            <span class="s3">} </span><span class="s4">catch </span><span class="s3">( NumberFormatException x ){</span>
+                <span class="s5">// Show warning panel if decimal number is entered</span>
+                <span class="s3">warningPanel()</span><span class="s4">;</span>
+                <span class="s4">return;</span>
+            <span class="s3">}</span>
+
+            <span class="s4">if </span><span class="s3">(firstDenominator == </span><span class="s6">0</span><span class="s3">) {</span>
+                <span class="s3">denominatorWarningPanel()</span><span class="s4">;</span>
+            <span class="s3">} </span><span class="s4">else </span><span class="s3">{</span>
+                <span class="s3">first.reduceFraction()</span><span class="s4">;</span>
+                <span class="s3">showResult(first)</span><span class="s4">;</span>
+            <span class="s3">}</span>
+        <span class="s3">} </span><span class="s5">// end of actionPerformed method</span>
+    <span class="s3">} </span><span class="s5">// end of ReduceFirstButtonHandler class</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Private class that implements the ActionListener interface. It is responsible for handling</span>
+     <span class="s0">* the action of reducing the second fraction entered on the graphical user interface (GUI).</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+        Algorithm: 
+        1. Declare and initialize variables for the input string entry, an array of String sdata, 
+           a MixedFraction object second, and three integers secondWholeNumber, secondNumerator, and 
+           secondDenominator. 
+        2. Try to get the input string from the second text field and split it into an array 
+           of strings using the regular expression /|\s+. 
+        3. Check the length of the array to determine whether the input represents a whole number, 
+           a proper fraction, or a mixed fraction. Assign the appropriate values to the secondWholeNumber, 
+           secondNumerator, and secondDenominator variables. 
+        4. Create a new MixedFraction object second using the extracted values. 
+        5. If the input is not a valid fraction (e.g., if a decimal number is entered), show a warning 
+           message using a JOptionPane and return from the method. 
+        6. If the denominator of the fraction is zero, show a warning message using a JOptionPane. 
+        7. Otherwise, reduce the fraction using the reduceFraction method of the MixedFraction class 
+           and display the result in the result text field using the toString method of the 
+           MixedFraction class. 
+     */</span>
+    <span class="s4">private class </span><span class="s3">ReduceSecondButtonHandler </span><span class="s4">implements </span><span class="s3">ActionListener{</span>
+
+        <span class="s0">/**</span>
+         <span class="s0">* Method to handle the action of reducing the second fraction its lowest terms.</span>
+         <span class="s0">*</span>
+         <span class="s0">* </span><span class="s2">@param </span><span class="s0">e the event to be processed</span>
+         <span class="s0">*/</span>
+        <span class="s4">public void </span><span class="s3">actionPerformed(ActionEvent e) {</span>
+            <span class="s3">String entry = </span><span class="s7">&quot;&quot;</span><span class="s4">;</span>
+            <span class="s3">String[] sdata = </span><span class="s4">new </span><span class="s3">String[</span><span class="s6">3</span><span class="s3">]</span><span class="s4">;</span>
+            <span class="s3">MixedFraction second = </span><span class="s4">null;</span>
+            <span class="s4">int </span><span class="s3">secondWholeNumber = </span><span class="s6">0</span><span class="s4">, </span><span class="s3">secondNumerator =</span><span class="s6">0</span><span class="s4">, </span><span class="s3">secondDenominator =</span><span class="s6">0</span><span class="s4">;</span>
+
+            <span class="s4">try </span><span class="s3">{</span>
+                <span class="s3">entry = secondTF.getText()</span><span class="s4">;</span>
+                <span class="s3">sdata = entry.split(</span><span class="s7">&quot;/|</span><span class="s4">\\</span><span class="s7">s+&quot;</span><span class="s3">)</span><span class="s4">;</span>
+                <span class="s4">if</span><span class="s3">(sdata.length == </span><span class="s6">1</span><span class="s3">) {</span>
+                    <span class="s3">secondWholeNumber = Integer.parseInt(sdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">secondNumerator = </span><span class="s6">0</span><span class="s4">;</span>
+                    <span class="s3">secondDenominator = </span><span class="s6">1</span><span class="s4">;</span>
+                <span class="s3">} </span><span class="s4">else if</span><span class="s3">(sdata.length == </span><span class="s6">2</span><span class="s3">) {</span>
+                    <span class="s3">secondWholeNumber = </span><span class="s6">0</span><span class="s4">;</span>
+                    <span class="s3">secondNumerator = Integer.parseInt(sdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">secondDenominator = Integer.parseInt(sdata[</span><span class="s6">1</span><span class="s3">])</span><span class="s4">;</span>
+                <span class="s3">} </span><span class="s4">else </span><span class="s3">{</span>
+                    <span class="s3">secondWholeNumber = Integer.parseInt(sdata[</span><span class="s6">0</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">secondNumerator = Integer.parseInt(sdata[</span><span class="s6">1</span><span class="s3">])</span><span class="s4">;</span>
+                    <span class="s3">secondDenominator = Integer.parseInt(sdata[</span><span class="s6">2</span><span class="s3">])</span><span class="s4">;</span>
+                <span class="s3">}</span>
+
+                <span class="s3">second = </span><span class="s4">new </span><span class="s3">MixedFraction(secondWholeNumber</span><span class="s4">, </span><span class="s3">secondNumerator</span><span class="s4">, </span><span class="s3">secondDenominator)</span><span class="s4">;</span>
+            <span class="s3">} </span><span class="s4">catch </span><span class="s3">( NumberFormatException x ){</span>
+                <span class="s5">// Show warning panel if decimal number is entered</span>
+                <span class="s3">warningPanel()</span><span class="s4">;</span>
+                <span class="s4">return;</span>
+            <span class="s3">}</span>
+
+            <span class="s4">if </span><span class="s3">(secondDenominator == </span><span class="s6">0</span><span class="s3">) {</span>
+                <span class="s3">denominatorWarningPanel()</span><span class="s4">;</span>
+            <span class="s3">} </span><span class="s4">else </span><span class="s3">{</span>
+                <span class="s3">second.reduceFraction()</span><span class="s4">;</span>
+                <span class="s3">showResult(second)</span><span class="s4">;</span>
+            <span class="s3">}</span>
+        <span class="s3">} </span><span class="s5">// end of actionPerformed method</span>
+    <span class="s3">} </span><span class="s5">// end of ReduceSecondButtonHandler class</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Private class that implements the ActionListener interface. It is responsible for handling</span>
+     <span class="s0">* the action of clearing the values of the first and second fraction on the text fields.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private class </span><span class="s3">ClearButtonHandler </span><span class="s4">implements </span><span class="s3">ActionListener{</span>
+
+        <span class="s0">/**</span>
+         <span class="s0">* Method to handle the action of resetting the three text fields in the GUI to empty strings.</span>
+         <span class="s0">*</span>
+         <span class="s0">* </span><span class="s2">@param </span><span class="s0">e the event to be processed</span>
+         <span class="s0">*/</span>
+        <span class="s5">/* 
+            Algorithm: 
+            1. Set the text of the first text field to an empty string. 
+            2. Set the text of the second text field to an empty string. 
+            3. Set the text of the result text field to an empty string. 
+         */</span>
+        <span class="s4">public void </span><span class="s3">actionPerformed(ActionEvent e){</span>
+            <span class="s3">firstTF.setText(</span><span class="s7">&quot;&quot;</span><span class="s3">)</span><span class="s4">; </span><span class="s5">// Set the text of the first text field to an empty string</span>
+            <span class="s3">secondTF.setText(</span><span class="s7">&quot;&quot;</span><span class="s3">)</span><span class="s4">; </span><span class="s5">// Set the text of the second text field to an empty string</span>
+            <span class="s3">resultTF.setText(</span><span class="s7">&quot;&quot;</span><span class="s3">)</span><span class="s4">; </span><span class="s5">// Set the text of the result text field to an empty string</span>
+        <span class="s3">} </span><span class="s5">// end of actionPerformed method</span>
+    <span class="s3">} </span><span class="s5">// end of ClearButtonHandler class</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Private class that implements the ActionListener interface. It is responsible for handling</span>
+     <span class="s0">* the action of exiting the program through termination.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private class </span><span class="s3">ExitButtonHandler </span><span class="s4">implements </span><span class="s3">ActionListener {</span>
+
+        <span class="s0">/**</span>
+         <span class="s0">* Method to handle the action of closing the program when the user clicks on the &quot;Exit&quot; button.</span>
+         <span class="s0">*</span>
+         <span class="s0">* </span><span class="s2">@param </span><span class="s0">e the event to be processed</span>
+         <span class="s0">*/</span>
+        <span class="s5">/* 
+            Algorithm: 
+            1. Call the showExit method. 
+            2. Terminate the program and close all its windows. 
+         */</span>
+        <span class="s4">public void </span><span class="s3">actionPerformed(ActionEvent e){</span>
+            <span class="s3">showExit()</span><span class="s4">;</span>
+            <span class="s3">System.exit(</span><span class="s6">0</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">} </span><span class="s5">// end of actionPerformed method</span>
+    <span class="s3">} </span><span class="s5">// end of ExitButtonHandler class</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Method that sets the font, background, and foreground colors of the button, and adds</span>
+     <span class="s0">* a mouse listener to change the button's background color based on the user's mouse hovers.</span>
+     <span class="s0">*</span>
+     <span class="s0">* </span><span class="s2">@param </span><span class="s0">button the button to be designed</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+         Algorithm: 
+         1. Set the font of the button to &quot;Helvetica&quot; with a bold style and size of 13. 
+         2. Set the background color of the button to a pink color. 
+         3. Set the foreground color of the button to a navy color. 
+         4. Add a mouse listener to the button. 
+         5. In the mouseEntered method of the mouse listener: 
+            a. Set the cursor to a hand cursor. 
+            b. Set the background color of the button to purple to indicate that the 
+               button can be clicked. 
+         6. In the mouseExited method of the mouse listener: 
+            a. Set the background color of the button back to pink. 
+            b. Set the foreground color of the button back to navy to indicate that 
+               the button is no longer being hovered over. 
+     */</span>
+    <span class="s4">private static void </span><span class="s3">buttonDesign(RoundRectangleButton button) {</span>
+        <span class="s3">button.setFont(</span><span class="s4">new </span><span class="s3">Font(</span><span class="s7">&quot;Helvetica&quot;</span><span class="s4">, </span><span class="s3">Font.BOLD</span><span class="s4">, </span><span class="s6">13</span><span class="s3">))</span><span class="s4">;</span>
+        <span class="s3">button.setBackground(pink)</span><span class="s4">;</span>
+        <span class="s3">button.setForeground(navy)</span><span class="s4">;</span>
+        <span class="s3">button.addMouseListener(</span><span class="s4">new </span><span class="s3">MouseAdapter() {</span>
+
+            <span class="s0">/**</span>
+             <span class="s0">* Method that changes the cursor to a hand cursor and sets the background</span>
+             <span class="s0">* color of the button to purple to indicate that the button can be clicked.</span>
+             <span class="s0">*</span>
+             <span class="s0">* </span><span class="s2">@param </span><span class="s0">e the event to be processed</span>
+             <span class="s0">*/</span>
+            <span class="s3">@Override</span>
+            <span class="s4">public void </span><span class="s3">mouseEntered(MouseEvent e) {</span>
+                <span class="s4">super</span><span class="s3">.mouseEntered(e)</span><span class="s4">;</span>
+                <span class="s3">button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR))</span><span class="s4">;</span>
+                <span class="s3">button.setBackground(purple)</span><span class="s4">; </span><span class="s5">// set a new color when mouse hovers over the button</span>
+            <span class="s3">} </span><span class="s5">// end of mouseEntered method</span>
+
+            <span class="s0">/**</span>
+             <span class="s0">* Method that sets the background color of the button back to pink and the</span>
+             <span class="s0">* foreground color back to navy to indicate that the button is no longer being</span>
+             <span class="s0">* hovered over.</span>
+             <span class="s0">*</span>
+             <span class="s0">* </span><span class="s2">@param </span><span class="s0">e the event to be processed</span>
+             <span class="s0">*/</span>
+            <span class="s3">@Override</span>
+            <span class="s4">public void </span><span class="s3">mouseExited(MouseEvent e) {</span>
+                <span class="s4">super</span><span class="s3">.mouseExited(e)</span><span class="s4">;</span>
+                <span class="s3">button.setBackground(pink)</span><span class="s4">;</span>
+                <span class="s3">button.setForeground(navy)</span><span class="s4">;</span><span class="s5">// set back the original color when the mouse leaves the button</span>
+            <span class="s3">} </span><span class="s5">// end of mouseExited method</span>
+        <span class="s3">})</span><span class="s4">;</span>
+    <span class="s3">} </span><span class="s5">// end of buttonDesign method</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Method that displays a warning dialog box whenever</span>
+     <span class="s0">* an invalid input is entered by the user.</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+       Algorithm: 
+       1. Display the warning dialog box in a new pane. 
+       2. Dispose the dialog box once the &quot;Back&quot; button is clicked or when closed by the user 
+     */</span>
+    <span class="s4">private static void </span><span class="s3">warningPanel() {</span>
+        <span class="s3">JDialog warnDialog = </span><span class="s4">new </span><span class="s3">JDialog()</span><span class="s4">;</span>
+        <span class="s3">warnDialog.setTitle(</span><span class="s7">&quot;Warning!&quot;</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">warnDialog.setModal(</span><span class="s4">true</span><span class="s3">)</span><span class="s4">;</span>
+
+        <span class="s3">JLabel warningLabel = </span><span class="s4">new </span><span class="s3">JLabel(</span><span class="s7">&quot;&lt;html&gt;Invalid input! &lt;br&gt;&quot; </span><span class="s3">+</span>
+                <span class="s7">&quot;Please enter a valid fraction.&lt;/html&gt;&quot;</span><span class="s4">, </span><span class="s3">SwingConstants.CENTER)</span><span class="s4">;</span>
+        <span class="s3">warningLabel.setFont(</span><span class="s4">new </span><span class="s3">Font(</span><span class="s7">&quot;Helvetica&quot;</span><span class="s4">, </span><span class="s3">Font.BOLD</span><span class="s4">, </span><span class="s6">17</span><span class="s3">))</span><span class="s4">;</span>
+        <span class="s3">warningLabel.setForeground(darkPurple)</span><span class="s4">;</span>
+
+        <span class="s3">RoundRectangleButton backButton = </span><span class="s4">new </span><span class="s3">RoundRectangleButton(</span><span class="s7">&quot;Back&quot;</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">buttonDesign(backButton)</span><span class="s4">;</span>
+        <span class="s3">backButton.addActionListener(</span><span class="s4">new </span><span class="s3">ActionListener() {</span>
+            <span class="s4">public void </span><span class="s3">actionPerformed(ActionEvent e) {</span>
+                <span class="s3">warnDialog.dispose()</span><span class="s4">;</span>
+            <span class="s3">}</span>
+        <span class="s3">})</span><span class="s4">;</span>
+
+        <span class="s3">JPanel buttonPanel = </span><span class="s4">new </span><span class="s3">JPanel(</span><span class="s4">new </span><span class="s3">FlowLayout(FlowLayout.CENTER</span><span class="s4">, </span><span class="s6">5</span><span class="s4">, </span><span class="s6">5</span><span class="s3">))</span><span class="s4">;</span>
+        <span class="s3">buttonPanel.setBackground(peach)</span><span class="s4">;</span>
+        <span class="s3">buttonPanel.add(backButton)</span><span class="s4">;</span>
+
+        <span class="s3">JPanel warningPanel = </span><span class="s4">new </span><span class="s3">JPanel(</span><span class="s4">new </span><span class="s3">BorderLayout())</span><span class="s4">;</span>
+        <span class="s3">warningPanel.setBackground(peach)</span><span class="s4">;</span>
+        <span class="s3">warningPanel.add(warningLabel</span><span class="s4">, </span><span class="s3">BorderLayout.CENTER)</span><span class="s4">;</span>
+        <span class="s3">warningPanel.add(buttonPanel</span><span class="s4">, </span><span class="s3">BorderLayout.SOUTH)</span><span class="s4">;</span>
+
+        <span class="s3">warnDialog.getContentPane().add(warningPanel)</span><span class="s4">;</span>
+        <span class="s3">warnDialog.setSize(</span><span class="s6">360</span><span class="s4">, </span><span class="s6">150</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">warnDialog.setLocationRelativeTo(</span><span class="s4">null</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">warnDialog.setVisible(</span><span class="s4">true</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">warnDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE)</span><span class="s4">;</span>
+    <span class="s3">} </span><span class="s5">// end of warningPanel method</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Method that displays a warning dialog box whenever</span>
+     <span class="s0">* an invalid denominator value is entered by the user.</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+         Algorithm: 
+         1. Create a new JDialog object. 
+         2. Set the title of the dialog to &quot;Warning!&quot; using the setTitle method. 
+         3. Set the modality of the dialog to true using the setModal method. 
+         4. Create a new JLabel object with the warning message and center it 
+            using the SwingConstants.CENTER constant. Set the font and foreground 
+            color of the label. 
+         5. Create a new button object with the label &quot;Back&quot;. 
+         6. Style the button using the buttonDesign method. 
+         7. Create an anonymous ActionListener object and attach it to the 
+            button using the addActionListener method. When the button is clicked, 
+            the actionPerformed method should dispose of the dialog using the 
+            dispose method. 
+         8. Create a new JPanel object for the button and add the button to it. 
+         9. Create a new JPanel object for the warning message and add the JLabel 
+            object to it. 
+         10. Add the button panel to the warning panel using BorderLayout.SOUTH 
+             and add the warning panel to the dialog's content pane using the 
+             getContentPane method and the add method with 
+             the warning panel as an argument. 
+         11. Set the size of the dialog using the setSize method. 
+         12. Set the location of the dialog relative to null using the setLocationRelativeTo method. 
+         13. Make the dialog visible using the setVisible method. 
+         14. Set the default close operation of the dialog to DISPOSE_ON_CLOSE using 
+             the setDefaultCloseOperation method. 
+     */</span>
+    <span class="s4">private static void </span><span class="s3">denominatorWarningPanel() {</span>
+        <span class="s3">JDialog warnDialog = </span><span class="s4">new </span><span class="s3">JDialog()</span><span class="s4">;</span>
+        <span class="s3">warnDialog.setTitle(</span><span class="s7">&quot;Warning!&quot;</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">warnDialog.setModal(</span><span class="s4">true</span><span class="s3">)</span><span class="s4">;</span>
+
+        <span class="s3">JLabel warningLabel = </span><span class="s4">new </span><span class="s3">JLabel(</span><span class="s7">&quot;&lt;html&gt;Please enter a valid number! &lt;br&gt;&quot; </span><span class="s3">+</span>
+                <span class="s7">&quot;Denominator cannot be zero for a fraction.&lt;/html&gt;&quot;</span><span class="s4">, </span><span class="s3">SwingConstants.CENTER)</span><span class="s4">;</span>
+        <span class="s3">warningLabel.setFont(</span><span class="s4">new </span><span class="s3">Font(</span><span class="s7">&quot;Helvetica&quot;</span><span class="s4">, </span><span class="s3">Font.BOLD</span><span class="s4">, </span><span class="s6">16</span><span class="s3">))</span><span class="s4">;</span>
+        <span class="s3">warningLabel.setForeground(darkPurple)</span><span class="s4">;</span>
+
+        <span class="s3">RoundRectangleButton backButton = </span><span class="s4">new </span><span class="s3">RoundRectangleButton(</span><span class="s7">&quot;Back&quot;</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">buttonDesign(backButton)</span><span class="s4">;</span>
+        <span class="s3">backButton.addActionListener(</span><span class="s4">new </span><span class="s3">ActionListener() {</span>
+            <span class="s4">public void </span><span class="s3">actionPerformed(ActionEvent e) {</span>
+                <span class="s3">warnDialog.dispose()</span><span class="s4">;</span>
+            <span class="s3">}</span>
+        <span class="s3">})</span><span class="s4">;</span>
+
+        <span class="s3">JPanel buttonPanel = </span><span class="s4">new </span><span class="s3">JPanel(</span><span class="s4">new </span><span class="s3">FlowLayout(FlowLayout.CENTER</span><span class="s4">, </span><span class="s6">5</span><span class="s4">, </span><span class="s6">8</span><span class="s3">))</span><span class="s4">;</span>
+        <span class="s3">buttonPanel.setBackground(peach)</span><span class="s4">;</span>
+        <span class="s3">buttonPanel.add(backButton)</span><span class="s4">;</span>
+
+        <span class="s3">JPanel warningPanel = </span><span class="s4">new </span><span class="s3">JPanel(</span><span class="s4">new </span><span class="s3">BorderLayout())</span><span class="s4">;</span>
+        <span class="s3">warningPanel.setBackground(peach)</span><span class="s4">;</span>
+        <span class="s3">warningPanel.add(warningLabel</span><span class="s4">, </span><span class="s3">BorderLayout.CENTER)</span><span class="s4">;</span>
+        <span class="s3">warningPanel.add(buttonPanel</span><span class="s4">, </span><span class="s3">BorderLayout.SOUTH)</span><span class="s4">;</span>
+
+        <span class="s3">warnDialog.getContentPane().add(warningPanel)</span><span class="s4">;</span>
+        <span class="s3">warnDialog.setSize(</span><span class="s6">400</span><span class="s4">, </span><span class="s6">170</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">warnDialog.setLocationRelativeTo(</span><span class="s4">null</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">warnDialog.setVisible(</span><span class="s4">true</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">warnDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE)</span><span class="s4">;</span>
+    <span class="s3">} </span><span class="s5">// end of denominatorWarningPanel method</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Method to print an introduction statement that displays information about the purpose</span>
+     <span class="s0">* of the program and guidelines for the user.</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+       Algorithm: 
+       1. Display an introduction statement of the program in a new pane. 
+       2. Dispose the dialog box once the &quot;Next&quot; button is clicked or when closed by the user 
+     */</span>
+    <span class="s4">public static void </span><span class="s3">showIntroduction() {</span>
+        <span class="s3">JDialog introDialog = </span><span class="s4">new </span><span class="s3">JDialog()</span><span class="s4">;</span>
+        <span class="s3">introDialog.setTitle(</span><span class="s7">&quot;Fraction Arithmetic Program&quot;</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">introDialog.setModal(</span><span class="s4">true</span><span class="s3">)</span><span class="s4">;</span>
+
+        <span class="s3">JLabel headerLabel = </span><span class="s4">new </span><span class="s3">JLabel(</span><span class="s7">&quot;Fraction Arithmetic Application&quot;</span><span class="s4">, </span><span class="s3">SwingConstants.CENTER)</span><span class="s4">;</span>
+        <span class="s3">headerLabel.setFont(</span><span class="s4">new </span><span class="s3">Font(</span><span class="s7">&quot;Helvetica&quot;</span><span class="s4">, </span><span class="s3">Font.BOLD</span><span class="s4">, </span><span class="s6">22</span><span class="s3">))</span><span class="s4">;</span>
+        <span class="s3">headerLabel.setForeground(pink)</span><span class="s4">;</span>
+        <span class="s3">headerLabel.setBackground(navy)</span><span class="s4">;</span>
+        <span class="s3">headerLabel.setOpaque(</span><span class="s4">true</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">headerLabel.setBorder(BorderFactory.createEmptyBorder(</span><span class="s6">10</span><span class="s4">, </span><span class="s6">10</span><span class="s4">, </span><span class="s6">10</span><span class="s4">, </span><span class="s6">10</span><span class="s3">))</span><span class="s4">;</span>
+
+        <span class="s3">JLabel introLabel = </span><span class="s4">new </span><span class="s3">JLabel(</span><span class="s7">&quot;&lt;html&gt;Welcome! This program shows the computation result of the&lt;br&gt;&quot; </span><span class="s3">+</span>
+                <span class="s7">&quot;addition, subtraction, multiplication, and division of a fraction.&lt;br&gt;&lt;br&gt;&quot; </span><span class="s3">+</span>
+                <span class="s7">&quot;You are required to enter the values of two fractions or mixed fractions and &quot; </span><span class="s3">+</span>
+                <span class="s7">&quot;buttons are provided from which you can choose to perform arithmetic operations &quot; </span><span class="s3">+</span>
+                <span class="s7">&quot;such as add, subtract, multiply and divide the fractions. You can also choose to &quot; </span><span class="s3">+</span>
+                <span class="s7">&quot;reduce a specific fraction, clear the input box, and quit from the application program.&lt;/html&gt;&quot;</span><span class="s4">,</span>
+                <span class="s3">SwingConstants.CENTER)</span><span class="s4">;</span>
+        <span class="s3">introLabel.setFont(</span><span class="s4">new </span><span class="s3">Font(</span><span class="s7">&quot;Helvetica&quot;</span><span class="s4">, </span><span class="s3">Font.BOLD</span><span class="s4">, </span><span class="s6">18</span><span class="s3">))</span><span class="s4">;</span>
+        <span class="s3">introLabel.setForeground(navy)</span><span class="s4">;</span>
+        <span class="s3">introLabel.setBorder(BorderFactory.createEmptyBorder(</span><span class="s6">20</span><span class="s4">, </span><span class="s6">20</span><span class="s4">, </span><span class="s6">20</span><span class="s4">, </span><span class="s6">20</span><span class="s3">))</span><span class="s4">;</span>
+
+        <span class="s3">RoundRectangleButton nextButton = </span><span class="s4">new </span><span class="s3">RoundRectangleButton(</span><span class="s7">&quot;Next&quot;</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">buttonDesign(nextButton)</span><span class="s4">;</span>
+        <span class="s3">nextButton.addActionListener(</span><span class="s4">new </span><span class="s3">ActionListener() {</span>
+            <span class="s4">public void </span><span class="s3">actionPerformed(ActionEvent e) {</span>
+                <span class="s3">introDialog.dispose()</span><span class="s4">;</span>
+            <span class="s3">}</span>
+        <span class="s3">})</span><span class="s4">;</span>
+
+        <span class="s3">JPanel buttonPanel = </span><span class="s4">new </span><span class="s3">JPanel(</span><span class="s4">new </span><span class="s3">FlowLayout(FlowLayout.CENTER</span><span class="s4">, </span><span class="s6">10</span><span class="s4">, </span><span class="s6">5</span><span class="s3">))</span><span class="s4">;</span>
+        <span class="s3">buttonPanel.setBackground(navy)</span><span class="s4">;</span>
+        <span class="s3">buttonPanel.add(nextButton)</span><span class="s4">;</span>
+
+        <span class="s3">JPanel introPanel = </span><span class="s4">new </span><span class="s3">JPanel(</span><span class="s4">new </span><span class="s3">BorderLayout())</span><span class="s4">;</span>
+        <span class="s3">introPanel.setBackground(lightBlue)</span><span class="s4">;</span>
+        <span class="s3">introPanel.add(headerLabel</span><span class="s4">, </span><span class="s3">BorderLayout.NORTH)</span><span class="s4">;</span>
+        <span class="s3">introPanel.add(introLabel</span><span class="s4">, </span><span class="s3">BorderLayout.CENTER)</span><span class="s4">;</span>
+        <span class="s3">introPanel.add(buttonPanel</span><span class="s4">, </span><span class="s3">BorderLayout.SOUTH)</span><span class="s4">;</span>
+
+        <span class="s3">introDialog.getContentPane().add(introPanel)</span><span class="s4">;</span>
+        <span class="s3">introDialog.setSize(</span><span class="s6">615</span><span class="s4">, </span><span class="s6">380</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">introDialog.setLocationRelativeTo(</span><span class="s4">null</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">introDialog.setVisible(</span><span class="s4">true</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">introDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE)</span><span class="s4">;</span>
+    <span class="s3">} </span><span class="s5">// end of showIntroduction method</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Method to display the result of performing arithmetic operations on two fractions.</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+        Algorithm: 
+        1. Convert the MixedFraction object result to a decimal value using the toDouble() method and 
+           assign the value to decimalResult. 
+        2. Format decimalResult to 2 decimal places and assign the value to formattedResult using 
+           the String.format() method. 
+        3. Check the components of result MixedFraction object using if-else statements: 
+            If the denominator is equal to 1, format the result as a whole number and 
+                assign the value to stringResult using the String.format() method. 
+            Else if the numerator is equal to 0, format result as a whole number and 
+                assign the value to stringResult using the String.format() method. 
+            Else if the whole number is equal to 0, format result as a fraction and 
+                assign the value to stringResult using the String.format() method. 
+            Else, format result as a mixed fraction and assign the value to stringResult 
+                using the String.format() method. 
+        4. Set the text of resultTF text field to stringResult concatenated with &quot; ~ &quot; and 
+                formattedResult using the setText() method. 
+    */</span>
+    <span class="s4">private void </span><span class="s3">showResult(MixedFraction result) {</span>
+        <span class="s4">double </span><span class="s3">decimalResult = result.toDouble()</span><span class="s4">;</span>
+        <span class="s3">String formattedResult = String.format(</span><span class="s7">&quot;%.2f&quot;</span><span class="s4">, </span><span class="s3">decimalResult)</span><span class="s4">;</span>
+        <span class="s3">String stringResult</span><span class="s4">;</span>
+
+        <span class="s4">if </span><span class="s3">(result.getDenominator() == </span><span class="s6">1</span><span class="s3">) {</span>
+            <span class="s3">stringResult = String.format(</span><span class="s7">&quot;%d&quot;</span><span class="s4">, </span><span class="s3">result.getNumerator() + result.getWhole())</span><span class="s4">;</span>
+        <span class="s3">} </span><span class="s4">else if </span><span class="s3">(result.getNumerator() == </span><span class="s6">0</span><span class="s3">) {</span>
+            <span class="s3">stringResult = String.format(</span><span class="s7">&quot;%d&quot;</span><span class="s4">, </span><span class="s3">result.getWhole())</span><span class="s4">;</span>
+        <span class="s3">} </span><span class="s4">else if </span><span class="s3">(result.getWhole() == </span><span class="s6">0</span><span class="s3">) {</span>
+            <span class="s3">stringResult = String.format(</span><span class="s7">&quot;%d/%d&quot;</span><span class="s4">, </span><span class="s3">result.getNumerator()</span><span class="s4">, </span><span class="s3">result.getDenominator())</span><span class="s4">;</span>
+        <span class="s3">} </span><span class="s4">else </span><span class="s3">{</span>
+            <span class="s3">stringResult = String.format(</span><span class="s7">&quot;%d %d/%d&quot;</span><span class="s4">, </span><span class="s3">result.getWhole()</span><span class="s4">, </span><span class="s3">result.getNumerator()</span><span class="s4">, </span><span class="s3">result.getDenominator())</span><span class="s4">;</span>
+        <span class="s3">}</span>
+
+        <span class="s3">resultTF.setText(stringResult + </span><span class="s7">&quot; ~ &quot; </span><span class="s3">+ formattedResult)</span><span class="s4">;</span>
+    <span class="s3">} </span><span class="s5">// end of showResult method</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Method to display the program closing statement.</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+       Algorithm: 
+       1. Display the program closing statement in a new pane. 
+       2. Dispose the dialog box when closed by the user 
+       3. Terminate the program. 
+     */</span>
+    <span class="s4">private void </span><span class="s3">showExit() {</span>
+        <span class="s3">JDialog exitDialog = </span><span class="s4">new </span><span class="s3">JDialog(</span><span class="s4">this, </span><span class="s7">&quot;Fraction Arithmetic Program&quot;</span><span class="s4">, true</span><span class="s3">)</span><span class="s4">;</span>
+
+        <span class="s3">JLabel exitL = </span><span class="s4">new </span><span class="s3">JLabel(</span><span class="s7">&quot;Thank you for using the program!&quot;</span><span class="s4">, </span><span class="s3">SwingConstants.CENTER)</span><span class="s4">;</span>
+        <span class="s3">exitL.setFont(</span><span class="s4">new </span><span class="s3">Font(</span><span class="s7">&quot;Helvetica&quot;</span><span class="s4">, </span><span class="s3">Font.BOLD</span><span class="s4">, </span><span class="s6">20</span><span class="s3">))</span><span class="s4">;</span>
+        <span class="s3">exitL.setForeground(pink)</span><span class="s4">;</span>
+
+        <span class="s3">JPanel exitPanel = </span><span class="s4">new </span><span class="s3">JPanel(</span><span class="s4">new </span><span class="s3">BorderLayout())</span><span class="s4">; </span><span class="s5">// use BorderLayout for exitPanel</span>
+        <span class="s3">exitPanel.setBackground(navy)</span><span class="s4">;</span>
+        <span class="s3">exitPanel.add(exitL</span><span class="s4">, </span><span class="s3">BorderLayout.CENTER)</span><span class="s4">; </span><span class="s5">// add exitL to the center of exitPanel</span>
+
+        <span class="s3">exitDialog.getContentPane().add(exitPanel)</span><span class="s4">; </span><span class="s5">// add exitPanel to the content pane of exitDialog</span>
+        <span class="s3">exitDialog.setSize(</span><span class="s6">400</span><span class="s4">, </span><span class="s6">120</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">exitDialog.setLocationRelativeTo(</span><span class="s4">null</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">exitDialog.setVisible(</span><span class="s4">true</span><span class="s3">)</span><span class="s4">;</span>
+        <span class="s3">exitDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE)</span><span class="s4">;</span>
+    <span class="s3">} </span><span class="s5">// end of showExit method</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Method that runs the program, which shows the introduction to the user and initializes</span>
+     <span class="s0">* calculatorObject as a new FractionArithmetic object.</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+        Algorithm: 
+        1. Call the method &quot;showIntroduction&quot; within the &quot;run&quot; method. 
+        2. Instantiate a new object of the class &quot;FractionArithmetic&quot; and assign it to 
+           a variable named &quot;calculatorObject&quot;. 
+    */</span>
+    <span class="s4">private static void </span><span class="s3">run(){</span>
+        <span class="s3">showIntroduction()</span><span class="s4">;</span>
+        <span class="s3">FractionArithmetic calculatorObject = </span><span class="s4">new </span><span class="s3">FractionArithmetic()</span><span class="s4">;</span>
+    <span class="s3">} </span><span class="s5">// end of run method</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Main method for running the main functionality of the application program.</span>
+     <span class="s0">*</span>
+     <span class="s0">* </span><span class="s2">@param </span><span class="s0">args</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+        Algorithm: 
+        1. Invoke the &quot;run&quot; method. 
+    */</span>
+    <span class="s4">public static void </span><span class="s3">main(String[] args){</span>
+        <span class="s3">run()</span><span class="s4">;</span>
+    <span class="s3">} </span><span class="s5">// end of main method</span>
+<span class="s3">} </span><span class="s5">// end of FractionArithmeticCalculator class</span>
+</pre>
+</body>
+</html>

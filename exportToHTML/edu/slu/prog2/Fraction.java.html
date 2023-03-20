@@ -1,0 +1,348 @@
+<html>
+<head>
+<title>Fraction.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #629755; font-style: italic;}
+.s1 { color: #77b767; font-style: italic;}
+.s2 { color: #629755; font-weight: bold; font-style: italic;}
+.s3 { color: #a9b7c6;}
+.s4 { color: #cc7832;}
+.s5 { color: #808080;}
+.s6 { color: #6897bb;}
+.s7 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Fraction.java</font>
+</center></td></tr></table>
+<pre><span class="s0">/**</span>
+ <span class="s0">*  〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓</span>
+ <span class="s0">* </span><span class="s1">&lt;p&gt;</span>
+ <span class="s0">* Team Number: 6</span>
+ <span class="s0">* Members:</span>
+ <span class="s0">* Ang, Julienne - 2232357</span>
+ <span class="s0">* Angobung, Charles Jacob - 2232594</span>
+ <span class="s0">* Bacasen, Kaetlyn Ann - 2212033</span>
+ <span class="s0">* Dacanay, Kurt Jonas - 2232981</span>
+ <span class="s0">* Nonato, Marius Glenn - 2232731</span>
+ <span class="s0">* Santos, Lourdene Eira - 2233120</span>
+ <span class="s0">* </span><span class="s1">&lt;p&gt;</span>
+ <span class="s0">* CLASS CODE &amp; Schedule: 9301 CS 122 7:30 - 8:30 &amp; 9:00 - 10:30 TF</span>
+ <span class="s0">* Date of Programming: March-1-2023</span>
+ <span class="s0">* Activity Name: Midterm Project 1</span>
+ <span class="s0">* </span><span class="s1">&lt;p&gt;</span>
+ <span class="s0">* 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓</span>
+ <span class="s0">* </span><span class="s1">&lt;p&gt;</span>
+ <span class="s0">* The Fraction class is a template for a fraction that has the form: numerator/denominator.</span>
+ <span class="s0">* </span><span class="s1">&lt;p&gt;</span>
+ <span class="s0">* Authors:</span>
+ <span class="s0">* </span><span class="s2">@author </span><span class="s0">Ang, Julienne</span>
+ <span class="s0">* </span><span class="s2">@author </span><span class="s0">Angobung, Charles Jacob</span>
+ <span class="s0">* </span><span class="s2">@author </span><span class="s0">Bacasen, Kaetlyn Ann</span>
+ <span class="s0">* </span><span class="s2">@author </span><span class="s0">Dacanay, Kurt Jonas</span>
+ <span class="s0">* </span><span class="s2">@author </span><span class="s0">Nonato, Marius Glenn</span>
+ <span class="s0">* </span><span class="s2">@author </span><span class="s0">Santos, Lourdene Eira</span>
+ <span class="s0">*/</span>
+<span class="s4">package </span><span class="s3">edu.slu.prog2</span><span class="s4">;</span>
+
+<span class="s4">public class </span><span class="s3">Fraction {</span>
+    <span class="s5">// Declare the objects for Fraction class.</span>
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the numerator of this fraction.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private int </span><span class="s3">numerator</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Holds the denominator of this fraction.</span>
+     <span class="s0">*/</span>
+    <span class="s4">private int </span><span class="s3">denominator</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Default No-Argument Constructor that creates a fraction with numerator = 0 and denominator = 1 by default.</span>
+     <span class="s0">*/</span>
+    <span class="s4">public </span><span class="s3">Fraction() {</span>
+        <span class="s4">this</span><span class="s3">.numerator = </span><span class="s6">0</span><span class="s4">;</span>
+        <span class="s4">this</span><span class="s3">.denominator = </span><span class="s6">1</span><span class="s4">;</span>
+    <span class="s3">} </span><span class="s5">// end of Fraction default constructor</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Constructor that creates a Fraction x / 1 if the only argument given is a whole number. </span><span class="s1">&lt;br&gt;</span>
+     <span class="s0">*</span>
+     <span class="s0">* </span><span class="s2">@param </span><span class="s0">wholeNumVal sets an entered value of a number to the Fraction's whole number</span>
+     <span class="s0">*/</span>
+    <span class="s4">public </span><span class="s3">Fraction(</span><span class="s4">int </span><span class="s3">wholeNumVal) {</span>
+        <span class="s4">this</span><span class="s3">.numerator = wholeNumVal</span><span class="s4">;</span>
+        <span class="s3">denominator = </span><span class="s6">1</span><span class="s4">;</span>
+    <span class="s3">} </span><span class="s5">// end of Fraction constructor</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Constructor that creates a Fraction from the two given integer values for numerator and denominator. </span><span class="s1">&lt;br&gt;</span>
+     <span class="s0">*</span>
+     <span class="s0">* </span><span class="s2">@param </span><span class="s0">numerator   sets an entered value of numerator to the Fraction's numerator</span>
+     <span class="s0">* </span><span class="s2">@param </span><span class="s0">denominator sets an entered value of denominator to the Fraction's denominator</span>
+     <span class="s0">*/</span>
+    <span class="s4">public </span><span class="s3">Fraction(</span><span class="s4">int </span><span class="s3">numerator</span><span class="s4">, int </span><span class="s3">denominator) {</span>
+        <span class="s4">this</span><span class="s3">.numerator = numerator</span><span class="s4">;</span>
+        <span class="s4">this</span><span class="s3">.denominator = denominator</span><span class="s4">;</span>
+    <span class="s3">} </span><span class="s5">// end of Fraction constructor</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Accessor/Getter Method to get the numerator value of the fraction. </span><span class="s1">&lt;br&gt;</span>
+     <span class="s0">*</span>
+     <span class="s0">* </span><span class="s2">@return </span><span class="s0">the value of the numerator of this fraction</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+       Algorithm: 
+       1. Return the numerator of the fraction. 
+     */</span>
+    <span class="s4">public int </span><span class="s3">getNumerator() {</span>
+        <span class="s4">return this</span><span class="s3">.numerator</span><span class="s4">;</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Accessor/Getter Method to get the denominator value of the fraction. </span><span class="s1">&lt;br&gt;</span>
+     <span class="s0">*</span>
+     <span class="s0">* </span><span class="s2">@return </span><span class="s0">the value of the denominator of this fraction</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+       Algorithm: 
+       1. Return the denominator of the fraction. 
+     */</span>
+    <span class="s4">public int </span><span class="s3">getDenominator() {</span>
+        <span class="s4">return this</span><span class="s3">.denominator</span><span class="s4">;</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Mutator/Setter Method to set the numerator value of the fraction. </span><span class="s1">&lt;br&gt;</span>
+     <span class="s0">*</span>
+     <span class="s0">* </span><span class="s2">@param </span><span class="s0">numerator sets the value of the numerator of this fraction to numerator</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+       Algorithm: 
+       1. Accept the numerator as input from the user. 
+       2. Set the numerator of the fraction to the entered value. 
+     */</span>
+    <span class="s4">public void </span><span class="s3">setNumerator(</span><span class="s4">int </span><span class="s3">numerator) {</span>
+        <span class="s4">this</span><span class="s3">.numerator = numerator</span><span class="s4">;</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Mutator/Setter Method to set the denominator value of the fraction. </span><span class="s1">&lt;br&gt;</span>
+     <span class="s0">*</span>
+     <span class="s0">* </span><span class="s2">@param </span><span class="s0">denominator sets the value of the denominator of this fraction to denominator</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+       Algorithm: 
+       1. Accept the denominator as input from the user. 
+       2. Set the denominator of the fraction to the entered value. 
+     */</span>
+    <span class="s4">public void </span><span class="s3">setDenominator(</span><span class="s4">int </span><span class="s3">denominator) {</span>
+        <span class="s4">this</span><span class="s3">.denominator = denominator</span><span class="s4">;</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Method to return the fraction object as a string form. </span><span class="s1">&lt;br&gt;</span>
+     <span class="s0">*</span>
+     <span class="s0">* </span><span class="s2">@return </span><span class="s0">string form of the fraction of the format numerator/denominator</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+        Algorithm: 
+        1. If denominator of Fraction is equal to 1, the program does the following: 
+           - Display the numerator only 
+        2. If the numerator of Fraction is equal to 0, the program does the following: 
+           - Display the whole part only 
+        3. If neither applies, the program does the following: 
+           - Display the Fraction in the form: numerator/denominator 
+     */</span>
+    <span class="s4">public </span><span class="s3">String toString() {</span>
+        <span class="s5">// If denominator is 1, return only the numerator</span>
+        <span class="s4">if </span><span class="s3">(</span><span class="s4">this</span><span class="s3">.getDenominator() == </span><span class="s6">1</span><span class="s3">)</span>
+            <span class="s4">return </span><span class="s3">String.valueOf(</span><span class="s4">this</span><span class="s3">.getNumerator())</span><span class="s4">;</span>
+
+            <span class="s5">// If numerator is 0, return only 0</span>
+        <span class="s4">else if </span><span class="s3">(</span><span class="s4">this</span><span class="s3">.getNumerator() == </span><span class="s6">0</span><span class="s3">)</span>
+            <span class="s4">return </span><span class="s3">String.format(</span><span class="s7">&quot;%d&quot;</span><span class="s4">, </span><span class="s6">0</span><span class="s3">)</span><span class="s4">;</span>
+
+            <span class="s5">// Otherwise, return the entire representation of the fraction.</span>
+        <span class="s4">else return </span><span class="s3">String.format(</span><span class="s7">&quot;%d/%d&quot;</span><span class="s4">, this</span><span class="s3">.getNumerator()</span><span class="s4">, this</span><span class="s3">.getDenominator())</span><span class="s4">;</span>
+    <span class="s3">} </span><span class="s5">// end of the toString override method</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Method to get the decimal equivalent of the fraction. </span><span class="s1">&lt;br&gt;</span>
+     <span class="s0">*</span>
+     <span class="s0">* </span><span class="s2">@return </span><span class="s0">rounded of decimal equivalent of the fraction in double format</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+        Algorithm: 
+        1. Convert the numerator and the denominator into a double data type. 
+        2. Divide the numerator to the denominator to get its decimal equivalent. 
+    */</span>
+    <span class="s4">public double </span><span class="s3">toDouble() {</span>
+        <span class="s4">double </span><span class="s3">decimal = (</span><span class="s4">double</span><span class="s3">)</span><span class="s4">this</span><span class="s3">.numerator / (</span><span class="s4">double</span><span class="s3">)</span><span class="s4">this</span><span class="s3">.denominator</span><span class="s4">;</span>
+        <span class="s4">return </span><span class="s3">Math.round(decimal*</span><span class="s6">100.0</span><span class="s3">) /</span><span class="s6">100.0</span><span class="s4">;</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Method to add the Fraction and the other. </span><span class="s1">&lt;br&gt;</span>
+     <span class="s0">*</span>
+     <span class="s0">* </span><span class="s2">@param </span><span class="s0">other other Fraction to add with</span>
+     <span class="s0">* </span><span class="s2">@return </span><span class="s0">sum of a Fraction and another Fraction</span>
+     <span class="s0">* </span><span class="s2">@throws </span><span class="s0">ZeroDenominatorException</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+        Algorithm: 
+        1. Find the commonDenominator of the 2 fractions by declaring the leastCommonMultiple method. 
+        2. Find the numerator of each fraction. 
+           - Multiply the first numerator to the quotient of the commonDenominator and the first denominator. 
+           - Multiply the second numerator to the quotient of the commonDenominator and the second denominator. 
+        3. Find the addedNumerator by adding the 2 new numerators computed. 
+        4. Declare &quot;sum&quot; as a Fraction variable with addedNumerator and commonDenominator as its parameters. 
+        5. Call the reduceFraction method. 
+        6. Return the &quot;sum&quot; variable. 
+    */</span>
+    <span class="s4">public </span><span class="s3">Fraction add(Fraction other) </span><span class="s4">throws </span><span class="s3">ZeroDenominatorException {</span>
+        <span class="s4">int </span><span class="s3">commonDenominator = </span><span class="s4">this</span><span class="s3">.computeLCM(</span><span class="s4">this</span><span class="s3">.denominator</span><span class="s4">, </span><span class="s3">other.denominator)</span><span class="s4">;</span>
+        <span class="s4">int </span><span class="s3">numerator1 = </span><span class="s4">this</span><span class="s3">.numerator * (commonDenominator / </span><span class="s4">this</span><span class="s3">.denominator)</span><span class="s4">;</span>
+        <span class="s4">int </span><span class="s3">numerator2 = other.numerator * (commonDenominator / other.denominator)</span><span class="s4">;</span>
+        <span class="s4">int </span><span class="s3">addedNumerator = numerator1 + numerator2</span><span class="s4">;</span>
+        <span class="s3">Fraction sum = </span><span class="s4">new </span><span class="s3">Fraction(addedNumerator</span><span class="s4">, </span><span class="s3">commonDenominator)</span><span class="s4">;</span>
+        <span class="s3">sum.reduceFraction()</span><span class="s4">;</span>
+        <span class="s4">return </span><span class="s3">sum</span><span class="s4">;</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Method to subtract the Fraction and the other. </span><span class="s1">&lt;br&gt;</span>
+     <span class="s0">*</span>
+     <span class="s0">* </span><span class="s2">@param </span><span class="s0">other other Fraction to subtract with</span>
+     <span class="s0">* </span><span class="s2">@return </span><span class="s0">difference of a Fraction and another Fraction</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+        Algorithm: 
+        1. Find the commonDenominator of the 2 fractions by declaring the leastCommonMultiple method. 
+        2. Find the numerator of each fraction. 
+           - Multiply the first numerator to the quotient of the commonDenominator and the first denominator. 
+           - Multiply the second numerator to the quotient of the commonDenominator and the second denominator. 
+        3. Find the subtractedNumerator by subtracting the 2 new numerators computed. 
+        4. Declare &quot;difference&quot; as a Fraction variable with subtractedNumerator and commonDenominator as its parameters. 
+        5. Call the reduceFraction method. 
+        6. Return the &quot;difference&quot; variable. 
+    */</span>
+    <span class="s4">public </span><span class="s3">Fraction subtract(Fraction other) {</span>
+        <span class="s4">int </span><span class="s3">commonDenominator = </span><span class="s4">this</span><span class="s3">.computeLCM(</span><span class="s4">this</span><span class="s3">.denominator</span><span class="s4">, </span><span class="s3">other.denominator)</span><span class="s4">;</span>
+        <span class="s4">int </span><span class="s3">numerator1 = </span><span class="s4">this</span><span class="s3">.numerator * (commonDenominator / </span><span class="s4">this</span><span class="s3">.denominator)</span><span class="s4">;</span>
+        <span class="s4">int </span><span class="s3">numerator2 = other.numerator * (commonDenominator / other.denominator)</span><span class="s4">;</span>
+        <span class="s4">int </span><span class="s3">subtractedNumerator = numerator1 - numerator2</span><span class="s4">;</span>
+        <span class="s3">Fraction difference = </span><span class="s4">new </span><span class="s3">Fraction(subtractedNumerator</span><span class="s4">, </span><span class="s3">commonDenominator)</span><span class="s4">;</span>
+        <span class="s3">difference.reduceFraction()</span><span class="s4">;</span>
+        <span class="s4">return </span><span class="s3">difference</span><span class="s4">;</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Method to multiply the Fraction and the other. </span><span class="s1">&lt;br&gt;</span>
+     <span class="s0">*</span>
+     <span class="s0">* </span><span class="s2">@param </span><span class="s0">other another Fraction to multiply with</span>
+     <span class="s0">* </span><span class="s2">@return </span><span class="s0">product of a Fraction and another Fraction</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+        Algorithm: 
+        1. Declare &quot;product&quot; as a Fraction variable with int numerator and int denominator. 
+        2. Multiply the value of Fraction numerator to the other numerator. 
+        3. Multiply the value of Fraction denominator to the other denominator. 
+        4. return the &quot;product&quot; variable. 
+    */</span>
+
+    <span class="s4">public </span><span class="s3">Fraction multiplyBy(Fraction other) {</span>
+        <span class="s3">Fraction product = </span><span class="s4">new </span><span class="s3">Fraction()</span><span class="s4">;</span>
+        <span class="s3">product.numerator = </span><span class="s4">this</span><span class="s3">.numerator * other.numerator</span><span class="s4">;</span>
+        <span class="s3">product.denominator = </span><span class="s4">this</span><span class="s3">.denominator * other.denominator</span><span class="s4">;</span>
+        <span class="s4">return </span><span class="s3">product</span><span class="s4">;</span>
+    <span class="s3">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Method to divide the Fraction and the other. </span><span class="s1">&lt;br&gt;</span>
+     <span class="s0">*</span>
+     <span class="s0">* </span><span class="s2">@param </span><span class="s0">other another Fraction that serves as the divisor</span>
+     <span class="s0">* </span><span class="s2">@return </span><span class="s0">quotient of a Fraction and another Fraction</span>
+     <span class="s0">* </span><span class="s2">@throws </span><span class="s0">ZeroDenominatorException</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+        Algorithm: 
+        1. Declare &quot;quotient&quot; as a Fraction variable with int numerator and int denominator. 
+        2. Multiply the value of Fraction numerator to the other denominator. 
+        3. Multiply the value of Fraction denominator to the other numerator. 
+        4. return the &quot;quotient&quot; variable. 
+    */</span>
+
+    <span class="s4">public </span><span class="s3">Fraction divideBy(Fraction other)  </span><span class="s4">throws </span><span class="s3">ZeroDenominatorException {</span>
+        <span class="s3">Fraction quotient = </span><span class="s4">new </span><span class="s3">Fraction()</span><span class="s4">;</span>
+        <span class="s3">quotient.numerator = </span><span class="s4">this</span><span class="s3">.numerator * other.denominator</span><span class="s4">;</span>
+        <span class="s3">quotient.denominator = </span><span class="s4">this</span><span class="s3">.denominator * other.numerator</span><span class="s4">;</span>
+        <span class="s4">return </span><span class="s3">quotient</span><span class="s4">;</span>
+    <span class="s3">} </span><span class="s5">// end of divideBy method</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Method to reduce the fraction to its lowest form.</span>
+     <span class="s0">*</span>
+     <span class="s0">* </span><span class="s2">@return</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+        Algorithm: 
+        1. Check if the numerator of the fraction is equal to zero. If it is, then the fraction is already 
+           in its simplest form, so you can skip the rest of the steps. 
+        2. Find the greatest common divisor (GCD) of the numerator and denominator of the fraction. There 
+           are different methods to compute the GCD, such as Euclid's algorithm or prime factorization. 
+        3. Divide both the numerator and denominator of the fraction by their GCD. 
+        4. Set the new value of the numerator and denominator of the fraction to the results obtained. 
+    */</span>
+    <span class="s4">public void </span><span class="s3">reduceFraction(){</span>
+        <span class="s4">if </span><span class="s3">(getNumerator() != </span><span class="s6">0</span><span class="s3">) {</span>
+            <span class="s4">int </span><span class="s3">gcd = computeGCD(numerator</span><span class="s4">, </span><span class="s3">denominator)</span><span class="s4">; </span><span class="s5">// determine the greatest common divisor of numerator and denominator</span>
+            <span class="s4">int </span><span class="s3">newNumerator = numerator / gcd</span><span class="s4">; </span><span class="s5">//compute newNumerator, the numerator of the simplest form of this fraction</span>
+            <span class="s4">int </span><span class="s3">newDenominator = denominator / gcd</span><span class="s4">; </span><span class="s5">//compute newDenominator, the denominator of the simplest form of this fraction</span>
+            <span class="s3">setNumerator(newNumerator)</span><span class="s4">; </span><span class="s5">// set the value of the new numerator for this fraction</span>
+            <span class="s3">setDenominator(newDenominator)</span><span class="s4">; </span><span class="s5">// set the value of the new denominator for this fraction</span>
+        <span class="s3">}</span>
+    <span class="s3">} </span><span class="s5">// end of reduceFraction method</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Recursive method for computing the greatestCommonDivisor of the 2 numbers. </span><span class="s1">&lt;br&gt;</span>
+     <span class="s0">*</span>
+     <span class="s0">* </span><span class="s2">@param </span><span class="s0">firstNumber receive value assigned to a data member of the first number</span>
+     <span class="s0">* </span><span class="s2">@param </span><span class="s0">secondNumber receive value assigned to a data member of the second number</span>
+     <span class="s0">* </span><span class="s2">@return </span><span class="s0">greatest common divisor (gcd) of the first number and second number</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+        Algorithm: 
+        1. If the firstNumber is equal to 0 return secondNumber. 
+        2. Else make a recursion method by calling the computerGCD method with the following as its parameters: 
+           - secondNumber modulo '%' by firstNumber 
+           - firstNumber 
+    */</span>
+    <span class="s4">protected static int </span><span class="s3">computeGCD(</span><span class="s4">int </span><span class="s3">firstNumber</span><span class="s4">, int </span><span class="s3">secondNumber) {</span>
+        <span class="s4">if </span><span class="s3">(firstNumber == </span><span class="s6">0</span><span class="s3">)</span>
+            <span class="s4">return </span><span class="s3">secondNumber</span><span class="s4">;</span>
+        <span class="s4">return </span><span class="s3">computeGCD(secondNumber % firstNumber</span><span class="s4">, </span><span class="s3">firstNumber)</span><span class="s4">;</span>
+    <span class="s3">} </span><span class="s5">// end of computeGCD method</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Method for computing the least common multiple of the 2 numbers. </span><span class="s1">&lt;br&gt;</span>
+     <span class="s0">*</span>
+     <span class="s0">* </span><span class="s2">@param </span><span class="s0">firstNumber receive value assigned to a data member of the first number</span>
+     <span class="s0">* </span><span class="s2">@param </span><span class="s0">secondNumber receive value assigned to a data member of the second number</span>
+     <span class="s0">* </span><span class="s2">@return </span><span class="s0">least common multiplier (lcm) of the first number and second number</span>
+     <span class="s0">*/</span>
+    <span class="s5">/* 
+        Algorithm: 
+        1. return the value of the following formula: 
+           - firstNumber multiplied by the secondNumber divided by the GCD of the first and second number. 
+    */</span>
+    <span class="s4">protected int </span><span class="s3">computeLCM(</span><span class="s4">int </span><span class="s3">firstNumber</span><span class="s4">, int </span><span class="s3">secondNumber) {</span>
+        <span class="s4">return </span><span class="s3">firstNumber * secondNumber / </span><span class="s4">this</span><span class="s3">.computeGCD(firstNumber</span><span class="s4">, </span><span class="s3">secondNumber)</span><span class="s4">;</span>
+    <span class="s3">} </span><span class="s5">// end of computeLCM method</span>
+<span class="s3">} </span><span class="s5">// end of Fraction class</span></pre>
+</body>
+</html>
