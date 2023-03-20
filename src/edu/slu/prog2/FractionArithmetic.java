@@ -40,8 +40,27 @@
  * The FractionArithmetic Class is the main class that is the super class for the
  * Fraction and MixedFraction subclasses.
  * <p>
- * General Algorithm: TODO: Katelyn put the general algorithm here after the whole code is finalized and completed
- * 1.
+ * General Algorithm:
+ * 1. Define the FractionArithmetic class with appropriate data members and methods.
+ * 2. Define a constructor that takes in the numerator and denominator of a fraction,
+ *    as well as the whole number (if any) of a mixed fraction. Store these values as data members.
+ * 3. Define a method to convert a mixed fraction to an improper fraction.
+ *    This method should take in the whole number, numerator, and denominator, and
+ *    return the equivalent improper fraction as a tuple (numerator, denominator).
+ * 4. Define a method to reduce a fraction to its lowest terms.
+ *    This method should divide the numerator and denominator by their greatest common divisor (GCD).
+ *    Use Euclid's algorithm to find the GCD.
+ * 5. Define methods to perform the four arithmetic operations (addition, subtraction, multiplication, and division)
+ *    on fractions. These methods should take in another fraction as input, perform the appropriate operation, and
+ *    return the result as a new FractionArithmetic object in its lowest terms.
+ * 6. In each arithmetic method, if either of the fractions is a mixed fraction,
+ *    convert it to an improper fraction before performing the operation.
+ * 7. Define a method to print the fraction as a string in the form "numerator/denominator".
+ *    This method should be used for debugging purposes.
+ * 8. Define a method to print the fraction as a mixed fraction string in the form "whole_num numerator/denominator".
+ *    This method should be used to display the fraction to the user.
+ * 9. Write a main method that creates two FractionArithmetic objects, performs all four arithmetic operations on them,
+ *    and displays the results to the user as mixed fraction strings.
  * <p>
  * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
