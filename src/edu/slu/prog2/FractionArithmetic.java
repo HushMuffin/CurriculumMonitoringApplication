@@ -197,8 +197,12 @@ public class FractionArithmetic extends JFrame {
      * properties, event handlers, and layout.
      */
     public FractionArithmetic() {
-        //TODO: Katelyn add the codes here for the header
-
+        JLabel headerLabel = new JLabel("Fraction Arithmetic Application", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 22));
+        headerLabel.setForeground(pink);
+        headerLabel.setBackground(navy);
+        headerLabel.setOpaque(true);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         firstL = new JLabel("Enter the First Fraction: ", SwingConstants.RIGHT);
         firstL.setFont(new Font("Helvetica", Font.BOLD | Font.ITALIC, 13));
 
@@ -255,7 +259,8 @@ public class FractionArithmetic extends JFrame {
 
         setTitle("Fraction Arithmetic Program");
 
-        //TODO: Katelyn add the codes for the header panel
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.add(headerLabel, BorderLayout.CENTER);
 
         JPanel gridPanel = new JPanel(new GridLayout(7, 2, 13, 10));
         gridPanel.setBackground(lightBlue);
@@ -278,8 +283,8 @@ public class FractionArithmetic extends JFrame {
         Container pane = getContentPane();
         pane.setBackground(lightBlue);
         pane.setLayout(new BorderLayout());
-        //TODO: Katelyn uncomment this line of code below after adding the codes for the header label and panel.
-        //pane.add(headerPanel, BorderLayout.NORTH);
+
+        pane.add(headerPanel, BorderLayout.NORTH);
         pane.add(gridPanel, BorderLayout.CENTER);
 
         setSize(WIDTH, HEIGHT);
