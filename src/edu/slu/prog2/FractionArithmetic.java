@@ -234,6 +234,7 @@ public class FractionArithmetic extends JFrame {
         firstTF = new JTextField(10);
         secondTF = new JTextField(10);
         resultTF = new JTextField(10);
+        resultTF.setDisabledTextColor(Color.black);
         resultTF.setEnabled(false);
 
         addB = new RoundRectangleButton("Add");
