@@ -1,11 +1,11 @@
 /**
- *  〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+ * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
  * Team Number: 6
  * Members:
  * Ang, Julienne - 2232357
  * Angobung, Charles Jacob - 2232594
- * Bacasen, Kaetlyn Ann - 2212033
+ * Bacasen, Katelyn Ann - 2212033
  * Dacanay, Kurt Jonas - 2232981
  * Nonato, Marius Glenn - 2232731
  * Santos, Lourdene Eira - 2233120
@@ -14,14 +14,14 @@
  * Date of Programming: March-1-2023
  * Activity Name: Midterm Project 1
  * <p>
- *  〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+ * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
  * The MixedFraction class is a template for a fraction that has the form: whole numerator/denominator.
  * <p>
  * Authors:
  * @author Ang, Julienne
  * @author Angobung, Charles Jacob
- * @author Bacasen, Kaetlyn Ann
+ * @author Bacasen, Katelyn Ann
  * @author Dacanay, Kurt Jonas
  * @author Nonato, Marius Glenn
  * @author Santos, Lourdene Eira

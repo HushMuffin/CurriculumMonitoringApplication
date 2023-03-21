@@ -1,5 +1,5 @@
 /**
- * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+ * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
  * Team Number: 6
  * Members:
@@ -14,14 +14,14 @@
  * Date of Programming: March-1-2023
  * Activity Name: Midterm Project 1
  * <p>
- * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+ * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
  * Problem Description:
  * Create a program that facilitates addition, subtraction, multiplication and division of mixed numbers
  * (similar with the first activity) but this time all the inputs/outputs may involve fractions, mixed
  * fractions or combination.
  * <p>
- * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+ * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
  * Inputs:
  * whole number of a mixed fraction
@@ -35,7 +35,7 @@
  * quotient of two fractions
  * fraction in its lowest terms
  * <p>
- * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+ * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
  * The FractionArithmetic Class is the main class that is the super class for the
  * Fraction and MixedFraction subclasses.
@@ -62,7 +62,7 @@
  * 9. Write a main method that creates two FractionArithmetic objects, performs all four arithmetic operations on them,
  *    and displays the results to the user as mixed fraction strings.
  * <p>
- * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
+ * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
  *  Authors:
  *  @author Ang, Julienne
@@ -222,6 +222,7 @@ public class FractionArithmetic extends JFrame {
         headerLabel.setBackground(navy);
         headerLabel.setOpaque(true);
         headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
         firstL = new JLabel("Enter the First Fraction: ", SwingConstants.RIGHT);
         firstL.setFont(new Font("Helvetica", Font.BOLD | Font.ITALIC, 13));
 
@@ -303,7 +304,6 @@ public class FractionArithmetic extends JFrame {
         Container pane = getContentPane();
         pane.setBackground(lightBlue);
         pane.setLayout(new BorderLayout());
-
         pane.add(headerPanel, BorderLayout.NORTH);
         pane.add(gridPanel, BorderLayout.CENTER);
 
@@ -344,12 +344,9 @@ public class FractionArithmetic extends JFrame {
             String entry = "", secondEntry="";
             String[] fdata = new String[3];
             String[] sdata = new String[3];
-            MixedFraction first = null;
-            MixedFraction second = null;
-            MixedFraction result = null;
-
-            int firstWholeNumber = 0, firstNumerator=0, firstDenominator=0, secondWholeNumber = 0,
-                    secondNumerator=0, secondDenominator=0;
+            MixedFraction first = null, second = null, result = null;
+            int firstWholeNumber = 0, firstNumerator = 0, firstDenominator = 0, secondWholeNumber = 0,
+                    secondNumerator = 0, secondDenominator = 0;
 
             try {
                 entry = firstTF.getText();
@@ -429,10 +426,7 @@ public class FractionArithmetic extends JFrame {
             String entry = "", secondEntry = "";
             String[] fdata = new String[3];
             String[] sdata = new String[3];
-            MixedFraction first = null;
-            MixedFraction second = null;
-            MixedFraction result = null;
-
+            MixedFraction first = null, second = null, result = null;
             int firstWholeNumber = 0, firstNumerator = 0, firstDenominator = 0, secondWholeNumber = 0,
                     secondNumerator = 0, secondDenominator = 0;
 
@@ -513,12 +507,9 @@ public class FractionArithmetic extends JFrame {
             String entry = "", secondEntry="";
             String[] fdata = new String[3];
             String[] sdata = new String[3];
-            MixedFraction first = null;
-            MixedFraction second = null;
-            MixedFraction result = null;
-
-            int firstWholeNumber = 0, firstNumerator=0, firstDenominator=0, secondWholeNumber = 0,
-                    secondNumerator=0, secondDenominator=0;
+            MixedFraction first = null, second = null, result = null;
+            int firstWholeNumber = 0, firstNumerator = 0, firstDenominator = 0, secondWholeNumber = 0,
+                    secondNumerator = 0, secondDenominator = 0;
 
             try {
                 entry = firstTF.getText();
@@ -605,12 +596,9 @@ public class FractionArithmetic extends JFrame {
             String entry = "", secondEntry="";
             String[] fdata = new String[3];
             String[] sdata = new String[3];
-            MixedFraction first = null;
-            MixedFraction second = null;
-            MixedFraction result = null;
-
-            int firstWholeNumber = 0, firstNumerator=0, firstDenominator=0, secondWholeNumber = 0,
-                    secondNumerator=0, secondDenominator=0;
+            MixedFraction first = null, second = null, result = null;
+            int firstWholeNumber = 0, firstNumerator = 0, firstDenominator = 0, secondWholeNumber = 0,
+                    secondNumerator = 0, secondDenominator = 0;
 
             try {
                 entry = firstTF.getText();
@@ -695,7 +683,7 @@ public class FractionArithmetic extends JFrame {
             String entry = "";
             String[] fdata = new String[3];
             MixedFraction first = null;
-            int firstWholeNumber = 0, firstNumerator=0, firstDenominator=0;
+            int firstWholeNumber = 0, firstNumerator = 0, firstDenominator = 0;
 
             try {
                 entry = firstTF.getText();
@@ -763,7 +751,7 @@ public class FractionArithmetic extends JFrame {
             String entry = "";
             String[] sdata = new String[3];
             MixedFraction second = null;
-            int secondWholeNumber = 0, secondNumerator =0, secondDenominator =0;
+            int secondWholeNumber = 0, secondNumerator = 0, secondDenominator = 0;
 
             try {
                 entry = secondTF.getText();
@@ -1158,4 +1146,4 @@ public class FractionArithmetic extends JFrame {
     public static void main(String[] args){
         run();
     } // end of main method
-} // end of FractionArithmeticCalculator class
+} // end of FractionArithmetic class
