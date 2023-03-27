@@ -72,7 +72,7 @@
  *  @author Nonato, Marius Glenn
  *  @author Santos, Lourdene Eira
  */
-package edu.slu.prog2;
+package prog2.midgroup06;
 
 import javax.swing.*;
 import java.awt.*;

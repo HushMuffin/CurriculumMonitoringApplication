@@ -26,7 +26,9 @@
  * @author Nonato, Marius Glenn
  * @author Santos, Lourdene Eira
  */
-package edu.slu.prog2;
+package prog2.midgroup06;
+
+import prog2_prelimgroup06.Fraction;
 
 public class MixedFraction extends Fraction {
     // Declare the objects for MixedFraction class.

@@ -26,7 +26,9 @@
  * @author Nonato, Marius Glenn
  * @author Santos, Lourdene Eira
  */
-package edu.slu.prog2;
+package prog2_prelimgroup06;
+
+import prog2.midgroup06.ZeroDenominatorException;
 
 public class Fraction {
     // Declare the objects for Fraction class.
