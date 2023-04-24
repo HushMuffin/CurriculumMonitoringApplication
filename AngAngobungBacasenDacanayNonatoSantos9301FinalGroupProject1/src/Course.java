@@ -31,15 +31,36 @@
  *  @author Santos, Lourdene Eira
  */
 
-//TODO: Lourdene - Add reference class description
+/**
+ * The Course class represents a specific educational course with attributes,
+ * used as the reference class for the CurriculumMonitoringApplication class
+ * to hold and manage information about courses.
+ */
 public class Course implements Comparable<Course> {
     //Declare the instance variables for Course.
-    //TODO: Lourdene - Give javadoc comments for variable descriptions
+    /**
+     * Holds the string value of the year.
+     */
     private String year;
+    /**
+     * Holds the string value of the term.
+     */
     private String term;
+    /**
+     * Holds the string value of the course number.
+     */
     private String courseNumber;
+    /**
+     * Holds the string value of the course descriptive title.
+     */
     private String descTitle;
+    /**
+     * Holds the double value of the course units.
+     */
     private double units;
+    /**
+     * Holds the int value of the course grades.
+     */
     private int grades;
 
     //TODO: Marius - Add default constructor description and give contents inside
@@ -62,52 +83,165 @@ public class Course implements Comparable<Course> {
         this.units = units;
     } // end of Course constructor
 
-    //TODO: Lourdene - Add getter descriptions
+    /**
+     * Getter/Accessor Method that returns the year. <br>
+     *
+     * @return year the year a course was taken
+     */
+    /*
+       Algorithm:
+       1. Return the year of the course.
+     */
     public String getYear() {
         return year;
     }
 
+    /**
+     * Getter/Accessor Method that returns the course term. <br>
+     *
+     * @return term the course term
+     */
+    /*
+       Algorithm:
+       1. Return the term of the course.
+     */
     public String getTerm() {
         return term;
     }
 
+    /**
+     * Getter/Accessor Method that returns the course number. <br>
+     *
+     * @return courseNumber the number or code of the course
+     */
+    /*
+       Algorithm:
+       1. Return the course number of the course.
+     */
     public String getCourseNumber() {
         return courseNumber;
     }
 
+    /**
+     * Getter/Accessor Method that returns the descriptive
+     * title of the course. <br>
+     *
+     * @return descTitle the descriptive title of the course
+     */
+    /*
+       Algorithm:
+       1. Return the descriptive title of the course.
+     */
     public String getDescTitle() {
         return descTitle;
     }
 
+    /**
+     * Getter/Accessor Method that returns the course units. <br>
+     *
+     * @return units the units to take for a course
+     */
+    /*
+       Algorithm:
+       1. Return the units of the course.
+     */
     public double getUnits() {
         return units;
     }
 
+    /**
+     * Getter/Accessor Method that returns the course grades. <br>
+     *
+     * @return grades the grade of a course
+     */
+    /*
+       Algorithm:
+       1. Return the grades of the course.
+     */
     public int getGrades() {
         return grades;
     }
 
-    //TODO: Lourdene - Add setters description
+    /**
+     * Mutator/Setter Method to set the course number value of the course. <br>
+     *
+     * @param courseNumber sets the value of the courseNumber of this course to courseNumber
+     */
+    /*
+       Algorithm:
+       1. Accept the courseNumber as input.
+       2. Set the courseNumber of the course to the courseNumber value.
+     */
     public void setCourseNumber(String courseNumber) {
         this.courseNumber = courseNumber;
     }
 
+    /**
+     * Mutator/Setter Method to set the descriptive title value of the course. <br>
+     *
+     * @param descTitle sets the value of the descTitle of this course to descTitle
+     */
+    /*
+       Algorithm:
+       1. Accept the descTitle as input.
+       2. Set the descTitle of the course to the descTitle value.
+     */
     public void setDescTitle(String descTitle) {
         this.descTitle = descTitle;
     }
 
+    /**
+     * Mutator/Setter Method to set the grades value of the course. <br>
+     *
+     * @param grades sets the value of the grades of this course to grades
+     */
+    /*
+       Algorithm:
+       1. Accept the grades as input.
+       2. Set the grades of the course to the grades value.
+     */
     public void setGrades(int grades) {
         this.grades = grades;
     }
 
+    /**
+     * Mutator/Setter Method to set the term value of the course. <br>
+     *
+     * @param term sets the value of the term of this course to term
+     */
+    /*
+       Algorithm:
+       1. Accept the term as input.
+       2. Set the term of the course to the term value.
+     */
     public void setTerm(String term) {
         this.term = term;
     }
 
+    /**
+     * Mutator/Setter Method to set the units value of the course. <br>
+     *
+     * @param units sets the value of the units of this course to units
+     */
+    /*
+       Algorithm:
+       1. Accept the units as input.
+       2. Set the units of the course to the units value.
+     */
     public void setUnits(double units) {
         this.units = units;
     }
 
+    /**
+     * Mutator/Setter Method to set the year value of the course. <br>
+     *
+     * @param year sets the value of the year of this course to year
+     */
+    /*
+       Algorithm:
+       1. Accept the year as input.
+       2. Set the year of the course to the year value.
+     */
     public void setYear(String year) {
         this.year = year;
     }
