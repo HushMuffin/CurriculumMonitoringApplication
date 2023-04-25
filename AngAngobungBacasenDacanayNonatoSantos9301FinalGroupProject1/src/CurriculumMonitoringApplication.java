@@ -43,6 +43,7 @@
  *  @author Nonato, Marius Glenn
  *  @author Santos, Lourdene Eira
  */
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,16 +53,13 @@ import java.util.Scanner;
 //TODO: Lourdene - Design/Organization of printed strings upon running the program
 //TODO: Lourdene - Introduction statement (add showIntroduction method)
 //TODO: Lourdene - Exit statement (add showExit method)
-//TODO: Marius & Nash - Student Average (include the course list table and show the student
-        average on the bottom of the table)
-//TODO: Marius & Katelyn & Lourdene - Student Shifter Feature (where the student may be a
+//TODO: Marius & Nash & Lourdene - Think of a design for the GUU. Improve display of application program using GUI
+//TODO: Marius & Lourdene - Student Shifter Feature (where the student may be a
         shifter from another program. The course finished by the student through another
         program and is credited to his/her BSCS program should be made part of the record
         and the equivalent course should be easily traced)
  */
 /* Errors:
-//TODO: Lourdene - Add Arithmetic Exception (for option 6: where student average grade
-        errors resulting from the division of 0 when there is not a single grade provided or inputted)
 //TODO: Julienne - Add Empty (“”) Entered Input (where the user only pressed enter in the input
         statement; display a warning message and show again the input statement where the user
         input will be entered again or given a chance to input again.
@@ -102,11 +100,17 @@ public class CurriculumMonitoringApplication {
         2. Invoke the "run" method.
     */
     public static void main(String[] args) throws IOException {
-        CurriculumMonitoringApplication program = new CurriculumMonitoringApplication();
-        program.run();
+        CurriculumMonitoringApplication program;
+        try {
+            program = new CurriculumMonitoringApplication();
+            program.run();
+        }catch (ArithmeticException exx){
+            System.out.println(exx.getMessage());
+        }
+        System.exit(0);
     } // end of main method
 
-    //TODO: Marius - Add run method description (javadoc comment) and algorithm (multi-line comment)
+    //TODO: Marius - Add run method description (javadoc comment) and algorithm (multi-line comment) after coding the GUI
     public static void run() throws IOException {
         Scanner scan = new Scanner(System.in);
         int choice=0;
@@ -133,7 +137,7 @@ public class CurriculumMonitoringApplication {
      * @param prompt - the string message
      * @return choice - the choice of the user
      */
-    //TODO: Marius - Add numberReader method algorithm (multi-line comment)
+    //TODO: Marius - Add numberReader method algorithm (multi-line comment) after coding the GUI
     public static int numberReader(String prompt){
         int choice =0;
         boolean b = false;
@@ -149,14 +153,27 @@ public class CurriculumMonitoringApplication {
         }while (!b);
 
         return choice;
-    }
+    } // end of numberReader method
 
     /**
      * Method to show the list of actions for the user to choose from.
      */
-    //TODO: Lourdene - Add listOfChoices method algorithm (multi-line comment)
+    //TODO: Lourdene - Add listOfChoices method algorithm (multi-line comment) after coding the GUI
     public static void listOfChoices(){
-        System.out.println();
+        System.out.println("");
+        /* //TODO: Improve later using GUI components
+        JOptionPane.showInputDialog(null, "---Curriculum Monitoring Application---"+
+                "\n<1> Show subjects for each school term" +
+                "\n<2> Show subjects with grades for each term"+
+                "\n<3> Show student's with grades and remarks for each term"+
+                "\n<4> Enter grade for subjects recently finished"+
+                "\n<5> Edit a course"+
+                "\n<6> Show student's average grade for all finished subjects"+
+                "\n<7> Show student's sorted grades"+
+                "\n<8> Show student's failed subjects only"+
+                "\n<9> Quit");
+
+         */
         System.out.println("<1> Show subjects for each school term");
         System.out.println("<2> Show subjects with grades for each term");
         System.out.println("<3> Show student's with grades and remarks for each term");
@@ -166,7 +183,8 @@ public class CurriculumMonitoringApplication {
         System.out.println("<7> Show student's sorted grades");
         System.out.println("<8> Show student's failed subjects only");
         System.out.println("<9> Quit");
-        //TODO: Put more to be choices add
+
+        //TODO: Put more to be choices add (i.e., Student Shifter Feature)
     } // end of listOfChoices method
 
     /**
@@ -217,7 +235,7 @@ public class CurriculumMonitoringApplication {
     /**
      * Method to print the subjects for each term.
      */
-    //TODO: Nash - Add showSubsForEachTerm method algorithm (multi-line comment)
+    //TODO: Nash - Add showSubsForEachTerm method algorithm (multi-line comment) after coding the GUI
     public static void showSubsForEachTerm(){
         Scanner scan = new Scanner(System.in);
         String enter;
@@ -244,20 +262,22 @@ public class CurriculumMonitoringApplication {
     /**
      * Method to print the subjects with grades for each term.
      */
-    //TODO: Julienne - Add showSubsWithGradesForEachTerm method algorithm (multi-line comment)
+    //TODO: Julienne - Add showSubsWithGradesForEachTerm method algorithm (multi-line comment) after coding the GUI
     public static void showSubsWithGradesForEachTerm(){
         Scanner scan = new Scanner(System.in);
         String enter;
 
-        System.out.printf("%-10s%-10s%-20s%-85s%-15s%s%n","Year","Term","Course number","Descriptive Title","Units","Grades");
-        //prints the list of courses
+        System.out.printf("%-10s%-10s%-20s%-85s%-15s%s%n","Year","Term","Course number",
+                "Descriptive Title","Units","Grades");
+        // Prints the list of courses
         for(int i=0; i<list.size(); i++){
-            //asks user to press enter if it reaches the line for new term
+            // Asks user to press enter if it reaches the line for new term
             if(i == 10 || i == 20|| i == 22|| i == 32|| i == 42|| i == 46|| i == 55|| i == 63|| i == 64|| i == 70){
                 System.out.print("Press enter to see term "+list.get(i).getTerm()+" for year "+list.get(i).getYear());
                 enter = scan.nextLine();
                 System.out.println();
-                System.out.printf("%-10s%-10s%-20s%-85s%-15s%s%n","Year","Term","Course number","Descriptive Title","Units","Grades");
+                System.out.printf("%-10s%-10s%-20s%-85s%-15s%s%n","Year","Term","Course number",
+                        "Descriptive Title","Units","Grades");
             }
             System.out.printf("%-10s",list.get(i).getYear());
             System.out.printf("%-10s",list.get(i).getTerm());
@@ -280,20 +300,22 @@ public class CurriculumMonitoringApplication {
      * where it will print "Failed", if grade is less than 75.
      * And, else it will print "Passed".
      */
-    //TODO: Julienne - Add showSubsWithGradesAndRemarksForEachTerm method algorithm (multi-line comment)
+    //TODO: Julienne - Add showSubsWithGradesAndRemarksForEachTerm method algorithm (multi-line comment) after coding the GUI
     public static void showSubsWithGradesAndRemarksForEachTerm(){
         Scanner scan = new Scanner(System.in);
         String enter;
 
-        System.out.printf("%-10s%-10s%-20s%-85s%-15s%-15s%s%n","Year","Term","Course number","Descriptive Title","Units","Grades","Remarks");
-        //prints the list of courses
+        System.out.printf("%-10s%-10s%-20s%-85s%-15s%-15s%s%n","Year","Term","Course number",
+                "Descriptive Title","Units","Grades","Remarks");
+        // Prints the list of courses
         for(int i=0; i<list.size(); i++){
-            //asks user to press enter if it reaches the line for new term
+            // Asks user to press enter if it reaches the line for new term
             if(i == 10 || i == 20|| i == 22|| i == 32|| i == 42|| i == 46|| i == 55|| i == 63|| i == 64|| i == 70){
                 System.out.print("Press enter to see term "+list.get(i).getTerm()+" for year "+list.get(i).getYear());
                 enter = scan.nextLine();
                 System.out.println();
-                System.out.printf("%-10s%-10s%-20s%-85s%-15s%-15s%s%n","Year","Term","Course number","Descriptive Title","Units","Grades","Remarks");
+                System.out.printf("%-10s%-10s%-20s%-85s%-15s%-15s%s%n","Year","Term","Course number",
+                        "Descriptive Title","Units","Grades","Remarks");
             }
             System.out.printf("%-10s",list.get(i).getYear());
             System.out.printf("%-10s",list.get(i).getTerm());
@@ -311,7 +333,9 @@ public class CurriculumMonitoringApplication {
             //if grade is less than 75, mark as failed
             if(list.get(i).getGrades() != 0 && list.get(i).getGrades()<75){
                 System.out.printf("%s","Failed");
-            }else{
+            }else if (list.get(i).getGrades()==0){
+                System.out.printf("%s","N/A");
+            } else {
                 System.out.printf("%s","Passed");
             }
 
@@ -324,7 +348,7 @@ public class CurriculumMonitoringApplication {
      * user to choose the finished course, then the program
      * will ask to enter the grade for the course.
      */
-    //TODO: Katelyn - Add enterGrades method algorithm (multi-line comment)
+    //TODO: Katelyn - Add enterGrades method algorithm (multi-line comment) after coding the GUI
     public static void enterGrades() {
         ArrayList<Integer> limit= new ArrayList<>();
         ArrayList<Course> unfinSubs= new ArrayList<>();
@@ -340,37 +364,36 @@ public class CurriculumMonitoringApplication {
             }
         }
 
-        //reads the number corresponding to the finished subject and if it is greater than i or less than 1
-        //it will show an error message
+        // Reads the number corresponding to the finished subject and if it is greater than i or less than 1
+        // It will show an error message
         numOfSub = numberReader("\nEnter the number corresponding to the recently finished subject: ");
         while(numOfSub > max || numOfSub < 1){
             System.out.println("Enter 1-"+max+" only. Try again.");
             numOfSub = numberReader("Enter the number corresponding to the recently finished: ");
         }
 
-        //reads the grade and if it is greater than 99 or less than 75, it will show an error message
+        // Reads the grade and if it is greater than 99 or less than 75, it will show an error message
         grade = numberReader("Enter the grade: ");
         while(grade > 99 || grade < 70){
             System.out.println("Enter 70-99 only. Try again.");
             grade = numberReader("Enter the grade: ");
         }
 
-        //sets the grade to the recently finished subject
+        // Sets the grade to the recently finished subject
         for(int i=0; i<list.size(); i++){
             if(list.get(i).getDescTitle().equals(unfinSubs.get(numOfSub-1).getDescTitle())){
                 list.get(i).setGrades(grade);
                 System.out.println(list.get(i).getDescTitle()+"= "+list.get(i).getGrades());
             }
         }
-
     } // end of enterGrades method
 
     /**
      * Method to allow the user to choose an elective course for them to edit.
      */
-    //TODO: Lourdene - Add editACourse method algorithm (multi-line comment)
+    //TODO: Lourdene - Add editACourse method algorithm (multi-line comment) after coding the GUI
     public static void editACourse(){
-        //declare variables
+        // Declare variables
         ArrayList<Course> listElectives= new ArrayList<>();
         ArrayList<Course> listRecommended= new ArrayList<>();
         int choice,x=1, courseChoice;
@@ -380,14 +403,14 @@ public class CurriculumMonitoringApplication {
         Course is101 = new Course("IS", "Intelligent Systems", 3.0);
         Course sf101 = new Course("SF", "System Fundamentals", 3.0);
 
-        //add Recommended elective courses to the arrayList
+        // Add Recommended elective courses to the arrayList
         listRecommended.add(cn101);
         listRecommended.add(gv101);
         listRecommended.add(pd101);
         listRecommended.add(is101);
         listRecommended.add(sf101);
 
-        //prints the courses to be edited
+        // Prints the courses to be edited
         System.out.printf("%n%-10s%-10s%-10s%-20s%-40s%s%n","","Year","Term","Course number","Descriptive Title","Units");
         for(int i=0; i<list.size(); i++){
             //if it reaches text line of elective, print
@@ -402,16 +425,16 @@ public class CurriculumMonitoringApplication {
             }
         }
 
-        //asks user to choose a course to be edited
+        // Asks user to choose a course to be edited
         System.out.println("\nPick the corresponding number of the course to be edited");
         choice = numberReader("Enter the number: ");
-        //if entered number is not 1-4, error will prompt
+        // If entered number is not 1-4, error will prompt
         while(choice < 1 || choice > 4){
             System.out.println("\nEnter 1-4 only. Try again.");
             choice = numberReader("Enter the number: ");
         }
 
-        //Prints the elective Recommended Electives
+        // Prints the elective Recommended Electives
         System.out.printf("%n%-10s%-20s%-40s%s%n","","Course number","Descriptive Title","Units");
         x=1;
         for(Course course : listRecommended){
@@ -422,16 +445,16 @@ public class CurriculumMonitoringApplication {
             System.out.println();
         }
 
-        //asks user to choose a course to replace the chosen elective
+        // Asks user to choose a course to replace the chosen elective
         System.out.println("\nPick the corresponding number of your chosen elective course");
         courseChoice = numberReader("Enter the number: ");
-        //if entered number is not 1-5, error will prompt
+        // If entered number is not 1-5, error will prompt
         while(courseChoice < 1 || courseChoice > 5){
             System.out.println("\nEnter 1-5 only. Try again.");
             courseChoice = numberReader("Enter the number: ");
         }
 
-        //edits the chosen course based on the chosen elective course
+        // Edits the chosen course based on the chosen elective course
         switch(choice){
             case 1:
                 switch (courseChoice) {
@@ -572,41 +595,72 @@ public class CurriculumMonitoringApplication {
                     }
                 }
                 break;
-        }//end of switch
+        } //end of switch statement
 
         System.out.println("Course edited successfully.");
-    }// end of editACourse method
+    } // end of editACourse method
 
     /**
      * Method to compute and show the average grade of a student.
      */
-    //TODO: Charles - Add showAverageGrade method algorithm (multi-line comment)
-    public static void showAverageGrade(){
+    //TODO: Charles - Add showAverageGrade method algorithm (multi-line comment) after coding the GUI
+    public static void showAverageGrade() throws IOException {
         int average = 0, count=0; //declare variables
 
         //Adds all the marked grades to variable average and increments count
-        for (Course course : list) {
-            if(course.getGrades() != 0){
-                average += course.getGrades();
-                count++;
+            for (Course course : list) {
+                if (course.getGrades() != 0) {
+                    average += course.getGrades();
+                    count++;
+                }
             }
+        if (count == 0) {
+            System.out.println("Invalid! No grades available to calculate the average grade.");
+        } else {
+            average /= count; // calculates the average
+            System.out.println("----------");
+            System.out.println("Student's Average Grade: " + average);
         }
 
-        average /= count; //calculates the average
-        System.out.println("----------");
-        System.out.println("Student's Average Grade: "+ average);
+        //TODO: Show this as a warning pop-up window (will let user choose to edit grades button or go back to main menu button)
+        // Provides the user an option to edit grades
+        System.out.print("Would you like to edit grades? (Y/N): ");
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+
+        if (input.equalsIgnoreCase("Y")) {
+            // Call a method to edit grades
+            enterGrades();
+        } else {
+            //TODO: Show this as a warning pop-up window (will let user choose to edit grades button or go back to main menu button)
+            // Invoke the method to go back to the main menu
+            int choice=0;
+            String enter;
+
+            while(choice != 9){ //loops if user did not input 8
+                listOfChoices();
+                System.out.println("-----");
+                choice = numberReader("Enter your choice: ");
+                runChoices(choice);
+
+                System.out.println();
+                System.out.print("Press enter key to go back.");
+                enter = scanner.nextLine();
+            }
+        }
     } // end of showAverageGrade method
 
     /**
      * Method to create a new ArrayList with same elements of the list
      * then sorts and prints the sorted array list.
      */
-    //TODO: Charles - Add showSortedGrades method algorithm (multi-line comment)
+    //TODO: Charles - Add showSortedGrades method algorithm (multi-line comment) after coding the GUI
     public static void showSortedGrades() {
         ArrayList<Course> sortList = new ArrayList<>(list);
         Collections.sort(sortList);
 
-        System.out.printf("%-10s%-10s%-20s%-85s%-15s%s%n","Year","Term","Course number","Descriptive Title","Units","Grades");
+        System.out.printf("%-10s%-10s%-20s%-85s%-15s%s%n","Year","Term","Course number",
+                "Descriptive Title","Units","Grades");
         for (Course course : sortList){
             System.out.printf("%-10s", course.getYear());
             System.out.printf("%-10s", course.getTerm());
@@ -628,10 +682,12 @@ public class CurriculumMonitoringApplication {
     /**
      * Method to print the courses that have grades lower than 75.
      */
-    //TODO: Katelyn - Add showFailedSubs method algorithm (multi-line comment)
+    //TODO: Katelyn - Add showFailedSubs method algorithm (multi-line comment) after coding the GUI
     public static void showFailedSubs(){
         System.out.println("----------");
-        System.out.printf("%-10s%-10s%-20s%-85s%-15s%s%n","Year","Term","Course number","Descriptive Title","Units","Grades");
+        System.out.printf("%-10s%-10s%-20s%-85s%-15s%s%n","Year","Term","Course number",
+                "Descriptive Title","Units","Grades");
+
         for(Course course : list){
             if(course.getGrades() < 75 && course.getGrades() != 0){
                 System.out.printf("%-10s", course.getYear());
@@ -682,5 +738,4 @@ public class CurriculumMonitoringApplication {
         pW.close();
         pW.flush();
     } // end of saveFile method
-
 } // end of CurriculumMonitoringApplication class
