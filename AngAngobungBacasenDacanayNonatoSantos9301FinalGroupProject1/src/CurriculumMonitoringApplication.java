@@ -57,10 +57,8 @@ import java.util.Collections;
 import java.util.Scanner;
 
 /* Improvements:
-//TODO: Lourdene - Design/Organization of printed strings upon running the program
-//TODO: Lourdene - Introduction statement (add showIntroduction method)
-//TODO: Lourdene - Exit statement (add showExit method)
-//TODO: Marius & Nash & Lourdene - Think of a design for the GUU. Improve display of application program using GUI
+//TODO: Lourdene - add showExit method
+//TODO: Marius & Nash & Lourdene - Improve display of application program using simple GUI
 //TODO: Marius & Lourdene - Student Shifter Feature (where the student may be a
         shifter from another program. The course finished by the student through another
         program and is credited to his/her BSCS program should be made part of the record
@@ -132,6 +130,7 @@ public class CurriculumMonitoringApplication {
 
     //TODO: Marius - Add run method description (javadoc comment) and algorithm (multi-line comment) after coding the GUI
     public static void run() throws IOException {
+        showIntroduction();
         Scanner scan = new Scanner(System.in);
         int choice=0;
         String enter;
@@ -150,6 +149,72 @@ public class CurriculumMonitoringApplication {
             enter = scan.nextLine();
         }
     } // end of run method
+
+    /**
+     * Method to print an introduction statement that displays information about the time,
+     * purpose of the program, guidelines for the user, and programmer name.
+     */
+    /*
+       Algorithm:
+       1. Display an introduction statement of the program in a new window.
+       2. Dispose the dialog box once the "Next" button is clicked or when closed by the user
+     */
+    private static void showIntroduction() {
+        JDialog introDialog = new JDialog();
+        introDialog.setTitle("BSCS Curriculum Monitoring Application");
+        introDialog.setModal(true);
+
+        JLabel headerLabel = new JLabel("BSCS Curriculum Monitoring Application", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
+        headerLabel.setOpaque(true);
+        headerLabel.setBackground(navy);
+        headerLabel.setForeground(pink);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JLabel greetLabel = new JLabel("<html>WELCOME STUDENT!</html>", SwingConstants.CENTER);
+        greetLabel.setFont(new Font("Helvetica", Font.BOLD, 22));
+        greetLabel.setForeground(darkPurple);
+        greetLabel.setBorder(BorderFactory.createEmptyBorder(5, 20, 20, 20));
+
+        JLabel descriptionLabel = new JLabel("<html><div style='text-align: justify;'>" +
+                "This application program helps you compute the area or volume of a geometric figure or solid. " +
+                "You are required to enter specific values for the computations. Buttons and menus are provided" +
+                " from which you can choose to perform specific computations for the area of a geometric " +
+                "figure and volume of a solid. You can also choose to exit from the application program.</html>",
+                SwingConstants.CENTER);
+        descriptionLabel.setFont(new Font("Helvetica", Font.BOLD, 18));
+        descriptionLabel.setForeground(Color.darkGray);
+        descriptionLabel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        nextButton = new JButton("NEXT");
+        buttonDesign(nextButton);
+        nextButton.addActionListener((e) -> {
+            introDialog.dispose();
+        });
+
+        JPanel introPanel = new JPanel(new BorderLayout());
+
+        JPanel descriptionPanel = new JPanel(new BorderLayout());
+        descriptionPanel.setBackground(lightBlue);
+        descriptionPanel.add(greetLabel, BorderLayout.NORTH);
+        descriptionPanel.add(descriptionLabel, BorderLayout.SOUTH);
+        descriptionPanel.setBorder(BorderFactory.createEmptyBorder(10,20,10,20));
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
+        buttonPanel.setBackground(navy);
+        buttonPanel.add(nextButton);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(2,0,2,0));
+
+        introPanel.add(headerLabel, BorderLayout.NORTH);
+        introPanel.add(descriptionPanel, BorderLayout.CENTER);
+        introPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        introDialog.getContentPane().add(introPanel);
+        introDialog.setSize(657, 378);
+        introDialog.setLocationRelativeTo(null);
+        introDialog.setVisible(true);
+        introDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+    } // end of showIntroduction method
 
     /**
      * Method to reads then returns an integer prompts an error if user entered a String value
@@ -180,49 +245,95 @@ public class CurriculumMonitoringApplication {
      */
     //TODO: Lourdene & Marius - Add listOfChoices method code and algorithm
     public static void listOfChoices(){
-        JFrame choiceFrame = new JFrame();
-        JPanel choicePanel = new JPanel(new BorderLayout());
-        choicePanel.setBorder(BorderFactory.createEmptyBorder(20,10,20,10));
+        JFrame choiceFrame = new JFrame("BSCS Curriculum Monitoring Application");
 
         JLabel headerLabel = new JLabel("MAIN MENU", SwingConstants.CENTER);
         headerLabel.setFont(new Font("Helvetica", Font.BOLD, 30));
+        headerLabel.setOpaque(true);
+        headerLabel.setBackground(navy);
+        headerLabel.setForeground(pink);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JPanel headerPanel = new JPanel(new BorderLayout());
-        headerPanel.setBackground(Color.blue);
-        headerPanel.add(headerLabel);
-        headerPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+        JButton button1 = new JButton("<html><div style='text-align: center; padding: 10px;'>" +
+                "Show course for each school term");
+        buttonDesign(button1);
+        button1.addActionListener(e -> {
+            //TODO:
+        });
+
+        JButton button2= new JButton("<html><div style='text-align: center; padding: 10px;'>" +
+                "Show course with grades for each term"); //TODO: remove after since we have Show course with grades and remarks for each term
+        buttonDesign(button2);
+        button2.addActionListener(e -> {
+            //TODO:
+        });
+
+        JButton button3 = new JButton("<html><div style='text-align: center; padding: 10px;'>" +
+                "Show course with grades and remarks for each term");
+        buttonDesign(button3);
+        button3.addActionListener(e -> {
+            //TODO:
+        });
+
+        JButton button4 = new JButton("<html><div style='text-align: center; padding: 10px;'>" +
+                "Enter grade for course recently finished");
+        buttonDesign(button4);
+        button4.addActionListener(e -> {
+            //TODO:
+        });
+
+        JButton button5 = new JButton("<html><div style='text-align: center; padding: 10px;'>" +
+                "Add a finished course from another program"); //TODO: remove after
+        buttonDesign(button5);
+        button5.addActionListener(e -> {
+            //TODO:
+        });
+
+        JButton button6 = new JButton("<html><div style='text-align: center; padding: 10px;'>" +
+                "Add a BSCS-credited course finished through another program");
+        buttonDesign(button6);
+        button6.addActionListener(e -> {
+            //TODO:
+        });
+
+        JButton button7 = new JButton("<html><div style='text-align: center; padding: 10px;'>" +
+                "Edit an elective course");
+        buttonDesign(button7);
+        button7.addActionListener(e -> {
+            //TODO:
+        });
+
+        JButton button8 = new JButton("<html><div style='text-align: center; padding: 10px;'>" +
+                "Show student's average grade for all finished courses");
+        buttonDesign(button8);
+        button8.addActionListener(e -> {
+            //TODO:
+        });
+
+        JButton button9 = new JButton("<html><div style='text-align: center; padding: 10px;'>" +
+                "Show student's sorted grades");
+        buttonDesign(button9);
+        button9.addActionListener(e -> {
+            //TODO:
+        });
+
+        JButton button10 = new JButton("<html><div style='text-align: center; padding: 10px;'>" +
+                "Show student's failed courses only");
+        buttonDesign(button10);
+        button10.addActionListener(e -> {
+            //TODO:
+        });
+
+
+        JButton button11 = new JButton("QUIT");
+        buttonDesign(button11);
+        button11.addActionListener(e -> {
+            //TODO:
+        });
 
         JPanel buttonsPanel = new JPanel(new GridLayout(5, 2, 10,10));
+        buttonsPanel.setBackground(lightBlue);
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder(30,20,30,20));
-
-        JButton button1 = new JButton("Show course for each school term");
-        JButton button2= new JButton("Show course with grades for each term");
-        JButton button3 = new JButton("Show course with grades and remarks for each term");
-        JButton button4 = new JButton("Enter grade for course recently finished");
-        JButton button5 = new JButton("Add a finished course from another program");
-        JButton button6 = new JButton( "Add a BSCS-credited course finished through another program");
-        JButton button7 = new JButton("Edit an elective course");
-        JButton button8 = new JButton("Show student's average grade for all finished courses");
-        JButton button9 = new JButton( "Show student's sorted grades");
-        JButton button10 = new JButton( "Show student's failed courses only");
-        JButton button11 = new JButton("QUIT");
-        buttonDesign(button1);
-        buttonDesign(button2);
-        buttonDesign(button3);
-        buttonDesign(button4);
-        buttonDesign(button5);
-        buttonDesign(button6);
-        buttonDesign(button7);
-        buttonDesign(button8);
-        buttonDesign(button9);
-        buttonDesign(button10);
-        buttonDesign(button11);
-
-        JPanel quitPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        quitPanel.setBackground(Color.blue);
-        quitPanel.add(button11);
-        quitPanel.setBorder(BorderFactory.createEmptyBorder(2,0,50,0));
-
         buttonsPanel.add(button1);
         buttonsPanel.add(button2);
         buttonsPanel.add(button3);
@@ -234,15 +345,26 @@ public class CurriculumMonitoringApplication {
         buttonsPanel.add(button9);
         buttonsPanel.add(button10);
 
-        choicePanel.add(headerPanel, BorderLayout.NORTH);
+        JPanel quitPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        quitPanel.setBackground(navy);
+        quitPanel.add(button11);
+        quitPanel.setBorder(BorderFactory.createEmptyBorder(2,0,2,0));
+
+        JPanel choicePanel = new JPanel(new BorderLayout());
+        choicePanel.add(headerLabel, BorderLayout.NORTH);
         choicePanel.add(buttonsPanel, BorderLayout.CENTER);
         choicePanel.add(quitPanel, BorderLayout.SOUTH);
-        button1.addActionListener(e -> {
 
-        });
         choiceFrame.getContentPane().add(choicePanel);
-        choiceFrame.setSize(731,612);
+        choiceFrame.setSize(630,500);
         choiceFrame.setLocationRelativeTo(null);
+        choiceFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                choiceFrame.dispose();
+                System.exit(0);
+            }
+        });
         choiceFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         choiceFrame.setVisible(true);
     } // end of listOfChoices method
@@ -815,6 +937,10 @@ public class CurriculumMonitoringApplication {
      */
     private static void buttonDesign(JButton button) {
         button.setFont(new Font("Helvetica", Font.BOLD, 13));
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(navy, 3, false), // Set border color, thickness, and roundness
+                BorderFactory.createEmptyBorder(8, 18, 8, 18)));
         button.setBackground(pink);
         button.setForeground(navy);
         button.addMouseListener(new MouseAdapter() {
@@ -829,7 +955,11 @@ public class CurriculumMonitoringApplication {
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                button.setBackground(purple); // set a new color when mouse hovers over the button
+                button.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(pink, 3, false), // Set border color, thickness, and roundness
+                        BorderFactory.createEmptyBorder(8, 18, 8, 18)));
+                button.setBackground(navy); // Set a new color when mouse hovers over the button
+                button.setForeground(pink);
             } // end of mouseEntered method
 
             /**
@@ -842,8 +972,11 @@ public class CurriculumMonitoringApplication {
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                button.setBackground(pink);
-                button.setForeground(navy);// set back the original color when the mouse leaves the button
+                button.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(navy, 3, false), // Set border color, thickness, and roundness
+                        BorderFactory.createEmptyBorder(8, 18, 8, 18)));
+                button.setBackground(pink); // Set back the original color when the mouse leaves the button
+                button.setForeground(navy);
             } // end of mouseExited method
         });
     } // end of buttonDesign method
