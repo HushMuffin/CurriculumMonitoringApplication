@@ -43,7 +43,14 @@
  *  @author Nonato, Marius Glenn
  *  @author Santos, Lourdene Eira
  */
+import prog2.midgroup06.RoundRectangleButton;
+
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -81,6 +88,9 @@ import java.util.Scanner;
     6. End of program
  */
 public class CurriculumMonitoringApplication {
+    //Declare instances for CurriculumMonitoringApplication
+    private static JButton nextButton;
+
     //Declare the static variables for CurriculumMonitoringApplication
     //TODO: Lourdene - Add static variables description
     static Scanner keyboard = new Scanner(System.in);
@@ -88,6 +98,16 @@ public class CurriculumMonitoringApplication {
     static ArrayList<Course> list = new ArrayList<>();
     static File file = new File("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/" +
             "BSCSCurriculumData1.csv");
+
+    /**
+     * Holds the colors used in the GUI of the program.
+     */
+    static Color pink = new Color(255, 175, 204);
+    static Color peach = new Color(255, 229, 212);
+    static Color darkPurple = new Color(105, 79, 93);
+    static Color lightBlue = new Color(184, 193, 236);
+    static Color navy = new Color(58, 79, 122);
+    static Color purple = new Color(205, 180, 219);
 
     /**
      * Main method for running the main functionality of the application program.
@@ -134,8 +154,8 @@ public class CurriculumMonitoringApplication {
     /**
      * Method to reads then returns an integer prompts an error if user entered a String value
      *
-     * @param prompt - the string message
-     * @return choice - the choice of the user
+     * @param prompt the string message
+     * @return choice the choice of the user
      */
     //TODO: Marius - Add numberReader method algorithm (multi-line comment) after coding the GUI
     public static int numberReader(String prompt){
@@ -158,33 +178,73 @@ public class CurriculumMonitoringApplication {
     /**
      * Method to show the list of actions for the user to choose from.
      */
-    //TODO: Lourdene - Add listOfChoices method algorithm (multi-line comment) after coding the GUI
+    //TODO: Lourdene & Marius - Add listOfChoices method code and algorithm
     public static void listOfChoices(){
-        System.out.println("");
-        /* //TODO: Improve later using GUI components
-        JOptionPane.showInputDialog(null, "---Curriculum Monitoring Application---"+
-                "\n<1> Show subjects for each school term" +
-                "\n<2> Show subjects with grades for each term"+
-                "\n<3> Show student's with grades and remarks for each term"+
-                "\n<4> Enter grade for subjects recently finished"+
-                "\n<5> Edit a course"+
-                "\n<6> Show student's average grade for all finished subjects"+
-                "\n<7> Show student's sorted grades"+
-                "\n<8> Show student's failed subjects only"+
-                "\n<9> Quit");
+        JFrame choiceFrame = new JFrame();
+        JPanel choicePanel = new JPanel(new BorderLayout());
+        choicePanel.setBorder(BorderFactory.createEmptyBorder(20,10,20,10));
 
-         */
-        System.out.println("<1> Show subjects for each school term");
-        System.out.println("<2> Show subjects with grades for each term");
-        System.out.println("<3> Show student's with grades and remarks for each term");
-        System.out.println("<4> Enter grade for subjects recently finished");
-        System.out.println("<5> Edit a course");
-        System.out.println("<6> Show student's average grade for all finished subjects");
-        System.out.println("<7> Show student's sorted grades");
-        System.out.println("<8> Show student's failed subjects only");
-        System.out.println("<9> Quit");
+        JLabel headerLabel = new JLabel("MAIN MENU", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 30));
 
-        //TODO: Put more to be choices add (i.e., Student Shifter Feature)
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.setBackground(Color.blue);
+        headerPanel.add(headerLabel);
+        headerPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+
+        JPanel buttonsPanel = new JPanel(new GridLayout(5, 2, 10,10));
+        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(30,20,30,20));
+
+        JButton button1 = new JButton("Show course for each school term");
+        JButton button2= new JButton("Show course with grades for each term");
+        JButton button3 = new JButton("Show course with grades and remarks for each term");
+        JButton button4 = new JButton("Enter grade for course recently finished");
+        JButton button5 = new JButton("Add a finished course from another program");
+        JButton button6 = new JButton( "Add a BSCS-credited course finished through another program");
+        JButton button7 = new JButton("Edit an elective course");
+        JButton button8 = new JButton("Show student's average grade for all finished courses");
+        JButton button9 = new JButton( "Show student's sorted grades");
+        JButton button10 = new JButton( "Show student's failed courses only");
+        JButton button11 = new JButton("QUIT");
+        buttonDesign(button1);
+        buttonDesign(button2);
+        buttonDesign(button3);
+        buttonDesign(button4);
+        buttonDesign(button5);
+        buttonDesign(button6);
+        buttonDesign(button7);
+        buttonDesign(button8);
+        buttonDesign(button9);
+        buttonDesign(button10);
+        buttonDesign(button11);
+
+        JPanel quitPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        quitPanel.setBackground(Color.blue);
+        quitPanel.add(button11);
+        quitPanel.setBorder(BorderFactory.createEmptyBorder(2,0,50,0));
+
+        buttonsPanel.add(button1);
+        buttonsPanel.add(button2);
+        buttonsPanel.add(button3);
+        buttonsPanel.add(button4);
+        buttonsPanel.add(button5);
+        buttonsPanel.add(button6);
+        buttonsPanel.add(button7);
+        buttonsPanel.add(button8);
+        buttonsPanel.add(button9);
+        buttonsPanel.add(button10);
+
+        choicePanel.add(headerPanel, BorderLayout.NORTH);
+        choicePanel.add(buttonsPanel, BorderLayout.CENTER);
+        choicePanel.add(quitPanel, BorderLayout.SOUTH);
+        button1.addActionListener(e -> {
+
+        });
+        choiceFrame.getContentPane().add(choicePanel);
+        choiceFrame.setSize(731,612);
+        choiceFrame.setLocationRelativeTo(null);
+        choiceFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        choiceFrame.setVisible(true);
     } // end of listOfChoices method
 
     /**
@@ -731,6 +791,62 @@ public class CurriculumMonitoringApplication {
             }
         }
     } // end of showFailedSubs method
+
+    /**
+     * Method that sets the font, background, and foreground colors of the button, and adds
+     * a mouse listener to change the button's background color based on the user's mouse hovers.
+     *
+     * @param button the button to be designed
+     */
+    /*
+         Algorithm:
+         1. Set the font of the button to "Helvetica" with a bold style and size of 13.
+         2. Set the background color of the button to a pink color.
+         3. Set the foreground color of the button to a navy color.
+         4. Add a mouse listener to the button.
+         5. In the mouseEntered method of the mouse listener:
+            a. Set the cursor to a hand cursor.
+            b. Set the background color of the button to purple to indicate that the
+               button can be clicked.
+         6. In the mouseExited method of the mouse listener:
+            a. Set the background color of the button back to pink.
+            b. Set the foreground color of the button back to navy to indicate that
+               the button is no longer being hovered over.
+     */
+    private static void buttonDesign(JButton button) {
+        button.setFont(new Font("Helvetica", Font.BOLD, 13));
+        button.setBackground(pink);
+        button.setForeground(navy);
+        button.addMouseListener(new MouseAdapter() {
+
+            /**
+             * Method that changes the cursor to a hand cursor and sets the background
+             * color of the button to purple to indicate that the button can be clicked.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                button.setBackground(purple); // set a new color when mouse hovers over the button
+            } // end of mouseEntered method
+
+            /**
+             * Method that sets the background color of the button back to pink and the
+             * foreground color back to navy to indicate that the button is no longer being
+             * hovered over.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                button.setBackground(pink);
+                button.setForeground(navy);// set back the original color when the mouse leaves the button
+            } // end of mouseExited method
+        });
+    } // end of buttonDesign method
 
     /**
      * Method to read from the csv file and populates

@@ -264,4 +264,14 @@ public class Course implements Comparable<Course> {
         else
             return 1;
     } // end of compareTo method
+
+    //TODO: Marius - check "equals" method
+   /* public boolean equals(Course another){
+        return this.toString().equals(((Course) another).toString());
+    }
+
+    */
+    public boolean equals(String another){
+        return this.toString().equals(another);
+    }
 } // end of Course class
