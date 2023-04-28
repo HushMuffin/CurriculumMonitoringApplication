@@ -349,6 +349,25 @@ public class CurriculumMonitoringApplication {
      * will ask to enter the grade for the course.
      */
     //TODO: Katelyn - Add enterGrades method algorithm (multi-line comment) after coding the GUI
+    /*
+     * Algorithm:
+     * 1. Create ArrayList limit to store the maximum number of unfinished subjects.
+     * 2. Create ArrayList unfinSubs to store the unfinished subjects.
+     * 3. Initialize variables numOfSub and grade to 0.
+     * 4. Print the list of unfinished subjects with their corresponding numbers.
+     * 5. Initialize max variable to keep track of the maximum number of unfinished subjects.
+     * 6. Loop through each course in the list.
+     *      a. If the course's grade is 0 (i.e., unfinished), increment max and add the course to unfinSubs.
+     *      b. Print the number, course number, and description of the unfinished course.
+     * 7. Prompt the user to enter the number corresponding to the recently finished subject.
+     * 8. Validate the user's input. If it is greater than max or less than 1, show an error message and prompt again.
+     * 9. Prompt the user to enter the grade.
+     * 10. Validate the user's input. If it is greater than 99 or less than 70, show an error message and prompt again.
+     * 11. Set the grade to the recently finished subject.
+     *      a. Loop through each course in the list.
+     *      b. If the description of the course matches the description of the selected unfinished subject, set the grade to the course.
+     *      c. Print the description and grade of the updated course.
+     */
     public static void enterGrades() {
         ArrayList<Integer> limit= new ArrayList<>();
         ArrayList<Course> unfinSubs= new ArrayList<>();
@@ -683,6 +702,18 @@ public class CurriculumMonitoringApplication {
      * Method to print the courses that have grades lower than 75.
      */
     //TODO: Katelyn - Add showFailedSubs method algorithm (multi-line comment) after coding the GUI
+    /*
+     * Algorithm:
+     * 1. Print the header for the table of failed subjects.
+     *      a. The header should contain columns for Year, Term, Course number, Descriptive Title, Units, and Grades.
+     *      b. Use printf statements to format the columns to a fixed width.
+     * 2. Loop through each course in the list.
+     *      a. If the course's grade is less than 75 and not equal to 0 (i.e., failed), print its details in the table.
+     *          i. Use printf statements to format the columns to a fixed width.
+     *          ii. Print the course's year, term, course number, descriptive title, units, and grade.
+     *          iii. Print a new line to move to the next row in the table.
+     * 3. End the method.
+     */
     public static void showFailedSubs(){
         System.out.println("----------");
         System.out.printf("%-10s%-10s%-20s%-85s%-15s%s%n","Year","Term","Course number",

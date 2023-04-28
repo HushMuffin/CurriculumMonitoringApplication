@@ -315,6 +315,13 @@ public class MyProgramUtility {
      * @return foundCitizen - the citizen found by the user
      */
     //TODO: Katelyn - Add findName method algorithm
+    /*
+    * 1. Get the list of citizens from the CSV file using the csvToList method.
+    * 2. Create a new Citizen object to store the found citizen's information.
+    * 3. Use the stream method on the list of citizens to filter for the citizen with the given full name.
+    * 4. Set the foundCitizen object's attributes to the corresponding attributes of the found citizen.
+    * 5. Return the foundCitizen object.
+    */
     public Citizen findName(String fullName){
         ArrayList<Citizen> list = csvToList();
         Citizen foundCitizen = new Citizen();
