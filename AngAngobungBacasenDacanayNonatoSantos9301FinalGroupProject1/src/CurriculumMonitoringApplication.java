@@ -915,6 +915,8 @@ public class CurriculumMonitoringApplication {
         buttonDesign(saveButton);
         buttonDesign(updateGradeButton);
         buttonDesign(backButton);
+
+        backButton.addActionListener(e -> frame.dispose());
         saveButton.addActionListener(e -> {
             try {
                 saveFile();
