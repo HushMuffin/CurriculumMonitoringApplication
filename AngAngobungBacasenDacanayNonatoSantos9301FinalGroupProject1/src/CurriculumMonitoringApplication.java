@@ -84,15 +84,15 @@ import java.util.Scanner;
 public class CurriculumMonitoringApplication {
     //Declare instances for CurriculumMonitoringApplication
     private static JButton nextButton;
-
     //Declare the static variables for CurriculumMonitoringApplication
-    //TODO: Lourdene - Add static variables description
     static Scanner keyboard = new Scanner(System.in);
     static BufferedReader inputStream;
+    //TODO: Lourdene - put a appropriate-sized image icon on a new folder and add description
     ImageIcon icon = new ImageIcon("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/res/icon.png");
     static ArrayList<Course> list = new ArrayList<>();
     static File file = new File("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/" +
             "BSCSCurriculumData1.csv");
+
     /**
      * Holds the colors used in the GUI of the program.
      */
@@ -121,7 +121,6 @@ public class CurriculumMonitoringApplication {
         }catch (ArithmeticException exx){
             System.out.println(exx.getMessage());
         }
-        System.exit(0);
     } // end of main method
 
     //TODO: Marius - Add run method description (javadoc comment) and algorithm (multi-line comment) after coding the GUI
@@ -129,11 +128,10 @@ public class CurriculumMonitoringApplication {
         String name = null;
         name= showLoginDialog().toUpperCase();
         showIntroduction(name);
-        int choice=0;
+        //int choice=0;
         populateArrayList(list); //invokes populateArrayList method
-        //TODO: Lourdene figure out a way to make the listOFChoices not disappear when called (when removing choice = numberReader("");)
-            listOfChoices();
-            choice = numberReader("");
+        listOfChoices();
+        //choice = numberReader("");
     } // end of run method
 
     /**
@@ -210,7 +208,7 @@ public class CurriculumMonitoringApplication {
      * @return choice the choice of the user
      */
     //TODO: Marius - Add numberReader method algorithm (multi-line comment) after coding the GUI
-    public static int numberReader(String prompt){
+    /*public static int numberReader(String prompt){
         int choice =0;
         boolean b = false;
         do { //loops and prompts an error if user entered a String to the scanner
@@ -226,6 +224,8 @@ public class CurriculumMonitoringApplication {
 
         return choice;
     } // end of numberReader method
+
+     */
 
     /**
      * Method to show the list of actions for the user to choose from.
@@ -350,11 +350,10 @@ public class CurriculumMonitoringApplication {
         choiceFrame.getContentPane().add(choicePanel);
         choiceFrame.setIconImage(icon.getImage());
         choiceFrame.pack();
-        choiceFrame.setVisible(true);
         choiceFrame.setSize(630,500);
         choiceFrame.setLocationRelativeTo(null);
         choiceFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
+        choiceFrame.setVisible(true);
     } // end of listOfChoices method
 
     /**
@@ -659,12 +658,14 @@ public class CurriculumMonitoringApplication {
 
         // Asks user to choose a course to be edited
         System.out.println("\nPick the corresponding number of the course to be edited");
-        choice = numberReader("Enter the number: ");
+        //choice = numberReader("Enter the number: ");
         // If entered number is not 1-4, error will prompt
-        while(choice < 1 || choice > 4){
+        /*while(choice < 1 || choice > 4){
             System.out.println("\nEnter 1-4 only. Try again.");
             choice = numberReader("Enter the number: ");
         }
+
+         */
 
         // Prints the elective Recommended Electives
         System.out.printf("%n%-10s%-20s%-40s%s%n","","Course number","Descriptive Title","Units");
@@ -679,15 +680,17 @@ public class CurriculumMonitoringApplication {
 
         // Asks user to choose a course to replace the chosen elective
         System.out.println("\nPick the corresponding number of your chosen elective course");
-        courseChoice = numberReader("Enter the number: ");
+        //courseChoice = numberReader("Enter the number: ");
         // If entered number is not 1-5, error will prompt
-        while(courseChoice < 1 || courseChoice > 5){
+        /*while(courseChoice < 1 || courseChoice > 5){
             System.out.println("\nEnter 1-5 only. Try again.");
             courseChoice = numberReader("Enter the number: ");
         }
 
+         */
+
         // Edits the chosen course based on the chosen elective course
-        switch(choice){
+        /*switch(choice){
             case 1:
                 switch (courseChoice) {
                     case 1 -> {
@@ -829,6 +832,8 @@ public class CurriculumMonitoringApplication {
                 break;
         } //end of switch statement
 
+         */
+
         System.out.println("Course edited successfully.");
     } // end of editACourse method
 
@@ -869,6 +874,7 @@ public class CurriculumMonitoringApplication {
             int choice=0;
             String enter;
 
+            /*
             while(choice != 9){ //loops if user did not input 8
                 listOfChoices();
                 System.out.println("-----");
@@ -879,6 +885,8 @@ public class CurriculumMonitoringApplication {
                 System.out.print("Press enter key to go back.");
                 enter = scanner.nextLine();
             }
+
+             */
         }
     } // end of showAverageGrade method
 
