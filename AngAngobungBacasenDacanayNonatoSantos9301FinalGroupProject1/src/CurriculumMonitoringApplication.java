@@ -910,7 +910,7 @@ public class CurriculumMonitoringApplication {
         JPanel inputPanel = new JPanel();
 
         RoundButton saveButton = new RoundButton("Save");
-        RoundButton updateGradeButton = new RoundButton("Update Grade");
+        RoundButton updateGradeButton = new RoundButton("Update Grade");//TODO: Lourdene figure out a way to fit in the text in the button
         RoundButton backButton = new RoundButton("Back");
         buttonDesign(saveButton);
         buttonDesign(updateGradeButton);
@@ -1314,7 +1314,7 @@ public class CurriculumMonitoringApplication {
         JPanel inputPanel = new JPanel();
 
         RoundButton saveButton = new RoundButton("Save");
-        RoundButton addCourseButton = new RoundButton("Add Course");
+        RoundButton addCourseButton = new RoundButton("Add Course");//TODO: Lourdene figure out a way to fit in the text in the button
         RoundButton backButton = new RoundButton("Back");
         buttonDesign(saveButton);
         buttonDesign(addCourseButton);
