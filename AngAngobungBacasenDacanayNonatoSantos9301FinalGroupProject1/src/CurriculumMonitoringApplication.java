@@ -129,7 +129,7 @@ public class CurriculumMonitoringApplication {
     } // end of main method
 
     //TODO: Marius - Add run method description (javadoc comment) and algorithm (multi-line comment) after coding the GUI
-    public static void run() throws IOException {
+    public void run() throws IOException {
         showIntroduction();
         Scanner scan = new Scanner(System.in);
         int choice=0;
@@ -159,7 +159,7 @@ public class CurriculumMonitoringApplication {
        1. Display an introduction statement of the program in a new window.
        2. Dispose the dialog box once the "Next" button is clicked or when closed by the user
      */
-    private static void showIntroduction() {
+    private void showIntroduction() {
         JDialog introDialog = new JDialog();
         introDialog.setTitle("BSCS Curriculum Monitoring Application");
         introDialog.setModal(true);
@@ -174,7 +174,7 @@ public class CurriculumMonitoringApplication {
         JLabel greetLabel = new JLabel("<html>WELCOME STUDENT!</html>", SwingConstants.CENTER);
         greetLabel.setFont(new Font("Helvetica", Font.BOLD, 22));
         greetLabel.setForeground(darkPurple);
-        greetLabel.setBorder(BorderFactory.createEmptyBorder(5, 20, 20, 20));
+        greetLabel.setBorder(BorderFactory.createEmptyBorder(5, 20, 30, 20));
 
         JLabel descriptionLabel = new JLabel("<html><div style='text-align: justify;'>" +
                 "This application program helps you compute the area or volume of a geometric figure or solid. " +
@@ -186,7 +186,7 @@ public class CurriculumMonitoringApplication {
         descriptionLabel.setForeground(Color.darkGray);
         descriptionLabel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        nextButton = new JButton("NEXT");
+        nextButton = new RoundButton("NEXT");
         buttonDesign(nextButton);
         nextButton.addActionListener((e) -> {
             introDialog.dispose();
@@ -244,7 +244,7 @@ public class CurriculumMonitoringApplication {
      * Method to show the list of actions for the user to choose from.
      */
     //TODO: Lourdene & Marius - Add listOfChoices method code and algorithm
-    public static void listOfChoices(){
+    public void listOfChoices(){
         JFrame choiceFrame = new JFrame("BSCS Curriculum Monitoring Application");
 
         JLabel headerLabel = new JLabel("MAIN MENU", SwingConstants.CENTER);
@@ -261,7 +261,7 @@ public class CurriculumMonitoringApplication {
             //TODO:
         });
 
-        JButton button2= new JButton("<html><div style='text-align: center; padding: 10px;'>" +
+        JButton button2= new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "Show course with grades for each term"); //TODO: remove after since we have Show course with grades and remarks for each term
         buttonDesign(button2);
         button2.addActionListener(e -> {
@@ -375,7 +375,7 @@ public class CurriculumMonitoringApplication {
      * @param choice - the number choice of the user
      */
     //TODO: Nash - Add runChoices method algorithm (multi-line comment)
-    public static void runChoices(int choice) throws IOException {
+    public void runChoices(int choice) throws IOException {
         switch (choice){
             case 1: showSubsForEachTerm();//invokes showSubsForEachTerm()
                 break;
@@ -805,7 +805,7 @@ public class CurriculumMonitoringApplication {
      * Method to compute and show the average grade of a student.
      */
     //TODO: Charles - Add showAverageGrade method algorithm (multi-line comment) after coding the GUI
-    public static void showAverageGrade() throws IOException {
+    public void showAverageGrade() throws IOException {
         int average = 0, count=0; //declare variables
 
         //Adds all the marked grades to variable average and increments count
@@ -1018,4 +1018,117 @@ public class CurriculumMonitoringApplication {
         pW.close();
         pW.flush();
     } // end of saveFile method
+    public class RoundButton extends JButton {
+        // Declare the objects for RoundRectangleButton.
+        /**
+         * Holds the shadow color of the button.
+         */
+        private static final Color SHADOW_COLOR = new Color(5, 0, 100, 50);
+
+        /**
+         * Holds the corner radius of the button.
+         */
+        private static final int CORNER_RADIUS = 20;
+
+        /**
+         * Holds the tracking of the user's cursor hover.
+         */
+        private boolean hovering;
+
+        /**
+         * Constructor that creates a custom button that is shaped like a round rectangle
+         * and detect when the user's mouse cursor is hovering over it while updating its appearance accordingly.
+         *
+         * @param text the text to be displayed on the button
+         */
+
+        public RoundButton(String text) {
+            super(text);
+            setOpaque(false);
+            setFocusPainted(false);
+            setBorderPainted(true);
+
+            // Adds a mouse listener to track when the mouse is hovering over the button
+            addMouseListener(new MouseAdapter() {
+
+                /**
+                 * Method to set the boolean flag 'hovering' to true and triggers a
+                 * repaint of the component to update its appearance.
+                 *
+                 * @param e the event to be processed
+                 */
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    hovering = true;
+                    repaint();
+                }
+
+                /**
+                 * Method to set the boolean flag 'hovering' to false and triggers a
+                 * repaint of the component to update its appearance.
+                 *
+                 * @param e the event to be processed
+                 */
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    hovering = false;
+                    repaint();
+                }
+            });
+        } // end of RoundRectangleButton
+
+        /**
+         * Method that paints the components of the main button shape.
+         *
+         * @param g the <code>Graphics</code> object to protect
+         */
+        @Override
+        protected void paintComponent(Graphics g) {
+            // Paints the main button shape
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            if (getModel().isPressed()) {
+                g2.setColor(Color.gray);
+            } else {
+                g2.setColor(getBackground());
+            }
+            g2.fillRoundRect(0, 0, getWidth(), getHeight(), CORNER_RADIUS, CORNER_RADIUS);
+
+            // Paints a semi-transparent rounded rectangle just below the main one to create a shadow effect
+            if (hovering && isEnabled()) {
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f));
+                g2.setColor(SHADOW_COLOR);
+                g2.fillRoundRect(0, getHeight() - CORNER_RADIUS / 2, getWidth(),
+                        CORNER_RADIUS / 2, CORNER_RADIUS, CORNER_RADIUS);
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+            }
+
+            super.paintComponent(g);
+        } // end of paintComponent
+
+        /**
+         * Method that paints the border of the button.
+         *
+         * @param g the <code>Graphics</code> context in which to paint
+         */
+        @Override
+        protected void paintBorder(Graphics g) {
+            // Paints the button border
+            g.setColor(getForeground());
+            g.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 2, CORNER_RADIUS, CORNER_RADIUS);
+        } // end of paintBorder
+
+        /**
+         * Getter/Accessor Method that returns the button dimension.
+         *
+         * @return Dimension the preferred size of the button
+         */
+        @Override
+        public Dimension getPreferredSize() {
+            // Adjusts the dimension of the button
+            return new Dimension(100, 40);
+        } // end of getPreferredSize
+
+    } // end of RoundRectangleButton class
+
 } // end of CurriculumMonitoringApplication class
