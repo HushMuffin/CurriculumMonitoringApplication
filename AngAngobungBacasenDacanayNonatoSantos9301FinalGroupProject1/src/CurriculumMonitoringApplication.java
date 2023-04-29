@@ -273,14 +273,14 @@ public class CurriculumMonitoringApplication {
                 "5. Add a finished course from another program"); //TODO: remove after
         buttonDesign(addFinishedCourseButton);
         addFinishedCourseButton.addActionListener(e -> {
-            addCourse();
+            addFinishedCourse();
         });
 
         JButton addCreditedCourseButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "6. Add a BSCS-credited course finished through another program");
         buttonDesign(addCreditedCourseButton);
         addCreditedCourseButton.addActionListener(e -> {
-            addCreditedGrades();
+            addCreditedCourse();
         });
 
         JButton editElectiveCourseButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
@@ -530,7 +530,7 @@ public class CurriculumMonitoringApplication {
      *      b. If the description of the course matches the description of the selected unfinished subject, set the grade to the course.
      *      c. Print the description and grade of the updated course.
      */
-    public static void enterGrades() {
+    public void enterGrades() {
         JFrame frame = new JFrame("Enter Grades");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(800, 600);
@@ -563,8 +563,12 @@ public class CurriculumMonitoringApplication {
         JPanel inputPanel = new JPanel();
         JLabel gradeLabel = new JLabel("Enter the grade: ");
         JTextField gradeField = new JTextField(2);
-        JButton submitButton = new JButton("Submit");
-        JButton saveButton = new JButton("Save");
+        RoundButton submitButton = new RoundButton("Submit");
+        RoundButton saveButton = new RoundButton("Save");
+        RoundButton backButton = new RoundButton("Back");
+        buttonDesign(submitButton);
+        buttonDesign(saveButton);
+        buttonDesign(backButton);
         saveButton.addActionListener(e -> {
             try {
                 saveFile();
@@ -577,8 +581,11 @@ public class CurriculumMonitoringApplication {
         inputPanel.add(gradeField);
         inputPanel.add(submitButton);
         inputPanel.add(saveButton);
+        inputPanel.add(backButton);
         frame.add(inputPanel, BorderLayout.SOUTH);
-
+        backButton.addActionListener(e -> {
+            frame.dispose();
+        });
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -872,7 +879,7 @@ public class CurriculumMonitoringApplication {
     } // end of showAverageGrade method
 
     //TODO: NASH add Javadoc and Algorithm multiline comments
-    public void addCreditedGrades(){
+    public void addCreditedCourse(){
         JFrame frame = new JFrame("Enter Grades");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(800, 600);
@@ -902,9 +909,12 @@ public class CurriculumMonitoringApplication {
 
         JPanel inputPanel = new JPanel();
 
-        JButton saveButton = new JButton("Save");
-        JButton updateGradeButton = new JButton("Update Grade");
-
+        RoundButton saveButton = new RoundButton("Save");
+        RoundButton updateGradeButton = new RoundButton("Update Grade");
+        RoundButton backButton = new RoundButton("Back");
+        buttonDesign(saveButton);
+        buttonDesign(updateGradeButton);
+        buttonDesign(backButton);
         saveButton.addActionListener(e -> {
             try {
                 saveFile();
@@ -915,6 +925,7 @@ public class CurriculumMonitoringApplication {
 
         inputPanel.add(saveButton);
         inputPanel.add(updateGradeButton);
+        inputPanel.add(backButton);
         frame.add(inputPanel, BorderLayout.SOUTH);
 
         updateGradeButton.addActionListener(new ActionListener() {
@@ -1268,7 +1279,7 @@ public class CurriculumMonitoringApplication {
 
         return username;
     }
-    public static void addCourse() {
+    public void addFinishedCourse() {
         JFrame frame = new JFrame("Enter Grades");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(800, 600);
@@ -1300,9 +1311,14 @@ public class CurriculumMonitoringApplication {
 
         JPanel inputPanel = new JPanel();
 
-        JButton saveButton = new JButton("Save");
-        JButton addCourseButton = new JButton("Add Course");
+        RoundButton saveButton = new RoundButton("Save");
+        RoundButton addCourseButton = new RoundButton("Add Course");
+        RoundButton backButton = new RoundButton("Back");
+        buttonDesign(saveButton);
+        buttonDesign(addCourseButton);
+        buttonDesign(backButton);
 
+        backButton.addActionListener(e -> frame.dispose());
         saveButton.addActionListener(e -> {
             try {
                 saveFile();
@@ -1314,6 +1330,7 @@ public class CurriculumMonitoringApplication {
 
         inputPanel.add(saveButton);
         inputPanel.add(addCourseButton);
+        inputPanel.add(backButton);
         frame.add(inputPanel, BorderLayout.SOUTH);
 
         addCourseButton.addActionListener(new ActionListener() {
