@@ -84,15 +84,33 @@ import java.util.Scanner;
 public class CurriculumMonitoringApplication {
     //Declare instances for CurriculumMonitoringApplication
     private static JButton nextButton;
+
     //Declare the static variables for CurriculumMonitoringApplication
+    /**
+     * Declare "keyboard" as a static instance of the Scanner class.
+     */
     static Scanner keyboard = new Scanner(System.in);
+
+    /**
+     * Declare "inputStream" as a static instance of the BufferedReader class.
+     */
     static BufferedReader inputStream;
+
     //TODO: Lourdene - put a appropriate-sized image icon on a new folder and add description
     ImageIcon icon = new ImageIcon("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/res/icon.png");
+
+    /**
+     * Declare "list" as a static instance of the ArrayList class,
+     * used to store a collection of objects of Course.
+     */
     static ArrayList<Course> list = new ArrayList<>();
+
+    /**
+     * Declare "file" as a static instance of the File class,
+     * representing a file or directory path.
+     */
     static File file = new File("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/" +
             "BSCSCurriculumData1.csv");
-
     /**
      * Holds the colors used in the GUI of the program.
      */
@@ -106,7 +124,7 @@ public class CurriculumMonitoringApplication {
     /**
      * Main method for running the main functionality of the application program.
      *
-     * @param args
+     * @param args String array of arguments
      */
     /*
         Algorithm:
