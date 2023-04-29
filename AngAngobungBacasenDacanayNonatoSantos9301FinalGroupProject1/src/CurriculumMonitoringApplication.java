@@ -119,20 +119,21 @@ public class CurriculumMonitoringApplication {
             program = new CurriculumMonitoringApplication();
             program.run();
         }catch (ArithmeticException exx){
-            JOptionPane.showMessageDialog(null,exx.getMessage());
-        }catch (Exception e1){
-            JOptionPane.showMessageDialog(null,e1.getMessage());
+            System.out.println(exx.getMessage());
         }
         System.exit(0);
     } // end of main method
 
     //TODO: Marius - Add run method description (javadoc comment) and algorithm (multi-line comment) after coding the GUI
-    public void run() throws IOException, Exception {
+    public void run() throws IOException {
         String name = null;
         name= showLoginDialog().toUpperCase();
         showIntroduction(name);
+        int choice=0;
         populateArrayList(list); //invokes populateArrayList method
-        listOfChoices();
+        //TODO: Lourdene figure out a way to make the listOFChoices not disappear when called (when removing choice = numberReader("");)
+            listOfChoices();
+            choice = numberReader("");
     } // end of run method
 
     /**
@@ -230,7 +231,7 @@ public class CurriculumMonitoringApplication {
      * Method to show the list of actions for the user to choose from.
      */
     //TODO: Lourdene & Marius - Add listOfChoices method code and algorithm
-    public void listOfChoices() throws Exception{
+    public void listOfChoices(){
         JFrame choiceFrame = new JFrame("BSCS Curriculum Monitoring Application");
 
         JLabel headerLabel = new JLabel("MAIN MENU", SwingConstants.CENTER);
@@ -869,11 +870,7 @@ public class CurriculumMonitoringApplication {
             String enter;
 
             while(choice != 9){ //loops if user did not input 8
-                try {
-                    listOfChoices();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+                listOfChoices();
                 System.out.println("-----");
                 choice = numberReader("Enter your choice: ");
                 runChoices(choice);
