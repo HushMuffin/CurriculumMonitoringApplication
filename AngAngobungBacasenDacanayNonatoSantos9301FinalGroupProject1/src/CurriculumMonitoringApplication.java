@@ -132,10 +132,12 @@ public class CurriculumMonitoringApplication {
     //TODO: Marius - Add run method description (javadoc comment) and algorithm (multi-line comment) after coding the GUI
     public void run() throws IOException {
         String name = null;
-        while (name == null){
-            name = showLoginDialog();
-        }
-        name = name.toUpperCase();
+
+        name= showLoginDialog();
+        name.toUpperCase();
+
+
+
         showIntroduction(name);
         Scanner scan = new Scanner(System.in);
         int choice=0;
@@ -183,10 +185,9 @@ public class CurriculumMonitoringApplication {
         greetLabel.setBorder(BorderFactory.createEmptyBorder(5, 20, 30, 20));
 
         JLabel descriptionLabel = new JLabel("<html><div style='text-align: justify;'>" +
-                "This application program helps you compute the area or volume of a geometric figure or solid. " +
-                "You are required to enter specific values for the computations. Buttons and menus are provided" +
-                " from which you can choose to perform specific computations for the area of a geometric " +
-                "figure and volume of a solid. You can also choose to exit from the application program.</html>",
+                "This an application may be used by a BSCS student of Saint Louis University in monitoring his/her\n" +
+                "progress with respect to the curriculum that he/she is pursuing. " +
+                "Choose the option of your liking</html>",
                 SwingConstants.CENTER);
         descriptionLabel.setFont(new Font("Helvetica", Font.BOLD, 18));
         descriptionLabel.setForeground(Color.darkGray);
@@ -1143,7 +1144,9 @@ public class CurriculumMonitoringApplication {
 
         while (!validInput) {
             int result = JOptionPane.showConfirmDialog(null, loginPanel, "Login", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
+            if(result == JOptionPane.CANCEL_OPTION){
+                System.exit(0);
+            }
             if (result == JOptionPane.OK_OPTION) {
                 username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
@@ -1154,11 +1157,10 @@ public class CurriculumMonitoringApplication {
                     validInput = true;
                     // Perform your authentication or other operations with the entered username and password.
                 }
-            } else {
-                validInput = true;
             }
         }
 
         return username;
     }
+
 } // end of CurriculumMonitoringApplication class
