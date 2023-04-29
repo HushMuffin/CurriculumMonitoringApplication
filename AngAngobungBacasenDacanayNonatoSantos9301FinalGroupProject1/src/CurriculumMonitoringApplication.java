@@ -889,7 +889,7 @@ public class CurriculumMonitoringApplication {
      * then sorts and prints the sorted array list.
      */
     //TODO: Charles - Add showSortedGrades method algorithm (multi-line comment) after coding the GUI
-    public static void showSortedGrades() {
+    public void showSortedGrades() {
         ArrayList<Course> sortList = new ArrayList<>(list);
         Collections.sort(sortList);
 
@@ -929,7 +929,7 @@ public class CurriculumMonitoringApplication {
      *          iii. Print a new line to move to the next row in the table.
      * 3. End the method.
      */
-    public static void showFailedSubs(){
+    public void showFailedSubs(){
         System.out.println("----------");
         System.out.printf("%-10s%-10s%-20s%-85s%-15s%s%n","Year","Term","Course number",
                 "Descriptive Title","Units","Grades");
@@ -969,7 +969,7 @@ public class CurriculumMonitoringApplication {
                the button is no longer being hovered over.
      */
     //TODO: add method algorithm (multi-line comment)
-    private static void buttonDesign(JButton button) {
+    private void buttonDesign(JButton button) {
         button.setFont(new Font("Helvetica", Font.BOLD, 13));
         button.setFocusPainted(false);
         button.setBorder(BorderFactory.createCompoundBorder(
@@ -1020,7 +1020,7 @@ public class CurriculumMonitoringApplication {
      * the ArrayList with Course instances.
      */
     //TODO: Julienne - Add populateArrayList method algorithm (multi-line comment)
-    public static void populateArrayList(ArrayList<Course> list) throws IOException {
+    public void populateArrayList(ArrayList<Course> list) throws IOException {
         inputStream = new BufferedReader(new FileReader(file));
         String line = inputStream.readLine(); //skips the first line
         Course course;
@@ -1039,7 +1039,7 @@ public class CurriculumMonitoringApplication {
      * @throws IOException
      */
     //TODO: add method algorithm (multi-line comment)
-    private static void saveFile() throws IOException {
+    private void saveFile() throws IOException {
         PrintWriter pW = new PrintWriter(new FileOutputStream("" +
                 "AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/BSCSCurriculumData1.csv"));
 
