@@ -283,7 +283,7 @@ public class CurriculumMonitoringApplication {
                 "Add a finished course from another program"); //TODO: remove after
         buttonDesign(addFinishedCourseButton);
         addFinishedCourseButton.addActionListener(e -> {
-            editACourse();
+            addCourse();
         });
 
         JButton addCreditedCourseButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
@@ -616,7 +616,8 @@ public class CurriculumMonitoringApplication {
         });
 
         frame.setVisible(true);
-    }
+        frame.setLocationRelativeTo(null);
+    }//end of enterGrades method
 
     /**
      * Method to allow the user to choose an elective course for them to edit.
@@ -1034,7 +1035,7 @@ public class CurriculumMonitoringApplication {
      * @throws IOException
      */
     //TODO: Marius - Add saveFile method algorithm (multi-line comment)
-    public static void saveFile() throws IOException {
+    private static void saveFile() throws IOException {
         PrintWriter pW = new PrintWriter(new FileOutputStream("" +
                 "AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/BSCSCurriculumData1.csv"));
 
@@ -1047,7 +1048,7 @@ public class CurriculumMonitoringApplication {
         pW.close();
         pW.flush();
     } // end of saveFile method
-    public class RoundButton extends JButton {
+    private class RoundButton extends JButton {
         // Declare the objects for RoundRectangleButton.
         /**
          * Holds the shadow color of the button.
@@ -1071,7 +1072,7 @@ public class CurriculumMonitoringApplication {
          * @param text the text to be displayed on the button
          */
 
-        public RoundButton(String text) {
+        private RoundButton(String text) {
             super(text);
             setOpaque(false);
             setFocusPainted(false);
@@ -1196,5 +1197,104 @@ public class CurriculumMonitoringApplication {
 
         return username;
     }
+    public static void addCourse() {
+        JFrame frame = new JFrame("Enter Grades");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(800, 600);
+
+        ArrayList<Course> unfinSubs = new ArrayList<>();
+        ArrayList<Integer> limit= new ArrayList<>();
+        final int[] index = {0};
+        for (Course course : list) {
+            if (course.getGrades() == 0 || course.getGrades() >74) {
+                unfinSubs.add(course);
+            }
+        }
+
+        String[] columnNames = {"#", "Course number", "Descriptive Title"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+
+        for (Course course : unfinSubs) {
+            Object[] rowData = {
+                    ++index[0],
+                    course.getCourseNumber(),
+                    course.getDescTitle()
+            };
+            tableModel.addRow(rowData);
+        }
+
+        JTable table = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(table);
+        frame.add(scrollPane, BorderLayout.CENTER);
+
+        JPanel inputPanel = new JPanel();
+
+        JButton saveButton = new JButton("Save");
+        JButton addCourseButton = new JButton("Add Course");
+
+        saveButton.addActionListener(e -> {
+            try {
+                saveFile();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+
+        inputPanel.add(saveButton);
+        inputPanel.add(addCourseButton);
+        frame.add(inputPanel, BorderLayout.SOUTH);
+
+        addCourseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JPanel addCoursePanel = new JPanel(new GridLayout(6, 2));
+                JTextField yearField = new JTextField();
+                JTextField termField = new JTextField();
+                JTextField courseNumberField = new JTextField();
+                JTextField descTitleField = new JTextField();
+                JTextField unitsField = new JTextField();
+                JTextField gradeField = new JTextField();
+
+                addCoursePanel.add(new JLabel("Year:"));
+                addCoursePanel.add(yearField);
+                addCoursePanel.add(new JLabel("Term:"));
+                addCoursePanel.add(termField);
+                addCoursePanel.add(new JLabel("Course Number:"));
+                addCoursePanel.add(courseNumberField);
+                addCoursePanel.add(new JLabel("Descriptive Title:"));
+                addCoursePanel.add(descTitleField);
+                addCoursePanel.add(new JLabel("Units:"));
+                addCoursePanel.add(unitsField);
+                addCoursePanel.add(new JLabel("Grade (Leave blank if not graded):"));
+                addCoursePanel.add(gradeField);
+
+                int result = JOptionPane.showConfirmDialog(frame, addCoursePanel, "Add Course", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+                if (result == JOptionPane.OK_OPTION) {
+                    try {
+                        String year = String.valueOf(Integer.parseInt(yearField.getText()));
+                        String term = String.valueOf(Integer.parseInt(termField.getText()));
+                        String courseNumber = courseNumberField.getText();
+                        String descTitle = descTitleField.getText();
+                        int units = Integer.parseInt(unitsField.getText());
+                        int grade = gradeField.getText().isEmpty() ? 0 : Integer.parseInt(gradeField.getText());
+
+                        Course newCourse = new Course(year, term, courseNumber, descTitle, units, grade);
+                        list.add(newCourse);
+                        if (grade == 0 || grade > 74) {
+                            unfinSubs.add(newCourse);
+                            tableModel.addRow(new Object[]{++index[0], newCourse.getCourseNumber(), newCourse.getDescTitle()});
+                        }
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(frame, "Invalid input. Please make sure all fields are filled correctly.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+    } //end of enterGrades method
 
 } // end of CurriculumMonitoringApplication class
