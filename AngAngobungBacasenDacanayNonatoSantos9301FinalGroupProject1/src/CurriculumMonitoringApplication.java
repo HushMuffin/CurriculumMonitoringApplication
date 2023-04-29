@@ -89,6 +89,7 @@ public class CurriculumMonitoringApplication {
     //TODO: Lourdene - Add static variables description
     static Scanner keyboard = new Scanner(System.in);
     static BufferedReader inputStream;
+    ImageIcon icon = new ImageIcon("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/res/icon.png");
     static ArrayList<Course> list = new ArrayList<>();
     static File file = new File("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/" +
             "BSCSCurriculumData1.csv");
@@ -196,7 +197,9 @@ public class CurriculumMonitoringApplication {
         introPanel.add(descriptionPanel, BorderLayout.CENTER);
         introPanel.add(buttonPanel, BorderLayout.SOUTH);
 
+
         introDialog.getContentPane().add(introPanel);
+        introDialog.setIconImage(icon.getImage());
         introDialog.setSize(657, 378);
         introDialog.setLocationRelativeTo(null);
         introDialog.setVisible(true);
@@ -547,6 +550,7 @@ public class CurriculumMonitoringApplication {
         String[] columnNames = {"#", "Course number", "Descriptive Title"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
+
         for (Course course : unfinSubs) {
             Object[] rowData = {
                     ++index,
@@ -557,7 +561,9 @@ public class CurriculumMonitoringApplication {
         }
 
         JTable table = new JTable(tableModel);
+        table.setFont(new Font("Helvetica", Font.BOLD, 10));
         JScrollPane scrollPane = new JScrollPane(table);
+
         frame.add(scrollPane, BorderLayout.CENTER);
 
         JPanel inputPanel = new JPanel();
@@ -1050,6 +1056,7 @@ public class CurriculumMonitoringApplication {
             b. Set the foreground color of the button back to navy to indicate that
                the button is no longer being hovered over.
      */
+    //TODO: add method algorithm (multi-line comment)
     private static void buttonDesign(JButton button) {
         button.setFont(new Font("Helvetica", Font.BOLD, 13));
         button.setFocusPainted(false);
@@ -1119,7 +1126,7 @@ public class CurriculumMonitoringApplication {
      *
      * @throws IOException
      */
-    //TODO: Marius - Add saveFile method algorithm (multi-line comment)
+    //TODO: add method algorithm (multi-line comment)
     private static void saveFile() throws IOException {
         PrintWriter pW = new PrintWriter(new FileOutputStream("" +
                 "AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/BSCSCurriculumData1.csv"));
@@ -1133,6 +1140,7 @@ public class CurriculumMonitoringApplication {
         pW.close();
         pW.flush();
     } // end of saveFile method
+    //TODO: add method algorithm (multi-line comment)
     private class RoundButton extends JButton {
         // Declare the objects for RoundRectangleButton.
         /**
@@ -1156,7 +1164,6 @@ public class CurriculumMonitoringApplication {
          *
          * @param text the text to be displayed on the button
          */
-
         private RoundButton(String text) {
             super(text);
             setOpaque(false);
@@ -1245,6 +1252,7 @@ public class CurriculumMonitoringApplication {
         } // end of getPreferredSize
 
     } // end of RoundRectangleButton class
+    //TODO: ADD JAVADOC AND ALGORITHM MULTILINE COMMENTS
     private String showLoginDialog() {
         JPanel loginPanel = new JPanel(new GridLayout(3, 2));
         JLabel usernameLabel = new JLabel("Username:");
@@ -1281,6 +1289,7 @@ public class CurriculumMonitoringApplication {
 
         return username;
     }
+    //TODO: ADD JAVADOC AND ALGORITHM MULTILINE COMMENTS
     public void addFinishedCourse() {
         JFrame frame = new JFrame("Enter Grades");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

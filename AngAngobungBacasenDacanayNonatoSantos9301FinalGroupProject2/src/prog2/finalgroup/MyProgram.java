@@ -75,8 +75,7 @@ import java.util.ArrayList;
 public class MyProgram extends JFrame {
     //Declare the field for MyProgram
     //TODO: Lourdene - Add field descriptions
-    ImageIcon icon = new ImageIcon("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject2" +
-            "/res/icon2.png");
+    ImageIcon icon = new ImageIcon("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject2/res/icon2.png");
     MyProgramUtility myProgramUtility = new MyProgramUtility();
     Citizen citizen;
 
