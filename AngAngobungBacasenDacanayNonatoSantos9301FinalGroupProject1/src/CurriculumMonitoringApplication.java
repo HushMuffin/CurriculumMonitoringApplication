@@ -43,15 +43,10 @@
  *  @author Nonato, Marius Glenn
  *  @author Santos, Lourdene Eira
  */
-import prog2.midgroup06.RoundRectangleButton;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -97,7 +92,6 @@ public class CurriculumMonitoringApplication {
     static ArrayList<Course> list = new ArrayList<>();
     static File file = new File("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/" +
             "BSCSCurriculumData1.csv");
-
     /**
      * Holds the colors used in the GUI of the program.
      */
@@ -133,11 +127,7 @@ public class CurriculumMonitoringApplication {
     public void run() throws IOException {
         String name = null;
 
-        name= showLoginDialog();
-        name.toUpperCase();
-
-
-
+        name= showLoginDialog().toUpperCase();
         showIntroduction(name);
         Scanner scan = new Scanner(System.in);
         int choice=0;
@@ -261,52 +251,52 @@ public class CurriculumMonitoringApplication {
         headerLabel.setForeground(pink);
         headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JButton button1 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+        JButton showCourseEachTermButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "Show course for each school term");
-        buttonDesign(button1);
-        button1.addActionListener(e -> {
+        buttonDesign(showCourseEachTermButton);
+        showCourseEachTermButton.addActionListener(e -> {
             showSubsForEachTerm();
         });
 
-        JButton button2= new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+        JButton showCourseWithGradesButton= new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "Show course with grades for each term"); //TODO: remove after since we have Show course with grades and remarks for each term
-        buttonDesign(button2);
-        button2.addActionListener(e -> {
+        buttonDesign(showCourseWithGradesButton);
+        showCourseWithGradesButton.addActionListener(e -> {
            showSubsWithGradesForEachTerm();
         });
 
-        JButton button3 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+        JButton showCourseAndRemarksButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "Show course with grades and remarks for each term");
-        buttonDesign(button3);
-        button3.addActionListener(e -> {
+        buttonDesign(showCourseAndRemarksButton);
+        showCourseAndRemarksButton.addActionListener(e -> {
             showSubsWithGradesAndRemarksForEachTerm();
         });
 
-        JButton button4 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+        JButton enterGradeButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "Enter grade for course recently finished");
-        buttonDesign(button4);
-        button4.addActionListener(e -> {
+        buttonDesign(enterGradeButton);
+        enterGradeButton.addActionListener(e -> {
             enterGrades();
         });
 
-        JButton button5 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+        JButton addFinishedCourseButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "Add a finished course from another program"); //TODO: remove after
-        buttonDesign(button5);
-        button5.addActionListener(e -> {
+        buttonDesign(addFinishedCourseButton);
+        addFinishedCourseButton.addActionListener(e -> {
             editACourse();
         });
 
-        JButton button6 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+        JButton addCreditedCourseButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "Add a BSCS-credited course finished through another program");
-        buttonDesign(button6);
-        button6.addActionListener(e -> {
+        buttonDesign(addCreditedCourseButton);
+        addCreditedCourseButton.addActionListener(e -> {
 
         });
 
-        JButton button7 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+        JButton editElectiveCourseButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "Edit an elective course");
-        buttonDesign(button7);
-        button7.addActionListener(e -> {
+        buttonDesign(editElectiveCourseButton);
+        editElectiveCourseButton.addActionListener(e -> {
             //TODO:
         });
 
@@ -336,18 +326,23 @@ public class CurriculumMonitoringApplication {
         buttonDesign(button11);
         button11.addActionListener(e -> {
             choiceFrame.dispose();
+            try {
+                saveFile();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         JPanel buttonsPanel = new JPanel(new GridLayout(5, 2, 10,10));
         buttonsPanel.setBackground(lightBlue);
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder(20,15,20,15));
-        buttonsPanel.add(button1);
-        buttonsPanel.add(button2);
-        buttonsPanel.add(button3);
-        buttonsPanel.add(button4);
-        buttonsPanel.add(button5);
-        buttonsPanel.add(button6);
-        buttonsPanel.add(button7);
+        buttonsPanel.add(showCourseEachTermButton);
+        buttonsPanel.add(showCourseWithGradesButton);
+        buttonsPanel.add(showCourseAndRemarksButton);
+        buttonsPanel.add(enterGradeButton);
+        buttonsPanel.add(addFinishedCourseButton);
+        buttonsPanel.add(addCreditedCourseButton);
+        buttonsPanel.add(editElectiveCourseButton);
         buttonsPanel.add(button8);
         buttonsPanel.add(button9);
         buttonsPanel.add(button10);
@@ -546,43 +541,82 @@ public class CurriculumMonitoringApplication {
      *      c. Print the description and grade of the updated course.
      */
     public static void enterGrades() {
-        ArrayList<Integer> limit= new ArrayList<>();
-        ArrayList<Course> unfinSubs= new ArrayList<>();
-        int numOfSub=0, grade;
+        JFrame frame = new JFrame("Enter Grades");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(800, 600);
 
-        System.out.println("\nList of unfinished subjects:");
-        int max=0;
-        for(Course course: list){
-            if(course.getGrades() == 0){
-                max++;
-                System.out.println(max+": "+course.getCourseNumber()+" = "+course.getDescTitle());
+        ArrayList<Course> unfinSubs = new ArrayList<>();
+        ArrayList<Integer> limit= new ArrayList<>();
+        int index = 0;
+        for (Course course : list) {
+            if (course.getGrades() == 0 || course.getGrades() >74) {
                 unfinSubs.add(course);
             }
         }
 
-        // Reads the number corresponding to the finished subject and if it is greater than i or less than 1
-        // It will show an error message
-        numOfSub = numberReader("\nEnter the number corresponding to the recently finished subject: ");
-        while(numOfSub > max || numOfSub < 1){
-            System.out.println("Enter 1-"+max+" only. Try again.");
-            numOfSub = numberReader("Enter the number corresponding to the recently finished: ");
+        String[] columnNames = {"#", "Course number", "Descriptive Title"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+
+        for (Course course : unfinSubs) {
+            Object[] rowData = {
+                    ++index,
+                    course.getCourseNumber(),
+                    course.getDescTitle()
+            };
+            tableModel.addRow(rowData);
         }
 
-        // Reads the grade and if it is greater than 99 or less than 75, it will show an error message
-        grade = numberReader("Enter the grade: ");
-        while(grade > 99 || grade < 70){
-            System.out.println("Enter 70-99 only. Try again.");
-            grade = numberReader("Enter the grade: ");
-        }
+        JTable table = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(table);
+        frame.add(scrollPane, BorderLayout.CENTER);
 
-        // Sets the grade to the recently finished subject
-        for(int i=0; i<list.size(); i++){
-            if(list.get(i).getDescTitle().equals(unfinSubs.get(numOfSub-1).getDescTitle())){
-                list.get(i).setGrades(grade);
-                System.out.println(list.get(i).getDescTitle()+"= "+list.get(i).getGrades());
+        JPanel inputPanel = new JPanel();
+        JLabel gradeLabel = new JLabel("Enter the grade: ");
+        JTextField gradeField = new JTextField(2);
+        JButton submitButton = new JButton("Submit");
+        JButton saveButton = new JButton("Save");
+        saveButton.addActionListener(e -> {
+            try {
+                saveFile();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
-        }
-    } // end of enterGrades method
+        });
+
+        inputPanel.add(gradeLabel);
+        inputPanel.add(gradeField);
+        inputPanel.add(submitButton);
+        inputPanel.add(saveButton);
+        frame.add(inputPanel, BorderLayout.SOUTH);
+
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow != -1) {
+                    try {
+                        int grade = Integer.parseInt(gradeField.getText());
+
+                        if (grade == 0 || grade >= 70 && grade <= 99) {
+                            Course selectedCourse = unfinSubs.get(selectedRow);
+                            selectedCourse.setGrades(grade);
+                            tableModel.removeRow(selectedRow);
+                            unfinSubs.remove(selectedRow);
+                            gradeField.setText("");
+                        } else {
+                            JOptionPane.showMessageDialog(frame, "Enter a grade between 70 and 99.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(frame, "Invalid grade. Enter a number between 70 and 99.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Please select a course from the table.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        frame.setVisible(true);
+    }
 
     /**
      * Method to allow the user to choose an elective course for them to edit.
