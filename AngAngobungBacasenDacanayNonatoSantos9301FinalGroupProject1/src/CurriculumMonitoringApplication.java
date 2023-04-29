@@ -280,7 +280,7 @@ public class CurriculumMonitoringApplication {
                 "6. Add a BSCS-credited course finished through another program");
         buttonDesign(addCreditedCourseButton);
         addCreditedCourseButton.addActionListener(e -> {
-
+            addCreditedGrades();
         });
 
         JButton editElectiveCourseButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
@@ -865,6 +865,90 @@ public class CurriculumMonitoringApplication {
             }
         }
     } // end of showAverageGrade method
+
+    //TODO: NASH add Javadoc and Algorithm multiline comments
+    public void addCreditedGrades(){
+        JFrame frame = new JFrame("Enter Grades");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(800, 600);
+
+        ArrayList<Course> unfinSubs = new ArrayList<>();
+        ArrayList<Integer> limit = new ArrayList<>();
+        int index = 0;
+        for (Course course : list) {
+            if (course.getGrades() == 0 || course.getGrades() > 74) {
+                unfinSubs.add(course);
+            }
+        }
+
+        String[] columnNames = {"#", "Course number", "Descriptive Title"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+
+        for (Course course : unfinSubs) {
+            Object[] rowData = {
+                    ++index,
+                    course.getCourseNumber(),
+                    course.getDescTitle()
+            };
+            tableModel.addRow(rowData);
+        }
+
+        JTable table = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(table);
+        frame.add(scrollPane, BorderLayout.CENTER);
+
+        JPanel inputPanel = new JPanel();
+
+        JButton saveButton = new JButton("Save");
+        JButton updateGradeButton = new JButton("Update Grade");
+
+        saveButton.addActionListener(e -> {
+            try {
+                saveFile();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        inputPanel.add(saveButton);
+        inputPanel.add(updateGradeButton);
+        frame.add(inputPanel, BorderLayout.SOUTH);
+
+        updateGradeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String courseNumber = JOptionPane.showInputDialog(frame, "Enter the course number:", "Update Grade", JOptionPane.PLAIN_MESSAGE);
+
+                if (courseNumber != null) {
+                    Course courseToUpdate = null;
+                    int rowIndex = -1;
+                    for (int i = 0; i < unfinSubs.size(); i++) {
+                        if (unfinSubs.get(i).getCourseNumber().equalsIgnoreCase(courseNumber)) {
+                            courseToUpdate = unfinSubs.get(i);
+                            rowIndex = i;
+                            break;
+                        }
+                    }
+
+                    if (courseToUpdate != null) {
+                        try {
+                            int grade = Integer.parseInt(JOptionPane.showInputDialog(frame, "Enter the grade for " + courseNumber + ":", "Update Grade", JOptionPane.PLAIN_MESSAGE));
+                            courseToUpdate.setGrades(grade);
+                            tableModel.removeRow(rowIndex);
+                            unfinSubs.remove(rowIndex);
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(frame, "Invalid grade. Please enter a number.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Course not found. Please make sure you entered the correct course number.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+    }
 
     /**
      * Method to create a new ArrayList with same elements of the list
