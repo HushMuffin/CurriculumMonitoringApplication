@@ -141,15 +141,15 @@ public class CurriculumMonitoringApplication {
         }
     } // end of main method
 
-    //TODO: Marius - Add run method description (javadoc comment) and algorithm (multi-line comment) after coding the GUI
+    //TODO:Julienne Add run method description (javadoc comment) and algorithm (multi-line comment) after coding the GUI
     public void run() throws IOException {
         String name = null;
         name= showLoginDialog().toUpperCase();
         showIntroduction(name);
-        //int choice=0;
+        int choice=0;
         populateArrayList(list); //invokes populateArrayList method
         listOfChoices();
-        //choice = numberReader("");
+        choice = numberReader("");
     } // end of run method
 
     /**
@@ -225,8 +225,8 @@ public class CurriculumMonitoringApplication {
      * @param prompt the string message
      * @return choice the choice of the user
      */
-    //TODO: Marius - Add numberReader method algorithm (multi-line comment) after coding the GUI
-    /*public static int numberReader(String prompt){
+    //TODO: Katelyn - Add numberReader method algorithm (multi-line comment) after coding the GUI
+    public static int numberReader(String prompt){
         int choice =0;
         boolean b = false;
         do { //loops and prompts an error if user entered a String to the scanner
@@ -243,7 +243,7 @@ public class CurriculumMonitoringApplication {
         return choice;
     } // end of numberReader method
 
-     */
+
 
     /**
      * Method to show the list of actions for the user to choose from.
@@ -305,7 +305,7 @@ public class CurriculumMonitoringApplication {
                 "7. Edit an elective course");
         buttonDesign(editElectiveCourseButton);
         editElectiveCourseButton.addActionListener(e -> {
-            //TODO:
+            editACourse();
         });
 
         JButton button8 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
@@ -497,8 +497,6 @@ public class CurriculumMonitoringApplication {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(1100, 600);
 
-        System.out.printf("%-10s%-10s%-20s%-85s%-15s%-15s%s%n","Year","Term","Course number",
-                "Descriptive Title","Units","Grades","Remarks");
         // Prints the list of courses
         String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units", "Grades"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
@@ -641,11 +639,15 @@ public class CurriculumMonitoringApplication {
      * Method to allow the user to choose an elective course for them to edit.
      */
     //TODO: Lourdene - Add editACourse method algorithm (multi-line comment) after coding the GUI
-    public static void editACourse(){
-        // Declare variables
+    public void editACourse(){
+        // Set up the JFrame
+        JFrame frame = new JFrame("Edit a course");
+        frame.setTitle("Edit Course");
+        frame.setSize(800, 600);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ArrayList<Course> listElectives= new ArrayList<>();
         ArrayList<Course> listRecommended= new ArrayList<>();
-        int choice,x=1, courseChoice;
         Course cn101 = new Course("CN", "Computational Science", 3.0);
         Course gv101 = new Course("GV", "Graphics and Visual Computing", 3.0);
         Course pd101 = new Course("PD", "Parallel and Distributed Computing", 3.0);
@@ -659,200 +661,86 @@ public class CurriculumMonitoringApplication {
         listRecommended.add(is101);
         listRecommended.add(sf101);
 
-        // Prints the courses to be edited
-        System.out.printf("%n%-10s%-10s%-10s%-20s%-40s%s%n","","Year","Term","Course number","Descriptive Title","Units");
-        for(int i=0; i<list.size(); i++){
-            //if it reaches text line of elective, print
-            if(i == 68 || i == 69 || i==74 || i==75){
-                System.out.printf("%-10s",(x++)+":");
-                System.out.printf("%-10s", list.get(i).getYear());
-                System.out.printf("%-10s", list.get(i).getTerm());
-                System.out.printf("%-20s", list.get(i).getCourseNumber());
-                System.out.printf("%-40s", list.get(i).getDescTitle());
-                System.out.printf("%s", list.get(i).getUnits());
-                System.out.println();
+        // Set up the tables and their models
+        DefaultTableModel electivesModel = new DefaultTableModel(new Object[]{"Year", "Term", "Course number", "Descriptive Title", "Units"}, 0);
+        JTable electivesTable = new JTable(electivesModel);
+        int[] electiveIndices = {68, 69, 74, 75};
+        for (int index : electiveIndices) {
+            Course course = list.get(index);
+            Object[] rowData = new Object[] {
+                    course.getYear(),
+                    course.getTerm(),
+                    course.getCourseNumber(),
+                    course.getDescTitle(),
+                    course.getUnits()
+            };
+            electivesModel.addRow(rowData);
+        }
+
+        DefaultTableModel recommendedModel = new DefaultTableModel(new Object[]{"Course number", "Descriptive Title", "Units"}, 0);
+        JTable recommendedTable = new JTable(recommendedModel);
+        for (Course course : listRecommended) {
+            Object[] rowData = new Object[] {
+                    course.getCourseNumber(),
+                    course.getDescTitle(),
+                    course.getUnits()
+            };
+            recommendedModel.addRow(rowData);
+        }
+
+        // Set up the buttons
+        RoundButton confirmButton = new RoundButton("Confirm");
+        RoundButton cancelButton = new RoundButton("Cancel");
+        buttonDesign(cancelButton);
+        buttonDesign(confirmButton);
+        // Add action listeners to the buttons
+        confirmButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int electiveRow = electivesTable.getSelectedRow();
+                int recommendedRow = recommendedTable.getSelectedRow();
+
+                if (electiveRow != -1 && recommendedRow != -1) {
+                    Course selectedElective = list.get(68 + electiveRow); // Assuming the index starts from 68 as in your previous code
+                    Course selectedRecommended = listRecommended.get(recommendedRow);
+
+                    // Update the selected elective course with the recommended elective course
+                    selectedElective.setCourseNumber(selectedRecommended.getCourseNumber());
+                    selectedElective.setDescTitle(selectedRecommended.getDescTitle());
+                    selectedElective.setUnits(selectedRecommended.getUnits());
+                    selectedElective.setGrades(0);
+
+                    JOptionPane.showMessageDialog(frame, "Course edited successfully.");
+                    try {
+                        saveFile();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    frame.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Please select a course from both tables.");
+                }
             }
-        }
+        });
 
-        // Asks user to choose a course to be edited
-        System.out.println("\nPick the corresponding number of the course to be edited");
-        //choice = numberReader("Enter the number: ");
-        // If entered number is not 1-4, error will prompt
-        /*while(choice < 1 || choice > 4){
-            System.out.println("\nEnter 1-4 only. Try again.");
-            choice = numberReader("Enter the number: ");
-        }
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+            }
+        });
 
-         */
+        // Set up the layout and add components
+        frame.setLayout(new BorderLayout());
+        frame.add(new JScrollPane(electivesTable), BorderLayout.NORTH);
+        frame.add(new JScrollPane(recommendedTable), BorderLayout.CENTER);
 
-        // Prints the elective Recommended Electives
-        System.out.printf("%n%-10s%-20s%-40s%s%n","","Course number","Descriptive Title","Units");
-        x=1;
-        for(Course course : listRecommended){
-            System.out.printf("%-10s",(x++)+":");
-            System.out.printf("%-20s", course.getCourseNumber());
-            System.out.printf("%-40s", course.getDescTitle());
-            System.out.printf("%s", course.getUnits());
-            System.out.println();
-        }
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(confirmButton);
+        buttonPanel.add(cancelButton);
+        frame.add(buttonPanel, BorderLayout.SOUTH);
 
-        // Asks user to choose a course to replace the chosen elective
-        System.out.println("\nPick the corresponding number of your chosen elective course");
-        //courseChoice = numberReader("Enter the number: ");
-        // If entered number is not 1-5, error will prompt
-        /*while(courseChoice < 1 || courseChoice > 5){
-            System.out.println("\nEnter 1-5 only. Try again.");
-            courseChoice = numberReader("Enter the number: ");
-        }
-
-         */
-
-        // Edits the chosen course based on the chosen elective course
-        /*switch(choice){
-            case 1:
-                switch (courseChoice) {
-                    case 1 -> {
-                        list.get(68).setCourseNumber(cn101.getCourseNumber());
-                        list.get(68).setDescTitle(cn101.getDescTitle());
-                        list.get(68).setUnits(cn101.getUnits());
-                        list.get(68).setGrades(0);
-                    }
-                    case 2 -> {
-                        list.get(68).setCourseNumber(gv101.getCourseNumber());
-                        list.get(68).setDescTitle(gv101.getDescTitle());
-                        list.get(68).setUnits(gv101.getUnits());
-                        list.get(68).setGrades(0);
-                    }
-                    case 3 -> {
-                        list.get(68).setCourseNumber(pd101.getCourseNumber());
-                        list.get(68).setDescTitle(pd101.getDescTitle());
-                        list.get(68).setUnits(pd101.getUnits());
-                        list.get(68).setGrades(0);
-                    }
-                    case 4 -> {
-                        list.get(68).setCourseNumber(is101.getCourseNumber());
-                        list.get(68).setDescTitle(is101.getDescTitle());
-                        list.get(68).setUnits(is101.getUnits());
-                        list.get(68).setGrades(0);
-                    }
-                    case 5 -> {
-                        list.get(68).setCourseNumber(sf101.getCourseNumber());
-                        list.get(68).setDescTitle(sf101.getDescTitle());
-                        list.get(68).setUnits(sf101.getUnits());
-                        list.get(68).setGrades(0);
-                    }
-                }
-                break;
-
-            case 2:
-                switch (courseChoice) {
-                    case 1 -> {
-                        list.get(69).setCourseNumber(cn101.getCourseNumber());
-                        list.get(69).setDescTitle(cn101.getDescTitle());
-                        list.get(69).setUnits(cn101.getUnits());
-                        list.get(69).setGrades(0);
-                    }
-                    case 2 -> {
-                        list.get(69).setCourseNumber(gv101.getCourseNumber());
-                        list.get(69).setDescTitle(gv101.getDescTitle());
-                        list.get(69).setUnits(gv101.getUnits());
-                        list.get(69).setGrades(0);
-                    }
-                    case 3 -> {
-                        list.get(69).setCourseNumber(pd101.getCourseNumber());
-                        list.get(69).setDescTitle(pd101.getDescTitle());
-                        list.get(69).setUnits(pd101.getUnits());
-                        list.get(69).setGrades(0);
-                    }
-                    case 4 -> {
-                        list.get(69).setCourseNumber(is101.getCourseNumber());
-                        list.get(69).setDescTitle(is101.getDescTitle());
-                        list.get(69).setUnits(is101.getUnits());
-                        list.get(69).setGrades(0);
-                    }
-                    case 5 -> {
-                        list.get(69).setCourseNumber(sf101.getCourseNumber());
-                        list.get(69).setDescTitle(sf101.getDescTitle());
-                        list.get(69).setUnits(sf101.getUnits());
-                        list.get(69).setGrades(0);
-                    }
-                }
-                break;
-
-            case 3:
-                switch (courseChoice) {
-                    case 1 -> {
-                        list.get(74).setCourseNumber(cn101.getCourseNumber());
-                        list.get(74).setDescTitle(cn101.getDescTitle());
-                        list.get(74).setUnits(cn101.getUnits());
-                        list.get(74).setGrades(0);
-                    }
-                    case 2 -> {
-                        list.get(74).setCourseNumber(gv101.getCourseNumber());
-                        list.get(74).setDescTitle(gv101.getDescTitle());
-                        list.get(74).setUnits(gv101.getUnits());
-                        list.get(74).setGrades(0);
-                    }
-                    case 3 -> {
-                        list.get(74).setCourseNumber(pd101.getCourseNumber());
-                        list.get(74).setDescTitle(pd101.getDescTitle());
-                        list.get(74).setUnits(pd101.getUnits());
-                        list.get(74).setGrades(0);
-                    }
-                    case 4 -> {
-                        list.get(74).setCourseNumber(is101.getCourseNumber());
-                        list.get(74).setDescTitle(is101.getDescTitle());
-                        list.get(74).setUnits(is101.getUnits());
-                        list.get(74).setGrades(0);
-                    }
-                    case 5 -> {
-                        list.get(74).setCourseNumber(sf101.getCourseNumber());
-                        list.get(74).setDescTitle(sf101.getDescTitle());
-                        list.get(74).setUnits(sf101.getUnits());
-                        list.get(74).setGrades(0);
-                    }
-                }
-                break;
-
-            case 4:
-                switch (courseChoice) {
-                    case 1 -> {
-                        list.get(75).setCourseNumber(cn101.getCourseNumber());
-                        list.get(75).setDescTitle(cn101.getDescTitle());
-                        list.get(75).setUnits(cn101.getUnits());
-                        list.get(75).setGrades(0);
-                    }
-                    case 2 -> {
-                        list.get(75).setCourseNumber(gv101.getCourseNumber());
-                        list.get(75).setDescTitle(gv101.getDescTitle());
-                        list.get(75).setUnits(gv101.getUnits());
-                        list.get(75).setGrades(0);
-                    }
-                    case 3 -> {
-                        list.get(75).setCourseNumber(pd101.getCourseNumber());
-                        list.get(75).setDescTitle(pd101.getDescTitle());
-                        list.get(75).setUnits(pd101.getUnits());
-                        list.get(75).setGrades(0);
-                    }
-                    case 4 -> {
-                        list.get(75).setCourseNumber(is101.getCourseNumber());
-                        list.get(75).setDescTitle(is101.getDescTitle());
-                        list.get(75).setUnits(is101.getUnits());
-                        list.get(75).setGrades(0);
-                    }
-                    case 5 -> {
-                        list.get(75).setCourseNumber(sf101.getCourseNumber());
-                        list.get(75).setDescTitle(sf101.getDescTitle());
-                        list.get(75).setUnits(sf101.getUnits());
-                        list.get(75).setGrades(0);
-                    }
-                }
-                break;
-        } //end of switch statement
-
-         */
-
-        System.out.println("Course edited successfully.");
+        frame.setVisible(true);
     } // end of editACourse method
 
     /**
@@ -892,7 +780,7 @@ public class CurriculumMonitoringApplication {
             int choice=0;
             String enter;
 
-            /*
+
             while(choice != 9){ //loops if user did not input 8
                 listOfChoices();
                 System.out.println("-----");
@@ -904,7 +792,7 @@ public class CurriculumMonitoringApplication {
                 enter = scanner.nextLine();
             }
 
-             */
+
         }
     } // end of showAverageGrade method
 
