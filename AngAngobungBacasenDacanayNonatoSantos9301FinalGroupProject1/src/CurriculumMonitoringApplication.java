@@ -119,24 +119,20 @@ public class CurriculumMonitoringApplication {
             program = new CurriculumMonitoringApplication();
             program.run();
         }catch (ArithmeticException exx){
-            System.out.println(exx.getMessage());
+            JOptionPane.showMessageDialog(null,exx.getMessage());
+        }catch (Exception e1){
+            JOptionPane.showMessageDialog(null,e1.getMessage());
         }
         System.exit(0);
     } // end of main method
 
     //TODO: Marius - Add run method description (javadoc comment) and algorithm (multi-line comment) after coding the GUI
-    public void run() throws IOException {
+    public void run() throws IOException, Exception {
         String name = null;
         name= showLoginDialog().toUpperCase();
         showIntroduction(name);
-        int choice=0;
         populateArrayList(list); //invokes populateArrayList method
-        //TODO: Lourdene remove this while loop for it is unneccessary
-
-            listOfChoices();
-            choice = numberReader("");
-
-
+        listOfChoices();
     } // end of run method
 
     /**
@@ -234,7 +230,7 @@ public class CurriculumMonitoringApplication {
      * Method to show the list of actions for the user to choose from.
      */
     //TODO: Lourdene & Marius - Add listOfChoices method code and algorithm
-    public void listOfChoices(){
+    public void listOfChoices() throws Exception{
         JFrame choiceFrame = new JFrame("BSCS Curriculum Monitoring Application");
 
         JLabel headerLabel = new JLabel("MAIN MENU", SwingConstants.CENTER);
@@ -351,6 +347,7 @@ public class CurriculumMonitoringApplication {
         choicePanel.add(quitPanel, BorderLayout.SOUTH);
 
         choiceFrame.getContentPane().add(choicePanel);
+        choiceFrame.setIconImage(icon.getImage());
         choiceFrame.pack();
         choiceFrame.setVisible(true);
         choiceFrame.setSize(630,500);
@@ -408,7 +405,7 @@ public class CurriculumMonitoringApplication {
      * Method to print the subjects for each term.
      */
     //TODO: Nash - Add showSubsForEachTerm method algorithm (multi-line comment) after coding the GUI
-    public static void showSubsForEachTerm(){
+    public void showSubsForEachTerm(){
         Scanner scan = new Scanner(System.in);
         String enter;
 
@@ -428,7 +425,7 @@ public class CurriculumMonitoringApplication {
         JTable table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
         frame.add(scrollPane, BorderLayout.CENTER);
-
+        frame.setIconImage(icon.getImage());
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
     } // end of showSubsForEachTerm method
@@ -437,7 +434,7 @@ public class CurriculumMonitoringApplication {
      * Method to print the subjects with grades for each term.
      */
     //TODO: Julienne - Add showSubsWithGradesForEachTerm method algorithm (multi-line comment) after coding the GUI
-    public static void showSubsWithGradesForEachTerm(){
+    public void showSubsWithGradesForEachTerm(){
         Scanner scan = new Scanner(System.in);
         String enter;
         JFrame frame = new JFrame("Courses with Grades");
@@ -464,7 +461,7 @@ public class CurriculumMonitoringApplication {
         JTable table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
         frame.add(scrollPane, BorderLayout.CENTER);
-
+        frame.setIconImage(icon.getImage());
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
     } // end of showSubsWithGradesForEachTerm method
@@ -475,7 +472,7 @@ public class CurriculumMonitoringApplication {
      * And, else it will print "Passed".
      */
     //TODO: Julienne - Add showSubsWithGradesAndRemarksForEachTerm method algorithm (multi-line comment) after coding the GUI
-    public static void showSubsWithGradesAndRemarksForEachTerm(){
+    public void showSubsWithGradesAndRemarksForEachTerm(){
         Scanner scan = new Scanner(System.in);
         String enter;
         JFrame frame = new JFrame("Courses with Grades");
@@ -503,7 +500,7 @@ public class CurriculumMonitoringApplication {
         JTable table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
         frame.add(scrollPane, BorderLayout.CENTER);
-
+        frame.setIconImage(icon.getImage());
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
     } // end of showSubsWithGradesAndRemarksForEachTerm method
@@ -617,7 +614,7 @@ public class CurriculumMonitoringApplication {
                 }
             }
         });
-
+        frame.setIconImage(icon.getImage());
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
     }//end of enterGrades method
@@ -872,7 +869,11 @@ public class CurriculumMonitoringApplication {
             String enter;
 
             while(choice != 9){ //loops if user did not input 8
-                listOfChoices();
+                try {
+                    listOfChoices();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
                 System.out.println("-----");
                 choice = numberReader("Enter your choice: ");
                 runChoices(choice);
@@ -967,7 +968,7 @@ public class CurriculumMonitoringApplication {
                 }
             }
         });
-
+        frame.setIconImage(icon.getImage());
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
     }
@@ -1391,7 +1392,7 @@ public class CurriculumMonitoringApplication {
                 }
             }
         });
-
+        frame.setIconImage(icon.getImage());
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
     } //end of enterGrades method
