@@ -252,70 +252,70 @@ public class CurriculumMonitoringApplication {
         headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JButton showCourseEachTermButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "Show course for each school term");
+                "1. Show course for each school term");
         buttonDesign(showCourseEachTermButton);
         showCourseEachTermButton.addActionListener(e -> {
             showSubsForEachTerm();
         });
 
         JButton showCourseWithGradesButton= new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "Show course with grades for each term"); //TODO: remove after since we have Show course with grades and remarks for each term
+                "2. Show course with grades for each term"); //TODO: remove after since we have Show course with grades and remarks for each term
         buttonDesign(showCourseWithGradesButton);
         showCourseWithGradesButton.addActionListener(e -> {
            showSubsWithGradesForEachTerm();
         });
 
         JButton showCourseAndRemarksButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "Show course with grades and remarks for each term");
+                "3. Show course with grades and remarks for each term");
         buttonDesign(showCourseAndRemarksButton);
         showCourseAndRemarksButton.addActionListener(e -> {
             showSubsWithGradesAndRemarksForEachTerm();
         });
 
         JButton enterGradeButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "Enter grade for course recently finished");
+                "4. Enter grade for course recently finished");
         buttonDesign(enterGradeButton);
         enterGradeButton.addActionListener(e -> {
             enterGrades();
         });
 
         JButton addFinishedCourseButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "Add a finished course from another program"); //TODO: remove after
+                "5. Add a finished course from another program"); //TODO: remove after
         buttonDesign(addFinishedCourseButton);
         addFinishedCourseButton.addActionListener(e -> {
             addCourse();
         });
 
         JButton addCreditedCourseButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "Add a BSCS-credited course finished through another program");
+                "6. Add a BSCS-credited course finished through another program");
         buttonDesign(addCreditedCourseButton);
         addCreditedCourseButton.addActionListener(e -> {
 
         });
 
         JButton editElectiveCourseButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "Edit an elective course");
+                "7. Edit an elective course");
         buttonDesign(editElectiveCourseButton);
         editElectiveCourseButton.addActionListener(e -> {
             //TODO:
         });
 
         JButton button8 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "Show student's average grade for all finished courses");
+                "8. Show student's average grade for all finished courses");
         buttonDesign(button8);
         button8.addActionListener(e -> {
             //TODO:
         });
 
         JButton button9 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "Show student's sorted grades");
+                "9. Show student's sorted grades");
         buttonDesign(button9);
         button9.addActionListener(e -> {
             //TODO:
         });
 
         JButton button10 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "Show student's failed courses only");
+                "10. Show student's failed courses only");
         buttonDesign(button10);
         button10.addActionListener(e -> {
             //TODO:
