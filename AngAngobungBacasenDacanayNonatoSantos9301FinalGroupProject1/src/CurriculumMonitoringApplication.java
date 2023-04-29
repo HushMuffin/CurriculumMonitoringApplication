@@ -415,7 +415,12 @@ public class CurriculumMonitoringApplication {
         String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
-        list.stream().map(course -> new Object[]{course.getYear(), course.getTerm(), course.getCourseNumber(), course.getDescTitle(), course.getUnits()}).forEach(tableModel::addRow);
+        list.stream().map(course ->
+                new Object[]{course.getYear(),
+                        "3".equals(course.getTerm()) ? "Short term" : course.getTerm(),
+                        course.getCourseNumber(),
+                        course.getDescTitle(),
+                        course.getUnits()}).forEach(tableModel::addRow);
 
         JTable table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
@@ -444,7 +449,7 @@ public class CurriculumMonitoringApplication {
         for (Course course : list) {
             Object[] rowData = {
                     course.getYear(),
-                    course.getTerm(),
+                    "3".equals(course.getTerm()) ? "Short term" : course.getTerm(),
                     course.getCourseNumber(),
                     course.getDescTitle(),
                     course.getUnits(),
@@ -483,7 +488,7 @@ public class CurriculumMonitoringApplication {
         for (Course course : list) {
             Object[] rowData = {
                     course.getYear(),
-                    course.getTerm(),
+                    "3".equals(course.getTerm()) ? "Short term" : course.getTerm(),
                     course.getCourseNumber(),
                     course.getDescTitle(),
                     course.getUnits(),
@@ -880,7 +885,6 @@ public class CurriculumMonitoringApplication {
                 unfinSubs.add(course);
             }
         }
-
         String[] columnNames = {"#", "Course number", "Descriptive Title"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
@@ -892,7 +896,6 @@ public class CurriculumMonitoringApplication {
             };
             tableModel.addRow(rowData);
         }
-
         JTable table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
         frame.add(scrollPane, BorderLayout.CENTER);
