@@ -130,7 +130,12 @@ public class CurriculumMonitoringApplication {
 
     //TODO: Marius - Add run method description (javadoc comment) and algorithm (multi-line comment) after coding the GUI
     public void run() throws IOException {
-        showIntroduction();
+        String name = null;
+        while (name == null){
+            name = showLoginDialog();
+        }
+        name = name.toUpperCase();
+        showIntroduction(name);
         Scanner scan = new Scanner(System.in);
         int choice=0;
         String enter;
@@ -159,7 +164,7 @@ public class CurriculumMonitoringApplication {
        1. Display an introduction statement of the program in a new window.
        2. Dispose the dialog box once the "Next" button is clicked or when closed by the user
      */
-    private void showIntroduction() {
+    private void showIntroduction(String name) {
         JDialog introDialog = new JDialog();
         introDialog.setTitle("BSCS Curriculum Monitoring Application");
         introDialog.setModal(true);
@@ -171,7 +176,7 @@ public class CurriculumMonitoringApplication {
         headerLabel.setForeground(pink);
         headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel greetLabel = new JLabel("<html>WELCOME STUDENT!</html>", SwingConstants.CENTER);
+        JLabel greetLabel = new JLabel("WELCOME " +name +"!", SwingConstants.CENTER);
         greetLabel.setFont(new Font("Helvetica", Font.BOLD, 22));
         greetLabel.setForeground(darkPurple);
         greetLabel.setBorder(BorderFactory.createEmptyBorder(5, 20, 30, 20));
@@ -254,70 +259,70 @@ public class CurriculumMonitoringApplication {
         headerLabel.setForeground(pink);
         headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JButton button1 = new JButton("<html><div style='text-align: center; padding: 10px;'>" +
+        JButton button1 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "Show course for each school term");
         buttonDesign(button1);
         button1.addActionListener(e -> {
-            //TODO:
+            showSubsForEachTerm();
         });
 
         JButton button2= new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "Show course with grades for each term"); //TODO: remove after since we have Show course with grades and remarks for each term
         buttonDesign(button2);
         button2.addActionListener(e -> {
-            //TODO:
+           showSubsWithGradesForEachTerm();
         });
 
-        JButton button3 = new JButton("<html><div style='text-align: center; padding: 10px;'>" +
+        JButton button3 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "Show course with grades and remarks for each term");
         buttonDesign(button3);
         button3.addActionListener(e -> {
-            //TODO:
+            showSubsWithGradesAndRemarksForEachTerm();
         });
 
-        JButton button4 = new JButton("<html><div style='text-align: center; padding: 10px;'>" +
+        JButton button4 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "Enter grade for course recently finished");
         buttonDesign(button4);
         button4.addActionListener(e -> {
-            //TODO:
+            enterGrades();
         });
 
-        JButton button5 = new JButton("<html><div style='text-align: center; padding: 10px;'>" +
+        JButton button5 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "Add a finished course from another program"); //TODO: remove after
         buttonDesign(button5);
         button5.addActionListener(e -> {
-            //TODO:
+            editACourse();
         });
 
-        JButton button6 = new JButton("<html><div style='text-align: center; padding: 10px;'>" +
+        JButton button6 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "Add a BSCS-credited course finished through another program");
         buttonDesign(button6);
         button6.addActionListener(e -> {
-            //TODO:
+
         });
 
-        JButton button7 = new JButton("<html><div style='text-align: center; padding: 10px;'>" +
+        JButton button7 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "Edit an elective course");
         buttonDesign(button7);
         button7.addActionListener(e -> {
             //TODO:
         });
 
-        JButton button8 = new JButton("<html><div style='text-align: center; padding: 10px;'>" +
+        JButton button8 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "Show student's average grade for all finished courses");
         buttonDesign(button8);
         button8.addActionListener(e -> {
             //TODO:
         });
 
-        JButton button9 = new JButton("<html><div style='text-align: center; padding: 10px;'>" +
+        JButton button9 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "Show student's sorted grades");
         buttonDesign(button9);
         button9.addActionListener(e -> {
             //TODO:
         });
 
-        JButton button10 = new JButton("<html><div style='text-align: center; padding: 10px;'>" +
+        JButton button10 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "Show student's failed courses only");
         buttonDesign(button10);
         button10.addActionListener(e -> {
@@ -325,15 +330,15 @@ public class CurriculumMonitoringApplication {
         });
 
 
-        JButton button11 = new JButton("QUIT");
+        JButton button11 = new RoundButton("QUIT");
         buttonDesign(button11);
         button11.addActionListener(e -> {
-            //TODO:
+            choiceFrame.dispose();
         });
 
         JPanel buttonsPanel = new JPanel(new GridLayout(5, 2, 10,10));
         buttonsPanel.setBackground(lightBlue);
-        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(30,20,30,20));
+        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(20,15,20,15));
         buttonsPanel.add(button1);
         buttonsPanel.add(button2);
         buttonsPanel.add(button3);
@@ -1115,7 +1120,7 @@ public class CurriculumMonitoringApplication {
         protected void paintBorder(Graphics g) {
             // Paints the button border
             g.setColor(getForeground());
-            g.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 2, CORNER_RADIUS, CORNER_RADIUS);
+            g.drawRoundRect(0, 0, getWidth() - 1, getHeight() -1, CORNER_RADIUS, CORNER_RADIUS);
         } // end of paintBorder
 
         /**
@@ -1130,5 +1135,41 @@ public class CurriculumMonitoringApplication {
         } // end of getPreferredSize
 
     } // end of RoundRectangleButton class
+    private String showLoginDialog() {
+        JPanel loginPanel = new JPanel(new GridLayout(3, 2));
 
+        JLabel usernameLabel = new JLabel("Username:");
+        JTextField usernameField = new JTextField();
+        JLabel passwordLabel = new JLabel("Password:");
+        JPasswordField passwordField = new JPasswordField();
+        passwordField.setEchoChar('*');
+
+        loginPanel.add(usernameLabel);
+        loginPanel.add(usernameField);
+        loginPanel.add(passwordLabel);
+        loginPanel.add(passwordField);
+
+        String username = null;
+        boolean validInput = false;
+
+        while (!validInput) {
+            int result = JOptionPane.showConfirmDialog(null, loginPanel, "Login", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+            if (result == JOptionPane.OK_OPTION) {
+                username = usernameField.getText();
+                String password = new String(passwordField.getPassword());
+
+                if (username.isEmpty() || password.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter both username and password.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    validInput = true;
+                    // Perform your authentication or other operations with the entered username and password.
+                }
+            } else {
+                validInput = true;
+            }
+        }
+
+        return username;
+    }
 } // end of CurriculumMonitoringApplication class
