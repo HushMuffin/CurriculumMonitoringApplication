@@ -46,6 +46,7 @@
 import prog2.midgroup06.RoundRectangleButton;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -142,7 +143,7 @@ public class CurriculumMonitoringApplication {
 
         populateArrayList(list); //invokes populateArrayList method
         System.out.println("\n---Curriculum Monitoring Application---");
-
+        //TODO: remove this while loop for it is unneccessary
         while(choice != 9){ //loops if user did not input 8
             listOfChoices();
             System.out.println("-----");
@@ -427,23 +428,20 @@ public class CurriculumMonitoringApplication {
         Scanner scan = new Scanner(System.in);
         String enter;
 
-        System.out.printf("%-10s%-10s%-20s%-85s%s%n","Year","Term","Course number","Descriptive Title","Units");
-        //prints the list of courses
-        for(int i=0; i<list.size(); i++){
-            //asks user to press enter if it reaches the line for new term
-            if(i == 10 || i == 20|| i == 22|| i == 32|| i == 42|| i == 46|| i == 55|| i == 63|| i == 64|| i == 70){
-                System.out.print("Press enter to see term "+list.get(i).getTerm()+" for year "+list.get(i).getYear());
-                enter = scan.nextLine();
-                System.out.println();
-                System.out.printf("%-10s%-10s%-20s%-85s%s%n","Year","Term","Course number","Descriptive Title","Units");
-            }
-            System.out.printf("%-10s",list.get(i).getYear());
-            System.out.printf("%-10s",list.get(i).getTerm());
-            System.out.printf("%-20s",list.get(i).getCourseNumber());
-            System.out.printf("%-85s",list.get(i).getDescTitle());
-            System.out.printf("%s",list.get(i).getUnits());
-            System.out.println();
-        }
+        JFrame frame = new JFrame("Courses");
+        frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
+        frame.setSize(1000, 600);
+        String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+
+        list.stream().map(course -> new Object[]{course.getYear(), course.getTerm(), course.getCourseNumber(), course.getDescTitle(), course.getUnits()}).forEach(tableModel::addRow);
+
+        JTable table = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(table);
+        frame.add(scrollPane, BorderLayout.CENTER);
+
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
     } // end of showSubsForEachTerm method
 
     /**
@@ -491,43 +489,34 @@ public class CurriculumMonitoringApplication {
     public static void showSubsWithGradesAndRemarksForEachTerm(){
         Scanner scan = new Scanner(System.in);
         String enter;
+        JFrame frame = new JFrame("Courses with Grades");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(1100, 600);
 
         System.out.printf("%-10s%-10s%-20s%-85s%-15s%-15s%s%n","Year","Term","Course number",
                 "Descriptive Title","Units","Grades","Remarks");
         // Prints the list of courses
-        for(int i=0; i<list.size(); i++){
-            // Asks user to press enter if it reaches the line for new term
-            if(i == 10 || i == 20|| i == 22|| i == 32|| i == 42|| i == 46|| i == 55|| i == 63|| i == 64|| i == 70){
-                System.out.print("Press enter to see term "+list.get(i).getTerm()+" for year "+list.get(i).getYear());
-                enter = scan.nextLine();
-                System.out.println();
-                System.out.printf("%-10s%-10s%-20s%-85s%-15s%-15s%s%n","Year","Term","Course number",
-                        "Descriptive Title","Units","Grades","Remarks");
-            }
-            System.out.printf("%-10s",list.get(i).getYear());
-            System.out.printf("%-10s",list.get(i).getTerm());
-            System.out.printf("%-20s",list.get(i).getCourseNumber());
-            System.out.printf("%-85s",list.get(i).getDescTitle());
-            System.out.printf("%-15s",list.get(i).getUnits());
+        String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units", "Grades"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
-            //if grade is 0, mark as not graded yet
-            if(list.get(i).getGrades() == 0){
-                System.out.printf("%-15s","Not yet graded");
-            }else{
-                System.out.printf("%-15d",list.get(i).getGrades());
-            }
-
-            //if grade is less than 75, mark as failed
-            if(list.get(i).getGrades() != 0 && list.get(i).getGrades()<75){
-                System.out.printf("%s","Failed");
-            }else if (list.get(i).getGrades()==0){
-                System.out.printf("%s","N/A");
-            } else {
-                System.out.printf("%s","Passed");
-            }
-
-            System.out.println();
+        for (Course course : list) {
+            Object[] rowData = {
+                    course.getYear(),
+                    course.getTerm(),
+                    course.getCourseNumber(),
+                    course.getDescTitle(),
+                    course.getUnits(),
+                    course.getGrades() == 0 ? "Not yet graded" : course.getGrades()
+            };
+            tableModel.addRow(rowData);
         }
+
+        JTable table = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(table);
+        frame.add(scrollPane, BorderLayout.CENTER);
+
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
     } // end of showSubsWithGradesAndRemarksForEachTerm method
 
     /**
