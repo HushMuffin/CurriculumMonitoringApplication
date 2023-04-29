@@ -126,26 +126,16 @@ public class CurriculumMonitoringApplication {
     //TODO: Marius - Add run method description (javadoc comment) and algorithm (multi-line comment) after coding the GUI
     public void run() throws IOException {
         String name = null;
-
         name= showLoginDialog().toUpperCase();
         showIntroduction(name);
-        Scanner scan = new Scanner(System.in);
         int choice=0;
-        String enter;
-
         populateArrayList(list); //invokes populateArrayList method
-        System.out.println("\n---Curriculum Monitoring Application---");
-        //TODO: remove this while loop for it is unneccessary
-        while(choice != 9){ //loops if user did not input 8
-            listOfChoices();
-            System.out.println("-----");
-            choice = numberReader("Enter your choice: ");
-            runChoices(choice);
+        //TODO: Lourdene remove this while loop for it is unneccessary
 
-            System.out.println();
-            System.out.print("Press enter key to go back.");
-            enter = scan.nextLine();
-        }
+            listOfChoices();
+            choice = numberReader("");
+
+
     } // end of run method
 
     /**
@@ -157,7 +147,7 @@ public class CurriculumMonitoringApplication {
        1. Display an introduction statement of the program in a new window.
        2. Dispose the dialog box once the "Next" button is clicked or when closed by the user
      */
-    private void showIntroduction(String name) {
+    public void showIntroduction(String name) {
         JDialog introDialog = new JDialog();
         introDialog.setTitle("BSCS Curriculum Monitoring Application");
         introDialog.setModal(true);
@@ -358,17 +348,12 @@ public class CurriculumMonitoringApplication {
         choicePanel.add(quitPanel, BorderLayout.SOUTH);
 
         choiceFrame.getContentPane().add(choicePanel);
+        choiceFrame.pack();
+        choiceFrame.setVisible(true);
         choiceFrame.setSize(630,500);
         choiceFrame.setLocationRelativeTo(null);
-        choiceFrame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                choiceFrame.dispose();
-                System.exit(0);
-            }
-        });
         choiceFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        choiceFrame.setVisible(true);
+
     } // end of listOfChoices method
 
     /**
@@ -447,33 +432,33 @@ public class CurriculumMonitoringApplication {
     public static void showSubsWithGradesForEachTerm(){
         Scanner scan = new Scanner(System.in);
         String enter;
+        JFrame frame = new JFrame("Courses with Grades");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(1100, 600);
 
-        System.out.printf("%-10s%-10s%-20s%-85s%-15s%s%n","Year","Term","Course number",
-                "Descriptive Title","Units","Grades");
+
         // Prints the list of courses
-        for(int i=0; i<list.size(); i++){
-            // Asks user to press enter if it reaches the line for new term
-            if(i == 10 || i == 20|| i == 22|| i == 32|| i == 42|| i == 46|| i == 55|| i == 63|| i == 64|| i == 70){
-                System.out.print("Press enter to see term "+list.get(i).getTerm()+" for year "+list.get(i).getYear());
-                enter = scan.nextLine();
-                System.out.println();
-                System.out.printf("%-10s%-10s%-20s%-85s%-15s%s%n","Year","Term","Course number",
-                        "Descriptive Title","Units","Grades");
-            }
-            System.out.printf("%-10s",list.get(i).getYear());
-            System.out.printf("%-10s",list.get(i).getTerm());
-            System.out.printf("%-20s",list.get(i).getCourseNumber());
-            System.out.printf("%-85s",list.get(i).getDescTitle());
-            System.out.printf("%-15s",list.get(i).getUnits());
+        String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units", "Grades"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
-            //if grade is 0, mark as not graded yet
-            if(list.get(i).getGrades() == 0){
-                System.out.printf("%s","Not yet graded");
-            }else{
-                System.out.printf("%d",list.get(i).getGrades());
-            }
-            System.out.println();
+        for (Course course : list) {
+            Object[] rowData = {
+                    course.getYear(),
+                    course.getTerm(),
+                    course.getCourseNumber(),
+                    course.getDescTitle(),
+                    course.getUnits(),
+                    course.getGrades() == 0 ? "Not yet graded" : course.getGrades()
+            };
+            tableModel.addRow(rowData);
         }
+
+        JTable table = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(table);
+        frame.add(scrollPane, BorderLayout.CENTER);
+
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
     } // end of showSubsWithGradesForEachTerm method
 
     /**
@@ -1162,7 +1147,6 @@ public class CurriculumMonitoringApplication {
     } // end of RoundRectangleButton class
     private String showLoginDialog() {
         JPanel loginPanel = new JPanel(new GridLayout(3, 2));
-
         JLabel usernameLabel = new JLabel("Username:");
         JTextField usernameField = new JTextField();
         JLabel passwordLabel = new JLabel("Password:");
