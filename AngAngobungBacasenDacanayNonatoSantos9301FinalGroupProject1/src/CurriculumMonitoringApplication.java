@@ -601,7 +601,7 @@ public class CurriculumMonitoringApplication {
         String[] columnNames = {"#", "Course number", "Descriptive Title"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         HashMap<Integer, Integer> originalIndices = new HashMap<>();
-        updateTableModel(unfinSubs, unfinSubs, tableModel, originalIndices);
+        updateCourseTableModel(unfinSubs, unfinSubs, tableModel, originalIndices);
 
         JTable table = new JTable(tableModel);
         table.setFont(new Font("Helvetica", Font.BOLD, 10));
@@ -642,7 +642,7 @@ public class CurriculumMonitoringApplication {
                         filteredList.add(course);
                     }
                 }
-                updateTableModel(unfinSubs, filteredList, tableModel, originalIndices);
+                updateCourseTableModel(unfinSubs, filteredList, tableModel, originalIndices);
             }
         });
 
@@ -705,7 +705,7 @@ public class CurriculumMonitoringApplication {
         frame.setLocationRelativeTo(null);
     }
 
-    private void updateTableModel(ArrayList<Course> unfinSubs, ArrayList<Course> courses, DefaultTableModel tableModel, HashMap<Integer, Integer> originalIndices) {
+    private void updateCourseTableModel(ArrayList<Course> unfinSubs, ArrayList<Course> courses, DefaultTableModel tableModel, HashMap<Integer, Integer> originalIndices) {
         tableModel.setRowCount(0);
         int index = 0;
         for (Course course : courses) {
