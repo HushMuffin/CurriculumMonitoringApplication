@@ -44,6 +44,8 @@
  *  @author Santos, Lourdene Eira
  */
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
@@ -552,32 +554,58 @@ public class CurriculumMonitoringApplication {
         frame.setSize(800, 600);
 
         ArrayList<Course> unfinSubs = new ArrayList<>();
-        ArrayList<Integer> limit= new ArrayList<>();
-        int index = 0;
         for (Course course : list) {
-            if (course.getGrades() == 0 || course.getGrades() >74) {
+            if (course.getGrades() == 0 || course.getGrades() > 74) {
                 unfinSubs.add(course);
             }
         }
 
         String[] columnNames = {"#", "Course number", "Descriptive Title"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
-
-
-        for (Course course : unfinSubs) {
-            Object[] rowData = {
-                    ++index,
-                    course.getCourseNumber(),
-                    course.getDescTitle()
-            };
-            tableModel.addRow(rowData);
-        }
+        updateTableModel(unfinSubs, tableModel);
 
         JTable table = new JTable(tableModel);
         table.setFont(new Font("Helvetica", Font.BOLD, 10));
         JScrollPane scrollPane = new JScrollPane(table);
 
         frame.add(scrollPane, BorderLayout.CENTER);
+
+        // Search functionality
+        JPanel searchPanel = new JPanel();
+        JLabel searchLabel = new JLabel("Search: ");
+        JTextField searchBar = new JTextField(15);
+        searchPanel.add(searchLabel);
+        searchPanel.add(searchBar);
+        frame.add(searchPanel, BorderLayout.NORTH);
+
+        searchBar.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            private void filterTable() {
+                String searchText = searchBar.getText().toLowerCase();
+                ArrayList<Course> filteredList = new ArrayList<>();
+                for (Course course : unfinSubs) {
+                    if (course.getCourseNumber().toLowerCase().contains(searchText) ||
+                            course.getDescTitle().toLowerCase().contains(searchText)) {
+                        filteredList.add(course);
+                    }
+                }
+                updateTableModel(filteredList, tableModel);
+            }
+        });
 
         JPanel inputPanel = new JPanel();
         JLabel gradeLabel = new JLabel("Enter the grade: ");
@@ -633,7 +661,19 @@ public class CurriculumMonitoringApplication {
         frame.setIconImage(icon.getImage());
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
-    }//end of enterGrades method
+    }
+    private void updateTableModel(ArrayList<Course> courses, DefaultTableModel tableModel) {
+        tableModel.setRowCount(0);
+        int index = 0;
+        for (Course course : courses) {
+            Object[] rowData = {
+                    ++index,
+                    course.getCourseNumber(),
+                    course.getDescTitle()
+            };
+            tableModel.addRow(rowData);
+        }
+    }
 
     /**
      * Method to allow the user to choose an elective course for them to edit.
