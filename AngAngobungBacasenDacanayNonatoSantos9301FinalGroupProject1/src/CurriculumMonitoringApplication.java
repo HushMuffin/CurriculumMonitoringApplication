@@ -832,12 +832,12 @@ public class CurriculumMonitoringApplication {
      */
 
     /**
-     * Calculates the average grade of the student and provides the user with an option to edit grades.
-     * If the user chooses to edit grades, it will invoke the method to enter grades.
-     * If the user chooses not to edit grades, it will invoke the method to go back to the main menu.
-     * Shows a warning pop-up window if there are no grades available to calculate the average grade.
-     * Shows a warning pop-up window to confirm the user's choice to edit grades.
-     * Shows a warning pop-up window to confirm the user's choice to go back to the main menu.
+     1) Calculates the average grade of the student and provides the user with an option to edit grades.
+     2) If the user chooses to edit grades, it will invoke the method to enter grades.
+     3) If the user chooses not to edit grades, it will invoke the method to go back to the main menu.
+     4) Shows a warning pop-up window if there are no grades available to calculate the average grade.
+     5) Shows a warning pop-up window to confirm the user's choice to edit grades.
+     6) Shows a warning pop-up window to confirm the user's choice to go back to the main menu.
      *
      * @throws IOException if an I/O error occurs.
      */
@@ -861,7 +861,6 @@ public class CurriculumMonitoringApplication {
             JOptionPane.showMessageDialog(null, "Student's Average Grade: " + average, "Average Grade", JOptionPane.WARNING_MESSAGE);
         }
 
-        //TODO: Show this as a warning pop-up window (will let user choose to edit grades button or go back to main menu button)
         // Provides the user an option to edit grades
         System.out.print("Would you like to edit grades? (Y/N): ");
         Scanner scanner = new Scanner(System.in);
@@ -871,26 +870,29 @@ public class CurriculumMonitoringApplication {
             // Call a method to edit grades
             enterGrades();
         } else {
-            //TODO: Show this as a warning pop-up window (will let user choose to edit grades button or go back to main menu button)
+            // If user chooses not to edit grades, provide option to go back to main menu
+
+
             // Invoke the method to go back to the main menu
             int choice=0;
             String enter;
 
-
-            while(choice != 9){ //loops if user did not input 8
+            // Loops until the user inputs 9 to go back to the main menu
+            while(choice != 9){
+                // Show the list of choices
                 listOfChoices();
                 System.out.println("-----");
                 choice = numberReader("Enter your choice: ");
                 runChoices(choice);
 
+                // Wait for user to press enter before continuing
                 System.out.println();
                 System.out.print("Press enter key to go back.");
                 enter = scanner.nextLine();
             }
-
-
         }
-    } // end of showAverageGrade method
+    }
+
 
     //TODO: NASH add Javadoc and Algorithm multiline comments
     public void addCreditedCourse(){
@@ -984,7 +986,18 @@ public class CurriculumMonitoringApplication {
      * Method to create a new ArrayList with same elements of the list
      * then sorts and prints the sorted array list.
      */
-    //TODO: Charles - Add showSortedGrades method algorithm (multi-line comment) after coding the GUI
+
+    /**
+     * The showSortedGrades method displays the list of courses in the list variable in a sorted order based on the course number. The method does the following steps:
+     *
+     1) Create a new ArrayList called sortList and copy the contents of list into it.
+     2) Sort sortList based on the course number using the Collections.sort() method.
+     3) Print the table headers for year, term, course number, descriptive title, units, and grades.
+     4) Iterate over the sorted sortList and print out the course information in a formatted table.
+     5) For each course, print the year, term, course number, descriptive title, units, and grades. If the course has no grade, print "Not yet graded" instead of the grade.
+     6) End of the showSortedGrades method.
+     *
+     */
     public void showSortedGrades() {
         ArrayList<Course> sortList = new ArrayList<>(list);
         Collections.sort(sortList);
