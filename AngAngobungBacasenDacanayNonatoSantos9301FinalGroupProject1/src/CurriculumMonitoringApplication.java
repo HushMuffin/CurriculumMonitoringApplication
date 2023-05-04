@@ -23,10 +23,10 @@
  * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
  * Inputs:
- * //TODO: Lourdene - Add the inputs needed for the program
+ * //TODO: Charles - Add the inputs needed for the program
  * <p>
  * Outputs:
- * //TODO: Lourdene - Add the outputs needed for the program
+ * //TODO: Charles - Add the outputs needed for the program
  * <p>
  * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
@@ -46,24 +46,18 @@
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /* Improvements:
-//TODO: Lourdene - add showExit method
-//TODO: Marius & Nash & Lourdene - Improve display of application program using simple GUI
-//TODO: Marius & Lourdene - Student Shifter Feature (where the student may be a
-        shifter from another program. The course finished by the student through another
-        program and is credited to his/her BSCS program should be made part of the record
-        and the equivalent course should be easily traced)
- */
-/* Errors:
-//TODO: Julienne - Add Empty (“”) Entered Input (where the user only pressed enter in the input
-        statement; display a warning message and show again the input statement where the user
-        input will be entered again or given a chance to input again.
+//TODO: Nash - Remove the option 1 and 2 as option 3 contains this feature
+             - Add instructions/guide label within a panel to guide the user
  */
 
 /**
@@ -72,7 +66,7 @@ import java.util.*;
  * in monitoring of the student's progress with respect to the curriculum that they are pursuing.
  */
 /*
-    Algorithm:
+    Algorithm: //TODO: Katelyn - update algorithm
     1. Reads the contents of the csv file and populates the ArrayList with instances of Course
     2. Prints an action list for user to choose
     3. Runs the chosen action
@@ -96,9 +90,9 @@ public class CurriculumMonitoringApplication {
      */
     static BufferedReader inputStream;
 
-    //TODO: Lourdene - put a appropriate-sized image icon on a new folder and add description
-    ImageIcon icon = new ImageIcon("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/res/icon.png");
-
+    //TODO: Lourdene - add image icon description
+    ImageIcon icon = new ImageIcon("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/" +
+            "res/icon1.png");
     /**
      * Declare "list" as a static instance of the ArrayList class,
      * used to store a collection of objects of Course.
@@ -146,15 +140,81 @@ public class CurriculumMonitoringApplication {
         String name = null;
         name= showLoginDialog().toUpperCase();
         showIntroduction(name);
-        int choice=0;
         populateArrayList(list); //invokes populateArrayList method
         listOfChoices();
-        choice = numberReader("");
     } // end of run method
 
+    //TODO: Julienne - add updated method code, description, and algorithm
+    private String showLoginDialog() {
+        JPanel loginPanel = new JPanel(new GridLayout(3, 2));
+        JLabel usernameLabel = new JLabel("Username:");
+        JTextField usernameField = new JTextField();
+        JLabel passwordLabel = new JLabel("Password:");
+        JPasswordField passwordField = new JPasswordField();
+        passwordField.setEchoChar('*');
+
+        loginPanel.add(usernameLabel);
+        loginPanel.add(usernameField);
+        loginPanel.add(passwordLabel);
+        loginPanel.add(passwordField);
+
+        String username = null;
+        boolean validInput = false;
+
+        while (!validInput) {
+            int result = JOptionPane.showConfirmDialog(null, loginPanel, "Login", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            if(result == JOptionPane.CANCEL_OPTION){
+                System.exit(0);
+            }
+            if (result == JOptionPane.OK_OPTION) {
+                username = usernameField.getText();
+                String password = new String(passwordField.getPassword());
+
+                if (username.isEmpty() || password.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter both username and password.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    validInput = true;
+                    // Perform your authentication or other operations with the entered username and password.
+                }
+            }
+        }
+
+        return username;
+    } // end of showLoginDialog method
+
     /**
-     * Method to print an introduction statement that displays information about the time,
-     * purpose of the program, guidelines for the user, and programmer name.
+     * Method to display the program closing statement.
+     */
+    /*
+       Algorithm:
+       1. Display the program closing statement in a new pane.
+       2. Dispose the dialog box when closed by the user
+       3. Terminate the program.
+     */
+    private void showExit() {
+        JDialog exitDialog = new JDialog();
+        exitDialog.setTitle("BSCS Monitoring Application");
+        exitDialog.setModal(true);
+
+        JLabel exitL = new JLabel("Thank you for using the program!", SwingConstants.CENTER);
+        exitL.setFont(new Font("Helvetica", Font.BOLD, 20));
+        exitL.setForeground(pink);
+
+        JPanel exitPanel = new JPanel(new BorderLayout()); // use BorderLayout for exitPanel
+        exitPanel.setBackground(navy);
+        exitPanel.add(exitL, BorderLayout.CENTER); // add exitL to the center of exitPanel
+
+        exitDialog.getContentPane().add(exitPanel); // add exitPanel to the content pane of exitDialog
+        exitDialog.setIconImage(icon.getImage());
+        exitDialog.setSize(400, 120);
+        exitDialog.setLocationRelativeTo(null);
+        exitDialog.setVisible(true);
+        exitDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    } // end of showExit method
+
+    /**
+     * Method to display an introduction window that shows
+     * information about the purpose of the program.
      */
     /*
        Algorithm:
@@ -173,19 +233,19 @@ public class CurriculumMonitoringApplication {
         headerLabel.setForeground(pink);
         headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel greetLabel = new JLabel("WELCOME " +name +"!", SwingConstants.CENTER);
-        greetLabel.setFont(new Font("Helvetica", Font.BOLD, 22));
+        JLabel greetLabel = new JLabel("WELCOME " + name + "!", SwingConstants.CENTER);
+        greetLabel.setFont(new Font("Helvetica", Font.BOLD, 30));
         greetLabel.setForeground(darkPurple);
-        greetLabel.setBorder(BorderFactory.createEmptyBorder(5, 20, 30, 20));
+        greetLabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 20));
 
         JLabel descriptionLabel = new JLabel("<html><div style='text-align: justify;'>" +
-                "This an application may be used by a BSCS student of Saint Louis University in monitoring his/her\n" +
-                "progress with respect to the curriculum that he/she is pursuing. " +
-                "Choose the option of your liking</html>",
+                "This application is designed to assist a Bachelor of Science of Computer Science " +
+                "(BSCS) students at Saint Louis University in monitoring their progress towards " +
+                "completing their curriculum. Please proceed to the next window for the Main Menu.</html>",
                 SwingConstants.CENTER);
         descriptionLabel.setFont(new Font("Helvetica", Font.BOLD, 18));
         descriptionLabel.setForeground(Color.darkGray);
-        descriptionLabel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        descriptionLabel.setBorder(BorderFactory.createEmptyBorder(8, 20, 20, 20));
 
         nextButton = new RoundButton("NEXT");
         buttonDesign(nextButton);
@@ -197,19 +257,18 @@ public class CurriculumMonitoringApplication {
 
         JPanel descriptionPanel = new JPanel(new BorderLayout());
         descriptionPanel.setBackground(lightBlue);
-        descriptionPanel.add(greetLabel, BorderLayout.NORTH);
+        descriptionPanel.add(greetLabel);
         descriptionPanel.add(descriptionLabel, BorderLayout.SOUTH);
-        descriptionPanel.setBorder(BorderFactory.createEmptyBorder(10,20,10,20));
+        descriptionPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
         buttonPanel.setBackground(navy);
         buttonPanel.add(nextButton);
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(2,0,2,0));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0));
 
         introPanel.add(headerLabel, BorderLayout.NORTH);
         introPanel.add(descriptionPanel, BorderLayout.CENTER);
         introPanel.add(buttonPanel, BorderLayout.SOUTH);
-
 
         introDialog.getContentPane().add(introPanel);
         introDialog.setIconImage(icon.getImage());
@@ -220,36 +279,10 @@ public class CurriculumMonitoringApplication {
     } // end of showIntroduction method
 
     /**
-     * Method to reads then returns an integer prompts an error if user entered a String value
-     *
-     * @param prompt the string message
-     * @return choice the choice of the user
-     */
-    //TODO: Katelyn - Add numberReader method algorithm (multi-line comment) after coding the GUI
-    public static int numberReader(String prompt){
-        int choice =0;
-        boolean b = false;
-        do { //loops and prompts an error if user entered a String to the scanner
-            try {
-                System.out.print(prompt);
-                choice = keyboard.nextInt();
-                b = true;
-            } catch (Exception e) {
-                System.out.println("Invalid value, try again.");
-                keyboard.next();
-            }
-        }while (!b);
-
-        return choice;
-    } // end of numberReader method
-
-
-
-    /**
      * Method to show the list of actions for the user to choose from.
      */
-    //TODO: Lourdene & Marius - Add listOfChoices method code and algorithm
-    public void listOfChoices(){
+    ///TODO: Nash - Add method algorithm
+    public void listOfChoices() {
         JFrame choiceFrame = new JFrame("BSCS Curriculum Monitoring Application");
 
         JLabel headerLabel = new JLabel("MAIN MENU", SwingConstants.CENTER);
@@ -263,21 +296,21 @@ public class CurriculumMonitoringApplication {
                 "1. Show course for each school term");
         buttonDesign(showCourseEachTermButton);
         showCourseEachTermButton.addActionListener(e -> {
-            showSubsForEachTerm();
+            showCoursesForEachTerm();
         });
 
-        JButton showCourseWithGradesButton= new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+        JButton showCourseWithGradesButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "2. Show course with grades for each term"); //TODO: remove after since we have Show course with grades and remarks for each term
         buttonDesign(showCourseWithGradesButton);
         showCourseWithGradesButton.addActionListener(e -> {
-           showSubsWithGradesForEachTerm();
+            showCoursesWithGradesForEachTerm();
         });
 
         JButton showCourseAndRemarksButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "3. Show course with grades and remarks for each term");
         buttonDesign(showCourseAndRemarksButton);
         showCourseAndRemarksButton.addActionListener(e -> {
-            showSubsWithGradesAndRemarksForEachTerm();
+            showCoursesWithGradesAndRemarksForEachTerm();
         });
 
         JButton enterGradeButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
@@ -305,45 +338,50 @@ public class CurriculumMonitoringApplication {
                 "7. Edit an elective course");
         buttonDesign(editElectiveCourseButton);
         editElectiveCourseButton.addActionListener(e -> {
-            editACourse();
+            editElectiveCourse();
         });
 
         JButton button8 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "8. Show student's average grade for all finished courses");
         buttonDesign(button8);
         button8.addActionListener(e -> {
-            //TODO:
+            try {
+                showAverageGrade();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         JButton button9 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "9. Show student's sorted grades");
         buttonDesign(button9);
         button9.addActionListener(e -> {
-            //TODO:
+            showSortedGrades();
         });
 
         JButton button10 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "10. Show student's failed courses only");
         buttonDesign(button10);
         button10.addActionListener(e -> {
-            //TODO:
+            showFailedCourses();
         });
-
 
         JButton button11 = new RoundButton("QUIT");
         buttonDesign(button11);
         button11.addActionListener(e -> {
+            showExit();
             choiceFrame.dispose();
             try {
                 saveFile();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
+            System.exit(0);
         });
 
-        JPanel buttonsPanel = new JPanel(new GridLayout(5, 2, 10,10));
+        JPanel buttonsPanel = new JPanel(new GridLayout(5, 2, 10, 10));
         buttonsPanel.setBackground(lightBlue);
-        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(20,15,20,15));
+        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(20, 15, 20, 15));
         buttonsPanel.add(showCourseEachTermButton);
         buttonsPanel.add(showCourseWithGradesButton);
         buttonsPanel.add(showCourseAndRemarksButton);
@@ -358,7 +396,7 @@ public class CurriculumMonitoringApplication {
         JPanel quitPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         quitPanel.setBackground(navy);
         quitPanel.add(button11);
-        quitPanel.setBorder(BorderFactory.createEmptyBorder(2,0,2,0));
+        quitPanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0));
 
         JPanel choicePanel = new JPanel(new BorderLayout());
         choicePanel.add(headerLabel, BorderLayout.NORTH);
@@ -368,62 +406,24 @@ public class CurriculumMonitoringApplication {
         choiceFrame.getContentPane().add(choicePanel);
         choiceFrame.setIconImage(icon.getImage());
         choiceFrame.pack();
-        choiceFrame.setSize(630,500);
+        choiceFrame.setSize(630, 500);
         choiceFrame.setLocationRelativeTo(null);
         choiceFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        choiceFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                showExit();
+                System.exit(0);
+            }
+        });
         choiceFrame.setVisible(true);
     } // end of listOfChoices method
 
     /**
-     * Method to do the chosen action from the list using switch-case.
-     *
-     * @param choice - the number choice of the user
+     * Method to display the subjects for each term.
      */
-    //TODO: Nash - Add runChoices method algorithm (multi-line comment)
-    public void runChoices(int choice) throws IOException {
-        switch (choice){
-            case 1: showSubsForEachTerm();//invokes showSubsForEachTerm()
-                break;
-
-            case 2: showSubsWithGradesForEachTerm();//invokes showSubsWithGradesForEachTerm()
-                break;
-
-            case 3: showSubsWithGradesAndRemarksForEachTerm();//invokes showSubsWithGradesAndRemarksForEachTerm()
-                break;
-
-            case 4: enterGrades();//invokes enterGrades()
-                break;
-
-            case 5: editACourse();//invokes editACourse()
-                break;
-
-            case 6: showAverageGrade(); //invokes showAverageGrade()
-                break;
-
-            case 7:
-                showSortedGrades();//invokes showSortedGrades()
-                break;
-
-            case 8:
-                showFailedSubs(); //invokes showFailedSubs()
-                break;
-
-            case 9: //closes the program
-                System.out.println("Program closed.");
-                saveFile();
-                System.exit(0);
-
-            default:
-                System.out.println("Enter values from 1-9 only.");
-                System.out.println("----------");
-        }
-    } // end of runChoices method
-
-    /**
-     * Method to print the subjects for each term.
-     */
-    //TODO: Nash - Add showSubsForEachTerm method algorithm (multi-line comment) after coding the GUI
-    public void showSubsForEachTerm(){
+    //TODO: Nash - Add updated method code
+    public void showCoursesForEachTerm(){
         Scanner scan = new Scanner(System.in);
         String enter;
 
@@ -446,19 +446,18 @@ public class CurriculumMonitoringApplication {
         frame.setIconImage(icon.getImage());
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
-    } // end of showSubsForEachTerm method
+    } // end of showCoursesForEachTerm method
 
     /**
-     * Method to print the subjects with grades for each term.
+     * Method to display the subjects with grades for each term.
      */
-    //TODO: Julienne - Add showSubsWithGradesForEachTerm method algorithm (multi-line comment) after coding the GUI
-    public void showSubsWithGradesForEachTerm(){
+    //TODO: Julienne - Add updated method code
+    public void showCoursesWithGradesForEachTerm(){
         Scanner scan = new Scanner(System.in);
         String enter;
         JFrame frame = new JFrame("Courses with Grades");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(1100, 600);
-
 
         // Prints the list of courses
         String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units", "Grades"};
@@ -482,15 +481,15 @@ public class CurriculumMonitoringApplication {
         frame.setIconImage(icon.getImage());
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
-    } // end of showSubsWithGradesForEachTerm method
+    } // end of showCoursesWithGradesForEachTerm method
 
     /**
-     * Method to print the subjects with grades remarks for each term
+     * Method to display the subjects with grades and remarks for each term
      * where it will print "Failed", if grade is less than 75.
      * And, else it will print "Passed".
      */
-    //TODO: Julienne - Add showSubsWithGradesAndRemarksForEachTerm method algorithm (multi-line comment) after coding the GUI
-    public void showSubsWithGradesAndRemarksForEachTerm() {
+    //TODO: Nash - add updated method code and algorithm
+    public void showCoursesWithGradesAndRemarksForEachTerm() {
         JFrame frame = new JFrame("Courses with Grades");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(1100, 600);
@@ -544,8 +543,9 @@ public class CurriculumMonitoringApplication {
         frame.setIconImage(icon.getImage());
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
-    } // end of showSubsWithGradesAndRemarksForEachTerm method
+    } // end of showCoursesWithGradesAndRemarksForEachTerm method
 
+    //TODO: Nash - Add updated method code, description, and algorithm
     private void updateTableModel(ArrayList<Course> courses, DefaultTableModel tableModel) {
         tableModel.setRowCount(0);
         for (Course course : courses) {
@@ -559,14 +559,14 @@ public class CurriculumMonitoringApplication {
             };
             tableModel.addRow(rowData);
         }
-    }
+    } // end of updateTableModel method
 
     /**
      * Method to lists all the unfinished course and ask
      * user to choose the finished course, then the program
      * will ask to enter the grade for the course.
      */
-    //TODO: Katelyn - Add enterGrades method algorithm (multi-line comment) after coding the GUI
+    //TODO: Katelyn - Add updated method algorithm
     /*
      * Algorithm:
      * 1. Create ArrayList limit to store the maximum number of unfinished subjects.
@@ -586,36 +586,39 @@ public class CurriculumMonitoringApplication {
      *      b. If the description of the course matches the description of the selected unfinished subject, set the grade to the course.
      *      c. Print the description and grade of the updated course.
      */
+    //TODO: Lourdene - add updated method code
     public void enterGrades() {
         JFrame frame = new JFrame("Enter Grades");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(800, 600);
+        String[] columnNames = {"#", "Course number", "Descriptive Title"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
-        ArrayList<Course> unfinSubs = new ArrayList<>();
+        JLabel headerLabel = new JLabel("Enter Grades", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
+        headerLabel.setOpaque(true);
+        headerLabel.setBackground(navy);
+        headerLabel.setForeground(pink);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        ArrayList<Course> unfinishedCourses = new ArrayList<>();
+        AtomicInteger index = new AtomicInteger();
+        HashMap<Integer, Integer> originalIndices = new HashMap<>();
+        updateCourseTableModel(unfinishedCourses, unfinishedCourses, tableModel, originalIndices);
+
         for (Course course : list) {
             if (course.getGrades() == 0 || course.getGrades() > 74) {
-                unfinSubs.add(course);
+                unfinishedCourses.add(course);
             }
         }
 
-        String[] columnNames = {"#", "Course number", "Descriptive Title"};
-        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
-        HashMap<Integer, Integer> originalIndices = new HashMap<>();
-        updateCourseTableModel(unfinSubs, unfinSubs, tableModel, originalIndices);
-
-        JTable table = new JTable(tableModel);
-        table.setFont(new Font("Helvetica", Font.BOLD, 10));
-        JScrollPane scrollPane = new JScrollPane(table);
-
-        frame.add(scrollPane, BorderLayout.CENTER);
+        list.stream().map(course -> new Object[]{
+                index.incrementAndGet(),
+                course.getCourseNumber(),
+                course.getDescTitle()
+        }).forEach(tableModel::addRow);
 
         // Search functionality
-        JPanel searchPanel = new JPanel();
         JLabel searchLabel = new JLabel("Search: ");
         JTextField searchBar = new JTextField(15);
-        searchPanel.add(searchLabel);
-        searchPanel.add(searchBar);
-        frame.add(searchPanel, BorderLayout.NORTH);
 
         searchBar.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -636,43 +639,30 @@ public class CurriculumMonitoringApplication {
             private void filterTable() {
                 String searchText = searchBar.getText().toLowerCase();
                 ArrayList<Course> filteredList = new ArrayList<>();
-                for (Course course : unfinSubs) {
+                for (Course course : unfinishedCourses) {
                     if (course.getCourseNumber().toLowerCase().contains(searchText) ||
                             course.getDescTitle().toLowerCase().contains(searchText)) {
                         filteredList.add(course);
                     }
                 }
-                updateCourseTableModel(unfinSubs, filteredList, tableModel, originalIndices);
+                updateCourseTableModel(unfinishedCourses, filteredList, tableModel, originalIndices);
             }
         });
 
-        // Input Panel and buttons
-        JPanel inputPanel = new JPanel();
+        JTable table = new JTable(tableModel);
+        table.setFont(new Font("Helvetica", Font.BOLD, 12));
+        table.setPreferredScrollableViewportSize(new Dimension(900, 235));
+
+        JScrollPane scrollPane = new JScrollPane(table);
+
         JLabel gradeLabel = new JLabel("Enter the grade: ");
-        JTextField gradeField = new JTextField(2);
-        RoundButton submitButton = new RoundButton("Submit");
-        RoundButton saveButton = new RoundButton("Save");
-        RoundButton backButton = new RoundButton("Back");
-        buttonDesign(submitButton);
-        buttonDesign(saveButton);
-        buttonDesign(backButton);
-        saveButton.addActionListener(e -> {
-            try {
-                saveFile();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
+        gradeLabel.setFont(new Font("Helvetica", Font.BOLD, 13));
+        gradeLabel.setForeground(Color.darkGray);
 
-        inputPanel.add(gradeLabel);
-        inputPanel.add(gradeField);
-        inputPanel.add(submitButton);
-        inputPanel.add(saveButton);
-        inputPanel.add(backButton);
-        frame.add(inputPanel, BorderLayout.SOUTH);
-        backButton.addActionListener(e -> {
-            frame.dispose();
-        });
+        JTextField gradeField = new JTextField(10);
+
+        RoundButton submitButton = new RoundButton("Submit");
+        buttonDesign(submitButton);
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -682,29 +672,152 @@ public class CurriculumMonitoringApplication {
                         int grade = Integer.parseInt(gradeField.getText());
 
                         if (grade == 0 || grade >= 70 && grade <= 99) {
-                            int originalIndex = originalIndices.get(selectedRow);
-                            Course selectedCourse = unfinSubs.get(originalIndex);
+                            Course selectedCourse = unfinishedCourses.get(selectedRow);
                             selectedCourse.setGrades(grade);
                             tableModel.removeRow(selectedRow);
-                            unfinSubs.remove(originalIndex);
-                            originalIndices.remove(selectedRow);
+                            unfinishedCourses.remove(selectedRow);
                             gradeField.setText("");
                         } else {
-                            JOptionPane.showMessageDialog(frame, "Enter a grade between 70 and 99.", "Error", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(frame, "Enter a grade between 70 and 99.",
+                                    "Error", JOptionPane.ERROR_MESSAGE);
                         }
                     } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(frame, "Invalid grade. Enter a number between 70 and 99.", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(frame, "Invalid grade. Enter a number between " +
+                                "70 and 99.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(frame, "Please select a course from the table.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "Please select a course from the table.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
+
+        RoundButton saveButton = new RoundButton("Save");
+        buttonDesign(saveButton);
+        saveButton.addActionListener(e -> {
+            try {
+                saveFile();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        RoundButton backButton = new RoundButton("Back");
+        buttonDesign(backButton);
+        backButton.addActionListener(e -> {
+            frame.dispose();
+        });
+
+        // Define a custom header renderer that sets the background color of the column names
+        JTableHeader header = table.getTableHeader();
+        ((JTableHeader) header).setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+                c.setBackground(navy);
+                c.setForeground(purple); // set the text color of the column names to purple
+                c.setFont(new Font("Helvetica", Font.BOLD, 15));
+                return c;
+            }
+        });
+
+        // Define a custom cell renderer that sets the background color of the cells in the second column
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+
+                switch (column) {
+                    case 0:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 1:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 2:
+                        c.setBackground(lightBlue);
+                        break;
+                    default:
+                        c.setBackground(table.getBackground()); // use the default background color for other columns
+                        break;
+                }
+
+                return c;
+            }
+        };
+
+        // Set the custom cell renderer to all columns of the table
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
+        }
+
+        // Set the preferred width of each column
+        table.getColumnModel().getColumn(0).setPreferredWidth(1);
+        table.getColumnModel().getColumn(1).setPreferredWidth(1);
+        table.getColumnModel().getColumn(2).setPreferredWidth(450);
+
+        JLabel guideLabel = new JLabel("<html><div style='text-align: center;'>" +
+                "Please select a row in the table below that corresponds to a specific" +
+                " course. Then, enter the grade you have in the chosen course to the " +
+                "text field below the table. You can also search your desired course on " +
+                "the search bar below. Remember to submit and save what you have edited!</html>", SwingConstants.CENTER);
+        guideLabel.setFont(new Font("Helvetica", Font.ITALIC, 12));
+        guideLabel.setOpaque(true);
+        guideLabel.setBackground(purple);
+        guideLabel.setForeground(Color.darkGray);
+        guideLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JPanel searchPanel = new JPanel();
+        searchPanel.add(searchLabel);
+        searchPanel.add(searchBar);
+        searchPanel.setBackground(peach);
+        searchPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+
+        JPanel guidePanel = new JPanel(new BorderLayout());
+        guidePanel.add(guideLabel, BorderLayout.CENTER);
+        guidePanel.add(searchPanel, BorderLayout.SOUTH);
+        guidePanel.setBackground(peach);
+        guidePanel.setBorder(BorderFactory.createEmptyBorder(10, 100, 0, 100));
+
+        JPanel tablePanel = new JPanel();
+        tablePanel.add(scrollPane);
+        tablePanel.setBackground(peach);
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
+
+        JPanel inputPanel = new JPanel(new GridLayout(2, 2, 5, 5));
+        inputPanel.add(gradeLabel);
+        inputPanel.add(gradeField);
+        inputPanel.add(submitButton);
+        inputPanel.add(saveButton);
+        inputPanel.setBackground(peach);
+        inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 350, 10, 350));
+
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BorderLayout());
+        contentPanel.add(guidePanel, BorderLayout.NORTH);
+        contentPanel.add(tablePanel, BorderLayout.CENTER);
+        contentPanel.add(inputPanel, BorderLayout.SOUTH);
+        contentPanel.setBackground(peach);
+
+        JPanel backPanel = new JPanel();
+        backPanel.setBackground(navy);
+        backPanel.add(backButton);
+        backPanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0));
+
+        frame.add(headerLabel, BorderLayout.NORTH);
+        frame.add(contentPanel, BorderLayout.CENTER);
+        frame.add(backPanel, BorderLayout.SOUTH);
         frame.setIconImage(icon.getImage());
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(980, 645);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
-    }
+    }//end of enterGrades method
 
+    //TODO: Katelyn - add method description and algorithm
     private void updateCourseTableModel(ArrayList<Course> unfinSubs, ArrayList<Course> courses, DefaultTableModel tableModel, HashMap<Integer, Integer> originalIndices) {
         tableModel.setRowCount(0);
         int index = 0;
@@ -718,183 +831,247 @@ public class CurriculumMonitoringApplication {
             tableModel.addRow(rowData);
             originalIndices.put(index - 1, originalIndex);
         }
-    }
-    /**
-     * Method to allow the user to choose an elective course for them to edit.
-     */
-    //TODO: Lourdene - Add editACourse method algorithm (multi-line comment) after coding the GUI
-    public void editACourse(){
-        // Set up the JFrame
-        JFrame frame = new JFrame("Edit a course");
-        frame.setTitle("Edit Course");
-        frame.setSize(800, 600);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        ArrayList<Course> listElectives= new ArrayList<>();
-        ArrayList<Course> listRecommended= new ArrayList<>();
-        Course cn101 = new Course("CN", "Computational Science", 3.0);
-        Course gv101 = new Course("GV", "Graphics and Visual Computing", 3.0);
-        Course pd101 = new Course("PD", "Parallel and Distributed Computing", 3.0);
-        Course is101 = new Course("IS", "Intelligent Systems", 3.0);
-        Course sf101 = new Course("SF", "System Fundamentals", 3.0);
+    } // end of updateCourseTableModel method
 
-        // Add Recommended elective courses to the arrayList
-        listRecommended.add(cn101);
-        listRecommended.add(gv101);
-        listRecommended.add(pd101);
-        listRecommended.add(is101);
-        listRecommended.add(sf101);
+    //TODO: Lourdene - Add method description and algorithm
+    public void addFinishedCourse() {
+        JFrame frame = new JFrame("Add Finished Course");
+        String[] columnNames = {"#", "Course number", "Descriptive Title"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
-        // Set up the tables and their models
-        DefaultTableModel electivesModel = new DefaultTableModel(new Object[]{"Year", "Term", "Course number", "Descriptive Title", "Units"}, 0);
-        JTable electivesTable = new JTable(electivesModel);
-        int[] electiveIndices = {68, 69, 74, 75};
-        for (int index : electiveIndices) {
-            Course course = list.get(index);
-            Object[] rowData = new Object[] {
-                    course.getYear(),
-                    course.getTerm(),
-                    course.getCourseNumber(),
-                    course.getDescTitle(),
-                    course.getUnits()
-            };
-            electivesModel.addRow(rowData);
+        JLabel headerLabel = new JLabel("Add Finished Course", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
+        headerLabel.setOpaque(true);
+        headerLabel.setBackground(navy);
+        headerLabel.setForeground(pink);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JLabel guideLabel = new JLabel("<html><div style='text-align: center;'>" +
+                "For adding a new completed course, click the \"Add Course\" button that " +
+                "will direct you to another dialog window for entering inputs of data " +
+                "information about the course to be added. Remember to save before closing!" +
+                "</html>", SwingConstants.CENTER);
+        guideLabel.setFont(new Font("Helvetica", Font.ITALIC, 12));
+        guideLabel.setOpaque(true);
+        guideLabel.setBackground(purple);
+        guideLabel.setForeground(Color.darkGray);
+        guideLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        ArrayList<Course> unfinishedCourses = new ArrayList<>();
+        ArrayList<Integer> limit= new ArrayList<>();
+        final int[] index = {0};
+
+        for (Course course : list) {
+            if (course.getGrades() == 0 || course.getGrades() >74) {
+                unfinishedCourses.add(course);
+            }
         }
 
-        DefaultTableModel recommendedModel = new DefaultTableModel(new Object[]{"Course number", "Descriptive Title", "Units"}, 0);
-        JTable recommendedTable = new JTable(recommendedModel);
-        for (Course course : listRecommended) {
-            Object[] rowData = new Object[] {
+        for (Course course : unfinishedCourses) {
+            Object[] rowData = {
+                    ++index[0],
                     course.getCourseNumber(),
-                    course.getDescTitle(),
-                    course.getUnits()
+                    course.getDescTitle()
             };
-            recommendedModel.addRow(rowData);
+            tableModel.addRow(rowData);
         }
 
-        // Set up the buttons
-        RoundButton confirmButton = new RoundButton("Confirm");
-        RoundButton cancelButton = new RoundButton("Cancel");
-        buttonDesign(cancelButton);
-        buttonDesign(confirmButton);
-        // Add action listeners to the buttons
-        confirmButton.addActionListener(new ActionListener() {
+        JTable table = new JTable(tableModel);
+        table.setFont(new Font("Helvetica", Font.BOLD, 12));
+        table.setPreferredScrollableViewportSize(new Dimension(900, 235));
+
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        RoundButton saveButton = new RoundButton("Save");
+        buttonDesign(saveButton);
+        saveButton.addActionListener(e -> {
+            try {
+                saveFile();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        RoundButton addCourseButton = new RoundButton("Add Course");
+        buttonDesign(addCourseButton);
+        addCourseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int electiveRow = electivesTable.getSelectedRow();
-                int recommendedRow = recommendedTable.getSelectedRow();
+                JDialog addCourseDialog = new JDialog();
+                addCourseDialog.setTitle("Add Course");
 
-                if (electiveRow != -1 && recommendedRow != -1) {
-                    Course selectedElective = list.get(68 + electiveRow); // Assuming the index starts from 68 as in your previous code
-                    Course selectedRecommended = listRecommended.get(recommendedRow);
+                JTextField yearField = new JTextField(20);
+                JTextField termField = new JTextField(20);
+                JTextField courseNumberField = new JTextField(20);
+                JTextField descTitleField = new JTextField(20);
+                JTextField unitsField = new JTextField(20);
+                JTextField gradeField = new JTextField(20);
 
-                    // Update the selected elective course with the recommended elective course
-                    selectedElective.setCourseNumber(selectedRecommended.getCourseNumber());
-                    selectedElective.setDescTitle(selectedRecommended.getDescTitle());
-                    selectedElective.setUnits(selectedRecommended.getUnits());
-                    selectedElective.setGrades(0);
+                RoundButton okButton = new RoundButton("Ok");
+                buttonDesign(okButton);
+                okButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        try {
+                            String year = String.valueOf(Integer.parseInt(yearField.getText()));
+                            String term = String.valueOf(Integer.parseInt(termField.getText()));
+                            String courseNumber = courseNumberField.getText();
+                            String descTitle = descTitleField.getText();
+                            int units = Integer.parseInt(unitsField.getText());
+                            int grade = gradeField.getText().isEmpty() ? 0 : Integer.parseInt(gradeField.getText());
 
-                    JOptionPane.showMessageDialog(frame, "Course edited successfully.");
-                    try {
-                        saveFile();
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
+                            Course newCourse = new Course(year, term, courseNumber, descTitle, units, grade);
+                            list.add(newCourse);
+                            if (grade == 0 || grade > 74) {
+                                unfinishedCourses.add(newCourse);
+                                tableModel.addRow(new Object[]{++index[0], newCourse.getCourseNumber(),
+                                        newCourse.getDescTitle()});
+                            }
+                            addCourseDialog.dispose();
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(frame, "Invalid input. Please make sure all " +
+                                    "fields are filled correctly.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
-                    frame.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(frame, "Please select a course from both tables.");
-                }
+                });
+
+                RoundButton cancelButton = new RoundButton("Cancel");
+                buttonDesign(cancelButton);
+                cancelButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        addCourseDialog.dispose();
+                    }
+                });
+
+                JPanel addCoursePanel = new JPanel(new GridLayout(6, 2, 5, 5));
+                addCoursePanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+                addCoursePanel.add(new JLabel("Year:"));
+                addCoursePanel.add(yearField);
+                addCoursePanel.add(new JLabel("Term:"));
+                addCoursePanel.add(termField);
+                addCoursePanel.add(new JLabel("Course Number:"));
+                addCoursePanel.add(courseNumberField);
+                addCoursePanel.add(new JLabel("Descriptive Title:"));
+                addCoursePanel.add(descTitleField);
+                addCoursePanel.add(new JLabel("Units:"));
+                addCoursePanel.add(unitsField);
+                addCoursePanel.add(new JLabel("Grade (Leave blank if not graded):"));
+                addCoursePanel.add(gradeField);
+                addCoursePanel.setBackground(peach);
+
+                JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 5, 5));
+                buttonPanel.add(okButton);
+                buttonPanel.add(cancelButton);
+                buttonPanel.setBackground(peach);
+                buttonPanel.setBorder(BorderFactory.createEmptyBorder(5,100, 5, 100));
+
+                addCourseDialog.add(addCoursePanel, BorderLayout.NORTH);
+                addCourseDialog.add(buttonPanel, BorderLayout.CENTER);
+                addCourseDialog.setIconImage(icon.getImage());
+                addCourseDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                addCourseDialog.setSize(500, 250);
+                addCourseDialog.setVisible(true);
+                addCourseDialog.setLocationRelativeTo(null);
             }
         });
 
-        cancelButton.addActionListener(new ActionListener() {
+        RoundButton backButton = new RoundButton("Back");
+        buttonDesign(backButton);
+        backButton.addActionListener(e -> {
+            frame.dispose();
+        });
+
+        // Define a custom header renderer that sets the background color of the column names
+        JTableHeader header = table.getTableHeader();
+        ((JTableHeader) header).setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+                c.setBackground(navy);
+                c.setForeground(purple); // set the text color of the column names to purple
+                c.setFont(new Font("Helvetica", Font.BOLD, 15));
+                return c;
             }
         });
 
-        // Set up the layout and add components
-        frame.setLayout(new BorderLayout());
-        frame.add(new JScrollPane(electivesTable), BorderLayout.NORTH);
-        frame.add(new JScrollPane(recommendedTable), BorderLayout.CENTER);
+        // Define a custom cell renderer that sets the background color of the cells in the second column
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(confirmButton);
-        buttonPanel.add(cancelButton);
-        frame.add(buttonPanel, BorderLayout.SOUTH);
-
-        frame.setVisible(true);
-    } // end of editACourse method
-
-    /**
-     * Method to compute and show the average grade of a student.
-     */
-
-    /**
-     1) Calculates the average grade of the student and provides the user with an option to edit grades.
-     2) If the user chooses to edit grades, it will invoke the method to enter grades.
-     3) If the user chooses not to edit grades, it will invoke the method to go back to the main menu.
-     4) Shows a warning pop-up window if there are no grades available to calculate the average grade.
-     5) Shows a warning pop-up window to confirm the user's choice to edit grades.
-     6) Shows a warning pop-up window to confirm the user's choice to go back to the main menu.
-     *
-     * @throws IOException if an I/O error occurs.
-     */
-    public void showAverageGrade() throws IOException {
-        int average = 0, count=0; //declare variables
-
-        //Adds all the marked grades to variable average and increments count
-            for (Course course : list) {
-                if (course.getGrades() != 0) {
-                    average += course.getGrades();
-                    count++;
+                switch (column) {
+                    case 0:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 1:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 2:
+                        c.setBackground(lightBlue);
+                        break;
+                    default:
+                        c.setBackground(table.getBackground()); // use the default background color for other columns
+                        break;
                 }
-            }
 
-        if (count == 0) {
-            // Shows a warning pop-up window if there are no grades available to calculate the average grade.
-            JOptionPane.showMessageDialog(null, "No grades available to calculate the average grade.", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else {
-            average /= count; // calculates the average
-            // Shows the average grade in a warning pop-up window.
-            JOptionPane.showMessageDialog(null, "Student's Average Grade: " + average, "Average Grade", JOptionPane.WARNING_MESSAGE);
+                return c;
+            }
+        };
+
+        // Set the custom cell renderer to all columns of the table
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
         }
 
-        // Provides the user an option to edit grades
-        System.out.print("Would you like to edit grades? (Y/N): ");
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
+        // Set the preferred width of each column
+        table.getColumnModel().getColumn(0).setPreferredWidth(1);
+        table.getColumnModel().getColumn(1).setPreferredWidth(1);
+        table.getColumnModel().getColumn(2).setPreferredWidth(450);
 
-        if (input.equalsIgnoreCase("Y")) {
-            // Call a method to edit grades
-            enterGrades();
-        } else {
-            // If user chooses not to edit grades, provide option to go back to main menu
+        JPanel guidePanel = new JPanel(new BorderLayout());
+        guidePanel.add(guideLabel, BorderLayout.CENTER);
+        guidePanel.setBackground(peach);
+        guidePanel.setBorder(BorderFactory.createEmptyBorder(10,100,0,100));
 
+        JPanel tablePanel = new JPanel();
+        tablePanel.add(scrollPane);
+        tablePanel.setBackground(peach);
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(10,0,3,0));
 
-            // Invoke the method to go back to the main menu
-            int choice=0;
-            String enter;
+        JPanel inputPanel = new JPanel(new GridLayout(1, 2, 5, 5));
+        inputPanel.add(addCourseButton);
+        inputPanel.add(saveButton);
+        inputPanel.setBackground(peach);
+        inputPanel.setBorder(BorderFactory.createEmptyBorder(3,350,10,350));
 
-            // Loops until the user inputs 9 to go back to the main menu
-            while(choice != 9){
-                // Show the list of choices
-                listOfChoices();
-                System.out.println("-----");
-                choice = numberReader("Enter your choice: ");
-                runChoices(choice);
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BorderLayout());
+        contentPanel.add(guidePanel, BorderLayout.NORTH);
+        contentPanel.add(tablePanel, BorderLayout.CENTER);
+        contentPanel.add(inputPanel, BorderLayout.SOUTH);
+        contentPanel.setBackground(peach);
 
-                // Wait for user to press enter before continuing
-                System.out.println();
-                System.out.print("Press enter key to go back.");
-                enter = scanner.nextLine();
-            }
-        }
-    }
+        JPanel backPanel = new JPanel();
+        backPanel.setBackground(navy);
+        backPanel.add(backButton);
+        backPanel.setBorder(BorderFactory.createEmptyBorder(2,0,2,0));
 
+        frame.add(headerLabel, BorderLayout.NORTH);
+        frame.add(contentPanel, BorderLayout.CENTER);
+        frame.add(backPanel, BorderLayout.SOUTH);
+        frame.setIconImage(icon.getImage());
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(980, 545);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+    } //end of addFinishedCourse method
 
-    //TODO: NASH add Javadoc and Algorithm multiline comments
+    //TODO: Nash - Add updated method code, description, and algorithm
     public void addCreditedCourse(){
         JFrame frame = new JFrame("Enter Grades");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -980,24 +1157,321 @@ public class CurriculumMonitoringApplication {
         frame.setIconImage(icon.getImage());
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
-    }
+    } // end of addCreditedCourse method
 
     /**
-     * Method to create a new ArrayList with same elements of the list
-     * then sorts and prints the sorted array list.
+     * Method to allow the user to choose an elective course for them to edit.
      */
+    //TODO: Charles - Add method algorithm
+    public void editElectiveCourse() {
+        JFrame electiveframe = new JFrame("Edit Elective Course");
+        electiveframe.setLayout(new BorderLayout());
+
+        JLabel headerLabel = new JLabel("Edit Elective Course", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
+        headerLabel.setOpaque(true);
+        headerLabel.setBackground(navy);
+        headerLabel.setForeground(pink);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(8, 10, 8, 10));
+
+        JLabel guideLabel = new JLabel("<html><div style='text-align: center;'>" +
+                "Please select a row each for the elective and recommended courses table below " +
+                "that corresponds to a specific elective course. Then, click the confirm button " +
+                "to confirm that you will take the selected recommended course as an elective course." +
+                "</html>", SwingConstants.CENTER);
+        guideLabel.setFont(new Font("Helvetica", Font.ITALIC, 12));
+        guideLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        guideLabel.setOpaque(true);
+        guideLabel.setBackground(purple);
+        guideLabel.setForeground(Color.darkGray);
+
+        JLabel electiveLabel = new JLabel("Elective Courses Table", SwingConstants.CENTER);
+        electiveLabel.setFont(new Font("Helvetica", Font.BOLD, 18));
+        electiveLabel.setOpaque(true);
+        electiveLabel.setBackground(peach);
+        electiveLabel.setForeground(Color.darkGray);
+        electiveLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+
+        JLabel recommendedLabel = new JLabel("Recommended Courses Table", SwingConstants.CENTER);
+        recommendedLabel.setFont(new Font("Helvetica", Font.BOLD, 18));
+        recommendedLabel.setOpaque(true);
+        recommendedLabel.setBackground(peach);
+        recommendedLabel.setForeground(Color.darkGray);
+        recommendedLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+
+        ArrayList<Course> listRecommended = new ArrayList<>();
+        Course cn101 = new Course("CN", "Computational Science", 3.0);
+        Course gv101 = new Course("GV", "Graphics and Visual Computing", 3.0);
+        Course pd101 = new Course("PD", "Parallel and Distributed Computing", 3.0);
+        Course is101 = new Course("IS", "Intelligent Systems", 3.0);
+        Course sf101 = new Course("SF", "System Fundamentals", 3.0);
+
+        // Add Recommended elective courses to the arrayList
+        listRecommended.add(cn101);
+        listRecommended.add(gv101);
+        listRecommended.add(pd101);
+        listRecommended.add(is101);
+        listRecommended.add(sf101);
+
+        // Set up the tables and their models
+        DefaultTableModel electivesModel = new DefaultTableModel(new Object[]{"Year", "Term", "Course number", "Descriptive Title", "Units"}, 0);
+        JTable electivesTable = new JTable(electivesModel);
+        electivesTable.setFont(new Font("Helvetica", Font.BOLD, 12));
+        electivesTable.setFillsViewportHeight(true);
+        electivesTable.setRowHeight(25);
+        electivesTable.setPreferredScrollableViewportSize(new Dimension(900, 100));
+
+        int[] electiveIndices = {68, 69, 74, 75};
+        for (int index : electiveIndices) {
+            Course course = list.get(index);
+            Object[] rowData = new Object[]{
+                    course.getYear(),
+                    course.getTerm(),
+                    course.getCourseNumber(),
+                    course.getDescTitle(),
+                    course.getUnits()
+            };
+            electivesModel.addRow(rowData);
+        }
+
+        DefaultTableModel recommendedModel = new DefaultTableModel(new Object[]{"Course number", "Descriptive Title", "Units"}, 0);
+        JTable recommendedTable = new JTable(recommendedModel);
+        recommendedTable.setFont(new Font("Helvetica", Font.BOLD, 12));
+        recommendedTable.setFillsViewportHeight(true);
+        recommendedTable.setRowHeight(20);
+        recommendedTable.setPreferredScrollableViewportSize(new Dimension(900, 100));
+
+        for (Course course : listRecommended) {
+            Object[] rowData = new Object[]{
+                    course.getCourseNumber(),
+                    course.getDescTitle(),
+                    course.getUnits()
+            };
+            recommendedModel.addRow(rowData);
+        }
+
+        // Set up the buttons
+        RoundButton confirmButton = new RoundButton("Confirm");
+        buttonDesign(confirmButton);
+        confirmButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int electiveRow = electivesTable.getSelectedRow();
+                int recommendedRow = recommendedTable.getSelectedRow();
+
+                if (electiveRow != -1 && recommendedRow != -1) {
+                    Course selectedElective = list.get(68 + electiveRow); // Assuming the index starts from 68 as in your previous code
+                    Course selectedRecommended = listRecommended.get(recommendedRow);
+
+                    // Update the selected elective course with the recommended elective course
+                    selectedElective.setCourseNumber(selectedRecommended.getCourseNumber());
+                    selectedElective.setDescTitle(selectedRecommended.getDescTitle());
+                    selectedElective.setUnits(selectedRecommended.getUnits());
+                    selectedElective.setGrades(0);
+
+                    JOptionPane.showMessageDialog(electiveframe, "Course edited successfully.");
+                    try {
+                        saveFile();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(electiveframe, "Please select a course from both tables.");
+                }
+            }
+        });
+
+        RoundButton cancelButton = new RoundButton("Cancel");
+        buttonDesign(cancelButton);
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                electiveframe.dispose();
+            }
+        });
+
+        // Define a custom header renderer that sets the background color of the column names
+        JTableHeader header1 = electivesTable.getTableHeader();
+        ((JTableHeader) header1).setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+                c.setBackground(navy);
+                c.setForeground(purple); // set the text color of the column names to purple
+                c.setFont(new Font("Helvetica", Font.BOLD, 15));
+                return c;
+            }
+        });
+
+        JTableHeader header2 = recommendedTable.getTableHeader();
+        ((JTableHeader) header2).setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+                c.setBackground(navy);
+                c.setForeground(purple); // set the text color of the column names to purple
+                c.setFont(new Font("Helvetica", Font.BOLD, 15));
+                return c;
+            }
+        });
+
+        // Define a custom cell renderer that sets the background color of the cells in the second column
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+
+                switch (column) {
+                    case 0:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 1:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 2:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 3:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 4:
+                        c.setBackground(lightBlue);
+                        break;
+                    default:
+                        c.setBackground(table.getBackground()); // use the default background color for other columns
+                        break;
+                }
+
+                return c;
+            }
+        };
+
+        // Set the custom cell renderer to all columns of the table
+        for (int i = 0; i < electivesTable.getColumnCount(); i++) {
+            electivesTable.getColumnModel().getColumn(i).setCellRenderer(renderer);
+        }
+
+        for (int i = 0; i < recommendedTable.getColumnCount(); i++) {
+            recommendedTable.getColumnModel().getColumn(i).setCellRenderer(renderer);
+        }
+
+        JPanel guidePanel = new JPanel(new BorderLayout());
+        guidePanel.add(guideLabel, BorderLayout.CENTER);
+        guidePanel.setBackground(peach);
+        guidePanel.setBorder(BorderFactory.createEmptyBorder(10, 100, 0, 100));
+
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.add(headerLabel, BorderLayout.NORTH);
+        topPanel.add(guidePanel, BorderLayout.SOUTH);
+        topPanel.setBackground(peach);
+
+        JPanel contentPanel = new JPanel(new FlowLayout());
+        contentPanel.add(electiveLabel);
+        contentPanel.add(new JScrollPane(electivesTable));
+        contentPanel.add(recommendedLabel);
+        contentPanel.add(new JScrollPane(recommendedTable));
+        contentPanel.setBackground(peach);
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(5, 20, 10, 20));
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(confirmButton);
+        buttonPanel.add(cancelButton);
+        buttonPanel.setBackground(navy);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(5, 50, 5, 5));
+
+        electiveframe.add(topPanel, BorderLayout.NORTH);
+        electiveframe.add(contentPanel, BorderLayout.CENTER);
+        electiveframe.add(buttonPanel, BorderLayout.SOUTH);
+        electiveframe.setSize(980, 565);
+        electiveframe.setLocationRelativeTo(null);
+        electiveframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        electiveframe.setVisible(true);
+    } // end of editElectiveCourse method
 
     /**
-     * The showSortedGrades method displays the list of courses in the list variable in a sorted order based on the course number. The method does the following steps:
+     * Method to compute and show the average grade of a student.
      *
-     1) Create a new ArrayList called sortList and copy the contents of list into it.
-     2) Sort sortList based on the course number using the Collections.sort() method.
-     3) Print the table headers for year, term, course number, descriptive title, units, and grades.
-     4) Iterate over the sorted sortList and print out the course information in a formatted table.
-     5) For each course, print the year, term, course number, descriptive title, units, and grades. If the course has no grade, print "Not yet graded" instead of the grade.
-     6) End of the showSortedGrades method.
-     *
+     * @throws IOException if an I/O error occurs.
      */
+    /*
+        Algorithm:
+        1. Calculates the average grade of the student and provides the user with an option to edit grades.
+        2. If the user chooses to edit grades, it will invoke the method to enter grades.
+        3. If the user chooses not to edit grades, it will invoke the method to go back to the main menu.
+        4. Shows a warning pop-up window if there are no grades available to calculate the average grade.
+        5. Shows a warning pop-up window to confirm the user's choice to edit grades.
+        6. Shows a warning pop-up window to confirm the user's choice to go back to the main menu.
+     */
+    //TODO: Charles - add updated method code and algorithm
+    public void showAverageGrade() throws IOException {
+        int average = 0, count=0; //declare variables
+
+        //Adds all the marked grades to variable average and increments count
+        for (Course course : list) {
+            if (course.getGrades() != 0) {
+                average += course.getGrades();
+                count++;
+            }
+        }
+
+        if (count == 0) {
+            // Shows a warning pop-up window if there are no grades available to calculate the average grade.
+            JOptionPane.showMessageDialog(null, "No grades available to calculate the average grade.", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            average /= count; // calculates the average
+            // Shows the average grade in a warning pop-up window.
+            JOptionPane.showMessageDialog(null, "Student's Average Grade: " + average, "Average Grade", JOptionPane.WARNING_MESSAGE);
+        }
+
+        // Provides the user an option to edit grades
+        System.out.print("Would you like to edit grades? (Y/N): ");
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+
+        if (input.equalsIgnoreCase("Y")) {
+            // Call a method to edit grades
+            enterGrades();
+        } else {
+            // If user chooses not to edit grades, provide option to go back to main menu
+
+
+            // Invoke the method to go back to the main menu
+            int choice=0;
+            String enter;
+
+            // Loops until the user inputs 9 to go back to the main menu
+            while(choice != 9){
+                // Show the list of choices
+                listOfChoices();
+                System.out.println("-----");
+
+                // Wait for user to press enter before continuing
+                System.out.println();
+                System.out.print("Press enter key to go back.");
+                enter = scanner.nextLine();
+            }
+        }
+    } // end of showAverageGrade method
+
+    /**
+     * The showSortedGrades method displays the list of courses in the list variable
+     * in a sorted order based on the grades. The method does the following steps:
+     */
+    /*
+        Algorithm:
+        1. Create a new ArrayList called sortList and copy the contents of list into it.
+        2. Sort sortList based on the course number using the Collections.sort() method.
+        3. Print the table headers for year, term, course number, descriptive title, units, and grades.
+        4. Iterate over the sorted sortList and print out the course information in a formatted table.
+        5. For each course, print the year, term, course number, descriptive title, units, and grades.
+           If the course has no grade, print "Not yet graded" instead of the grade.
+     */
+    //TODO: Julienne - add updated method code and algorithm
     public void showSortedGrades() {
         ArrayList<Course> sortList = new ArrayList<>(list);
         Collections.sort(sortList);
@@ -1023,11 +1497,10 @@ public class CurriculumMonitoringApplication {
     } // end of showSortedGrades method
 
     /**
-     * Method to print the courses that have grades lower than 75.
+     * Method to display the courses that have grades lower than 75.
      */
-    //TODO: Katelyn - Add showFailedSubs method algorithm (multi-line comment) after coding the GUI
     /*
-     * Algorithm:
+     * Algorithm:     //TODO: Julienne - add updated algorithm
      * 1. Print the header for the table of failed subjects.
      *      a. The header should contain columns for Year, Term, Course number, Descriptive Title, Units, and Grades.
      *      b. Use printf statements to format the columns to a fixed width.
@@ -1038,7 +1511,8 @@ public class CurriculumMonitoringApplication {
      *          iii. Print a new line to move to the next row in the table.
      * 3. End the method.
      */
-    public void showFailedSubs(){
+    //TODO: Julienne - add updated method code
+    public void showFailedCourses(){
         System.out.println("----------");
         System.out.printf("%-10s%-10s%-20s%-85s%-15s%s%n","Year","Term","Course number",
                 "Descriptive Title","Units","Grades");
@@ -1054,7 +1528,7 @@ public class CurriculumMonitoringApplication {
                 System.out.println();
             }
         }
-    } // end of showFailedSubs method
+    } // end of showFailedCourses method
 
     /**
      * Method that sets the font, background, and foreground colors of the button, and adds
@@ -1077,7 +1551,7 @@ public class CurriculumMonitoringApplication {
             b. Set the foreground color of the button back to navy to indicate that
                the button is no longer being hovered over.
      */
-    //TODO: add method algorithm (multi-line comment)
+    //TODO: Nash - add updated method algorithm (multi-line comment)
     private void buttonDesign(JButton button) {
         button.setFont(new Font("Helvetica", Font.BOLD, 13));
         button.setFocusPainted(false);
@@ -1147,7 +1621,7 @@ public class CurriculumMonitoringApplication {
      *
      * @throws IOException
      */
-    //TODO: add method algorithm (multi-line comment)
+    //TODO: Charles - Add method algorithm (multi-line comment)
     private void saveFile() throws IOException {
         PrintWriter pW = new PrintWriter(new FileOutputStream("" +
                 "AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/BSCSCurriculumData1.csv"));
@@ -1161,7 +1635,8 @@ public class CurriculumMonitoringApplication {
         pW.close();
         pW.flush();
     } // end of saveFile method
-    //TODO: add method algorithm (multi-line comment)
+
+    //TODO: Marius - add class description
     private class RoundButton extends JButton {
         // Declare the objects for RoundRectangleButton.
         /**
@@ -1271,150 +1746,5 @@ public class CurriculumMonitoringApplication {
             // Adjusts the dimension of the button
             return new Dimension(100, 40);
         } // end of getPreferredSize
-
-    } // end of RoundRectangleButton class
-    //TODO: ADD JAVADOC AND ALGORITHM MULTILINE COMMENTS
-    private String showLoginDialog() {
-        JPanel loginPanel = new JPanel(new GridLayout(3, 2));
-        JLabel usernameLabel = new JLabel("Username:");
-        JTextField usernameField = new JTextField();
-        JLabel passwordLabel = new JLabel("Password:");
-        JPasswordField passwordField = new JPasswordField();
-        passwordField.setEchoChar('*');
-
-        loginPanel.add(usernameLabel);
-        loginPanel.add(usernameField);
-        loginPanel.add(passwordLabel);
-        loginPanel.add(passwordField);
-
-        String username = null;
-        boolean validInput = false;
-
-        while (!validInput) {
-            int result = JOptionPane.showConfirmDialog(null, loginPanel, "Login", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-            if(result == JOptionPane.CANCEL_OPTION){
-                System.exit(0);
-            }
-            if (result == JOptionPane.OK_OPTION) {
-                username = usernameField.getText();
-                String password = new String(passwordField.getPassword());
-
-                if (username.isEmpty() || password.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Please enter both username and password.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    validInput = true;
-                    // Perform your authentication or other operations with the entered username and password.
-                }
-            }
-        }
-
-        return username;
-    }
-    //TODO: ADD JAVADOC AND ALGORITHM MULTILINE COMMENTS
-    public void addFinishedCourse() {
-        JFrame frame = new JFrame("Enter Grades");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(800, 600);
-
-        ArrayList<Course> unfinSubs = new ArrayList<>();
-        ArrayList<Integer> limit= new ArrayList<>();
-        final int[] index = {0};
-        for (Course course : list) {
-            if (course.getGrades() == 0 || course.getGrades() >74) {
-                unfinSubs.add(course);
-            }
-        }
-
-        String[] columnNames = {"#", "Course number", "Descriptive Title"};
-        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
-
-        for (Course course : unfinSubs) {
-            Object[] rowData = {
-                    ++index[0],
-                    course.getCourseNumber(),
-                    course.getDescTitle()
-            };
-            tableModel.addRow(rowData);
-        }
-
-        JTable table = new JTable(tableModel);
-        JScrollPane scrollPane = new JScrollPane(table);
-        frame.add(scrollPane, BorderLayout.CENTER);
-
-        JPanel inputPanel = new JPanel();
-
-        RoundButton saveButton = new RoundButton("Save");
-        RoundButton addCourseButton = new RoundButton("Add Course");//TODO: Lourdene figure out a way to fit in the text in the button
-        RoundButton backButton = new RoundButton("Back");
-        buttonDesign(saveButton);
-        buttonDesign(addCourseButton);
-        buttonDesign(backButton);
-
-        backButton.addActionListener(e -> frame.dispose());
-        saveButton.addActionListener(e -> {
-            try {
-                saveFile();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
-
-
-        inputPanel.add(saveButton);
-        inputPanel.add(addCourseButton);
-        inputPanel.add(backButton);
-        frame.add(inputPanel, BorderLayout.SOUTH);
-
-        addCourseButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JPanel addCoursePanel = new JPanel(new GridLayout(6, 2));
-                JTextField yearField = new JTextField();
-                JTextField termField = new JTextField();
-                JTextField courseNumberField = new JTextField();
-                JTextField descTitleField = new JTextField();
-                JTextField unitsField = new JTextField();
-                JTextField gradeField = new JTextField();
-
-                addCoursePanel.add(new JLabel("Year:"));
-                addCoursePanel.add(yearField);
-                addCoursePanel.add(new JLabel("Term:"));
-                addCoursePanel.add(termField);
-                addCoursePanel.add(new JLabel("Course Number:"));
-                addCoursePanel.add(courseNumberField);
-                addCoursePanel.add(new JLabel("Descriptive Title:"));
-                addCoursePanel.add(descTitleField);
-                addCoursePanel.add(new JLabel("Units:"));
-                addCoursePanel.add(unitsField);
-                addCoursePanel.add(new JLabel("Grade (Leave blank if not graded):"));
-                addCoursePanel.add(gradeField);
-
-                int result = JOptionPane.showConfirmDialog(frame, addCoursePanel, "Add Course", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
-                if (result == JOptionPane.OK_OPTION) {
-                    try {
-                        String year = String.valueOf(Integer.parseInt(yearField.getText()));
-                        String term = String.valueOf(Integer.parseInt(termField.getText()));
-                        String courseNumber = courseNumberField.getText();
-                        String descTitle = descTitleField.getText();
-                        int units = Integer.parseInt(unitsField.getText());
-                        int grade = gradeField.getText().isEmpty() ? 0 : Integer.parseInt(gradeField.getText());
-
-                        Course newCourse = new Course(year, term, courseNumber, descTitle, units, grade);
-                        list.add(newCourse);
-                        if (grade == 0 || grade > 74) {
-                            unfinSubs.add(newCourse);
-                            tableModel.addRow(new Object[]{++index[0], newCourse.getCourseNumber(), newCourse.getDescTitle()});
-                        }
-                    } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(frame, "Invalid input. Please make sure all fields are filled correctly.", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-            }
-        });
-        frame.setIconImage(icon.getImage());
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-    } //end of enterGrades method
-
+    } // end of RoundRectangle class
 } // end of CurriculumMonitoringApplication class
