@@ -90,7 +90,7 @@ public class CurriculumMonitoringApplication {
      */
     static BufferedReader inputStream;
 
-    //TODO: Lourdene - add image icon description
+    //TODO: Charles - add image icon description (javadoc)
     ImageIcon icon = new ImageIcon("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/" +
             "res/icon1.png");
     /**
@@ -135,7 +135,7 @@ public class CurriculumMonitoringApplication {
         }
     } // end of main method
 
-    //TODO:Julienne Add run method description (javadoc comment) and algorithm (multi-line comment) after coding the GUI
+    //TODO:Charles Add run method description (javadoc comment) and algorithm (multi-line comment) after coding the GUI
     public void run() throws IOException {
         String name = null;
         name= showLoginDialog().toUpperCase();
@@ -1929,55 +1929,90 @@ public class CurriculumMonitoringApplication {
         5. Shows a warning pop-up window to confirm the user's choice to edit grades.
         6. Shows a warning pop-up window to confirm the user's choice to go back to the main menu.
      */
-    //TODO: Charles - add updated method code and algorithm
+    //TODO: Charles - add updated algorithm
     public void showAverageGrade() throws IOException {
-        int average = 0, count=0; //declare variables
+        // Computation of the average grade
+        // Declare variables
+        int average = 0, count = 0;
+        double finalAverage = 0;
 
-        //Adds all the marked grades to variable average and increments count
+        // Adds all the marked grades to variable average and increments count
         for (Course course : list) {
             if (course.getGrades() != 0) {
                 average += course.getGrades();
                 count++;
             }
         }
+        finalAverage = (double) average / count;
 
-        if (count == 0) {
-            // Shows a warning pop-up window if there are no grades available to calculate the average grade.
-            JOptionPane.showMessageDialog(null, "No grades available to calculate the average grade.", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else {
-            average /= count; // calculates the average
-            // Shows the average grade in a warning pop-up window.
-            JOptionPane.showMessageDialog(null, "Student's Average Grade: " + average, "Average Grade", JOptionPane.WARNING_MESSAGE);
+        JDialog averageDialog = new JDialog();
+        averageDialog.setTitle("Average Grade");
+        averageDialog.setModal(true);
+
+        JLabel headerLabel = new JLabel("Average Grade", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
+        headerLabel.setOpaque(true);
+        headerLabel.setBackground(navy);
+        headerLabel.setForeground(pink);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JLabel resultLabel = new JLabel("Results: ");
+        resultLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
+        resultLabel.setOpaque(true);
+        resultLabel.setBackground(lightBlue);
+        resultLabel.setForeground(darkPurple);
+        resultLabel.setBorder(BorderFactory.createEmptyBorder(5, 100, 5, 0));
+
+        JLabel gradeLabel = new JLabel(String.format("%.2f", finalAverage));
+        gradeLabel.setFont(new Font("Helvetica", Font.BOLD, 50));
+        gradeLabel.setOpaque(true);
+        gradeLabel.setBackground(lightBlue);
+        gradeLabel.setForeground(peach);
+        gradeLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 0));
+
+        JLabel errorLabel = new JLabel("<html><div style='text-align: center; padding: 5px;'> " +
+                "No grades available to calculate the average grade.");
+        errorLabel.setFont(new Font("Helvetica", Font.BOLD, 16));
+        errorLabel.setOpaque(true);
+        errorLabel.setBackground(lightBlue);
+        errorLabel.setForeground(darkPurple);
+        errorLabel.setBorder(BorderFactory.createEmptyBorder(5, 20, 5, 20));
+
+        RoundButton backButton = new RoundButton("Back");
+        buttonDesign(backButton);
+        backButton.addActionListener(e -> {
+            averageDialog.dispose();
+        });
+
+        JPanel averagePanel = new JPanel(new BorderLayout());
+
+        JPanel resultPanel = new JPanel(new GridLayout(1, 1, 5, 5));
+        resultPanel.add(resultLabel);
+        resultPanel.add(gradeLabel);
+        resultPanel.setBackground(lightBlue);
+        resultPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        backPanel.setBackground(navy);
+        backPanel.add(backButton);
+        backPanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0));
+
+        if (count == 0) { // Shows a message statement
+            averagePanel.add(headerLabel, BorderLayout.NORTH);
+            averagePanel.add(errorLabel, BorderLayout.CENTER);
+            averagePanel.add(backPanel, BorderLayout.SOUTH);
+        } else { // Shows the average grade result
+            // Calculates the average
+            averagePanel.add(headerLabel, BorderLayout.NORTH);
+            averagePanel.add(resultPanel, BorderLayout.CENTER);
+            averagePanel.add(backPanel, BorderLayout.SOUTH);
         }
 
-        // Provides the user an option to edit grades
-        System.out.print("Would you like to edit grades? (Y/N): ");
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-
-        if (input.equalsIgnoreCase("Y")) {
-            // Call a method to edit grades
-            enterGrades();
-        } else {
-            // If user chooses not to edit grades, provide option to go back to main menu
-
-
-            // Invoke the method to go back to the main menu
-            int choice=0;
-            String enter;
-
-            // Loops until the user inputs 9 to go back to the main menu
-            while(choice != 9){
-                // Show the list of choices
-                listOfChoices();
-                System.out.println("-----");
-
-                // Wait for user to press enter before continuing
-                System.out.println();
-                System.out.print("Press enter key to go back.");
-                enter = scanner.nextLine();
-            }
-        }
+        averageDialog.getContentPane().add(averagePanel);
+        averageDialog.setSize(455, 300);
+        averageDialog.setLocationRelativeTo(null);
+        averageDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        averageDialog.setVisible(true);
     } // end of showAverageGrade method
 
     /**
@@ -2377,7 +2412,7 @@ public class CurriculumMonitoringApplication {
         pW.flush();
     } // end of saveFile method
 
-    //TODO: Marius - add class description
+    //TODO: Charles - add class description (javadoc)
     private class RoundButton extends JButton {
         // Declare the objects for RoundRectangleButton.
         /**

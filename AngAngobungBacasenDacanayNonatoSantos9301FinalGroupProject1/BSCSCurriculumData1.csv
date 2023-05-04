@@ -1,7 +1,7 @@
 year,"term(1=first term, 2=second term, 3=short term)",course number,descriptive title,units,Grades
 1,1,CS 111,Introduction to Computing,2,0
 1,1,CS 111L,Introduction to Computing (Lab),1,0
-1,1,CS 112,Computer Programming 1,2,90
+1,1,CS 112,Computer Programming 1,2,0
 1,1,CS 112L,Computer Programming 1 (Lab),1,0
 1,1,CS 113,Discrete Structures,3,0
 1,1,GMATH,Mathematics in the Modern World,3,0
