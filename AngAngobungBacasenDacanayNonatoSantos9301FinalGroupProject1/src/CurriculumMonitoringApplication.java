@@ -490,9 +490,7 @@ public class CurriculumMonitoringApplication {
      * And, else it will print "Passed".
      */
     //TODO: Julienne - Add showSubsWithGradesAndRemarksForEachTerm method algorithm (multi-line comment) after coding the GUI
-    public void showSubsWithGradesAndRemarksForEachTerm(){
-        Scanner scan = new Scanner(System.in);
-        String enter;
+    public void showSubsWithGradesAndRemarksForEachTerm() {
         JFrame frame = new JFrame("Courses with Grades");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(1100, 600);
@@ -500,8 +498,57 @@ public class CurriculumMonitoringApplication {
         // Prints the list of courses
         String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units", "Grades"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+        updateTableModel(list, tableModel);
 
-        for (Course course : list) {
+        JTable table = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(table);
+        frame.add(scrollPane, BorderLayout.CENTER);
+
+        // Search functionality
+        JPanel searchPanel = new JPanel();
+        JLabel searchLabel = new JLabel("Search: ");
+        JTextField searchBar = new JTextField(15);
+        searchPanel.add(searchLabel);
+        searchPanel.add(searchBar);
+        frame.add(searchPanel, BorderLayout.NORTH);
+
+        searchBar.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            private void filterTable() {
+                String searchText = searchBar.getText().toLowerCase();
+                ArrayList<Course> filteredList = new ArrayList<>();
+                for (Course course : list) {
+                    if (course.getCourseNumber().toLowerCase().contains(searchText) ||
+                            course.getDescTitle().toLowerCase().contains(searchText)) {
+                        filteredList.add(course);
+                    }
+                }
+                updateTableModel(filteredList, tableModel);
+            }
+        });
+
+        frame.setIconImage(icon.getImage());
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+    } // end of showSubsWithGradesAndRemarksForEachTerm method
+
+    private void updateTableModel(ArrayList<Course> courses, DefaultTableModel tableModel) {
+        tableModel.setRowCount(0);
+        for (Course course : courses) {
             Object[] rowData = {
                     course.getYear(),
                     "3".equals(course.getTerm()) ? "Short term" : course.getTerm(),
@@ -512,14 +559,7 @@ public class CurriculumMonitoringApplication {
             };
             tableModel.addRow(rowData);
         }
-
-        JTable table = new JTable(tableModel);
-        JScrollPane scrollPane = new JScrollPane(table);
-        frame.add(scrollPane, BorderLayout.CENTER);
-        frame.setIconImage(icon.getImage());
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-    } // end of showSubsWithGradesAndRemarksForEachTerm method
+    }
 
     /**
      * Method to lists all the unfinished course and ask
@@ -561,7 +601,7 @@ public class CurriculumMonitoringApplication {
         String[] columnNames = {"#", "Course number", "Descriptive Title"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         HashMap<Integer, Integer> originalIndices = new HashMap<>();
-        updateTableModel(unfinSubs, unfinSubs, tableModel, originalIndices);
+        updateCourseTableModel(unfinSubs, unfinSubs, tableModel, originalIndices);
 
         JTable table = new JTable(tableModel);
         table.setFont(new Font("Helvetica", Font.BOLD, 10));
@@ -602,7 +642,7 @@ public class CurriculumMonitoringApplication {
                         filteredList.add(course);
                     }
                 }
-                updateTableModel(unfinSubs, filteredList, tableModel, originalIndices);
+                updateCourseTableModel(unfinSubs, filteredList, tableModel, originalIndices);
             }
         });
 
@@ -665,7 +705,7 @@ public class CurriculumMonitoringApplication {
         frame.setLocationRelativeTo(null);
     }
 
-    private void updateTableModel(ArrayList<Course> unfinSubs, ArrayList<Course> courses, DefaultTableModel tableModel, HashMap<Integer, Integer> originalIndices) {
+    private void updateCourseTableModel(ArrayList<Course> unfinSubs, ArrayList<Course> courses, DefaultTableModel tableModel, HashMap<Integer, Integer> originalIndices) {
         tableModel.setRowCount(0);
         int index = 0;
         for (Course course : courses) {
