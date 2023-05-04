@@ -830,7 +830,17 @@ public class CurriculumMonitoringApplication {
     /**
      * Method to compute and show the average grade of a student.
      */
-    //TODO: Charles - Add showAverageGrade method algorithm (multi-line comment) after coding the GUI
+
+    /**
+     * Calculates the average grade of the student and provides the user with an option to edit grades.
+     * If the user chooses to edit grades, it will invoke the method to enter grades.
+     * If the user chooses not to edit grades, it will invoke the method to go back to the main menu.
+     * Shows a warning pop-up window if there are no grades available to calculate the average grade.
+     * Shows a warning pop-up window to confirm the user's choice to edit grades.
+     * Shows a warning pop-up window to confirm the user's choice to go back to the main menu.
+     *
+     * @throws IOException if an I/O error occurs.
+     */
     public void showAverageGrade() throws IOException {
         int average = 0, count=0; //declare variables
 
@@ -841,12 +851,14 @@ public class CurriculumMonitoringApplication {
                     count++;
                 }
             }
+
         if (count == 0) {
-            System.out.println("Invalid! No grades available to calculate the average grade.");
+            // Shows a warning pop-up window if there are no grades available to calculate the average grade.
+            JOptionPane.showMessageDialog(null, "No grades available to calculate the average grade.", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             average /= count; // calculates the average
-            System.out.println("----------");
-            System.out.println("Student's Average Grade: " + average);
+            // Shows the average grade in a warning pop-up window.
+            JOptionPane.showMessageDialog(null, "Student's Average Grade: " + average, "Average Grade", JOptionPane.WARNING_MESSAGE);
         }
 
         //TODO: Show this as a warning pop-up window (will let user choose to edit grades button or go back to main menu button)
