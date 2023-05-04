@@ -122,19 +122,33 @@ public class MyProgram extends JFrame {
     JLabel findLastName;
 
     // Declare the frames for MyProgram
-    //TODO: Nash - Add frames descriptions
+    /**
+     * The variable "frame2" is of type JFrame, which represents a GUI window in a Java program. It is used to create a frame for the Citizen App.
+     */
     JFrame frame2 = new JFrame("Citizen App");
+    /**
+     * The variable "chooseFrame" is of type JFrame, which represents yet another GUI window in a Java program. It is used to create a frame for the Citizen App.
+     */
     JFrame frameMorF = new JFrame("Citizen App");
+
+    /**
+     * The variable "chooseFrame" is of type JFrame, which represents yet another GUI window in a Java program. It is used to create a frame for the Citizen App.
+     */
     JFrame chooseFrame = new JFrame("Citizen App");
 
 
     //Declare the Strings for MyProgram
-    //TODO: Nash - Add Strings descriptions
+    /**
+     * The variable "firstName" is of type String, which represents a sequence of characters in a Java program. It is used to store the first name of a citizen.
+     */
     String firstName = "";
+
+    /**
+     * The variable "lastName" is also of type String. It is used to store the last name of a citizen.
+     */
     String lastName = "";
 
     //Declare the ints for MyProgram
-
     /**The variable "ageGroup" is of type int, which represents a numerical value that can hold a range of integers.
     *It is used to store the age group of a citizen, which may be determined by their age or some other relevant criteria.
     */
@@ -428,14 +442,17 @@ public class MyProgram extends JFrame {
     } // end of showMalesOnly method
 
     /**
-     * Method display the female list
+     This method retrieves the female citizens list from the MyProgramUtility and displays the information in a JTable.
+     It also sets up the graphical user interface for the table display.
      */
-    //TODO: Charles - Add showFemalesOnly method algorithm
     public void showFemalesOnly(){
-        String[][] data = myProgramUtility.listFemaleOnly(); //calls method defaultList() from MyProgramUtility
+    //retrieve the female citizens list from the MyProgramUtility
+        String[][] data = myProgramUtility.listFemaleOnly();
+
+    //column names for the table
         String[] column = {"Full Name", "Email", "Address", "Age", "Resident", "District", "Gender"};
 
-        //table
+    //create a JTable with the data and column names
         JTable table = new JTable(data, column){
             //makes cells from table non-editable
             @Override
@@ -443,11 +460,12 @@ public class MyProgram extends JFrame {
                 return false;
             }
         };
+    //set up the display for the JTable
         table.setPreferredScrollableViewportSize(new Dimension(1000,550));
         table.setFillsViewportHeight(true);
         table.getTableHeader().setReorderingAllowed(false);
 
-        //Panes
+        //set up the panes for the JTable
         JScrollPane scrollPane = new JScrollPane(table);
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
         buttonPanel.setBounds(20,205,300,50);
