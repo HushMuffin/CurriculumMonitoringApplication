@@ -50,9 +50,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
+import java.util.*;
 
 /* Improvements:
 //TODO: Lourdene - add showExit method
@@ -562,7 +560,8 @@ public class CurriculumMonitoringApplication {
 
         String[] columnNames = {"#", "Course number", "Descriptive Title"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
-        updateTableModel(unfinSubs, tableModel);
+        HashMap<Integer, Integer> originalIndices = new HashMap<>();
+        updateTableModel(unfinSubs, unfinSubs, tableModel, originalIndices);
 
         JTable table = new JTable(tableModel);
         table.setFont(new Font("Helvetica", Font.BOLD, 10));
@@ -603,10 +602,11 @@ public class CurriculumMonitoringApplication {
                         filteredList.add(course);
                     }
                 }
-                updateTableModel(filteredList, tableModel);
+                updateTableModel(unfinSubs, filteredList, tableModel, originalIndices);
             }
         });
 
+        // Input Panel and buttons
         JPanel inputPanel = new JPanel();
         JLabel gradeLabel = new JLabel("Enter the grade: ");
         JTextField gradeField = new JTextField(2);
@@ -642,10 +642,12 @@ public class CurriculumMonitoringApplication {
                         int grade = Integer.parseInt(gradeField.getText());
 
                         if (grade == 0 || grade >= 70 && grade <= 99) {
-                            Course selectedCourse = unfinSubs.get(selectedRow);
+                            int originalIndex = originalIndices.get(selectedRow);
+                            Course selectedCourse = unfinSubs.get(originalIndex);
                             selectedCourse.setGrades(grade);
                             tableModel.removeRow(selectedRow);
-                            unfinSubs.remove(selectedRow);
+                            unfinSubs.remove(originalIndex);
+                            originalIndices.remove(selectedRow);
                             gradeField.setText("");
                         } else {
                             JOptionPane.showMessageDialog(frame, "Enter a grade between 70 and 99.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -662,19 +664,21 @@ public class CurriculumMonitoringApplication {
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
     }
-    private void updateTableModel(ArrayList<Course> courses, DefaultTableModel tableModel) {
+
+    private void updateTableModel(ArrayList<Course> unfinSubs, ArrayList<Course> courses, DefaultTableModel tableModel, HashMap<Integer, Integer> originalIndices) {
         tableModel.setRowCount(0);
         int index = 0;
         for (Course course : courses) {
+            int originalIndex = unfinSubs.indexOf(course);
             Object[] rowData = {
                     ++index,
                     course.getCourseNumber(),
                     course.getDescTitle()
             };
             tableModel.addRow(rowData);
+            originalIndices.put(index - 1, originalIndex);
         }
     }
-
     /**
      * Method to allow the user to choose an elective course for them to edit.
      */
