@@ -144,42 +144,112 @@ public class CurriculumMonitoringApplication {
         listOfChoices();
     } // end of run method
 
-    //TODO: Julienne - add updated method code, description, and algorithm
+    //TODO: Julienne - add method description and algorithm
     private String showLoginDialog() {
-        JPanel loginPanel = new JPanel(new GridLayout(3, 2));
-        JLabel usernameLabel = new JLabel("Username:");
-        JTextField usernameField = new JTextField();
-        JLabel passwordLabel = new JLabel("Password:");
-        JPasswordField passwordField = new JPasswordField();
+        // Create a new JDialog for the login dialog
+        JDialog loginDialog = new JDialog();
+        loginDialog.setTitle("User Login");
+        loginDialog.setModal(true);
+        loginDialog.setLayout(new BorderLayout());
+
+        // Create the labels to be used inside the login panel
+        JLabel headerLabel = new JLabel("User Login", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
+        headerLabel.setOpaque(true);
+        headerLabel.setBackground(navy);
+        headerLabel.setForeground(pink);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JLabel usernameLabel = new JLabel("USERNAME:");
+        usernameLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
+        usernameLabel.setForeground(Color.darkGray);
+        usernameLabel.setBorder(BorderFactory.createEmptyBorder(0,55,0,0));
+
+        JLabel passwordLabel = new JLabel("PASSWORD:");
+        passwordLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
+        passwordLabel.setForeground(Color.darkGray);
+        passwordLabel.setBorder(BorderFactory.createEmptyBorder(0,55,0,0));
+
+        // Create the input text fields to be used inside the login panel
+        JTextField usernameField = new JTextField(20);
+        usernameField.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JPasswordField passwordField = new JPasswordField(20);
         passwordField.setEchoChar('*');
 
+        // Create the buttons for the login dialog
+        RoundButton okButton = new RoundButton("OK");
+        buttonDesign(okButton);
+        okButton.addActionListener(e -> {
+            String username = usernameField.getText();
+            String password = new String(passwordField.getPassword());
+
+            if (username.isEmpty() || password.isEmpty()) {
+                // Create a new JDialog for the warning message
+                JDialog warningDialog = new JDialog(loginDialog, "Warning", true);
+                warningDialog.setLayout(new BorderLayout());
+                warningDialog.setBackground(peach);
+
+                // Add the warning message label to the dialog
+                JLabel warningLabel = new JLabel("Please enter both username and password!",
+                        SwingConstants.CENTER);
+                warningLabel.setFont(new Font("Helvetica", Font.BOLD, 17));
+                warningLabel.setForeground(darkPurple);
+                warningLabel.setBackground(peach);
+                warningLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+                // Sets the specific formats for the warning dialog
+                warningDialog.add(warningLabel, BorderLayout.CENTER);
+                warningDialog.pack();
+                warningDialog.setLocationRelativeTo(loginDialog);
+                warningDialog.setSize(400, 120);;
+                warningDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                warningDialog.setVisible(true);
+            } else {
+                loginDialog.setVisible(false);
+            }
+        });
+
+        RoundButton cancelButton = new RoundButton("Cancel");
+        buttonDesign(cancelButton);
+        cancelButton.addActionListener(e -> {
+            showExit();
+            System.exit(0);
+        });
+
+        // Create the panel within the login dialog
+        JPanel loginPanel = new JPanel(new GridLayout(2, 2, 5, 5));
         loginPanel.add(usernameLabel);
         loginPanel.add(usernameField);
         loginPanel.add(passwordLabel);
         loginPanel.add(passwordField);
+        loginPanel.setBackground(lightBlue);
+        loginPanel.setBorder(BorderFactory.createEmptyBorder(10,20,10,20));
 
-        String username = null;
-        boolean validInput = false;
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.add(okButton);
+        buttonPanel.add(cancelButton);
+        buttonPanel.setBackground(navy);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(4,20,4,20));
 
-        while (!validInput) {
-            int result = JOptionPane.showConfirmDialog(null, loginPanel, "Login", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-            if(result == JOptionPane.CANCEL_OPTION){
+        loginDialog.add(headerLabel, BorderLayout.NORTH);
+        loginDialog.add(loginPanel, BorderLayout.CENTER);
+        loginDialog.add(buttonPanel, BorderLayout.SOUTH);
+        loginDialog.pack();
+        loginDialog.setSize(520, 280);
+        loginDialog.setLocationRelativeTo(null);
+        loginDialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                showExit();
                 System.exit(0);
             }
-            if (result == JOptionPane.OK_OPTION) {
-                username = usernameField.getText();
-                String password = new String(passwordField.getPassword());
+        });
+        loginDialog.setIconImage(icon.getImage());
+        loginDialog.setVisible(true);
 
-                if (username.isEmpty() || password.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Please enter both username and password.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    validInput = true;
-                    // Perform your authentication or other operations with the entered username and password.
-                }
-            }
-        }
-
-        return username;
+        // Returns the username of the student as a String
+        return usernameField.getText();
     } // end of showLoginDialog method
 
     /**
@@ -300,7 +370,7 @@ public class CurriculumMonitoringApplication {
         });
 
         JButton showCourseWithGradesButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "2. Show course with grades for each term"); //TODO: remove after since we have Show course with grades and remarks for each term
+                "2. Show course with grades for each term"); //TODO: Lourdene - remove after since we have Show course with grades and remarks for each term
         buttonDesign(showCourseWithGradesButton);
         showCourseWithGradesButton.addActionListener(e -> {
             showCoursesWithGradesForEachTerm();
@@ -566,34 +636,106 @@ public class CurriculumMonitoringApplication {
     /**
      * Method to display the subjects with grades for each term.
      */
-    //TODO: Julienne - Add updated method code
-    public void showCoursesWithGradesForEachTerm(){
-        Scanner scan = new Scanner(System.in);
-        String enter;
-        JFrame frame = new JFrame("Courses with Grades");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(1100, 600);
-
-        // Prints the list of courses
+    public void showCoursesWithGradesForEachTerm() {
+        JFrame frame = new JFrame("Courses with Grades for Each Term");
         String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units", "Grades"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
-        for (Course course : list) {
-            Object[] rowData = {
-                    course.getYear(),
-                    "3".equals(course.getTerm()) ? "Short term" : course.getTerm(),
-                    course.getCourseNumber(),
-                    course.getDescTitle(),
-                    course.getUnits(),
-                    course.getGrades() == 0 ? "Not yet graded" : course.getGrades()
-            };
-            tableModel.addRow(rowData);
-        }
+        JLabel headerLabel = new JLabel("Courses with Grades for Each Term", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
+        headerLabel.setOpaque(true);
+        headerLabel.setBackground(navy);
+        headerLabel.setForeground(pink);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        list.stream().map(course -> new Object[]{
+                course.getYear(),
+                "3".equals(course.getTerm()) ? "Short term" : course.getTerm(),
+                course.getCourseNumber(),
+                course.getDescTitle(),
+                course.getUnits(),
+                course.getGrades() == 0 ? "Not yet graded" : course.getGrades()
+        }).forEach(tableModel::addRow);
 
         JTable table = new JTable(tableModel);
+        table.setEnabled(false);
+        table.setPreferredScrollableViewportSize(new Dimension(1080, 510));
+
         JScrollPane scrollPane = new JScrollPane(table);
-        frame.add(scrollPane, BorderLayout.CENTER);
+
+        // Define a custom header renderer that sets the background color of the column names
+        JTableHeader header = table.getTableHeader();
+        ((JTableHeader) header).setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+                c.setBackground(navy);
+                c.setForeground(purple); // set the text color of the column names to purple
+                c.setFont(new Font("Helvetica", Font.BOLD, 15));
+                return c;
+            }
+        });
+
+        // Define a custom cell renderer that sets the background color of the cells in the second column
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+
+                switch (column) {
+                    case 0:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 1:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 2:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 3:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 4:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 5:
+                        c.setBackground(lightBlue);
+                        break;
+                    default:
+                        c.setBackground(table.getBackground()); // use the default background color for other columns
+                        break;
+                }
+
+                return c;
+            }
+        };
+
+        // Set the custom cell renderer to all columns of the table
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
+        }
+
+        // Set the preferred width of each column
+        table.getColumnModel().getColumn(0).setPreferredWidth(3);
+        table.getColumnModel().getColumn(1).setPreferredWidth(5);
+        table.getColumnModel().getColumn(2).setPreferredWidth(65);
+        table.getColumnModel().getColumn(3).setPreferredWidth(540);
+        table.getColumnModel().getColumn(4).setPreferredWidth(3);
+        table.getColumnModel().getColumn(5).setPreferredWidth(15);
+
+        JPanel tablePanel = new JPanel();
+        tablePanel.add(scrollPane);
+        tablePanel.setBackground(peach);
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+
+        frame.add(headerLabel, BorderLayout.NORTH);
+        frame.add(tablePanel, BorderLayout.CENTER);
         frame.setIconImage(icon.getImage());
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(1190, 655);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
     } // end of showCoursesWithGradesForEachTerm method
@@ -820,7 +962,6 @@ public class CurriculumMonitoringApplication {
      *      b. If the description of the course matches the description of the selected unfinished subject, set the grade to the course.
      *      c. Print the description and grade of the updated course.
      */
-    //TODO: Lourdene - add updated method code
     public void enterGrades() {
         JFrame frame = new JFrame("Enter Grades");
         String[] columnNames = {"#", "Course number", "Descriptive Title"};
@@ -1067,7 +1208,7 @@ public class CurriculumMonitoringApplication {
         }
     } // end of updateCourseTableModel method
 
-    //TODO: Lourdene - Add method description and algorithm
+    //TODO: Julienne - Add method description and algorithm
     public void addFinishedCourse() {
         JFrame frame = new JFrame("Add Finished Course");
         String[] columnNames = {"#", "Course number", "Descriptive Title"};
@@ -1852,29 +1993,137 @@ public class CurriculumMonitoringApplication {
         5. For each course, print the year, term, course number, descriptive title, units, and grades.
            If the course has no grade, print "Not yet graded" instead of the grade.
      */
-    //TODO: Julienne - add updated method code and algorithm
+    //TODO: Julienne - add algorithm
     public void showSortedGrades() {
         ArrayList<Course> sortList = new ArrayList<>(list);
-        Collections.sort(sortList);
+        Collections.sort(sortList, new Comparator<Course>() {
+            @Override
+            public int compare(Course c1, Course c2) {
+                if (c1.getGrades() < c2.getGrades()) {
+                    return 1;
+                } else if (c1.getGrades() > c2.getGrades()) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
 
-        System.out.printf("%-10s%-10s%-20s%-85s%-15s%s%n","Year","Term","Course number",
-                "Descriptive Title","Units","Grades");
-        for (Course course : sortList){
-            System.out.printf("%-10s", course.getYear());
-            System.out.printf("%-10s", course.getTerm());
-            System.out.printf("%-20s", course.getCourseNumber());
-            System.out.printf("%-85s", course.getDescTitle());
-            System.out.printf("%-15s", course.getUnits());
 
-            //if grade is 0, mark as not graded yet
-            if(course.getGrades() == 0){
-                System.out.printf("%s","Not yet graded");
-            }else{
-                System.out.printf("%d", course.getGrades());
+        JFrame frame = new JFrame("Student's Sorted Grades");
+        String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units", "Grades"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+
+        JLabel headerLabel = new JLabel("Student's Sorted Grades", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
+        headerLabel.setOpaque(true);
+        headerLabel.setBackground(navy);
+        headerLabel.setForeground(pink);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JTable table = new JTable(tableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(1080, 510));
+
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // Populate tableModel using streams
+        sortList.stream().map(course -> {
+            String remarks;
+            int grades = course.getGrades();
+
+            if (grades == 0) {
+                remarks = "Not yet graded";
+            } else if (grades < 75) {
+                remarks = "Failed";
+            } else {
+                remarks = "Passed";
             }
 
-            System.out.println();
+            return new Object[]{
+                    course.getYear(),
+                    "3".equals(course.getTerm()) ? "Short term" : course.getTerm(),
+                    course.getCourseNumber(),
+                    course.getDescTitle(),
+                    course.getUnits(),
+                    grades == 0 ? "Not yet graded" : grades,
+                    remarks
+            };
+        }).forEach(tableModel::addRow);
+
+        // Define a custom header renderer that sets the background color of the column names
+        JTableHeader header = table.getTableHeader();
+        ((JTableHeader) header).setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+                c.setBackground(navy);
+                c.setForeground(purple); // set the text color of the column names to purple
+                c.setFont(new Font("Helvetica", Font.BOLD, 15));
+                return c;
+            }
+        });
+
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+
+                switch (column) {
+                    case 0:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 1:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 2:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 3:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 4:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 5:
+                        c.setBackground(lightBlue);
+                        break;
+                    default:
+                        c.setBackground(table.getBackground()); // use the default background color for other columns
+                        break;
+                }
+
+                return c;
+            }
+        };
+
+        // Set the custom cell renderer to all columns of the table
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
         }
+
+        table.getColumnModel().getColumn(0).setPreferredWidth(3);
+        table.getColumnModel().getColumn(1).setPreferredWidth(5);
+        table.getColumnModel().getColumn(2).setPreferredWidth(65);
+        table.getColumnModel().getColumn(3).setPreferredWidth(540);
+        table.getColumnModel().getColumn(4).setPreferredWidth(3);
+        table.getColumnModel().getColumn(5).setPreferredWidth(15);
+
+        JPanel tablePanel = new JPanel();
+        tablePanel.add(scrollPane);
+        tablePanel.setBackground(peach);
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 10, 0));
+
+        frame.add(headerLabel, BorderLayout.NORTH);
+        frame.add(tablePanel, BorderLayout.CENTER);
+        frame.setIconImage(icon.getImage());
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(1190, 650);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
     } // end of showSortedGrades method
 
     /**
@@ -1892,23 +2141,134 @@ public class CurriculumMonitoringApplication {
      *          iii. Print a new line to move to the next row in the table.
      * 3. End the method.
      */
-    //TODO: Julienne - add updated method code
     public void showFailedCourses(){
-        System.out.println("----------");
-        System.out.printf("%-10s%-10s%-20s%-85s%-15s%s%n","Year","Term","Course number",
-                "Descriptive Title","Units","Grades");
+        JFrame frame = new JFrame("Show Failed Courses");
+        String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units", "Grades", "Remarks"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
-        for(Course course : list){
-            if(course.getGrades() < 75 && course.getGrades() != 0){
-                System.out.printf("%-10s", course.getYear());
-                System.out.printf("%-10s", course.getTerm());
-                System.out.printf("%-20s", course.getCourseNumber());
-                System.out.printf("%-85s", course.getDescTitle());
-                System.out.printf("%-15s", course.getUnits());
-                System.out.printf("%d", course.getGrades());
-                System.out.println();
+        JLabel headerLabel = new JLabel("Student's Failed Courses", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
+        headerLabel.setOpaque(true);
+        headerLabel.setBackground(navy);
+        headerLabel.setForeground(pink);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JLabel guideLabel = new JLabel("<html><div style='text-align: center;'>" +
+                "If there appears to be no contents inside the table, then you have NOT " +
+                "failed any courses. Congratulations!</html>", SwingConstants.CENTER);
+        guideLabel.setFont(new Font("Helvetica", Font.ITALIC, 12));
+        guideLabel.setOpaque(true);
+        guideLabel.setBackground(purple);
+        guideLabel.setForeground(Color.darkGray);
+        guideLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JTable table = new JTable(tableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(1080, 510));
+
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        for (Course course : list) {
+            if (course.getGrades() < 75 && course.getGrades() != 0) {
+                String remarks = "Failed";
+
+                Object[] rowData = {
+                        course.getYear(),
+                        "3".equals(course.getTerm()) ? "Short term" : course.getTerm(),
+                        course.getCourseNumber(),
+                        course.getDescTitle(),
+                        course.getUnits(),
+                        course.getGrades(),
+                        remarks
+                };
+                tableModel.addRow(rowData);
             }
         }
+
+        // Define a custom header renderer that sets the background color of the column names
+        JTableHeader header = table.getTableHeader();
+        ((JTableHeader) header).setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+                c.setBackground(navy);
+                c.setForeground(purple); // set the text color of the column names to purple
+                c.setFont(new Font("Helvetica", Font.BOLD, 15));
+                return c;
+            }
+        });
+
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+
+                switch (column) {
+                    case 0:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 1:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 2:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 3:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 4:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 5:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 6:
+                        c.setBackground(lightBlue);
+                        break;
+                    default:
+                        c.setBackground(table.getBackground()); // use the default background color for other columns
+                        break;
+                }
+
+                return c;
+            }
+        };
+
+        // Set the custom cell renderer to all columns of the table
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
+        }
+
+        // Set the preferred width of each column
+        table.getColumnModel().getColumn(0).setPreferredWidth(3);
+        table.getColumnModel().getColumn(1).setPreferredWidth(5);
+        table.getColumnModel().getColumn(2).setPreferredWidth(65);
+        table.getColumnModel().getColumn(3).setPreferredWidth(540);
+        table.getColumnModel().getColumn(4).setPreferredWidth(3);
+        table.getColumnModel().getColumn(5).setPreferredWidth(20);
+        table.getColumnModel().getColumn(6).setPreferredWidth(20);
+
+        JPanel guidePanel = new JPanel(new BorderLayout());
+        guidePanel.add(guideLabel);
+        guidePanel.setBackground(peach);
+        guidePanel.setBorder(BorderFactory.createEmptyBorder(10, 200, 0, 200));
+
+        JPanel tablePanel = new JPanel();
+        tablePanel.add(scrollPane);
+        tablePanel.setBackground(peach);
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 10, 0));
+
+        frame.add(headerLabel, BorderLayout.NORTH);
+        frame.add(guidePanel, BorderLayout.CENTER);
+        frame.add(tablePanel, BorderLayout.SOUTH);
+        frame.setIconImage(icon.getImage());
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(1190, 700);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
     } // end of showFailedCourses method
 
     /**
