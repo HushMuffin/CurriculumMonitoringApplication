@@ -321,7 +321,7 @@ public class CurriculumMonitoringApplication {
         });
 
         JButton addFinishedCourseButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "5. Add a finished course from another program"); //TODO: remove after
+                "5. Add a finished course from another program");
         buttonDesign(addFinishedCourseButton);
         addFinishedCourseButton.addActionListener(e -> {
             addFinishedCourse();
@@ -422,28 +422,143 @@ public class CurriculumMonitoringApplication {
     /**
      * Method to display the subjects for each term.
      */
-    //TODO: Nash - Add updated method code
-    public void showCoursesForEachTerm(){
-        Scanner scan = new Scanner(System.in);
-        String enter;
-
-        JFrame frame = new JFrame("Courses");
-        frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
-        frame.setSize(1000, 600);
+    public void showCoursesForEachTerm() {
+        JFrame frame = new JFrame("Courses for Each Term");
         String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
-        list.stream().map(course ->
-                new Object[]{course.getYear(),
-                        "3".equals(course.getTerm()) ? "Short term" : course.getTerm(),
-                        course.getCourseNumber(),
-                        course.getDescTitle(),
-                        course.getUnits()}).forEach(tableModel::addRow);
+        JLabel headerLabel = new JLabel("Courses for Each Term", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
+        headerLabel.setOpaque(true);
+        headerLabel.setBackground(navy);
+        headerLabel.setForeground(pink);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        ArrayList<Course> unfinishedCourses = new ArrayList<>();
+        HashMap<Integer, Integer> originalIndices = new HashMap<>();
+
+        list.stream().map(course -> new Object[]{
+                course.getYear(),
+                "3".equals(course.getTerm()) ? "Short term" : course.getTerm(),
+                course.getCourseNumber(),
+                course.getDescTitle(),
+                course.getUnits()
+        }).forEach(tableModel::addRow);
+
+        // Search functionality
+        JLabel searchLabel = new JLabel("Search: ");
+        JTextField searchBar = new JTextField(15);
+
+        searchBar.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            private void filterTable() {
+                String searchText = searchBar.getText().toLowerCase();
+                ArrayList<Course> filteredList = new ArrayList<>();
+                for (Course course : unfinishedCourses) {
+                    if (course.getCourseNumber().toLowerCase().contains(searchText) ||
+                            course.getDescTitle().toLowerCase().contains(searchText)) {
+                        filteredList.add(course);
+                    }
+                }
+                updateCourseTableModel(unfinishedCourses, filteredList, tableModel, originalIndices);
+            }
+        });
 
         JTable table = new JTable(tableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(900, 500));
+
         JScrollPane scrollPane = new JScrollPane(table);
-        frame.add(scrollPane, BorderLayout.CENTER);
+
+        // Define a custom header renderer that sets the background color of the column names
+        JTableHeader header = table.getTableHeader();
+        ((JTableHeader) header).setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+                c.setBackground(navy);
+                c.setForeground(purple); // set the text color of the column names to purple
+                c.setFont(new Font("Helvetica", Font.BOLD, 15));
+                return c;
+            }
+        });
+
+        // Define a custom cell renderer that sets the background color of the cells in the second column
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+
+                switch (column) {
+                    case 0:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 1:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 2:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 3:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 4:
+                        c.setBackground(lightBlue);
+                        break;
+                    default:
+                        c.setBackground(table.getBackground()); // use the default background color for other columns
+                        break;
+                }
+
+                return c;
+            }
+        };
+
+        // Set the custom cell renderer to all columns of the table
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
+        }
+
+        // Set the preferred width of each column
+        table.getColumnModel().getColumn(0).setPreferredWidth(3);
+        table.getColumnModel().getColumn(1).setPreferredWidth(5);
+        table.getColumnModel().getColumn(2).setPreferredWidth(65);
+        table.getColumnModel().getColumn(3).setPreferredWidth(530);
+        table.getColumnModel().getColumn(4).setPreferredWidth(3);
+
+        JPanel searchPanel = new JPanel();
+        searchPanel.add(searchLabel);
+        searchPanel.add(searchBar);
+        searchPanel.setBackground(peach);
+        searchPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+
+        JPanel tablePanel = new JPanel();
+        tablePanel.add(scrollPane);
+        tablePanel.setBackground(peach);
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 10, 0));
+
+        frame.add(headerLabel, BorderLayout.NORTH);
+        frame.add(searchPanel, BorderLayout.CENTER);
+        frame.add(tablePanel, BorderLayout.SOUTH);
         frame.setIconImage(icon.getImage());
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(1000, 685);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
     } // end of showCoursesForEachTerm method
@@ -488,28 +603,52 @@ public class CurriculumMonitoringApplication {
      * where it will print "Failed", if grade is less than 75.
      * And, else it will print "Passed".
      */
-    //TODO: Nash - add updated method code and algorithm
+    //TODO: Nash - add algorithm
     public void showCoursesWithGradesAndRemarksForEachTerm() {
-        JFrame frame = new JFrame("Courses with Grades");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(1100, 600);
-
-        // Prints the list of courses
-        String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units", "Grades"};
+        JFrame frame = new JFrame("Courses with Grades and Remarks for Each Term");
+        String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units", "Grades", "Remarks"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         updateTableModel(list, tableModel);
 
+        JLabel headerLabel = new JLabel("Courses with Grades and Remarks for Each Term", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
+        headerLabel.setOpaque(true);
+        headerLabel.setBackground(navy);
+        headerLabel.setForeground(pink);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        // Populate tableModel using streams
+        list.stream().map(course -> {
+            String remarks;
+            int grades = course.getGrades();
+
+            if (grades == 0) {
+                remarks = "Not yet graded";
+            } else if (grades < 75) {
+                remarks = "Failed";
+            } else {
+                remarks = "Passed";
+            }
+
+            return new Object[]{
+                    course.getYear(),
+                    "3".equals(course.getTerm()) ? "Short term" : course.getTerm(),
+                    course.getCourseNumber(),
+                    course.getDescTitle(),
+                    course.getUnits(),
+                    grades == 0 ? "Not yet graded" : grades,
+                    remarks
+            };
+        }).forEach(tableModel::addRow);
+
         JTable table = new JTable(tableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(1200, 510));
+
         JScrollPane scrollPane = new JScrollPane(table);
-        frame.add(scrollPane, BorderLayout.CENTER);
 
         // Search functionality
-        JPanel searchPanel = new JPanel();
         JLabel searchLabel = new JLabel("Search: ");
         JTextField searchBar = new JTextField(15);
-        searchPanel.add(searchLabel);
-        searchPanel.add(searchBar);
-        frame.add(searchPanel, BorderLayout.NORTH);
 
         searchBar.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -540,22 +679,117 @@ public class CurriculumMonitoringApplication {
             }
         });
 
+        // Define a custom header renderer that sets the background color of the column names
+        JTableHeader header = table.getTableHeader();
+        ((JTableHeader) header).setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+                c.setBackground(navy);
+                c.setForeground(purple); // set the text color of the column names to purple
+                c.setFont(new Font("Helvetica", Font.BOLD, 15));
+                return c;
+            }
+        });
+
+        // Define a custom cell renderer that sets the background color of the cells in the second column
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+
+                switch (column) {
+                    case 0:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 1:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 2:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 3:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 4:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 5:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 6:
+                        c.setBackground(lightBlue);
+                        break;
+                    default:
+                        c.setBackground(table.getBackground()); // use the default background color for other columns
+                        break;
+                }
+
+                return c;
+            }
+        };
+
+        // Set the custom cell renderer to all columns of the table
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
+        }
+
+        // Set the preferred width of each column
+        table.getColumnModel().getColumn(0).setPreferredWidth(3);
+        table.getColumnModel().getColumn(1).setPreferredWidth(5);
+        table.getColumnModel().getColumn(2).setPreferredWidth(65);
+        table.getColumnModel().getColumn(3).setPreferredWidth(540);
+        table.getColumnModel().getColumn(4).setPreferredWidth(3);
+        table.getColumnModel().getColumn(5).setPreferredWidth(20);
+        table.getColumnModel().getColumn(6).setPreferredWidth(20);
+
+        JPanel searchPanel = new JPanel();
+        searchPanel.add(searchLabel);
+        searchPanel.add(searchBar);
+        searchPanel.setBackground(peach);
+        searchPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+
+        JPanel tablePanel = new JPanel();
+        tablePanel.add(scrollPane);
+        tablePanel.setBackground(peach);
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 10, 0));
+
+        frame.add(headerLabel, BorderLayout.NORTH);
+        frame.add(searchPanel, BorderLayout.CENTER);
+        frame.add(tablePanel, BorderLayout.SOUTH);
         frame.setIconImage(icon.getImage());
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(1280, 700);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
     } // end of showCoursesWithGradesAndRemarksForEachTerm method
 
-    //TODO: Nash - Add updated method code, description, and algorithm
+    //TODO: Nash - Add method description and algorithm
     private void updateTableModel(ArrayList<Course> courses, DefaultTableModel tableModel) {
         tableModel.setRowCount(0);
         for (Course course : courses) {
+            String remarks;
+            int grades = course.getGrades();
+
+            if (grades == 0) {
+                remarks = "Not yet graded";
+            } else if (grades < 75) {
+                remarks = "Failed";
+            } else {
+                remarks = "Passed";
+            }
+
             Object[] rowData = {
                     course.getYear(),
                     "3".equals(course.getTerm()) ? "Short term" : course.getTerm(),
                     course.getCourseNumber(),
                     course.getDescTitle(),
                     course.getUnits(),
-                    course.getGrades() == 0 ? "Not yet graded" : course.getGrades()
+                    grades == 0 ? "Not yet graded" : grades,
+                    remarks
             };
             tableModel.addRow(rowData);
         }
@@ -1071,45 +1305,58 @@ public class CurriculumMonitoringApplication {
         frame.setLocationRelativeTo(null);
     } //end of addFinishedCourse method
 
-    //TODO: Nash - Add updated method code, description, and algorithm
-    public void addCreditedCourse(){
-        JFrame frame = new JFrame("Enter Grades");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(800, 600);
-
-        ArrayList<Course> unfinSubs = new ArrayList<>();
-        ArrayList<Integer> limit = new ArrayList<>();
-        int index = 0;
-        for (Course course : list) {
-            if (course.getGrades() == 0 || course.getGrades() > 74) {
-                unfinSubs.add(course);
-            }
-        }
+    //TODO: Nash - Add method description and algorithm
+    public void addCreditedCourse() {
+        JFrame frame = new JFrame("Add Credited Course");
         String[] columnNames = {"#", "Course number", "Descriptive Title"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
-        for (Course course : unfinSubs) {
+        JLabel headerLabel = new JLabel("Add Credited Course", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
+        headerLabel.setOpaque(true);
+        headerLabel.setBackground(navy);
+        headerLabel.setForeground(pink);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JLabel guideLabel = new JLabel("<html><div style='text-align: center;'>" +
+                "For adding a new completed course, click the \"Add Course\" button that " +
+                "will direct you to another dialog window for entering inputs of data " +
+                "information0 about the course to be added. Remember to save before closing!" +
+                "</html>", SwingConstants.CENTER);
+        guideLabel.setFont(new Font("Helvetica", Font.ITALIC, 12));
+        guideLabel.setOpaque(true);
+        guideLabel.setBackground(purple);
+        guideLabel.setForeground(Color.darkGray);
+        guideLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        ArrayList<Course> unfinishedCourses = new ArrayList<>();
+        ArrayList<Integer> limit= new ArrayList<>();
+        final int[] index = {0};
+
+        for (Course course : list) {
+            if (course.getGrades() == 0 || course.getGrades() >74) {
+                unfinishedCourses.add(course);
+            }
+        }
+
+        for (Course course : unfinishedCourses) {
             Object[] rowData = {
-                    ++index,
+                    ++index[0],
                     course.getCourseNumber(),
                     course.getDescTitle()
             };
             tableModel.addRow(rowData);
         }
+
         JTable table = new JTable(tableModel);
+        table.setFont(new Font("Helvetica", Font.BOLD, 12));
+        table.setPreferredScrollableViewportSize(new Dimension(900, 235));
+
         JScrollPane scrollPane = new JScrollPane(table);
         frame.add(scrollPane, BorderLayout.CENTER);
 
-        JPanel inputPanel = new JPanel();
-
         RoundButton saveButton = new RoundButton("Save");
-        RoundButton updateGradeButton = new RoundButton("Update Grade");//TODO: Lourdene figure out a way to fit in the text in the button
-        RoundButton backButton = new RoundButton("Back");
         buttonDesign(saveButton);
-        buttonDesign(updateGradeButton);
-        buttonDesign(backButton);
-
-        backButton.addActionListener(e -> frame.dispose());
         saveButton.addActionListener(e -> {
             try {
                 saveFile();
@@ -1118,43 +1365,177 @@ public class CurriculumMonitoringApplication {
             }
         });
 
-        inputPanel.add(saveButton);
-        inputPanel.add(updateGradeButton);
-        inputPanel.add(backButton);
-        frame.add(inputPanel, BorderLayout.SOUTH);
-
+        RoundButton updateGradeButton = new RoundButton("Update Grade");
+        buttonDesign(updateGradeButton);
         updateGradeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String courseNumber = JOptionPane.showInputDialog(frame, "Enter the course number:", "Update Grade", JOptionPane.PLAIN_MESSAGE);
+                JDialog updateGradeDialog = new JDialog(frame, "Update Grade", true);
+                updateGradeDialog.setLayout(new BorderLayout());
 
-                if (courseNumber != null) {
-                    Course courseToUpdate = null;
-                    int rowIndex = -1;
-                    for (int i = 0; i < unfinSubs.size(); i++) {
-                        if (unfinSubs.get(i).getCourseNumber().equalsIgnoreCase(courseNumber)) {
-                            courseToUpdate = unfinSubs.get(i);
-                            rowIndex = i;
-                            break;
-                        }
-                    }
+                JLabel courseNumberLabel = new JLabel("Enter the course number:");
+                JTextField courseNumberField = new JTextField();
+                JLabel gradeLabel = new JLabel("Enter the grade:");
+                JTextField gradeField = new JTextField();
 
-                    if (courseToUpdate != null) {
-                        try {
-                            int grade = Integer.parseInt(JOptionPane.showInputDialog(frame, "Enter the grade for " + courseNumber + ":", "Update Grade", JOptionPane.PLAIN_MESSAGE));
-                            courseToUpdate.setGrades(grade);
-                            tableModel.removeRow(rowIndex);
-                            unfinSubs.remove(rowIndex);
-                        } catch (NumberFormatException ex) {
-                            JOptionPane.showMessageDialog(frame, "Invalid grade. Please enter a number.", "Error", JOptionPane.ERROR_MESSAGE);
+                RoundButton okButton = new RoundButton("OK");
+                buttonDesign(okButton);
+                okButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String courseNumber = courseNumberField.getText();
+                        Course courseToUpdate = null;
+                        int rowIndex = -1;
+                        for (int i = 0; i < unfinishedCourses.size(); i++) {
+                            if (unfinishedCourses.get(i).getCourseNumber().equalsIgnoreCase(courseNumber)) {
+                                courseToUpdate = unfinishedCourses.get(i);
+                                rowIndex = i;
+                                break;
+                            }
                         }
-                    } else {
-                        JOptionPane.showMessageDialog(frame, "Course not found. Please make sure you entered the correct course number.", "Error", JOptionPane.ERROR_MESSAGE);
+                        if (courseToUpdate != null) {
+                            try {
+                                int grade = Integer.parseInt(gradeField.getText());
+                                if (grade == 0 || grade >= 70 && grade <= 99) {
+                                    courseToUpdate.setGrades(grade);
+                                    tableModel.removeRow(rowIndex);
+                                    unfinishedCourses.remove(rowIndex);
+
+                                    Course selectedCourse = unfinishedCourses.get(rowIndex);
+                                    selectedCourse.setGrades(grade);
+                                    tableModel.removeRow(rowIndex);
+                                    unfinishedCourses.remove(courseToUpdate);
+                                    gradeField.setText("");
+                                } else {
+                                    JOptionPane.showMessageDialog(frame, "Enter a grade between 70 and 99.",
+                                            "Error", JOptionPane.ERROR_MESSAGE);
+                                    return; // Don't close the main updateGradeDialog
+                                }
+                            } catch (NumberFormatException ex) {
+                                JOptionPane.showMessageDialog(updateGradeDialog, "Invalid grade. Please enter a number.",
+                                        "Error", JOptionPane.ERROR_MESSAGE);
+                                return; // Don't close the updateGradeDialog
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(updateGradeDialog, "Course not found. Please make" +
+                                            " sure you entered the correct course number.",
+                                    "Error", JOptionPane.ERROR_MESSAGE);
+                            return; // Don't close the updateGradeDialog
+                        }
+                        updateGradeDialog.dispose(); // Close the updateGradeDialog
                     }
-                }
+                });
+
+                JPanel inputPanel = new JPanel(new GridLayout(2, 2, 5, 5));
+                inputPanel.add(courseNumberLabel);
+                inputPanel.add(courseNumberField);
+                inputPanel.add(gradeLabel);
+                inputPanel.add(gradeField);
+                inputPanel.setBackground(peach);
+                inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+                JPanel buttonPanel = new JPanel();
+                buttonPanel.add(okButton);
+                buttonPanel.setBackground(navy);
+                buttonPanel.setBorder(BorderFactory.createEmptyBorder(3, 30, 3, 30));
+
+                updateGradeDialog.add(inputPanel, BorderLayout.CENTER);
+                updateGradeDialog.add(buttonPanel, BorderLayout.SOUTH);
+                updateGradeDialog.setSize(400, 210);
+                updateGradeDialog.setLocationRelativeTo(frame);
+                updateGradeDialog.setVisible(true);
             }
         });
+
+        RoundButton backButton = new RoundButton("Back");
+        buttonDesign(backButton);
+        backButton.addActionListener(e -> frame.dispose());
+
+        // Define a custom header renderer that sets the background color of the column names
+        JTableHeader header = table.getTableHeader();
+        ((JTableHeader) header).setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+                c.setBackground(navy);
+                c.setForeground(purple); // set the text color of the column names to purple
+                c.setFont(new Font("Helvetica", Font.BOLD, 15));
+                return c;
+            }
+        });
+
+        // Define a custom cell renderer that sets the background color of the cells in the second column
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+
+                switch (column) {
+                    case 0:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 1:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 2:
+                        c.setBackground(lightBlue);
+                        break;
+                    default:
+                        c.setBackground(table.getBackground()); // use the default background color for other columns
+                        break;
+                }
+
+                return c;
+            }
+        };
+
+        // Set the custom cell renderer to all columns of the table
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
+        }
+
+        // Set the preferred width of each column
+        table.getColumnModel().getColumn(0).setPreferredWidth(1);
+        table.getColumnModel().getColumn(1).setPreferredWidth(1);
+        table.getColumnModel().getColumn(2).setPreferredWidth(450);
+
+        JPanel guidePanel = new JPanel(new BorderLayout());
+        guidePanel.add(guideLabel, BorderLayout.CENTER);
+        guidePanel.setBackground(peach);
+        guidePanel.setBorder(BorderFactory.createEmptyBorder(10,100,0,100));
+
+        JPanel tablePanel = new JPanel();
+        tablePanel.add(scrollPane);
+        tablePanel.setBackground(peach);
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(10,0,3,0));
+
+        JPanel inputPanel = new JPanel(new GridLayout(1, 2, 5, 5));
+        inputPanel.add(updateGradeButton);
+        inputPanel.add(saveButton);
+        inputPanel.setBackground(peach);
+        inputPanel.setBorder(BorderFactory.createEmptyBorder(3,330,10,330));
+
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BorderLayout());
+        contentPanel.add(guidePanel, BorderLayout.NORTH);
+        contentPanel.add(tablePanel, BorderLayout.CENTER);
+        contentPanel.add(inputPanel, BorderLayout.SOUTH);
+        contentPanel.setBackground(peach);
+
+        JPanel backPanel = new JPanel();
+        backPanel.setBackground(navy);
+        backPanel.add(backButton);
+        backPanel.setBorder(BorderFactory.createEmptyBorder(2,0,2,0));
+
+        frame.add(headerLabel, BorderLayout.NORTH);
+        frame.add(contentPanel, BorderLayout.CENTER);
+        frame.add(backPanel, BorderLayout.SOUTH);
         frame.setIconImage(icon.getImage());
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(980, 545);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
     } // end of addCreditedCourse method
