@@ -241,20 +241,30 @@ public class MyProgramUtility {
      *
      * @return data - the array string of citizen list
      */
-    //TODO: Charles - Add listFemaleOnly method algorithm (multi-line comment)
+
+    /**
+     * This method filters and sorts the female citizens from the list of citizens.
+     * It then populates a two-dimensional string array with the relevant information
+     * of the filtered female citizens and returns the resulting array.
+     *
+     * @return a two-dimensional string array of the filtered and sorted female citizens' information
+     */
     public String[][] listFemaleOnly(){
+//retrieve the list of citizens
         ArrayList<Citizen> list = csvToList();
 
-        //filters the females only
+//filters the females only
         list = (ArrayList<Citizen>) list.stream()
                 .filter(x -> x.getGender() == 'F')
                 .sorted()
                 .collect(Collectors.toList());
 
+//initialize a two-dimensional string array to store the filtered female citizens' information
         String[][] data = new String[list.size()][7];
 
-        //populates the data array
+//populates the data array with the filtered female citizens' information
         for(int i=0; i< list.size(); i++){
+//get the relevant information of the filtered female citizen
             String name = list.get(i).getFullName();
             String email = list.get(i).getEmail();
             String address = list.get(i).getAddress();
@@ -270,7 +280,8 @@ public class MyProgramUtility {
                 resident = "Non-Resident";
             }
 
-            //add information to data
+            //add the relevant information of the filtered female citizen to the data array
+            data[i][0] = name;
             data[i][0] = name;
             data[i][1] = email;
             data[i][2] = address;
@@ -301,13 +312,22 @@ public class MyProgramUtility {
      *
      * @return list - number of females from the list
      */
-    //TODO: Charles - Add numberOfFemale method algorithm
+
+    /**
+     * This method retrieves the list of citizens and filters the female citizens from the list.
+     * It then returns the count of the filtered female citizens.
+     *
+     * @return the count of the filtered female citizens
+     */
     public long numberOfFemale(){
+        //retrieve the list of citizens
         ArrayList<Citizen> list = csvToList();
+
+        //filter the female citizens from the list and return the count of the filtered female citizens
         return list.stream()
                 .filter(x -> x.getGender() == 'F')
                 .count();
-    } // end of numberOfFemale method
+    }
 
     /**
      * Method to return a Citizen object that is equals to the entered name of user.

@@ -134,7 +134,10 @@ public class MyProgram extends JFrame {
     String lastName = "";
 
     //Declare the ints for MyProgram
-    //TODO: Charles - Add ints descriptions
+
+    /**The variable "ageGroup" is of type int, which represents a numerical value that can hold a range of integers.
+    *It is used to store the age group of a citizen, which may be determined by their age or some other relevant criteria.
+    */
     int ageGroup;
 
     /**
