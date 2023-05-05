@@ -66,7 +66,7 @@ public class Course implements Comparable<Course> {
     //TODO: Marius - Add default constructor description and give contents inside
     public Course(){} // end of Course default constructor
 
-    //TODO: Julienne - Add constructor description
+    // This constructor contains the year, term, courseNumber, decTitle, units, and grades for the class
     public Course(String year, String term, String courseNumber, String descTitle, double units, int grades) {
         this.year = year;
         this.term = term;
@@ -76,7 +76,7 @@ public class Course implements Comparable<Course> {
         this.grades=grades;
     } // end of Course constructor
 
-    //TODO: Julienne - Add constructor description
+    // This constructor contains the courseNumber, descTitle, and units for the class
     public Course(String courseNumber, String descTitle, double units){
         this.courseNumber = courseNumber;
         this.descTitle = descTitle;
@@ -246,7 +246,11 @@ public class Course implements Comparable<Course> {
         this.year = year;
     }
 
-    //TODO: Julienne - Add toString method description
+    /*
+     This method checks whether the unit variable is a whole number or not, if it is then the method returns a string
+     that concatenates the year, term, courseNumber, descTile, units, and grades instance variables
+     */
+
     public String toString(){
         if(units%1 == 0 ){
             return year+","+term+","+courseNumber+","+descTitle+","+ (int)units+","+grades;

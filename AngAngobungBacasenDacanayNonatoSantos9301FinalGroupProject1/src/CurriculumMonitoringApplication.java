@@ -144,7 +144,10 @@ public class CurriculumMonitoringApplication {
         listOfChoices();
     } // end of run method
 
-    //TODO: Julienne - add method description and algorithm
+    /*
+     This method shows the showLoginDialog or the login window containing the user interface where the user would be
+     asked to provide input for the username and password
+     */
     private String showLoginDialog() {
         // Create a new JDialog for the login dialog
         JDialog loginDialog = new JDialog();
@@ -1193,7 +1196,8 @@ public class CurriculumMonitoringApplication {
     }//end of enterGrades method
 
     //TODO: Katelyn - add method description and algorithm
-    private void updateCourseTableModel(ArrayList<Course> unfinSubs, ArrayList<Course> courses, DefaultTableModel tableModel, HashMap<Integer, Integer> originalIndices) {
+    private void updateCourseTableModel(ArrayList<Course> unfinSubs, ArrayList<Course> courses, DefaultTableModel
+            tableModel, HashMap<Integer, Integer> originalIndices) {
         tableModel.setRowCount(0);
         int index = 0;
         for (Course course : courses) {
@@ -1208,7 +1212,34 @@ public class CurriculumMonitoringApplication {
         }
     } // end of updateCourseTableModel method
 
-    //TODO: Julienne - Add method description and algorithm
+    /**
+     * This method contains the addFinishedCourse that displays interface of the finished courses, and it would ask the
+     * user to provide the input such as the number, Course number, and Descriptive Title
+     */
+
+    /*
+        Algorithm:
+        1. The method creates a JFrame object for the dialog window and set the title to "Add Finished Course"
+        2. Then it creates an array of column names and a DefaultTableModel object for displaying a table of available
+        courses in the dialog window.
+        3. Create two ArrayList objects to store the list of available courses and the index of each course in the table
+        4. Iterate through the list of courses and add the ones that have not been graded or have a grade higher than
+        74 to the ArrayList of available courses.
+        5. Add each available course to the table by creating an Object array with its course number, descriptive title,
+         and index in the table, and adding the array to the table model.
+        6. Create a JTable object with the table model and set its preferred size.
+        7. Create a JScrollPane object with the table and add it to the JFrame object.
+        8. Create a save button with a round design, add an ActionListener to it that calls a saveFile() method, and
+        add the button to the JFrame object.
+        9. Create an "Add Course" button with a round design, add an ActionListener to it that creates a JDialog object
+        for entering data about a new completed course, and add the button to the JFrame object.
+        10. In the ActionListener for the "Add Course" button, create a JDialog object with text fields for entering
+        data about a new course, as well as "Ok" and "Cancel" buttons for confirming or canceling the entry.
+        11. Add ActionListeners to the "Ok" and "Cancel" buttons that either create a new Course object and add it to
+        the list of courses, or cancel the dialog and return to the table of available courses.
+        12. Display the dialog window with the table and buttons.
+     */
+
     public void addFinishedCourse() {
         JFrame frame = new JFrame("Add Finished Course");
         String[] columnNames = {"#", "Course number", "Descriptive Title"};
@@ -2028,7 +2059,11 @@ public class CurriculumMonitoringApplication {
         5. For each course, print the year, term, course number, descriptive title, units, and grades.
            If the course has no grade, print "Not yet graded" instead of the grade.
      */
-    //TODO: Julienne - add algorithm
+
+    /*
+     This method contains the showSortedGrades that would create a sortList that contains the provided input
+     to be sorted in descending order based on the grades of each course
+     */
     public void showSortedGrades() {
         ArrayList<Course> sortList = new ArrayList<>(list);
         Collections.sort(sortList, new Comparator<Course>() {
@@ -2165,16 +2200,29 @@ public class CurriculumMonitoringApplication {
      * Method to display the courses that have grades lower than 75.
      */
     /*
-     * Algorithm:     //TODO: Julienne - add updated algorithm
-     * 1. Print the header for the table of failed subjects.
-     *      a. The header should contain columns for Year, Term, Course number, Descriptive Title, Units, and Grades.
-     *      b. Use printf statements to format the columns to a fixed width.
-     * 2. Loop through each course in the list.
-     *      a. If the course's grade is less than 75 and not equal to 0 (i.e., failed), print its details in the table.
-     *          i. Use printf statements to format the columns to a fixed width.
-     *          ii. Print the course's year, term, course number, descriptive title, units, and grade.
-     *          iii. Print a new line to move to the next row in the table.
-     * 3. End the method.
+        Algorithm:
+       1. This method sets a new JFrame with the title "Show Failed Courses"
+       2. Define an array of column names for the table
+       3. Create a new DefaultTableModel object with the column names
+       4. Create a new JLabel with the text "Student's Failed Courses" and set its font, background color, foreground
+       color, and border
+       5. Create a new JLabel with instructions for the user and set its font, background color, foreground color,
+        and border
+       6. Create a new JTable with the DefaultTableModel object
+       7. Set the preferred scrollable viewport size of the JTable
+       8. Create a new JScrollPane with the JTable as its argument
+       9. It then has a loop through each Course object in the list, if the course's grade is less than 75 and not equal
+        to 0, create a new Object array with the course's year, term, course number, descriptive title, units, grade,
+        and remarks (which is set to "Failed"), and add it to the DefaultTableModel
+       10. Define a custom header renderer for the JTable that sets the background color, foreground color, and font of
+       the column names
+       11. Define a custom cell renderer for the JTable that sets the background color of each cell based on its column
+        index
+       12. Set the custom cell renderer to each column of the JTable
+       13. Set the preferred width of each column in the JTable
+       14. Create a new JPanel for the instructions JLabel and set its layout and border
+       15. Create a new JPanel for the JScrollPane and add the JScrollPane to it, and set its background color and
+       border
      */
     public void showFailedCourses(){
         JFrame frame = new JFrame("Show Failed Courses");
@@ -2378,7 +2426,15 @@ public class CurriculumMonitoringApplication {
      * Method to read from the csv file and populates
      * the ArrayList with Course instances.
      */
-    //TODO: Julienne - Add populateArrayList method algorithm (multi-line comment)
+
+    /**
+     * The populateArrayList method reads data from a file and stores it in an ArrayList of Course objects.
+     * It skips the first line of the file, assumes that each subsequent line contains comma-separated values
+     * representing a course, and creates a Course object for each line using the data
+     * Finally, it adds the Course object to the ArrayList.
+     * @param list array of objects
+     * @throws IOException throws IOException if exception is encountered while accessing the data
+     */
     public void populateArrayList(ArrayList<Course> list) throws IOException {
         inputStream = new BufferedReader(new FileReader(file));
         String line = inputStream.readLine(); //skips the first line
