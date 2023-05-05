@@ -90,7 +90,14 @@ public class CurriculumMonitoringApplication {
      */
     static BufferedReader inputStream;
 
-    //TODO: Charles - add image icon description (javadoc)
+    /**
+     ImageIcon for the login dialog.
+     <p>
+     The icon is retrieved from the res folder of the project.
+     </p>
+     @since 2023-05-05
+     @return The image icon for the login dialog.
+     */
     ImageIcon icon = new ImageIcon("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/" +
             "res/icon1.png");
     /**
@@ -135,7 +142,19 @@ public class CurriculumMonitoringApplication {
         }
     } // end of main method
 
-    //TODO:Charles Add run method description (javadoc comment) and algorithm (multi-line comment) after coding the GUI
+    /**
+     * Runs the program by showing the login dialog, getting the user's name, displaying an introduction
+     * message, populating the ArrayList with data, and displaying the list of choices.
+     * @throws IOException if there is an error reading the data file
+     */
+
+    /**
+     * Algorithm:
+     * Get the user's name from the login dialog by calling the showLoginDialog() method.
+     * Display an introduction message using the user's name by calling the showIntroduction() method.
+     * Populate the ArrayList with data by calling the populateArrayList() method.
+     * Display the list of choices by calling the listOfChoices() method.
+     */
     public void run() throws IOException {
         String name = null;
         name= showLoginDialog().toUpperCase();
@@ -1682,13 +1701,41 @@ public class CurriculumMonitoringApplication {
     } // end of addCreditedCourse method
 
     /**
-     * Method to allow the user to choose an elective course for them to edit.
+     * This method sets up the "Edit Elective Course" frame, which displays two tables:
+     * "Elective Courses Table" and "Recommended Courses Table". The user can select a row in the
+     * "Elective Courses Table" and a row in the "Recommended Courses Table", and click the confirm button
+     * to confirm that they will take the selected recommended course as an elective course.
      */
-    //TODO: Charles - Add method algorithm
+
+     /**
+      * Algorithm:
+      1) Create a new JFrame for the "Edit Elective Course" frame and set its layout to BorderLayout.
+        a. Create a new JLabel for the header and set its text to "Edit Elective Course".
+        b. Create a new JLabel for the guide text and set its text to a guide message for the user.
+        c. Create a new JLabel for the "Elective Courses Table" label and set its text to "Elective Courses Table".
+        d. Create a new JLabel for the "Recommended Courses Table" label and set its text to "Recommended Courses Table".
+      2) Create an ArrayList of type Course called listRecommended and add recommended courses to it.
+      3) Create a new DefaultTableModel called electivesModel for the "Elective Courses Table" .
+      4) Create a new DefaultTableModel called recommendedModel for the "Recommended Courses Table".
+      5) Create a new JPanel called buttonPanel, set its background to peach, and create a new JButton called "Confirm".
+      6) Create the actionPerformed method and gets the selected rows from the 'electivesTable' and 'recommendedTable' objects.
+      7) Create a RoundButton object called 'cancelButton' and set its text to "Cancel".
+      8) Create the actionPerformed method, dispose of the 'electiveframe' JFrame object to close the window.
+      9) Create a new DefaultTableCellRenderer object
+        a. Create a new JPanel object for the guide panel
+        b. Create a new JPanel object for the top panel
+        c. Create a new JPanel object for the content panel
+        d. Create a new JPanel object for the button panel
+
+     */
     public void editElectiveCourse() {
         JFrame electiveframe = new JFrame("Edit Elective Course");
         electiveframe.setLayout(new BorderLayout());
 
+    /**
+     *  Set the font to "Helvetica", size to 25, and background to navy. Set the foreground to pink and create an empty
+     *  border with thickness of 8 pixels at the top, and 10 pixels at the left, right and bottom.
+    */
         JLabel headerLabel = new JLabel("Edit Elective Course", SwingConstants.CENTER);
         headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
         headerLabel.setOpaque(true);
@@ -1701,12 +1748,21 @@ public class CurriculumMonitoringApplication {
                 "that corresponds to a specific elective course. Then, click the confirm button " +
                 "to confirm that you will take the selected recommended course as an elective course." +
                 "</html>", SwingConstants.CENTER);
+
+        /**
+         * Set the font to "Helvetica", style to ITALIC, and background to purple. Set the foreground to dark gray
+         * and create an empty border with thickness of 10 pixels on all sides.
+         */
         guideLabel.setFont(new Font("Helvetica", Font.ITALIC, 12));
         guideLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         guideLabel.setOpaque(true);
         guideLabel.setBackground(purple);
         guideLabel.setForeground(Color.darkGray);
 
+        /**
+         * Set the font to "Helvetica", size to 18, and background to peach. Set the foreground to dark gray and
+         * create an empty border with thickness of 5 pixels at the top, and 10 pixels at the left, right and bottom.
+         */
         JLabel electiveLabel = new JLabel("Elective Courses Table", SwingConstants.CENTER);
         electiveLabel.setFont(new Font("Helvetica", Font.BOLD, 18));
         electiveLabel.setOpaque(true);
@@ -1714,6 +1770,10 @@ public class CurriculumMonitoringApplication {
         electiveLabel.setForeground(Color.darkGray);
         electiveLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
+        /**
+         * Set the font to "Helvetica", size to 18, and background to peach. Set the foreground to dark gray and create an empty
+         * border with thickness of 5 pixels at the top, and 10 pixels at the left, right and bottom.
+         */
         JLabel recommendedLabel = new JLabel("Recommended Courses Table", SwingConstants.CENTER);
         recommendedLabel.setFont(new Font("Helvetica", Font.BOLD, 18));
         recommendedLabel.setOpaque(true);
@@ -1721,6 +1781,11 @@ public class CurriculumMonitoringApplication {
         recommendedLabel.setForeground(Color.darkGray);
         recommendedLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
+        /**
+         * Populate the "Elective Courses Table" by iterating through an array of indices that correspond to
+         * the elective courses in the list, getting the corresponding Course object, and adding its data as a
+         * new row in the table model.
+         */
         ArrayList<Course> listRecommended = new ArrayList<>();
         Course cn101 = new Course("CN", "Computational Science", 3.0);
         Course gv101 = new Course("GV", "Graphics and Visual Computing", 3.0);
@@ -1735,6 +1800,10 @@ public class CurriculumMonitoringApplication {
         listRecommended.add(is101);
         listRecommended.add(sf101);
 
+        /**
+         * Set the row height to 25 pixels and preferred scrollable viewport size to 900 x 100 pixels.
+         * Set its columns to "Year", "Term", "Course number", "Descriptive Title", and "Units".
+         */
         // Set up the tables and their models
         DefaultTableModel electivesModel = new DefaultTableModel(new Object[]{"Year", "Term", "Course number", "Descriptive Title", "Units"}, 0);
         JTable electivesTable = new JTable(electivesModel);
@@ -1756,6 +1825,12 @@ public class CurriculumMonitoringApplication {
             electivesModel.addRow(rowData);
         }
 
+        /**
+         *  Populate the "Recommended Courses Table" by iterating through the list of recommended courses, getting
+         *  the corresponding Course object, and adding its data as a new row in the table model.
+         *
+         *  Set its columns to "Course number", "Descriptive Title", and "Units".
+         */
         DefaultTableModel recommendedModel = new DefaultTableModel(new Object[]{"Course number", "Descriptive Title", "Units"}, 0);
         JTable recommendedTable = new JTable(recommendedModel);
         recommendedTable.setFont(new Font("Helvetica", Font.BOLD, 12));
@@ -1772,6 +1847,10 @@ public class CurriculumMonitoringApplication {
             recommendedModel.addRow(rowData);
         }
 
+        /**
+         * Call the 'buttonDesign' method and pass in the 'confirmButton' object as a parameter to apply any necessary styling.
+         * Add an ActionListener to the 'confirmButton' object that listens for an ActionEvent.
+         */
         // Set up the buttons
         RoundButton confirmButton = new RoundButton("Confirm");
         buttonDesign(confirmButton);
@@ -1780,7 +1859,11 @@ public class CurriculumMonitoringApplication {
             public void actionPerformed(ActionEvent e) {
                 int electiveRow = electivesTable.getSelectedRow();
                 int recommendedRow = recommendedTable.getSelectedRow();
-
+                /**
+                 *  If both electiveRow and recommendedRow are not -1 (i.e., a row is selected in both tables), then proceed to step 6.
+                 *  Otherwise, display an error message and exit the method.
+                 *  Get the Course object at the corresponding index in the 'list' and 'listRecommended' ArrayLists.
+                 */
                 if (electiveRow != -1 && recommendedRow != -1) {
                     Course selectedElective = list.get(68 + electiveRow); // Assuming the index starts from 68 as in your previous code
                     Course selectedRecommended = listRecommended.get(recommendedRow);
@@ -1802,7 +1885,9 @@ public class CurriculumMonitoringApplication {
                 }
             }
         });
-
+        /**
+         * Add an ActionListener to the 'cancelButton' object that listens for an ActionEvent.
+         */
         RoundButton cancelButton = new RoundButton("Cancel");
         buttonDesign(cancelButton);
         cancelButton.addActionListener(new ActionListener() {
@@ -1812,6 +1897,9 @@ public class CurriculumMonitoringApplication {
             }
         });
 
+        /**
+         * Create a new DefaultTableCellRenderer object
+         */
         // Define a custom header renderer that sets the background color of the column names
         JTableHeader header1 = electivesTable.getTableHeader();
         ((JTableHeader) header1).setDefaultRenderer(new DefaultTableCellRenderer() {
@@ -1826,7 +1914,9 @@ public class CurriculumMonitoringApplication {
                 return c;
             }
         });
-
+        /**
+         * Get the table header of the recommended table and set the default renderer for the header
+         */
         JTableHeader header2 = recommendedTable.getTableHeader();
         ((JTableHeader) header2).setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override
@@ -1841,7 +1931,9 @@ public class CurriculumMonitoringApplication {
             }
         });
 
-        // Define a custom cell renderer that sets the background color of the cells in the second column
+        /**
+         * Define a custom cell renderer that sets the background color of the cells in the second column
+         */
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value,
                                                            boolean isSelected, boolean hasFocus, int row, int column) {
@@ -1873,7 +1965,9 @@ public class CurriculumMonitoringApplication {
             }
         };
 
-        // Set the custom cell renderer to all columns of the table
+         /**
+         * Set the custom cell renderer to all columns of the table
+         */
         for (int i = 0; i < electivesTable.getColumnCount(); i++) {
             electivesTable.getColumnModel().getColumn(i).setCellRenderer(renderer);
         }
@@ -1881,17 +1975,23 @@ public class CurriculumMonitoringApplication {
         for (int i = 0; i < recommendedTable.getColumnCount(); i++) {
             recommendedTable.getColumnModel().getColumn(i).setCellRenderer(renderer);
         }
-
+         /**
+          * Create a new JPanel object for the guide panel:
+        */
         JPanel guidePanel = new JPanel(new BorderLayout());
         guidePanel.add(guideLabel, BorderLayout.CENTER);
         guidePanel.setBackground(peach);
         guidePanel.setBorder(BorderFactory.createEmptyBorder(10, 100, 0, 100));
-
+        /**
+         * Create a new JPanel object for the top panel:
+         */
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.add(headerLabel, BorderLayout.NORTH);
         topPanel.add(guidePanel, BorderLayout.SOUTH);
         topPanel.setBackground(peach);
-
+        /**
+         * Create a new JPanel object for the content panel:
+         */
         JPanel contentPanel = new JPanel(new FlowLayout());
         contentPanel.add(electiveLabel);
         contentPanel.add(new JScrollPane(electivesTable));
@@ -1899,13 +1999,19 @@ public class CurriculumMonitoringApplication {
         contentPanel.add(new JScrollPane(recommendedTable));
         contentPanel.setBackground(peach);
         contentPanel.setBorder(BorderFactory.createEmptyBorder(5, 20, 10, 20));
-
+        /**
+         * Create a new JPanel object for the button panel
+         */
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(confirmButton);
         buttonPanel.add(cancelButton);
         buttonPanel.setBackground(navy);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(5, 50, 5, 5));
-
+        /**
+         * Add the top panel to the north of the electiveframe.
+         * Add the content panel to the center of the electiveframe.
+         * Add the button panel to the south of the electiveframe.
+         */
         electiveframe.add(topPanel, BorderLayout.NORTH);
         electiveframe.add(contentPanel, BorderLayout.CENTER);
         electiveframe.add(buttonPanel, BorderLayout.SOUTH);
