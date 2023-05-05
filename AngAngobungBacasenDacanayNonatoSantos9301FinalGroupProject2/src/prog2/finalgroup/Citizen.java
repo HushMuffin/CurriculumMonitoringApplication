@@ -35,22 +35,56 @@
  */
 package prog2.finalgroup;
 
-//TODO: Lourdene - Add reference class description (javadoc comment)
+/**
+ * The Citizen class represents a specific citizen with attributes used as the reference
+ * class for the MyProgram class to hold and manage information about citizens.
+ */
 public class Citizen implements Comparable<Citizen>{
     //Declare the instance variables for Citizen.
-    //TODO: Lourdene - Give javadoc comments for variable descriptions
+    /**
+     * Holds the string value of the full name of a citizen.
+     */
     String fullName;
+    /**
+     * Holds the string value of the email of a citizen.
+     */
     String email;
+    /**
+     * Holds the string value of the address of a citizen.
+     */
     String address;
+    /**
+     * Holds the int value of the age of a citizen.
+     */
     int age;
+    /**
+     * Holds the boolean value if the citizen is a resident or non-resident.
+     */
     boolean resident;
+    /**
+     * Holds the int value of the district of a citizen.
+     */
     int district;
+    /**
+     * Holds the char value if the citizen is a male or female.
+     */
     char gender;
 
     //TODO: Marius - Add default constructor description (javadoc comment) and give contents inside
     public Citizen(){ } // end of Citizen default constructor
 
-    //TODO: Lourdene - Add constructor description (javadoc comment)
+    /**
+     * Constructor that creates a Citizen with a specified full name, email, address, age,
+     * resident, district, and gender as its initial value. <br>
+     *
+     * @param fullName receives the full name for the Citizen
+     * @param email receives the email for the Citizen
+     * @param address receives the address for the Citizen
+     * @param age receives the age for the Citizen
+     * @param resident receives the resident condition for the Citizen
+     * @param district receives the district number for the Citizen
+     * @param gender receives the gender type for the Citizen
+     */
     public Citizen(String fullName, String email, String address, int age, boolean resident, int district, char gender){
         this.fullName = fullName;
         this.email = email;
