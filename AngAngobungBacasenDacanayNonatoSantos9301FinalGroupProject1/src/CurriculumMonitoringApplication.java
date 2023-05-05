@@ -55,10 +55,6 @@ import java.io.*;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/* Improvements:
-//TODO: Nash - Remove the option 1 and 2 as option 3 contains this feature
-             - Add instructions/guide label within a panel to guide the user
- */
 
 /**
  * The CurriculumMonitoringApplication Class is the main class that provides options to be
@@ -353,8 +349,50 @@ public class CurriculumMonitoringApplication {
 
     /**
      * Method to show the list of actions for the user to choose from.
+
+     Algorithm listOfChoices():
+     1. Create a new JFrame named "BSCS Curriculum Monitoring Application"
+     2. Create a new JLabel named headerLabel with text "MAIN MENU" and centered alignment
+     - Set the font to Helvetica, bold, and size 30
+     - Set the background color to navy and the foreground color to pink
+     - Set the border to an empty border with 10 pixels on each side
+     3. Create a new JLabel named guideLabel with instructions for the user
+     - Set the font to Helvetica, italic, and size 12
+     - Set the background color to purple and the foreground color to dark gray
+     - Set the border to an empty border with 10 pixels on each side
+     4. Create a new RoundButton named showCourseAndRemarksButton with text "1. Show course with grades and remarks for each term"
+     - Call the method buttonDesign() to apply the button's design
+     - Add an action listener that calls the method showCoursesWithGradesAndRemarksForEachTerm()
+     5. Create a new RoundButton named enterGradeButton with text "2. Enter grade for course recently finished"
+     - Call the method buttonDesign() to apply the button's design
+     - Add an action listener that calls the method enterGrades()
+     6. Create a new RoundButton named addFinishedCourseButton with text "3. Add a finished course from another program"
+     - Call the method buttonDesign() to apply the button's design
+     - Add an action listener that calls the method addFinishedCourse()
+     7. Create a new RoundButton named addCreditedCourseButton with text "4. Add a BSCS-credited course finished through another program"
+     - Call the method buttonDesign() to apply the button's design
+     - Add an action listener that calls the method addCreditedCourse()
+     8. Create a new RoundButton named editElectiveCourseButton with text "5. Edit an elective course"
+     - Call the method buttonDesign() to apply the button's design
+     - Add an action listener that calls the method editElectiveCourse()
+     9. Create a new RoundButton named button8 with text "6. Show student's average grade for all finished courses"
+     - Call the method buttonDesign() to apply the button's design
+     - Add an action listener that calls the method showAverageGrade()
+     10. Create a new RoundButton named button9 with text "7. Show student's sorted grades"
+     - Call the method buttonDesign() to apply the button's design
+     - Add an action listener that calls the method showSortedGrades()
+     11. Create a new RoundButton named button10 with text "8. Show student's failed courses only"
+     - Call the method buttonDesign() to apply the button's design
+     - Add an action listener that calls the method showFailedCourses()
+     12. Create a new RoundButton named button11 with text "QUIT"
+     - Call the method buttonDesign() to apply the button's design
+     - Add an action listener that calls the method showExit(), disposes of the choiceFrame, saves the file, and exits the program
+     13. Create a new JPanel named topPanel with a BorderLayout
+     - Add the headerLabel to the north of the panel
+     - Add the guidePanel to the center of the panel
+     14. Create a new JPanel named buttonsPanel with a GridLayout of 5 rows and 2 columns, and horizontal and vertical gaps of 10 pixels
+     - Set the
      */
-    ///TODO: Nash - Add method algorithm
     public void listOfChoices() {
         JFrame choiceFrame = new JFrame("BSCS Curriculum Monitoring Application");
 
@@ -364,58 +402,54 @@ public class CurriculumMonitoringApplication {
         headerLabel.setBackground(navy);
         headerLabel.setForeground(pink);
         headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        JButton showCourseEachTermButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "1. Show course for each school term");
-        buttonDesign(showCourseEachTermButton);
-        showCourseEachTermButton.addActionListener(e -> {
-            showCoursesForEachTerm();
-        });
-
-        JButton showCourseWithGradesButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "2. Show course with grades for each term"); //TODO: Lourdene - remove after since we have Show course with grades and remarks for each term
-        buttonDesign(showCourseWithGradesButton);
-        showCourseWithGradesButton.addActionListener(e -> {
-            showCoursesWithGradesForEachTerm();
-        });
+        JLabel guideLabel = new JLabel("<html><div style='text-align: center;'>" +
+                "Please select a row in the table below that corresponds to a specific" +
+                " course. Then, enter the grade you have in the chosen course to the " +
+                "text field below the table. You can also search your desired course on " +
+                "the search bar below. Remember to submit and save what you have edited!</html>", SwingConstants.CENTER);
+        guideLabel.setFont(new Font("Helvetica", Font.ITALIC, 12));
+        guideLabel.setOpaque(true);
+        guideLabel.setBackground(purple);
+        guideLabel.setForeground(Color.darkGray);
+        guideLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JButton showCourseAndRemarksButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "3. Show course with grades and remarks for each term");
+                "1. Show course with grades and remarks for each term");
         buttonDesign(showCourseAndRemarksButton);
         showCourseAndRemarksButton.addActionListener(e -> {
             showCoursesWithGradesAndRemarksForEachTerm();
         });
 
         JButton enterGradeButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "4. Enter grade for course recently finished");
+                "2. Enter grade for course recently finished");
         buttonDesign(enterGradeButton);
         enterGradeButton.addActionListener(e -> {
             enterGrades();
         });
 
         JButton addFinishedCourseButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "5. Add a finished course from another program");
+                "3. Add a finished course from another program");
         buttonDesign(addFinishedCourseButton);
         addFinishedCourseButton.addActionListener(e -> {
             addFinishedCourse();
         });
 
         JButton addCreditedCourseButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "6. Add a BSCS-credited course finished through another program");
+                "4. Add a BSCS-credited course finished through another program");
         buttonDesign(addCreditedCourseButton);
         addCreditedCourseButton.addActionListener(e -> {
             addCreditedCourse();
         });
 
         JButton editElectiveCourseButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "7. Edit an elective course");
+                "5. Edit an elective course");
         buttonDesign(editElectiveCourseButton);
         editElectiveCourseButton.addActionListener(e -> {
             editElectiveCourse();
         });
 
         JButton button8 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "8. Show student's average grade for all finished courses");
+                "6. Show student's average grade for all finished courses");
         buttonDesign(button8);
         button8.addActionListener(e -> {
             try {
@@ -426,14 +460,14 @@ public class CurriculumMonitoringApplication {
         });
 
         JButton button9 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "9. Show student's sorted grades");
+                "7. Show student's sorted grades");
         buttonDesign(button9);
         button9.addActionListener(e -> {
             showSortedGrades();
         });
 
         JButton button10 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-                "10. Show student's failed courses only");
+                "8. Show student's failed courses only");
         buttonDesign(button10);
         button10.addActionListener(e -> {
             showFailedCourses();
@@ -451,12 +485,20 @@ public class CurriculumMonitoringApplication {
             }
             System.exit(0);
         });
+        JPanel topPanel = new JPanel(new BorderLayout());
 
         JPanel buttonsPanel = new JPanel(new GridLayout(5, 2, 10, 10));
         buttonsPanel.setBackground(lightBlue);
+
+
+        JPanel guidePanel = new JPanel(new BorderLayout());
+        guidePanel.add(guideLabel, BorderLayout.CENTER);
+        guidePanel.setBackground(lightBlue);
+        guidePanel.setBorder(BorderFactory.createEmptyBorder(10, 100, 0, 100));
+        buttonsPanel.add(guidePanel);
+        topPanel.add(headerLabel,BorderLayout.NORTH);
+        topPanel.add(guidePanel, BorderLayout.CENTER);
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder(20, 15, 20, 15));
-        buttonsPanel.add(showCourseEachTermButton);
-        buttonsPanel.add(showCourseWithGradesButton);
         buttonsPanel.add(showCourseAndRemarksButton);
         buttonsPanel.add(enterGradeButton);
         buttonsPanel.add(addFinishedCourseButton);
@@ -472,7 +514,7 @@ public class CurriculumMonitoringApplication {
         quitPanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0));
 
         JPanel choicePanel = new JPanel(new BorderLayout());
-        choicePanel.add(headerLabel, BorderLayout.NORTH);
+        choicePanel.add(topPanel, BorderLayout.NORTH);
         choicePanel.add(buttonsPanel, BorderLayout.CENTER);
         choicePanel.add(quitPanel, BorderLayout.SOUTH);
 
@@ -491,6 +533,8 @@ public class CurriculumMonitoringApplication {
         });
         choiceFrame.setVisible(true);
     } // end of listOfChoices method
+
+
 
     /**
      * Method to display the subjects for each term.
@@ -747,8 +791,42 @@ public class CurriculumMonitoringApplication {
      * Method to display the subjects with grades and remarks for each term
      * where it will print "Failed", if grade is less than 75.
      * And, else it will print "Passed".
+
+     Algorithm:
+     1.	Create a new JFrame with the title "Courses with Grades and Remarks for Each Term".
+     2.	Define an array of column names, including "Year", "Term", "Course number", "Descriptive
+        Title", "Units", "Grades", and "Remarks".
+     3.	Create a new DefaultTableModel with the column names and initial row count of 0.
+     4.	Call the updateTableModel method to populate the tableModel with data from a list of Course objects.
+     5.	Create a new JLabel with the text "Courses with Grades and Remarks for Each Term", centered, and with a font size of 25.
+     6.	Set the background of the headerLabel to navy and the foreground to pink, and create an empty border with 10 pixels on all sides.
+     7.	Use streams to populate the tableModel with data from the list of Course objects. For each Course object, create an array of
+        values for the row in the tableModel, including the year, term, course number, descriptive title, units, grades, and remarks.
+     8.	Create a new JTable with the tableModel.
+     9.Set the preferred scrollable viewport size of the table to 1200 pixels wide and 510 pixels tall.
+     10.Create a new JScrollPane with the table as its view.
+     11.Create a new JLabel with the text "Search: ".
+     12.Create a new JTextField with a width of 15 characters.
+     13.Add a DocumentListener to the searchBar that calls a filterTable method every time the text in the searchBar changes.
+     14.In the filterTable method, get the text from the searchBar and convert it to lowercase. Create a new ArrayList to hold
+        the filtered Course objects. For each Course object in the original list, check if the course number or descriptive
+        title contains the searchText (in lowercase). If it does, add the Course object to the filteredList. Finally, call
+        the updateTableModel method with the filteredList to update the tableModel.
+     15.Create a new JTableHeader from the table, and set its default renderer to a custom DefaultTableCellRenderer
+        that sets the background color of the column names to navy and the text color to purple with a font size of 15.
+     16.Create a custom DefaultTableCellRenderer that sets the background color of the cells in the second column to light
+        blue, and use it to set the renderer for all columns in the table.
+     17.Set the preferred width of each column in the table.
+     18.Create a new JPanel for the searchLabel and searchBar, and set its background color to peach with an empty border
+        of 10 pixels on the top, and add the searchLabel and searchBar to it.
+     19.Create a new JPanel for the scrollPane, set its background color to peach with an empty border of 5 pixels on the t
+        op and 10 pixels on the bottom, and add the scrollPane to it.
+     20.Add the headerLabel to the north region of the JFrame, the searchPanel to the center region, and the tablePanel
+        to the south region.
+     21.Set the icon of the JFrame to an ImageIcon object.
+     22.Display the JFrame.
      */
-    //TODO: Nash - add algorithm
+
     public void showCoursesWithGradesAndRemarksForEachTerm() {
         JFrame frame = new JFrame("Courses with Grades and Remarks for Each Term");
         String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units", "Grades", "Remarks"};
@@ -912,7 +990,36 @@ public class CurriculumMonitoringApplication {
         frame.setLocationRelativeTo(null);
     } // end of showCoursesWithGradesAndRemarksForEachTerm method
 
-    //TODO: Nash - Add method description and algorithm
+
+    /*
+    The updateTableModel method takes in an ArrayList of Course objects and a DefaultTableModel object as parameters.
+    It clears the existing data in the table model and iterates through the Course objects, generating a row of data
+    for each Course with information such as the course year, term, number, title, units, grades and remarks. Finally,
+    it adds the row to the table model.
+
+    Algorithm:
+    1.	Receive an ArrayList of Course objects and a DefaultTableModel object.
+    2.	Clear the current data from the table model by setting the row count to 0 using tableModel.setRowCount(0).
+    3.	Loop through each Course object in the ArrayList using a for-each loop:
+        a. Get the number of grades for the course using course.getGrades().
+        b. Set the remarks variable based on the grades using the following conditions:
+            i. If grades is 0, set remarks to "Not yet graded".
+            ii. If grades is less than 75, set remarks to "Failed".
+            iii. Otherwise, set remarks to "Passed".
+        c. Create an Object array called rowData with the following values:
+            i. Year of the course using course.getYear().
+            ii. Term of the course, mapping "3" to "Short term" using a ternary operator.
+            iii. Course number using course.getCourseNumber().
+            iv. Course description and title using course.getDescTitle().
+            v. Course units using course.getUnits().
+            vi. Grades as a String, mapping 0 to "Not yet graded" using a ternary operator.
+            vii. Remarks.
+        d. Add the rowData array as a new row to the table model using tableModel.addRow(rowData).
+    4.	End the loop.
+    5.	End the method.
+
+
+     */
     private void updateTableModel(ArrayList<Course> courses, DefaultTableModel tableModel) {
         tableModel.setRowCount(0);
         for (Course course : courses) {
@@ -1477,7 +1584,32 @@ public class CurriculumMonitoringApplication {
         frame.setLocationRelativeTo(null);
     } //end of addFinishedCourse method
 
-    //TODO: Nash - Add method description and algorithm
+      /*
+      This Java code creates a graphical user interface (GUI) for adding credited courses to a list.
+      The interface includes a table that displays the existing unfinished courses, with columns for course
+       number and title, and a button that opens a new dialog for updating the grade of a selected course.
+       The GUI also has buttons for saving the file and returning to the previous screen.
+
+    addCreditCourse Algorithm:
+    1. Create a JFrame object called "frame" with the title "Add Credited Course".
+    2. Create a String array called "columnNames" with three elements: "#", "Course number", and "Descriptive Title".
+    3. Create a DefaultTableModel object called "tableModel" with "columnNames" and 0 rows.
+    4. Create a JLabel object called "headerLabel" with the text "Add Credited Course" centered and a font of "Helvetica", bold, and size 25. Set its background color to navy, foreground color to pink, and border to empty.
+    5. Create a JLabel object called "guideLabel" with instructions on how to use the program. Set its background color to purple, foreground color to dark gray, font to "Helvetica", italic, and size 12. Set its border to empty.
+    6. Create an ArrayList of Course objects called "unfinishedCourses".
+    7. Create an ArrayList of integers called "limit".
+    8. Create an int array called "index" with a single element set to 0.
+    9. Iterate over each course in "list". If the course grade is 0 or greater than 74, add it to the "unfinishedCourses" list.
+    10. Iterate over each course in "unfinishedCourses" and create an Object array called "rowData" with the course number, descriptive title, and an incrementing index as elements. Add the "rowData" to "tableModel".
+    11. Create a JTable object called "table" with "tableModel" and set its font to "Helvetica", bold, and size 12. Set its preferred size to 900x235.
+    12. Create a JScrollPane object called "scrollPane" with "table" and add it to "frame" using BorderLayout.CENTER.
+    13. Create a RoundButton object called "saveButton" with the text "Save" and add an action listener to it that calls the "saveFile()" method. Set its design using a custom "buttonDesign()" method.
+    14. Create a RoundButton object called "updateGradeButton" with the text "Update Grade" and add an action listener to it that creates a JDialog window called "updateGradeDialog". The dialog window should have two JLabels ("courseNumberLabel" and "gradeLabel"), two JTextFields ("courseNumberField" and "gradeField"), and a RoundButton called "okButton". The okButton should have an action listener that gets the course number entered by the user and searches for the corresponding course in "unfinishedCourses". If found, it should get the grade entered by the user and set it as the grade for the course. It should then remove the course from the "unfinishedCourses" list and "tableModel". If the grade entered is not between 70 and 99, an error message should be displayed. If the grade entered is not a number, an error message should be displayed. If the course number entered is not found, an error message should be displayed. The dialog window should close after the user clicks the okButton. Set the design of the "updateGradeButton" using a custom "buttonDesign()" method.
+    15. Create a RoundButton object called "backButton" with the text "Back" and add an action listener to it that disposes of the "frame". Set the design of the "backButton" using a custom "buttonDesign()" method.
+    16. Add "saveButton", "updateGradeButton", and "backButton" to "frame" using BorderLayout.SOUTH.
+    17.Set the size of "frame
+     */
+
     public void addCreditedCourse() {
         JFrame frame = new JFrame("Add Credited Course");
         String[] columnNames = {"#", "Course number", "Descriptive Title"};
@@ -2375,7 +2507,28 @@ public class CurriculumMonitoringApplication {
             b. Set the foreground color of the button back to navy to indicate that
                the button is no longer being hovered over.
      */
-    //TODO: Nash - add updated method algorithm (multi-line comment)
+    /*
+    The given code snippet is a method called buttonDesign which takes a JButton object as a parameter and
+    sets its properties such as font, border, and background color. It also adds event listeners for mouse
+    enter and exit events to change the appearance of the button when the mouse hovers over it.
+
+    Algorithm:
+    1.Set the font of the button to "Helvetica", bold, and size 13.
+    2.Disable focus painting on the button to prevent an outline from appearing when the button is clicked.
+    3.Create a compound border with a line border of color navy, thickness 3, and no roundness,
+      and an empty border with 8 pixels of padding on the top, bottom, left, and right sides.
+    4.Set the background color of the button to pink and the foreground color to navy.
+    5.Add a mouse listener to the button with two methods: mouseEntered and mouseExited.
+    6.In the mouseEntered method, set the cursor to a hand cursor, change the border to a
+      compound border with a line border of color pink, thickness 3, and no roundness, and an
+      empty border with 8 pixels of padding on the top, bottom, left, and right sides. Set the
+      background color to navy and the foreground color to pink.
+    7.In the mouseExited method, change the border back to the original compound border with a
+      line border of color navy, thickness 3, and no roundness, and an empty border with 8 pixels
+      of padding on the top, bottom, left, and right sides. Set the background color back to pink
+      and the foreground color back to navy.
+    8.End of the buttonDesign method.
+     */
     private void buttonDesign(JButton button) {
         button.setFont(new Font("Helvetica", Font.BOLD, 13));
         button.setFocusPainted(false);
