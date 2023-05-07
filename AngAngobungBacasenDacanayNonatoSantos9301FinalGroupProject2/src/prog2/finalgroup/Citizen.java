@@ -96,35 +96,71 @@ public class Citizen implements Comparable<Citizen>{
     } // end of Citizen constructor
 
     //TODO: Nash - Add setter descriptions (javadoc comment)
+    /**
+     Sets the full name of the object.
+     @param fullName the full name to be set
+     */
     public void setFullName(String fullName){
         this.fullName = fullName;
     }
 
+    /**
+     Sets the address of the object.
+     @param address the address to be set
+     */
     public void setAddress(String address){
         this.address = address;
     }
-
+    /**
+     Sets the email address of the object.
+     @param email the email address to be set
+     */
     public void setEmail(String email){
         this.email = email;
     }
-
+    /**
+     Sets the age of the object.
+     @param age the age to be set
+     */
     public void setAge(int age){
         this.age = age;
     }
-
+    /**
+     Sets whether the object is a resident or not.
+     @param resident true if the object is a resident, false otherwise
+     */
     public void setResident(boolean resident) {
         this.resident = resident;
     }
-
+    /**
+     Sets the district of the object.
+     @param district the district to be set
+     */
     public void setDistrict(int district){
         this.district = district;
     }
-
+    /**
+     Sets the gender of the object.
+     @param gender the gender to be set ('M' for male, 'F' for female, or 'O' for other)
+     */
     public void setGender(char gender){
         this.gender = gender;
     }
 
-    //TODO: Nash - Add setAll method description (javadoc comment) and algorithm (multi-line comment)
+    /*
+    The code defines a method named setAll() which takes in 7 parameters and sets the values of various instance
+    variables to the values passed as parameters, and has a void return type.
+    setAll Algorithm:
+    1.Begin the setAll() method.
+    2.Set the fullName variable to the passed fullName parameter using "this" keyword.
+    3.Set the email variable to the passed email parameter using "this" keyword.
+    4.Set the address variable to the passed address parameter using "this" keyword.
+    5.Set the age variable to the passed age parameter using "this" keyword.
+    6.Set the resident variable to the passed resident parameter using "this" keyword.
+    7.Set the district variable to the passed district parameter using "this" keyword.
+    8.Set the gender variable to the passed gender parameter using "this" keyword.
+    9.End the setAll() method.
+     */
     public void setAll(String fullName, String email, String address, int age, boolean resident, int district, char gender){
         this.fullName = fullName;
         this.email = email;
@@ -176,7 +212,20 @@ public class Citizen implements Comparable<Citizen>{
         }
     } // end of compareTo method
 
-    //TODO: Nash - Add toString method description (javadoc comment) and algorithm (multi-line comment)
+
+
+    /**
+     *The code consists of a method named toString(), which returns a concatenated string of a person's
+     *information and has no parameters, with a return type of String.
+     * @return
+     toString() Algorithm:
+    1.Begin the toString() method.
+    2.Concatenate the fullName, email, address, age, resident, district, and gender variables using the concatenation operator (+).
+    3.Separate each variable with a comma (,).
+    4.Return the concatenated string as the output of the method.
+    5.End the toString() method.
+
+     */
     @Override
     public String toString(){
         return fullName + "," + email + "," + address + "," + age + "," +
