@@ -308,8 +308,19 @@ public class MyProgram extends JFrame {
 
     /**
      * Method to display the number of males and females.
+
+     numOfMaleAndFemale Algorithm:
+     1.Create a JLabel for the title of the window, and JLabels for displaying the number of males and females in the citizen data.
+     2.Set the text of the JLabels for the number of males and females by calling the numberOfMale() and numberOfFemale() methods of an instance of the myProgramUtility class, respectively, and converting the results to String values using the valueOf() method.
+     3.Set the font of the JLabels for the title, number of males, and number of females to a specific font using the setFont() method.
+     4.Create a JPanel for the buttons, add the "Back" button to the panel, and set the background color of the panel.
+     5.Create a JPanel for the labels, set the layout to a 2x2 GridLayout, and set the background color of the panel.
+     6.Add the JLabels for the number of males and females to the panel.
+     7.Add action listeners to the "Back" button using an ActionListener object that defines the actionPerformed() method to close the current JFrame and open the main menu JFrame.
+     8.Set the properties of the JFrame, including the background color, size, and position.
+     9.Add the JLabels and JPanels to the JFrame using the add() method.
+     10.Display the JFrame using the setVisible() method.
      */
-    //TODO: Nash - Add numOfMaleAndFemale method algorithm
     public void numOfMaleAndFemale(){
         //label
         title = new JLabel("Number of Males and Females", SwingConstants.CENTER);
@@ -397,8 +408,27 @@ public class MyProgram extends JFrame {
 
     /**
      * Method display the male list.
+     Algorithm for the showMalesOnly() method:
+     1.Call the listMaleOnly() method from MyProgramUtility class to get a two-dimensional string array of male citizens' information.
+     2.Create a string array called column which contains the column headers for the JTable.
+     3.Create a new JTable with the data and column arrays as parameters, and override the isCellEditable method of the table to make the cells non-editable.
+     4.Set the preferred size and fill height properties of the table, and disallow the reordering of columns.
+     5.Create a new JScrollPane with the table as parameter.
+     6.Create a new JPanel called buttonPanel with a FlowLayout, and add the buttonBackMorF button to it.
+     7.Set the background color of buttonPanel to a light gray.
+     8.Add an action listener to buttonBackMorF button.
+     9.Set the layout of frameMorF to FlowLayout.
+     10.Set the title of the frameMorF to "Citizen App".
+     11.Set the background color of the frameMorF to a light gray.
+     12.Add the scrollPane and buttonPanel to the frameMorF.
+     13.Set the default close operation of the frameMorF to JFrame.EXIT_ON_CLOSE.
+     14.Set the size of the frameMorF to (1100, 675).
+     15.Disallow the frame to be resizable.
+     16.Set the location of the frameMorF to be in the center of the screen.
+     17.Set the visibility of the frameMorF to true.
+
      */
-    //TODO: Nash - Add showMalesOnly method algorithm
+
     public void showMalesOnly(){
         String[][] data = myProgramUtility.listMaleOnly(); //calls method defaultList() from MyProgramUtility
         String[] column = {"Full Name", "Email", "Address", "Age", "Resident", "District", "Gender"};
