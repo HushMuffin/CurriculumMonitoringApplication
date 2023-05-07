@@ -193,8 +193,17 @@ public class MyProgramUtility {
      * Method to return the list of males for the GUI table.
      *
      * @return data - the array string of citizen list
+     *
+    Algorithm:
+    1.Read the citizen data from a CSV file and store it in an ArrayList of Citizen objects.
+    2.Filter the ArrayList to keep only male citizens by using a stream that filters based on the gender field of each Citizen object.
+    3.Sort the filtered ArrayList in ascending order based on the natural order of the Citizen objects, which is based on their names.
+    4.Convert the filtered and sorted ArrayList to a List using the collect method.
+    5.Create a 2D String array with the same number of rows as the size of the filtered and sorted ArrayList, and 7 columns.
+    6.Loop through each Citizen object in the filtered and sorted List, and for each Citizen object: a. Retrieve its name, email, address, age, district, gender, and resident status fields. b. Convert the age, district, gender, and resident status fields to String values. c. Set the resident status field to "Resident" if it is true, or "Non-Resident" if it is false. d. Add the Citizen's information to the corresponding row of the 2D String array.
+    7.Return the 2D String array as the output of the method.
      */
-    //TODO: Nash - Add listMaleOnly method algorithm
+
     public String[][] listMaleOnly(){
         ArrayList<Citizen> list = csvToList();
 
@@ -298,8 +307,13 @@ public class MyProgramUtility {
      * Method to return the number of males from the list.
      *
      * @return list - number of males from the list
+    numberOfMale Algorithm:
+    1.Read the citizen data from a CSV file and store it in an ArrayList of Citizen objects.
+    2.Use a stream to filter the ArrayList to keep only male citizens by using a lambda expression that checks if the gender field of each Citizen object is equal to 'M'.
+    3.Call the count() method on the resulting stream to count the number of male citizens in the filtered stream.
+    4.Return the count as the output of the method.
      */
-    //TODO: Nash - Add numberOfMale method algorithm
+
     public long numberOfMale(){
         ArrayList<Citizen> list = csvToList();
         return list.stream()
