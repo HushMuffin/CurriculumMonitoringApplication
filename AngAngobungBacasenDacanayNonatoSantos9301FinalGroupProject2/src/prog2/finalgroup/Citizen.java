@@ -95,7 +95,7 @@ public class Citizen implements Comparable<Citizen>{
         this.gender = gender;
     } // end of Citizen constructor
 
-    //TODO: Nash - Add setter descriptions (javadoc comment)
+
     /**
      Sets the full name of the object.
      @param fullName the full name to be set
