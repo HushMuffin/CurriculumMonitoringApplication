@@ -63,8 +63,15 @@ public class Course implements Comparable<Course> {
      */
     private int grades;
 
-    //TODO: Marius - Add default constructor description and give contents inside
-    public Course(){} // end of Course default constructor
+    // This constructor contains the default values of year, term, courseNumber, decTitle, units, and grades for the class
+    public Course(){
+        year = "1";
+        term = "1";
+        courseNumber = "CS 111";
+        units = 1.0;
+        descTitle = "Programming";
+        grades = 75;
+    } // end of Course default constructor
 
     // This constructor contains the year, term, courseNumber, decTitle, units, and grades for the class
     public Course(String year, String term, String courseNumber, String descTitle, double units, int grades) {
@@ -258,24 +265,52 @@ public class Course implements Comparable<Course> {
         return year+","+term+","+courseNumber+","+descTitle+","+units+","+grades;
     } // end of toString method
 
-    //TODO: Marius - Add “compareTo” method description and algorithm
+    /**
+     * Compares this Course object with the specified Course object based on grades.
+     * Returns a negative integer, zero, or a positive integer as this object is less than,
+     * equal to, or greater than the specified object.
+     *
+     * @param another the Course object to be compared.
+     * @return a negative integer, zero, or a positive integer as this object is less than,
+     *         equal to, or greater than the specified object.
+     */
     @Override
     public int compareTo(Course another) {
+        /*
+         * Compare the grades of this Course object with the specified Course object.
+         * Return -1 if this object's grades are greater, 0 if the grades are equal,
+         * or 1 if the specified object's grades are greater.
+         */
         if (grades == another.getGrades())
             return 0;
         else if (grades > another.getGrades())
             return -1;
         else
             return 1;
-    } // end of compareTo method
-
-    //TODO: Marius - check "equals" method
-   /* public boolean equals(Course another){
-        return this.toString().equals(((Course) another).toString());
     }
 
-    */
-    public boolean equals(String another){
-        return this.toString().equals(another);
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * @param obj the object to compare to this course
+     * @return true if the given object is equal to this course; false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Course)) {
+            return false;
+        }
+        Course other = (Course) obj;
+        return year.equals(other.year) &&
+                term.equals(other.term) &&
+                courseNumber.equals(other.courseNumber) &&
+                descTitle.equals(other.descTitle) &&
+                units == other.units &&
+                grades == other.grades;
     }
+
+
 } // end of Course class
