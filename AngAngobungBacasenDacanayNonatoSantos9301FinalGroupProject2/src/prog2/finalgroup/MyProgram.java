@@ -524,14 +524,14 @@ public class MyProgram extends JFrame {
     /**
      * Method to let the user enter a name in a text field and find if person exists
      */
-    //TODO: Katelyn - Add findPerson method algorithm
     /*
-    * Algorithm (to be edited):
-    * Get the first name and last name of the person to search from the two text fields.
-    * Search for a person in the list of citizens with matching first and last names.
-    * If a matching person is found, display their details (name, email, address, age, residency, district, gender) in the corresponding label fields.
-    * If a matching person is not found, display an error message indicating that the person could not be found.
-    * Add a back button to return to the main menu.*/
+    * Algorithm:
+    * 1. Gets the first name and last name of the person to search from the two text fields.
+    * 2. Allopws the user to search for a person in the list of citizens with matching first and last names.
+    *    a. If a matching person is found, display their details (name, email, address, age, residency,
+    *       district, gender) in the corresponding label fields.
+    *    b. If a matching person is not found, display an error message indicating that the person could not be found.
+    * 3. A back button is created to allow the user to return to the main menu.*/
     public void findPerson(){
         //labels
         title = new JLabel("Enter the person's name", SwingConstants.CENTER);

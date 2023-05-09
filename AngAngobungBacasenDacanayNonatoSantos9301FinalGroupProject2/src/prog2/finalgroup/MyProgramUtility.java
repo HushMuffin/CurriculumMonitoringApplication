@@ -348,7 +348,6 @@ public class MyProgramUtility {
      *
      * @return foundCitizen - the citizen found by the user
      */
-    //TODO: Katelyn - Add findName method algorithm
     /*
     * 1. Get the list of citizens from the CSV file using the csvToList method.
     * 2. Create a new Citizen object to store the found citizen's information.

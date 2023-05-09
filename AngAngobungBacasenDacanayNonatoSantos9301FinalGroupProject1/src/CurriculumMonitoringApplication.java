@@ -1052,25 +1052,23 @@ public class CurriculumMonitoringApplication {
      * user to choose the finished course, then the program
      * will ask to enter the grade for the course.
      */
-    //TODO: Katelyn - Add updated method algorithm
     /*
      * Algorithm:
-     * 1. Create ArrayList limit to store the maximum number of unfinished subjects.
-     * 2. Create ArrayList unfinSubs to store the unfinished subjects.
-     * 3. Initialize variables numOfSub and grade to 0.
-     * 4. Print the list of unfinished subjects with their corresponding numbers.
-     * 5. Initialize max variable to keep track of the maximum number of unfinished subjects.
-     * 6. Loop through each course in the list.
-     *      a. If the course's grade is 0 (i.e., unfinished), increment max and add the course to unfinSubs.
-     *      b. Print the number, course number, and description of the unfinished course.
-     * 7. Prompt the user to enter the number corresponding to the recently finished subject.
-     * 8. Validate the user's input. If it is greater than max or less than 1, show an error message and prompt again.
-     * 9. Prompt the user to enter the grade.
-     * 10. Validate the user's input. If it is greater than 99 or less than 70, show an error message and prompt again.
-     * 11. Set the grade to the recently finished subject.
-     *      a. Loop through each course in the list.
-     *      b. If the description of the course matches the description of the selected unfinished subject, set the grade to the course.
-     *      c. Print the description and grade of the updated course.
+     * 1. The enterGrades() method creates a JFrame and adds various Swing components to it,
+     *    including a table, a search bar, and input fields for grades.
+     * 2. The table displays information about each course, including its number and title.
+     *    The table is populated using a DefaultTableModel and updated dynamically based on the user's search terms.
+     * 3. The search bar allows the user to filter the table by course number or title.
+     *    When the user types into the search bar, the table is updated to
+     *    show only the rows that match the search terms.
+     * 4. The user can enter a grade for a selected course by typing the grade into an input field
+     *    and clicking a "Submit" button.
+     *      a.If the grade is valid (between 70 and 99), the grade is saved and the course
+     *        is removed from the table of unfinished courses.
+     *      b.If the grade is invalid, an error message is displayed.
+     * 5. The user can save the grades to a file by clicking a "Save" button. The grades are saved in a CSV format.
+     * 6. The user can exit the interface by clicking a "Back" button.
+
      */
     public void enterGrades() {
         JFrame frame = new JFrame("Enter Grades");
@@ -1302,7 +1300,36 @@ public class CurriculumMonitoringApplication {
         frame.setLocationRelativeTo(null);
     }//end of enterGrades method
 
-    //TODO: Katelyn - add method description and algorithm
+    /**
+     * This This is a private method that updates a graphical user interface (GUI) table of courses with
+     * information from two ArrayLists of Course objects. The method takes four parameters: an ArrayList of
+     * incomplete courses (unfinSubs), an ArrayList of all courses (courses), a DefaultTableModel object (tableModel)
+     * that represents the table on the GUI, and a HashMap (originalIndices) that maps the original index of a
+     * course in the unfinSubs ArrayList to its new index in the tableModel.
+     * */
+    /*
+    * Algorithm:
+    *1. Declare a method named updateCourseTableModel with parameters:
+      - unfinSubs: an ArrayList of Course objects representing unfinished courses
+      - courses: an ArrayList of Course objects representing all courses
+      - tableModel: a DefaultTableModel object representing the table model for the GUI table
+      - originalIndices: a HashMap object that maps the original index of a course to its new index in the table model
+    * 2. Clear the table model by calling the setRowCount method with a value of 0.
+    * 3. Initialize a variable named index to 0.
+    * 4. For each Course object course in the courses ArrayList:
+        a. Find the original index of the course in the unfinSubs ArrayList by calling the indexOf method on the
+           unfinSubs ArrayList and passing in the current course object. Store the result in a variable named originalIndex.
+        b. Create an Object array named rowData with the following values:
+             - ++index: the current index, incremented by 1
+             - course.getCourseNumber(): the course number of the current course object
+             - course.getDescTitle(): the description title of the current course object
+        c. Add the rowData array to the table model by calling the addRow method on the tableModel object and passing in the rowData array.
+        d. Map the original index of the current course object to its new index in the table model by calling the put method on the originalIndices HashMap object and passing in two arguments:
+             - index - 1: the current index, decremented by 1 (since the index variable was already incremented)
+             - originalIndex: the original index of the current course object in the unfinSubs ArrayList.
+   * 5. End the for loop.
+   * 6. End the method.
+   */
     private void updateCourseTableModel(ArrayList<Course> unfinSubs, ArrayList<Course> courses, DefaultTableModel
             tableModel, HashMap<Integer, Integer> originalIndices) {
         tableModel.setRowCount(0);
