@@ -70,8 +70,18 @@ public class Citizen implements Comparable<Citizen>{
      */
     char gender;
 
-    //TODO: Marius - Add default constructor description (javadoc comment) and give contents inside
-    public Citizen(){ } // end of Citizen default constructor
+    /**
+     * Constructor that creates the default values of fullName, email, address, age, resident, district, and gender
+     */
+    public Citizen(){
+        fullName = "Marius Nonato";
+        email = "emeeme@gmail.com";
+        address = "Baguio City";
+        age = 20;
+        resident = true;
+        district = 1;
+        gender = 'M';
+    } // end of Citizen default constructor
 
     /**
      * Constructor that creates a Citizen with a specified full name, email, address, age,

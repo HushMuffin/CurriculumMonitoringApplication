@@ -109,17 +109,56 @@ public class MyProgram extends JFrame {
     private final JTextField textField2 = new JTextField(5);
 
     // Declare the labels for MyProgram
-    //TODO: Marius - Add labels descriptions
+    /**
+     * The title label for the program window.
+     */
     JLabel title;
+
+    /**
+     * The label for the name field in the program window.
+     */
     JLabel nameLabel;
+
+    /**
+     * The label for the email field in the program window.
+     */
     JLabel email;
+
+    /**
+     * The label for the address field in the program window.
+     */
     JLabel address;
+
+    /**
+     * The label for the age field in the program window.
+     */
     JLabel age;
+
+    /**
+     * The label for the resident field in the program window.
+     */
     JLabel resident;
+
+    /**
+     * The label for the district field in the program window.
+     */
     JLabel district;
+
+    /**
+     * The label for the gender field in the program window.
+     */
     JLabel gender;
+
+    /**
+     * The label for the first name search field in the program window.
+     */
     JLabel findFirstName;
+
+    /**
+     * The label for the last name search field in the program window.
+     */
     JLabel findLastName;
+
 
     // Declare the frames for MyProgram
     /**
@@ -217,7 +256,24 @@ public class MyProgram extends JFrame {
     /**
      * Method to display the default citizen list.
      */
-    //TODO: Marius - Add showDefaultList method algorithm
+    /*
+     * Displays a JTable containing the default list of citizens in the program,
+     * with buttons to allow navigation between different sections of the program.
+     *
+     * Algorithm:
+     * 1. Call the defaultList method of the MyProgramUtility object to retrieve the default list of citizens.
+     * 2. Create a new 2D String array to store the data retrieved from the defaultList method.
+     * 3. Create a new 1D String array to store the column names for the JTable.
+     * 4. Create a new JTable with the data and column names, and set it to non-editable.
+     * 5. Create a new JScrollPane to contain the JTable.
+     * 6. Create a new JPanel to contain the navigation buttons.
+     * 7. Add the navigation buttons to the buttonPanel.
+     * 8. Add an action listener to the back button.
+     * 9. Add the JScrollPane and buttonPanel to the JFrame.
+     * 10. Set the properties of the JFrame, including the title, size, background color, and icon.
+     * 11. Set the default close operation, make the JFrame non-resizable, and center it on the screen.
+     * 12. Make the JFrame visible.
+     */
     public void showDefaultList(){
         String[][] data = myProgramUtility.defaultList(); //calls method defaultList() from MyProgramUtility
         String[] column = {"Full Name", "Email", "Address", "Age", "Resident", "District", "Gender"};
