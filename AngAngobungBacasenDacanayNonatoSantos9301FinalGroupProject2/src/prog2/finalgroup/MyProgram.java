@@ -56,6 +56,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 /* Improvements: (refer to the google doc guide)
@@ -98,7 +99,9 @@ public class MyProgram extends JFrame {
     private final JButton buttonFour = new JButton("4");
     private final JButton buttonFive = new JButton("5");
     private final JButton buttonSix= new JButton("6");
+    private final JButton buttonSeven = new JButton("7");
     private final JButton buttonBack = new JButton("Back");
+    private final JButton buttonBackPopulation = new JButton("Back");
     private final JButton buttonBackMorF = new JButton("Back");
     private final JButton buttonBackAge= new JButton("Back");
     private final JButton buttonFind = new JButton("Find");
@@ -169,6 +172,10 @@ public class MyProgram extends JFrame {
      */
     JFrame frame2 = new JFrame("Citizen App");
     /**
+     * The variable "frame3" is of type JFrame, which represents a GUI window in a Java program. It is used to create a frame for the Citizen App.
+     */
+    JFrame frame3 = new JFrame("Citizen App");
+    /**
      * The variable "chooseFrame" is of type JFrame, which represents yet another GUI window in a Java program. It is used to create a frame for the Citizen App.
      */
     JFrame frameMorF = new JFrame("Citizen App");
@@ -210,9 +217,9 @@ public class MyProgram extends JFrame {
         JLabel fourth = new JLabel(" 4. Show list of male/female citizens only", SwingConstants.LEFT);
         JLabel fifth = new JLabel(" 5. Find a person in the list", SwingConstants.LEFT);
         JLabel sixth = new JLabel(" 6. Display citizens with a certain age group", SwingConstants.LEFT);
-
+        JLabel seventh = new JLabel(" 7. Display population per district", SwingConstants.LEFT);
         //Panel for labels
-        JPanel panel = new JPanel(new GridLayout(7,0));
+        JPanel panel = new JPanel(new GridLayout(8,0));
         panel.setBounds(0,50,250,150);
         panel.add(instructions);
         panel.add(first);
@@ -221,7 +228,7 @@ public class MyProgram extends JFrame {
         panel.add(fourth);
         panel.add(fifth);
         panel.add(sixth);
-
+        panel.add(seventh);
         //Add action listeners to buttons
         buttonOne.addActionListener(buttonAction);
         buttonTwo.addActionListener(buttonAction);
@@ -229,16 +236,17 @@ public class MyProgram extends JFrame {
         buttonFour.addActionListener(buttonAction);
         buttonFive.addActionListener(buttonAction);
         buttonSix.addActionListener(buttonAction);
-
+        buttonSeven.addActionListener(buttonAction);
         //Panel for buttons
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
-        buttonPanel.setBounds(20,205,300,50);
+        buttonPanel.setBounds(20,205,300,70);
         buttonPanel.add(buttonOne).setFocusable(false);
         buttonPanel.add(buttonTwo).setFocusable(false);
         buttonPanel.add(buttonThree).setFocusable(false);
         buttonPanel.add(buttonFour).setFocusable(false);
         buttonPanel.add(buttonFive).setFocusable(false);
         buttonPanel.add(buttonSix).setFocusable(false);
+        buttonPanel.add(buttonSeven).setFocusable(false);
 
         //Frame
         this.setTitle("Citizen App");
@@ -250,7 +258,7 @@ public class MyProgram extends JFrame {
         //Frame operations
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
-        this.setSize(360,300);
+        this.setSize(360,360);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -281,17 +289,40 @@ public class MyProgram extends JFrame {
         String[][] data = myProgramUtility.defaultList(); //calls method defaultList() from MyProgramUtility
         String[] column = {"Full Name", "Email", "Address", "Age", "Resident", "District", "Gender"};
 
-        //table
-        JTable table = new JTable(data, column){
+        //table model
+        DefaultTableModel tableModel = new DefaultTableModel(data, column){
             //makes cells from table non-editable
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
+
+        //table
+        JTable table = new JTable(tableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000,550));
         table.setFillsViewportHeight(true);
         table.getTableHeader().setReorderingAllowed(false);
+
+        //Search TextField
+        JTextField searchField = new JTextField(20);
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                updateTable();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                updateTable();
+            }
+            public void insertUpdate(DocumentEvent e) {
+                updateTable();
+            }
+
+            public void updateTable() {
+                String searchText = searchField.getText();
+                String[][] filteredData = myProgramUtility.filterDefaultList(searchText);
+                updateTableData(table, filteredData);
+            }
+        });
 
         //Panes
         JScrollPane scrollPane = new JScrollPane(table);
@@ -308,6 +339,7 @@ public class MyProgram extends JFrame {
         frame2.setIconImage(icon.getImage());
         frame2.setTitle("Citizen App");
         frame2.getContentPane().setBackground(new Color(248,248,255));
+        frame2.add(searchField);
         frame2.add(scrollPane);
         frame2.add(buttonPanel);
 
@@ -318,6 +350,8 @@ public class MyProgram extends JFrame {
         frame2.setLocationRelativeTo(null);
         frame2.setVisible(true);
     } // end of showDefaultList method
+
+
 
     /**
      * Method to display the sorted citizen list.
@@ -773,6 +807,54 @@ public class MyProgram extends JFrame {
         frame2.setLocationRelativeTo(null);
         frame2.setVisible(true);
     } // end of showAgeGroup method
+    public void showPopulationByDistrict() {
+        Map<Integer, Long> populationByDistrict = myProgramUtility.countPopulationByDistrict();
+        String[] column = {"District", "Population"};
+        String[][] data = new String[populationByDistrict.size()][2];
+
+        int index = 0;
+        for (Map.Entry<Integer, Long> entry : populationByDistrict.entrySet()) {
+            data[index][0] = String.valueOf(entry.getKey());
+            data[index][1] = String.valueOf(entry.getValue());
+            index++;
+        }
+
+        //table
+        JTable table = new JTable(data, column){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        table.setPreferredScrollableViewportSize(new Dimension(500, 300));
+        table.setFillsViewportHeight(true);
+        table.getTableHeader().setReorderingAllowed(false);
+
+        //Panes
+        JScrollPane scrollPane = new JScrollPane(table);
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
+        buttonPanel.setBackground(new Color(248,248,255));
+        buttonPanel.add(buttonBackPopulation).setFocusable(false);
+
+        //add action listeners to buttons
+        buttonBackPopulation.addActionListener(buttonAction);
+
+        //frame
+        frame3.setLayout(new FlowLayout());
+        frame3.setIconImage(icon.getImage());
+        frame3.setTitle("Population by District");
+        frame3.getContentPane().setBackground(new Color(248,248,255));
+        frame3.add(scrollPane);
+        frame3.add(buttonPanel);
+
+        //frame operations
+        frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame3.setSize(550, 400);
+        frame3.setResizable(false);
+        frame3.setLocationRelativeTo(null);
+        frame3.setVisible(true);
+    } // end of showPopulationByDistrict method
+
 
     //TODO: Lourdene - Add run method description (javadoc comment) and algorithm (multi-line comment)
     //TODO: Lourdene - Make sure an introduction and exit method is included here
@@ -822,13 +904,17 @@ public class MyProgram extends JFrame {
             }else if(e.getSource() == buttonSix){
                 askAge(); //opens askAge GUI
                 dispose();//closes the main menu
-        //-----buttonBack---------
-            }else if(e.getSource() == buttonBack){
+        //-----buttonSeven---------
+            }else if(e.getSource() == buttonSeven){
+                showPopulationByDistrict(); //opens showPopulationByDistrict GUI
+                dispose();//closes the main menu
+        //-----buttonBack----------
+            } else if(e.getSource() == buttonBack){
                 frame2.dispose(); //closes the current frame
                 frameMorF.dispose();
                 chooseFrame.dispose();
                 new MyProgram(); //opens up the main menu again
-        //------buttonBack--------
+        //------buttonFind--------
             }else if(e.getSource() == buttonFind) {
                 firstName = textField.getText().trim().toLowerCase();
                 lastName = textField2.getText().trim().toLowerCase();
@@ -913,6 +999,10 @@ public class MyProgram extends JFrame {
                 frameMorF.dispose(); //closes the current frame
                 p.dispose(); //closes the main menu
                 p.selectMaleOrFemale(); //opens selectMaleOrFemale GUI
+        //-----buttonBackPopulation
+            }else if(e.getSource() == buttonBackPopulation){
+                MyProgram p = new MyProgram();//opens up main menu
+                frame3.dispose(); //closes the current frame
             }
 
         } //end of actionPerformed method
