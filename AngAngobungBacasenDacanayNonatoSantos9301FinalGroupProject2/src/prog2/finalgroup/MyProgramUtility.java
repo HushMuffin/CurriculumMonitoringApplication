@@ -43,8 +43,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /* Improvements:
-//TODO: Marius - Add new "populationPerDistrict" whole method code along with;
-//TODO: Marius - Add "populationPerDistrict" method description and algorithm
+//TODO: Katelyn - Add "countPopulationPerDistrict" method description and algorithm
 //TODO: Lourdene - Add new "numberOfSenior" whole method code along with;
 //TODO: Lourdene - Add "numberOfSenior" method description and algorithm
  */
@@ -56,7 +55,19 @@ public class MyProgramUtility {
      *
      * @return list - the list of citizens
      */
-    //TODO: Marius - Add csvToList method algorithm (multi-line comment)
+    /*
+     * Algorithm
+     * 1. Declare a File object for the CSV file and a String variable to hold each line of the file. Also, create an empty ArrayList of Citizen objects to hold the parsed data.
+     * 2. Create a BufferedReader object to read the CSV file.
+     * 3. Use a while loop to read each line of the CSV file using the readLine() method of BufferedReader. This method returns a null when there are no more lines to read in the file.
+     * 4. Split each line using the split() method with "," as the separator. This returns an array of strings containing the fields in each line.
+     * 5. Extract the necessary information from each line to create a Citizen object. This includes the citizen's full name, email, address, age, residency status, district, and gender.
+     * 6. If the address field starts with a quotation mark, concatenate the strings until the end of the address field is found. Remove the quotation marks from the resulting string.
+     * 7. If the gender field is "Female", set the gender of the Citizen object to 'F'.
+     * 8. If the residency field is "Resident", set the residency status of the Citizen object to true.
+     * 9. Add the created Citizen object to the ArrayList.
+     * 10. When all lines in the CSV file have been processed, close the BufferedReader and return the ArrayList of Citizen objects.
+     */
     public ArrayList<Citizen> csvToList(){
         //variable declarations
         File file = new File("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject2/res/data.csv");
@@ -148,7 +159,7 @@ public class MyProgramUtility {
 
         return data;
     } //end of defaultList method
-    //TODO add javadoc and algorithm comment
+    //TODO Charles - add javadoc and algorithm comment
     public String[][] filterDefaultList(String searchText) {
         String[][] allData = defaultList(); // Get all default data
         searchText = searchText.toLowerCase(); // Convert search text to lowercase for case-insensitive search
@@ -211,7 +222,7 @@ public class MyProgramUtility {
 
         return data;
     } // end of sortedList method
-    //TODO Add Javadoc Comment and Algorithm
+    //TODO Julienne -  Add Javadoc and algorithm multiline comment
     public String[][] filterMaleOnly(String searchText) {
         String[][] allData = listMaleOnly(); // Get all male-only data
         searchText = searchText.toLowerCase(); // Convert search text to lowercase for case-insensitive search
@@ -455,7 +466,7 @@ public class MyProgramUtility {
 
         return data;
     } // end of listWithAgeGroup method
-    //TODO: add javadoc and algorithm multiline comment
+    //TODO Katelyn - add javadoc and algorithm multiline comment
     public Map<Integer, Long> countPopulationByDistrict() {
         ArrayList<Citizen> list = csvToList();
         return list.stream()

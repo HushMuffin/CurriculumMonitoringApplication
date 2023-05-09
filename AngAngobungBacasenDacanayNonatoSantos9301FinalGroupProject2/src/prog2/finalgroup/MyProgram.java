@@ -588,6 +588,7 @@ public class MyProgram extends JFrame {
         frameMorF.setVisible(true);
     } // end of showMalesOnly method
 
+
     private void updateTableData(JTable table, String[][] data) {
         DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         tableModel.setRowCount(0); // clear the table
@@ -807,6 +808,7 @@ public class MyProgram extends JFrame {
         frame2.setLocationRelativeTo(null);
         frame2.setVisible(true);
     } // end of showAgeGroup method
+    //TODO Nash - Add javadoc and algorithm multiline comment
     public void showPopulationByDistrict() {
         Map<Integer, Long> populationByDistrict = myProgramUtility.countPopulationByDistrict();
         String[] column = {"District", "Population"};
