@@ -37,6 +37,8 @@ package prog2.finalgroup;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /* Improvements:
@@ -188,6 +190,26 @@ public class MyProgramUtility {
 
         return data;
     } // end of sortedList method
+    public String[][] filterMaleOnly(String searchText) {
+        String[][] allData = listMaleOnly(); // Get all male-only data
+        searchText = searchText.toLowerCase(); // Convert search text to lowercase for case-insensitive search
+
+        // Use Java 8 Streams to filter the data
+        String finalSearchText = searchText;
+        List<String[]> filteredList = Arrays.stream(allData)
+                .filter(row -> Arrays.stream(row)
+                        .anyMatch(cell -> cell.toLowerCase().contains(finalSearchText)))
+                .collect(Collectors.toList());
+
+        // Convert the filtered list back to a 2D array
+        String[][] filteredData = new String[filteredList.size()][];
+        for (int i = 0; i < filteredList.size(); i++) {
+            filteredData[i] = filteredList.get(i);
+        }
+
+        return filteredData;
+    }
+
 
     /**
      * Method to return the list of males for the GUI table.

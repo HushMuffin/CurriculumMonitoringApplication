@@ -49,6 +49,9 @@
 package prog2.finalgroup;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -489,17 +492,40 @@ public class MyProgram extends JFrame {
         String[][] data = myProgramUtility.listMaleOnly(); //calls method defaultList() from MyProgramUtility
         String[] column = {"Full Name", "Email", "Address", "Age", "Resident", "District", "Gender"};
 
-        //table
-        JTable table = new JTable(data, column){
+        //table model
+        DefaultTableModel tableModel = new DefaultTableModel(data, column){
             //makes cells from table non-editable
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
+
+        //table
+        JTable table = new JTable(tableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000,550));
         table.setFillsViewportHeight(true);
         table.getTableHeader().setReorderingAllowed(false);
+
+        //Search TextField
+        JTextField searchField = new JTextField(20);
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                updateTable();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                updateTable();
+            }
+            public void insertUpdate(DocumentEvent e) {
+                updateTable();
+            }
+
+            public void updateTable() {
+                String searchText = searchField.getText();
+                String[][] filteredData = myProgramUtility.filterMaleOnly(searchText);
+                updateTableData(table, filteredData);
+            }
+        });
 
         //Panes
         JScrollPane scrollPane = new JScrollPane(table);
@@ -516,6 +542,7 @@ public class MyProgram extends JFrame {
         frameMorF.setIconImage(icon.getImage());
         frameMorF.getContentPane().setBackground(new Color(248,248,255));
         frameMorF.setTitle("Citizen App");
+        frameMorF.add(searchField);
         frameMorF.add(scrollPane);
         frameMorF.add(buttonPanel);
 
@@ -526,6 +553,15 @@ public class MyProgram extends JFrame {
         frameMorF.setLocationRelativeTo(null);
         frameMorF.setVisible(true);
     } // end of showMalesOnly method
+
+    private void updateTableData(JTable table, String[][] data) {
+        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+        tableModel.setRowCount(0); // clear the table
+
+        for (String[] row : data) {
+            tableModel.addRow(row); // add rows to the table
+        }
+    }
 
     /**
      This method retrieves the female citizens list from the MyProgramUtility and displays the information in a JTable.
