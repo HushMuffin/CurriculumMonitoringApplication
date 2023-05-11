@@ -955,6 +955,27 @@ public class MyProgram extends JFrame {
         exitDialog.setVisible(true);
         exitDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     } // end of showExit method
+    //TODO: Katelyn - add javadoc and algorithm comments
+    private void showPersonNotFound() {
+        JDialog exitDialog = new JDialog();
+        exitDialog.setTitle("Citizen App");
+        exitDialog.setModal(true);
+
+        JLabel exitL = new JLabel("PERSON NOT FOUND!", SwingConstants.CENTER);
+        exitL.setFont(new Font("Helvetica", Font.BOLD, 20));
+        exitL.setForeground(pink);
+
+        JPanel exitPanel = new JPanel(new BorderLayout()); // use BorderLayout for exitPanel
+        exitPanel.setBackground(navy);
+        exitPanel.add(exitL, BorderLayout.CENTER); // add exitL to the center of exitPanel
+
+        exitDialog.getContentPane().add(exitPanel); // add exitPanel to the content pane of exitDialog
+        exitDialog.setIconImage(icon.getImage());
+        exitDialog.setSize(400, 120);
+        exitDialog.setLocationRelativeTo(null);
+        exitDialog.setVisible(true);
+        exitDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    } // end of showExit method
 
     //TODO: Lourdene - Add run method description (javadoc comment) and algorithm (multi-line comment)
     //TODO: Lourdene - Make sure an introduction and exit method is included here
@@ -1028,8 +1049,8 @@ public class MyProgram extends JFrame {
                 String name = firstName +" "+ lastName;
                 citizen = myProgramUtility.findName(name);
 
-                //if full name is not empty, display the person's info, else say "person not found"
-                if(citizen.getFullName() != null) {
+                // Check if the citizen was found
+                if(citizen != null && citizen.getFullName() != null) {
                     title.setText("Person Found!");
                     title.setForeground(new Color(42,163,42));
                     nameLabel.setText(" Name:  " + citizen.getFullName());
@@ -1044,19 +1065,11 @@ public class MyProgram extends JFrame {
                     }else{
                         resident.setText(" Residency:  Non-Resident");
                     }
-
-                }else{
-                    title.setText("Person Not Found!");
-                    title.setForeground(Color.RED);
-                    nameLabel.setText(" Name:");
-                    email.setText(" Email:");
-                    address.setText(" Address:");
-                    age.setText(" Age:");
-                    resident.setText(" Residency:");
-                    district.setText(" District:");
-                    gender.setText(" Gender:");
+                } else {
+                    showPersonNotFound();
                 }
-        //------buttonMale--------
+
+            //------buttonMale--------
             }else if(e.getSource() == buttonMale){
                 showMalesOnly(); //opens showMalesOnly GUI
                 chooseFrame.dispose(); //closes the current frame

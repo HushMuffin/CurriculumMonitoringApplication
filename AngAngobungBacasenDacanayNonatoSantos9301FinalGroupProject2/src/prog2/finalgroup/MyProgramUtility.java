@@ -412,15 +412,19 @@ public class MyProgramUtility {
     */
     public Citizen findName(String fullName){
         ArrayList<Citizen> list = csvToList();
-        Citizen foundCitizen = new Citizen();
+        Citizen foundCitizen = null;
 
-        list.stream()
-                .filter(x -> x.getFullName().toLowerCase().equals(fullName))
-                .forEach(x -> foundCitizen.setAll(x.getFullName(), x.getEmail(), x.getAddress(),
-                        x.getAge() , x.getResident() , x.getDistrict(), x.getGender()));
-
+        for(Citizen c : list) {
+            if(c.getFullName().toLowerCase().equals(fullName)) {
+                foundCitizen = new Citizen();
+                foundCitizen.setAll(c.getFullName(), c.getEmail(), c.getAddress(),
+                        c.getAge() , c.getResident() , c.getDistrict(), c.getGender());
+                break;
+            }
+        }
         return foundCitizen;
     } // end of findName method
+
 
     /**
      * Method to return a list of citizen that is equals to the entered age of user.

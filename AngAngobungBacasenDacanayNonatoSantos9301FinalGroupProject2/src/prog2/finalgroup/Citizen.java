@@ -74,13 +74,13 @@ public class Citizen implements Comparable<Citizen>{
      * Constructor that creates the default values of fullName, email, address, age, resident, district, and gender
      */
     public Citizen(){
-        fullName = "Marius Nonato";
-        email = "emeeme@gmail.com";
-        address = "Baguio City";
-        age = 20;
+        fullName = "Im Nayeon";
+        email = "1222333@gmail.com";
+        address = "South Korea";
+        age = 28;
         resident = true;
         district = 1;
-        gender = 'M';
+        gender = 'F';
     } // end of Citizen default constructor
 
     /**
