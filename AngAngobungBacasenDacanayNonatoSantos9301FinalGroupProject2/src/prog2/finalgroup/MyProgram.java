@@ -55,6 +55,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -93,13 +95,14 @@ public class MyProgram extends JFrame {
 
     //Declare the buttons for MyProgram
     //TODO: Julienne - Add button descriptions
-    private final JButton buttonOne = new JButton("1");
-    private final JButton buttonTwo = new JButton("2");
-    private final JButton buttonThree = new JButton("3");
-    private final JButton buttonFour = new JButton("4");
-    private final JButton buttonFive = new JButton("5");
-    private final JButton buttonSix= new JButton("6");
-    private final JButton buttonSeven = new JButton("7");
+    private final RoundButton buttonOne = new RoundButton("1");
+    private final RoundButton buttonTwo = new RoundButton("2");
+    private final RoundButton buttonThree = new RoundButton("3");
+    private final RoundButton buttonFour = new RoundButton("4");
+    private final RoundButton buttonFive = new RoundButton("5");
+    private final RoundButton buttonSix= new RoundButton("6");
+    private final RoundButton buttonSeven = new RoundButton("7");
+    private final RoundButton buttonEight = new RoundButton("8");
     private final JButton buttonBack = new JButton("Back");
     private final JButton buttonBackPopulation = new JButton("Back");
     private final JButton buttonBackMorF = new JButton("Back");
@@ -202,33 +205,61 @@ public class MyProgram extends JFrame {
     *It is used to store the age group of a citizen, which may be determined by their age or some other relevant criteria.
     */
     int ageGroup;
+    /**
+     * Holds the colors used in the GUI of the program.
+     */
+    static Color pink = new Color(255, 175, 204);
+    static Color peach = new Color(255, 229, 212);
+    static Color darkPurple = new Color(105, 79, 93);
+    static Color lightBlue = new Color(184, 193, 236);
+    static Color navy = new Color(58, 79, 122);
+    static Color purple = new Color(205, 180, 219);
 
     /**
      * Constructor for creating the main menu.
      */
     public MyProgram() {
         //Labels
-        JLabel title = new JLabel("Welcome to the Citizen App", SwingConstants.CENTER);
-        title.setBounds(50,-100,250,250);
-        JLabel instructions = new JLabel(" Choose an action", SwingConstants.LEFT);
-        JLabel first = new JLabel(" 1. Show the list of citizens", SwingConstants.LEFT);
-        JLabel second = new JLabel(" 2. Show sorted list of names of the citizens", SwingConstants.LEFT);
-        JLabel third = new JLabel(" 3. Show number of male & female citizens", SwingConstants.LEFT);
-        JLabel fourth = new JLabel(" 4. Show list of male/female citizens only", SwingConstants.LEFT);
-        JLabel fifth = new JLabel(" 5. Find a person in the list", SwingConstants.LEFT);
-        JLabel sixth = new JLabel(" 6. Display citizens with a certain age group", SwingConstants.LEFT);
-        JLabel seventh = new JLabel(" 7. Display population per district", SwingConstants.LEFT);
+        JLabel titleLabel = new JLabel("Welcome to the Citizen App", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Helvetica", Font.BOLD, 18));
+        titleLabel.setOpaque(true);
+        titleLabel.setBackground(navy);
+        titleLabel.setForeground(pink);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(20,0,20,0));
+
+        JLabel instruction = new JLabel(" Choose an action", SwingConstants.CENTER);
+        instruction.setFont(new Font("Helvetica", Font.BOLD, 20));
+        instruction.setForeground(darkPurple);
+        instruction.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 20));
+        JLabel descriptionLabel = new JLabel("<html><div style='text-align: justify;'>" +
+                " 1. Show the list of citizens<br> " +
+                " 2. Show sorted list of names of the citizens<br> " +
+                " 3. Show number of male & female citizens<br> " +
+                " 4. Show list of male/female citizens only<br> " +
+                " 5. Find a person in the list<br> " +
+                " 6. Display citizens with a certain age group<br> " +
+                " 7. Display population per district </html>",
+                SwingConstants.CENTER);
+        descriptionLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
+        descriptionLabel.setForeground(Color.darkGray);
+        descriptionLabel.setBorder(BorderFactory.createEmptyBorder(8, 20, 20, 20));
+
         //Panel for labels
-        JPanel panel = new JPanel(new GridLayout(8,0));
-        panel.setBounds(0,50,250,150);
-        panel.add(instructions);
-        panel.add(first);
-        panel.add(second);
-        panel.add(third);
-        panel.add(fourth);
-        panel.add(fifth);
-        panel.add(sixth);
-        panel.add(seventh);
+        JPanel instructionPanel = new JPanel(new BorderLayout());
+        instructionPanel.add(instruction);
+        instructionPanel.add(descriptionLabel, BorderLayout.SOUTH);
+        instructionPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        instructionPanel.setBackground(lightBlue);
+
+        //Implement button design to buttons
+        buttonDesign(buttonOne);
+        buttonDesign(buttonTwo);
+        buttonDesign(buttonThree);
+        buttonDesign(buttonFour);
+        buttonDesign(buttonFive);
+        buttonDesign(buttonSix);
+        buttonDesign(buttonSeven);
+        buttonDesign(buttonEight);
         //Add action listeners to buttons
         buttonOne.addActionListener(buttonAction);
         buttonTwo.addActionListener(buttonAction);
@@ -237,29 +268,30 @@ public class MyProgram extends JFrame {
         buttonFive.addActionListener(buttonAction);
         buttonSix.addActionListener(buttonAction);
         buttonSeven.addActionListener(buttonAction);
+        //TODO: add action listener for button 8
         //Panel for buttons
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
-        buttonPanel.setBounds(20,205,300,70);
-        buttonPanel.add(buttonOne).setFocusable(false);
-        buttonPanel.add(buttonTwo).setFocusable(false);
-        buttonPanel.add(buttonThree).setFocusable(false);
-        buttonPanel.add(buttonFour).setFocusable(false);
-        buttonPanel.add(buttonFive).setFocusable(false);
-        buttonPanel.add(buttonSix).setFocusable(false);
-        buttonPanel.add(buttonSeven).setFocusable(false);
-
+        JPanel buttonPanel = new JPanel(new GridLayout(4, 2, 40, 20));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
+        buttonPanel.setBackground(navy);
+        buttonPanel.add(buttonOne);
+        buttonPanel.add(buttonTwo);
+        buttonPanel.add(buttonThree);
+        buttonPanel.add(buttonFour);
+        buttonPanel.add(buttonFive);
+        buttonPanel.add(buttonSix);
+        buttonPanel.add(buttonSeven);
+        buttonPanel.add(buttonEight);
         //Frame
         this.setTitle("Citizen App");
         this.setIconImage(icon.getImage());
-        this.add(title);
-        this.add(panel);
-        this.add(buttonPanel);
+        this.setLayout(new BorderLayout());
+        this.add(titleLabel, BorderLayout.NORTH);
+        this.add(instructionPanel);
+        this.add(buttonPanel, BorderLayout.SOUTH);
 
         //Frame operations
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(null);
-        this.setSize(360,360);
-        this.setResizable(false);
+        this.setSize(560,580);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     } // end of MyProgram constructor
@@ -288,7 +320,6 @@ public class MyProgram extends JFrame {
     public void showDefaultList(){
         String[][] data = myProgramUtility.defaultList(); //calls method defaultList() from MyProgramUtility
         String[] column = {"Full Name", "Email", "Address", "Age", "Resident", "District", "Gender"};
-
         //table model
         DefaultTableModel tableModel = new DefaultTableModel(data, column){
             //makes cells from table non-editable
@@ -856,7 +887,51 @@ public class MyProgram extends JFrame {
         frame3.setLocationRelativeTo(null);
         frame3.setVisible(true);
     } // end of showPopulationByDistrict method
+    private void buttonDesign(JButton button) {
+        button.setFont(new Font("Helvetica", Font.BOLD, 13));
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(navy, 3, false), // Set border color, thickness, and roundness
+                BorderFactory.createEmptyBorder(8, 18, 8, 18)));
+        button.setBackground(pink);
+        button.setForeground(navy);
+        button.addMouseListener(new MouseAdapter() {
 
+            /**
+             * Method that changes the cursor to a hand cursor and sets the background
+             * color of the button to purple to indicate that the button can be clicked.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                button.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(pink, 3, false), // Set border color, thickness, and roundness
+                        BorderFactory.createEmptyBorder(8, 18, 8, 18)));
+                button.setBackground(navy); // Set a new color when mouse hovers over the button
+                button.setForeground(pink);
+            } // end of mouseEntered method
+
+            /**
+             * Method that sets the background color of the button back to pink and the
+             * foreground color back to navy to indicate that the button is no longer being
+             * hovered over.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                button.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(navy, 3, false), // Set border color, thickness, and roundness
+                        BorderFactory.createEmptyBorder(8, 18, 8, 18)));
+                button.setBackground(pink); // Set back the original color when the mouse leaves the button
+                button.setForeground(navy);
+            } // end of mouseExited method
+        });
+    } // end of buttonDesign method
 
     //TODO: Lourdene - Add run method description (javadoc comment) and algorithm (multi-line comment)
     //TODO: Lourdene - Make sure an introduction and exit method is included here
