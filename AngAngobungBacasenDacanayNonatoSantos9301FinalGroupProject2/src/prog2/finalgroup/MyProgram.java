@@ -95,14 +95,15 @@ public class MyProgram extends JFrame {
 
     //Declare the buttons for MyProgram
     //TODO: Julienne - Add button descriptions
-    private final RoundButton buttonOne = new RoundButton("1");
-    private final RoundButton buttonTwo = new RoundButton("2");
-    private final RoundButton buttonThree = new RoundButton("3");
-    private final RoundButton buttonFour = new RoundButton("4");
-    private final RoundButton buttonFive = new RoundButton("5");
-    private final RoundButton buttonSix= new RoundButton("6");
-    private final RoundButton buttonSeven = new RoundButton("7");
-    private final RoundButton buttonEight = new RoundButton("8");
+    private final RoundButton buttonOne = new RoundButton(" 1. Show the list of citizens");
+    private final RoundButton buttonTwo = new RoundButton("2. Show sorted list of names of the citizens");
+    private final RoundButton buttonThree = new RoundButton("3. Show number of male & female citizens");
+    private final RoundButton buttonFour = new RoundButton("4. Show list of male/female citizens only");
+    private final RoundButton buttonFive = new RoundButton("5. Find a person in the list");
+    private final RoundButton buttonSix= new RoundButton("6. Display citizens with a certain age group");
+    private final RoundButton buttonSeven = new RoundButton("7. Display population per district");
+    private final RoundButton buttonEight = new RoundButton("8. Show Number of Seniors");
+    private final RoundButton exitButton = new RoundButton("EXIT");
     private final JButton buttonBack = new JButton("Back");
     private final JButton buttonBackPopulation = new JButton("Back");
     private final JButton buttonBackMorF = new JButton("Back");
@@ -230,26 +231,9 @@ public class MyProgram extends JFrame {
         JLabel instruction = new JLabel(" Choose an action", SwingConstants.CENTER);
         instruction.setFont(new Font("Helvetica", Font.BOLD, 20));
         instruction.setForeground(darkPurple);
+        instruction.setBackground(lightBlue);
+        instruction.setOpaque(true);
         instruction.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 20));
-        JLabel descriptionLabel = new JLabel("<html><div style='text-align: justify;'>" +
-                " 1. Show the list of citizens<br> " +
-                " 2. Show sorted list of names of the citizens<br> " +
-                " 3. Show number of male & female citizens<br> " +
-                " 4. Show list of male/female citizens only<br> " +
-                " 5. Find a person in the list<br> " +
-                " 6. Display citizens with a certain age group<br> " +
-                " 7. Display population per district </html>",
-                SwingConstants.CENTER);
-        descriptionLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
-        descriptionLabel.setForeground(Color.darkGray);
-        descriptionLabel.setBorder(BorderFactory.createEmptyBorder(8, 20, 20, 20));
-
-        //Panel for labels
-        JPanel instructionPanel = new JPanel(new BorderLayout());
-        instructionPanel.add(instruction);
-        instructionPanel.add(descriptionLabel, BorderLayout.SOUTH);
-        instructionPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        instructionPanel.setBackground(lightBlue);
 
         //Implement button design to buttons
         buttonDesign(buttonOne);
@@ -260,6 +244,7 @@ public class MyProgram extends JFrame {
         buttonDesign(buttonSix);
         buttonDesign(buttonSeven);
         buttonDesign(buttonEight);
+        buttonDesign(exitButton);
         //Add action listeners to buttons
         buttonOne.addActionListener(buttonAction);
         buttonTwo.addActionListener(buttonAction);
@@ -269,10 +254,11 @@ public class MyProgram extends JFrame {
         buttonSix.addActionListener(buttonAction);
         buttonSeven.addActionListener(buttonAction);
         //TODO: add action listener for button 8
+        exitButton.addActionListener(buttonAction);
         //Panel for buttons
         JPanel buttonPanel = new JPanel(new GridLayout(4, 2, 40, 20));
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
-        buttonPanel.setBackground(navy);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 20, 50));
+        buttonPanel.setBackground(lightBlue);
         buttonPanel.add(buttonOne);
         buttonPanel.add(buttonTwo);
         buttonPanel.add(buttonThree);
@@ -281,17 +267,25 @@ public class MyProgram extends JFrame {
         buttonPanel.add(buttonSix);
         buttonPanel.add(buttonSeven);
         buttonPanel.add(buttonEight);
+        //Panel for instructions
+        JPanel instructionPanel = new JPanel(new BorderLayout());
+        instructionPanel.add(instruction);
+        instructionPanel.add(buttonPanel, BorderLayout.SOUTH);
+        //Panel for exit button
+        JPanel exitPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        exitPanel.add(exitButton);
+        exitPanel.setBackground(navy);
         //Frame
         this.setTitle("Citizen App");
         this.setIconImage(icon.getImage());
         this.setLayout(new BorderLayout());
         this.add(titleLabel, BorderLayout.NORTH);
         this.add(instructionPanel);
-        this.add(buttonPanel, BorderLayout.SOUTH);
+        this.add(exitPanel, BorderLayout.SOUTH);
 
         //Frame operations
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(560,580);
+        this.setSize(760,580);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     } // end of MyProgram constructor
@@ -932,6 +926,35 @@ public class MyProgram extends JFrame {
             } // end of mouseExited method
         });
     } // end of buttonDesign method
+    /**
+     * Method to display the program closing statement.
+     */
+    /*
+       Algorithm:
+       1. Display the program closing statement in a new pane.
+       2. Dispose the dialog box when closed by the user
+       3. Terminate the program.
+     */
+    private void showExit() {
+        JDialog exitDialog = new JDialog();
+        exitDialog.setTitle("Citizen App");
+        exitDialog.setModal(true);
+
+        JLabel exitL = new JLabel("Thank you for using the program!", SwingConstants.CENTER);
+        exitL.setFont(new Font("Helvetica", Font.BOLD, 20));
+        exitL.setForeground(pink);
+
+        JPanel exitPanel = new JPanel(new BorderLayout()); // use BorderLayout for exitPanel
+        exitPanel.setBackground(navy);
+        exitPanel.add(exitL, BorderLayout.CENTER); // add exitL to the center of exitPanel
+
+        exitDialog.getContentPane().add(exitPanel); // add exitPanel to the content pane of exitDialog
+        exitDialog.setIconImage(icon.getImage());
+        exitDialog.setSize(400, 120);
+        exitDialog.setLocationRelativeTo(null);
+        exitDialog.setVisible(true);
+        exitDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    } // end of showExit method
 
     //TODO: Lourdene - Add run method description (javadoc comment) and algorithm (multi-line comment)
     //TODO: Lourdene - Make sure an introduction and exit method is included here
@@ -985,8 +1008,15 @@ public class MyProgram extends JFrame {
             }else if(e.getSource() == buttonSeven){
                 showPopulationByDistrict(); //opens showPopulationByDistrict GUI
                 dispose();//closes the main menu
+            }
+        //TODO: Lourdene - add buttonEight function
+        //-----exitButton---------
+            else if(e.getSource() == exitButton){
+                showExit();
+                System.exit(0);
+
         //-----buttonBack----------
-            } else if(e.getSource() == buttonBack){
+            }else if(e.getSource() == buttonBack){
                 frame2.dispose(); //closes the current frame
                 frameMorF.dispose();
                 chooseFrame.dispose();
