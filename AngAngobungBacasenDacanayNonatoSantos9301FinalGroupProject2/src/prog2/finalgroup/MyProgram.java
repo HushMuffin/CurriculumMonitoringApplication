@@ -65,7 +65,6 @@ import java.util.Map;
 //TODO: Lourdene & Marius & Nash - Whole Design/Format of the GUI
 //TODO: Lourdene & Marius - Windows
 //TODO: Julienne - Improve warning message for inputs
-//TODO: Julienne - Improve warning message for finding a person option
 //TODO: Marius & Lourdene - Improve the show number of male & female citizens option
 //TODO: Lourdene - Improve the program by adding menu bar on the windows after the main menu window
  */
@@ -701,6 +700,7 @@ public class MyProgram extends JFrame {
 
         //Panel for labels
         JPanel panel = new JPanel(new GridLayout(7,0));
+        panel.setBorder(BorderFactory.createEmptyBorder(20,10,0,20));
         panel.setBounds(0,50,300,150);
         panel.setBackground(new Color(248,248,255));
         panel.add(nameLabel);
@@ -715,6 +715,7 @@ public class MyProgram extends JFrame {
         textField2.setSize(10,10);
 
         JPanel panel2 = new JPanel(new GridLayout(2,2));
+        panel2.setBorder(BorderFactory.createEmptyBorder(10,10,0,0));
         panel2.setBounds(0,230,300,50);
         panel2.setBackground(new Color(248,248,255));
         panel2.add(findFirstName);
@@ -1053,7 +1054,7 @@ public class MyProgram extends JFrame {
                 if(citizen != null && citizen.getFullName() != null) {
                     title.setText("Person Found!");
                     title.setForeground(new Color(42,163,42));
-                    nameLabel.setText(" Name:  " + citizen.getFullName());
+                    nameLabel.setText(" Name:  " + citizen.getFullName().toUpperCase());
                     email.setText(" Email:  " + citizen.getEmail());
                     address.setText(" Address:  " + citizen.getAddress());
                     age.setText(" Age:  " + citizen.getAge());
@@ -1066,6 +1067,8 @@ public class MyProgram extends JFrame {
                         resident.setText(" Residency:  Non-Resident");
                     }
                 } else {
+                    title.setText("Person Not Found!");
+                    title.setForeground(Color.RED);
                     showPersonNotFound();
                 }
 
