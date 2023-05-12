@@ -35,7 +35,11 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-//TODO: Charles - add class description (javadoc)
+/**
+ * The RoundButton class extends JButton to create a custom button that is shaped like a round rectangle.
+ * It also detects when the user's mouse cursor is hovering over it and updates its appearance accordingly.
+ * The button has a shadow effect and rounded corners.
+ */
 class RoundButton extends JButton {
     // Declare the objects for RoundRectangleButton.
     /**
