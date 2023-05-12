@@ -40,7 +40,7 @@ import java.awt.event.MouseEvent;
  * It also detects when the user's mouse cursor is hovering over it and updates its appearance accordingly.
  * The button has a shadow effect and rounded corners.
  */
-class RoundButton extends JButton {
+public class RoundButton extends JButton {
     // Declare the objects for RoundRectangleButton.
     /**
      * Holds the shadow color of the button.
