@@ -185,7 +185,13 @@ public class MyProgramUtility {
          *
          * @return data - the array string of citizen list
          */
-    //TODO: Julienne - Add sortedList method algorithm (multi-line comment)
+
+    /*
+    This method sorts an ArrayList of Citizen objects using a stream and lambda expression, and populates a
+    two-dimensional array of String objects with the sorted data, including information such as name, email, age, and
+    residential status. It assumes the existence of a Citizen class with appropriate attributes and getter methods.
+    The method returns the populated data array.
+     */
     public String[][] sortedList(){
         ArrayList<Citizen> list = csvToList();
         String[][] data = new String[list.size()][7];
