@@ -2,7 +2,7 @@
  * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
  * Team Number: 6
- * Memberfs:
+ * Members:
  * Ang, Julienne - 2232357
  * Angobung, Charles Jacob - 2232594
  * Bacasen, Katelyn Ann - 2212033
@@ -63,7 +63,10 @@ public class Course implements Comparable<Course> {
      */
     private int grades;
 
-    // This constructor contains the default values of year, term, courseNumber, decTitle, units, and grades for the class
+    /**
+     * Default constructor that contains the default values of year, term,
+     * courseNumber, decTitle, units, and grades for the class
+     */
     public Course(){
         year = "1";
         term = "1";
@@ -73,7 +76,16 @@ public class Course implements Comparable<Course> {
         grades = 75;
     } // end of Course default constructor
 
-    // This constructor contains the year, term, courseNumber, decTitle, units, and grades for the class
+    /**
+     * Constructor that constructs a Course object with the provided information.<br>
+     *
+     * @param year         the year of the course
+     * @param term         the term of the course
+     * @param courseNumber the course number
+     * @param descTitle    the descriptive title of the course
+     * @param units        the number of units for the course
+     * @param grades       the grade achieved in the course
+     */
     public Course(String year, String term, String courseNumber, String descTitle, double units, int grades) {
         this.year = year;
         this.term = term;
@@ -83,7 +95,13 @@ public class Course implements Comparable<Course> {
         this.grades=grades;
     } // end of Course constructor
 
-    // This constructor contains the courseNumber, descTitle, and units for the class
+    /**
+     * Constructor that constructs a Course object with the provided information. <br>
+     *
+     * @param courseNumber the course number
+     * @param descTitle    the descriptive title of the course
+     * @param units        the number of units for the course
+     */
     public Course(String courseNumber, String descTitle, double units){
         this.courseNumber = courseNumber;
         this.descTitle = descTitle;
@@ -253,11 +271,13 @@ public class Course implements Comparable<Course> {
         this.year = year;
     }
 
-    /*
-     This method checks whether the unit variable is a whole number or not, if it is then the method returns a string
-     that concatenates the year, term, courseNumber, descTile, units, and grades instance variables
+    /**
+     *  Method that checks whether the unit variable is a whole number or not, if it is
+     *  then the method returns a string that concatenates the year, term, courseNumber,
+     *  descTile, units, and grades instance variables. <br>
+     *
+     *  @return the string representation of the Course object
      */
-
     public String toString(){
         if(units%1 == 0 ){
             return year+","+term+","+courseNumber+","+descTitle+","+ (int)units+","+grades;
@@ -287,7 +307,7 @@ public class Course implements Comparable<Course> {
             return -1;
         else
             return 1;
-    }
+    } // end of compareTo method
 
     /**
      * Indicates whether some other object is "equal to" this one.
@@ -310,7 +330,5 @@ public class Course implements Comparable<Course> {
                 descTitle.equals(other.descTitle) &&
                 units == other.units &&
                 grades == other.grades;
-    }
-
-
+    } // end of equals method
 } // end of Course class

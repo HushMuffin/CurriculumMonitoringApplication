@@ -30,8 +30,29 @@
  * <p>
  * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
- * General Algorithm: //TODO: Katelyn - Create the General Algorithm
- * 1.
+ * General Algorithm:
+ * 1. Display the user login window.
+ * 2. After entering the login details, display the introduction window.
+ * 3. Display the main menu with the following options:
+ *    3.1 Show course with grades and remarks for each term:
+ *        - Displays a table list of courses with grades and remarks for each term.
+ *    3.2 Enter grade for a recently finished course:
+ *        - Displays a window to select a course and enter a grade to be submitted and saved to a file.
+ *    3.3 Add a finished course from another program:
+ *        - Displays another window that allows the user to add course information and save it to a file.
+ *    3.4 Add a BSCS-credited course finished through another program:
+ *        - Displays another window that lets the user add a BSCS-credited course,
+ *          update its grade, then save it to a file.
+ *    3.5 Edit an elective course:
+ *        - Displays another window where the user can select their desired elective course
+ *          from a recommended course list and saves it to a file.
+ *    3.6 Show the student's average grade for all finished courses:
+ *        - Displays another window showing the average grade.
+ *    3.7 Show the student's sorted grades:
+ *        - Displays another window with a table of sorted courses based on grades.
+ *    3.8 Show the student's failed courses only:
+ *        - Displays another window with a table of failed courses.
+ * 4. Terminate the program if the user chooses to quit.
  * <p>
  * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
@@ -55,25 +76,21 @@ import java.io.*;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-
 /**
  * The CurriculumMonitoringApplication Class is the main class that provides options to be
  * used by a Bachelor of Science of Computer Science (BSCS) student of Saint Louis University
  * in monitoring of the student's progress with respect to the curriculum that they are pursuing.
  */
-/*
-    Algorithm: //TODO: Katelyn - update algorithm
-    1. Reads the contents of the csv file and populates the ArrayList with instances of Course
-    2. Prints an action list for user to choose
-    3. Runs the chosen action
-    4. Uses the elements from the ArrayList to show/modify curriculum data depending on
-       user's choice of action
-    5. Updates the csv file using PrintWriter
-    6. End of program
- */
 public class CurriculumMonitoringApplication {
     //Declare instances for CurriculumMonitoringApplication
-    private static JButton nextButton;
+    /**
+     * Holds a custom round button used for navigating to next windows.
+     */
+    private static RoundButton nextButton;
+
+    //TODO: Charles - add image icon description (javadoc)
+    ImageIcon icon = new ImageIcon("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/" +
+            "res/icon1.png");
 
     //Declare the static variables for CurriculumMonitoringApplication
     /**
@@ -86,9 +103,6 @@ public class CurriculumMonitoringApplication {
      */
     static BufferedReader inputStream;
 
-    //TODO: Charles - add image icon description (javadoc)
-    ImageIcon icon = new ImageIcon("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/" +
-            "res/icon1.png");
     /**
      * Declare "list" as a static instance of the ArrayList class,
      * used to store a collection of objects of Course.
@@ -140,9 +154,19 @@ public class CurriculumMonitoringApplication {
         listOfChoices();
     } // end of run method
 
-    /*
-     This method shows the showLoginDialog or the login window containing the user interface where the user would be
-     asked to provide input for the username and password
+    /**
+     * Method that shows the showLoginDialog or the login window containing the
+     * user interface where the user would be asked to provide input for the username and password. <br>
+     *
+     * @return the username of the student as a String
+     */
+        /*
+        Algorithm:
+        1. Create a login dialog.
+        2. Prompt the user to enter a username and password.
+        3. If either field is empty, show a warning and ask for both fields again.
+        4. If both fields are filled, close the login dialog.
+        5. Return the entered username.
      */
     private String showLoginDialog() {
         // Create a new JDialog for the login dialog
@@ -349,49 +373,19 @@ public class CurriculumMonitoringApplication {
 
     /**
      * Method to show the list of actions for the user to choose from.
-
-     Algorithm listOfChoices():
-     1. Create a new JFrame named "BSCS Curriculum Monitoring Application"
-     2. Create a new JLabel named headerLabel with text "MAIN MENU" and centered alignment
-     - Set the font to Helvetica, bold, and size 30
-     - Set the background color to navy and the foreground color to pink
-     - Set the border to an empty border with 10 pixels on each side
-     3. Create a new JLabel named guideLabel with instructions for the user
-     - Set the font to Helvetica, italic, and size 12
-     - Set the background color to purple and the foreground color to dark gray
-     - Set the border to an empty border with 10 pixels on each side
-     4. Create a new RoundButton named showCourseAndRemarksButton with text "1. Show course with grades and remarks for each term"
-     - Call the method buttonDesign() to apply the button's design
-     - Add an action listener that calls the method showCoursesWithGradesAndRemarksForEachTerm()
-     5. Create a new RoundButton named enterGradeButton with text "2. Enter grade for course recently finished"
-     - Call the method buttonDesign() to apply the button's design
-     - Add an action listener that calls the method enterGrades()
-     6. Create a new RoundButton named addFinishedCourseButton with text "3. Add a finished course from another program"
-     - Call the method buttonDesign() to apply the button's design
-     - Add an action listener that calls the method addFinishedCourse()
-     7. Create a new RoundButton named addCreditedCourseButton with text "4. Add a BSCS-credited course finished through another program"
-     - Call the method buttonDesign() to apply the button's design
-     - Add an action listener that calls the method addCreditedCourse()
-     8. Create a new RoundButton named editElectiveCourseButton with text "5. Edit an elective course"
-     - Call the method buttonDesign() to apply the button's design
-     - Add an action listener that calls the method editElectiveCourse()
-     9. Create a new RoundButton named button8 with text "6. Show student's average grade for all finished courses"
-     - Call the method buttonDesign() to apply the button's design
-     - Add an action listener that calls the method showAverageGrade()
-     10. Create a new RoundButton named button9 with text "7. Show student's sorted grades"
-     - Call the method buttonDesign() to apply the button's design
-     - Add an action listener that calls the method showSortedGrades()
-     11. Create a new RoundButton named button10 with text "8. Show student's failed courses only"
-     - Call the method buttonDesign() to apply the button's design
-     - Add an action listener that calls the method showFailedCourses()
-     12. Create a new RoundButton named button11 with text "QUIT"
-     - Call the method buttonDesign() to apply the button's design
-     - Add an action listener that calls the method showExit(), disposes of the choiceFrame, saves the file, and exits the program
-     13. Create a new JPanel named topPanel with a BorderLayout
-     - Add the headerLabel to the north of the panel
-     - Add the guidePanel to the center of the panel
-     14. Create a new JPanel named buttonsPanel with a GridLayout of 5 rows and 2 columns, and horizontal and vertical gaps of 10 pixels
-     - Set the
+     */
+    /*
+        Algorithm:
+        1. Create a new JFrame named choiceFrame and set its title.
+        2. Create a JLabel named headerLabel with the text "MAIN MENU" and customize its appearance.
+        3. Create a JLabel named guideLabel with an instructional message and customize its appearance.
+        4. Create several JButton objects for different options and customize their appearance.
+        5. Add action listeners to the buttons to perform specific tasks when clicked.
+        6. Create panels to organize the labels and buttons.
+        7. Configure the layout and add the components to their respective panels.
+        8. Configure the main choiceFrame by adding the panels, setting its size and position,
+           and defining its close behavior.
+        9. Make the choiceFrame visible to the user.
      */
     public void listOfChoices() {
         JFrame choiceFrame = new JFrame("BSCS Curriculum Monitoring Application");
@@ -403,13 +397,13 @@ public class CurriculumMonitoringApplication {
         headerLabel.setForeground(pink);
         headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         JLabel guideLabel = new JLabel("<html><div style='text-align: center;'>" +
-                "Please select a row in the table below that corresponds to a specific" +
-                " course. Then, enter the grade you have in the chosen course to the " +
-                "text field below the table. You can also search your desired course on " +
-                "the search bar below. Remember to submit and save what you have edited!</html>", SwingConstants.CENTER);
+                "Please select your desired option provided below and it will direct " +
+                "you to another window. To prevent the windows from stacking up, you " +
+                "can close the window and select another option from this main menu.</html>",
+                SwingConstants.CENTER);
         guideLabel.setFont(new Font("Helvetica", Font.ITALIC, 12));
         guideLabel.setOpaque(true);
-        guideLabel.setBackground(purple);
+        guideLabel.setBackground(peach);
         guideLabel.setForeground(Color.darkGray);
         guideLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -485,20 +479,17 @@ public class CurriculumMonitoringApplication {
             }
             System.exit(0);
         });
-        JPanel topPanel = new JPanel(new BorderLayout());
-
-        JPanel buttonsPanel = new JPanel(new GridLayout(5, 2, 10, 10));
-        buttonsPanel.setBackground(lightBlue);
-
 
         JPanel guidePanel = new JPanel(new BorderLayout());
         guidePanel.add(guideLabel, BorderLayout.CENTER);
         guidePanel.setBackground(lightBlue);
-        guidePanel.setBorder(BorderFactory.createEmptyBorder(10, 100, 0, 100));
-        buttonsPanel.add(guidePanel);
+        guidePanel.setBorder(BorderFactory.createEmptyBorder(15, 100, 0, 100));
+
+        JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.add(headerLabel,BorderLayout.NORTH);
         topPanel.add(guidePanel, BorderLayout.CENTER);
-        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(30, 15, 10, 15));
+
+        JPanel buttonsPanel = new JPanel(new GridLayout(4, 2, 10, 10));
         buttonsPanel.add(showCourseAndRemarksButton);
         buttonsPanel.add(enterGradeButton);
         buttonsPanel.add(addFinishedCourseButton);
@@ -507,6 +498,8 @@ public class CurriculumMonitoringApplication {
         buttonsPanel.add(button8);
         buttonsPanel.add(button9);
         buttonsPanel.add(button10);
+        buttonsPanel.setBackground(lightBlue);
+        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(30, 15, 20, 15));
 
         JPanel quitPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         quitPanel.setBackground(navy);
@@ -521,7 +514,7 @@ public class CurriculumMonitoringApplication {
         choiceFrame.getContentPane().add(choicePanel);
         choiceFrame.setIconImage(icon.getImage());
         choiceFrame.pack();
-        choiceFrame.setSize(630, 580);
+        choiceFrame.setSize(630, 530);
         choiceFrame.setLocationRelativeTo(null);
         choiceFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         choiceFrame.addWindowListener(new WindowAdapter() {
@@ -534,299 +527,52 @@ public class CurriculumMonitoringApplication {
         choiceFrame.setVisible(true);
     } // end of listOfChoices method
 
-
-
-    /**
-     * Method to display the subjects for each term.
-     */
-    public void showCoursesForEachTerm() {
-        JFrame frame = new JFrame("Courses for Each Term");
-        String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units"};
-        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
-
-        JLabel headerLabel = new JLabel("Courses for Each Term", SwingConstants.CENTER);
-        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
-        headerLabel.setOpaque(true);
-        headerLabel.setBackground(navy);
-        headerLabel.setForeground(pink);
-        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        ArrayList<Course> unfinishedCourses = new ArrayList<>();
-        HashMap<Integer, Integer> originalIndices = new HashMap<>();
-
-        list.stream().map(course -> new Object[]{
-                course.getYear(),
-                "3".equals(course.getTerm()) ? "Short term" : course.getTerm(),
-                course.getCourseNumber(),
-                course.getDescTitle(),
-                course.getUnits()
-        }).forEach(tableModel::addRow);
-
-        // Search functionality
-        JLabel searchLabel = new JLabel("Search: ");
-        JTextField searchBar = new JTextField(15);
-
-        searchBar.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                filterTable();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                filterTable();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                filterTable();
-            }
-
-            private void filterTable() {
-                String searchText = searchBar.getText().toLowerCase();
-                ArrayList<Course> filteredList = new ArrayList<>();
-                for (Course course : unfinishedCourses) {
-                    if (course.getCourseNumber().toLowerCase().contains(searchText) ||
-                            course.getDescTitle().toLowerCase().contains(searchText)) {
-                        filteredList.add(course);
-                    }
-                }
-                updateCourseTableModel(unfinishedCourses, filteredList, tableModel, originalIndices);
-            }
-        });
-
-        JTable table = new JTable(tableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(900, 500));
-
-        JScrollPane scrollPane = new JScrollPane(table);
-
-        // Define a custom header renderer that sets the background color of the column names
-        JTableHeader header = table.getTableHeader();
-        ((JTableHeader) header).setDefaultRenderer(new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value,
-                                                           boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = super.getTableCellRendererComponent(table, value,
-                        isSelected, hasFocus, row, column);
-                c.setBackground(navy);
-                c.setForeground(purple); // set the text color of the column names to purple
-                c.setFont(new Font("Helvetica", Font.BOLD, 15));
-                return c;
-            }
-        });
-
-        // Define a custom cell renderer that sets the background color of the cells in the second column
-        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
-            public Component getTableCellRendererComponent(JTable table, Object value,
-                                                           boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = super.getTableCellRendererComponent(table, value,
-                        isSelected, hasFocus, row, column);
-
-                switch (column) {
-                    case 0:
-                        c.setBackground(lightBlue);
-                        break;
-                    case 1:
-                        c.setBackground(lightBlue);
-                        break;
-                    case 2:
-                        c.setBackground(lightBlue);
-                        break;
-                    case 3:
-                        c.setBackground(lightBlue);
-                        break;
-                    case 4:
-                        c.setBackground(lightBlue);
-                        break;
-                    default:
-                        c.setBackground(table.getBackground()); // use the default background color for other columns
-                        break;
-                }
-
-                return c;
-            }
-        };
-
-        // Set the custom cell renderer to all columns of the table
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
-        }
-
-        // Set the preferred width of each column
-        table.getColumnModel().getColumn(0).setPreferredWidth(3);
-        table.getColumnModel().getColumn(1).setPreferredWidth(5);
-        table.getColumnModel().getColumn(2).setPreferredWidth(65);
-        table.getColumnModel().getColumn(3).setPreferredWidth(530);
-        table.getColumnModel().getColumn(4).setPreferredWidth(3);
-
-        JPanel searchPanel = new JPanel();
-        searchPanel.add(searchLabel);
-        searchPanel.add(searchBar);
-        searchPanel.setBackground(peach);
-        searchPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-
-        JPanel tablePanel = new JPanel();
-        tablePanel.add(scrollPane);
-        tablePanel.setBackground(peach);
-        tablePanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 10, 0));
-
-        frame.add(headerLabel, BorderLayout.NORTH);
-        frame.add(searchPanel, BorderLayout.CENTER);
-        frame.add(tablePanel, BorderLayout.SOUTH);
-        frame.setIconImage(icon.getImage());
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(1000, 685);
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-    } // end of showCoursesForEachTerm method
-
-    /**
-     * Method to display the subjects with grades for each term.
-     */
-    public void showCoursesWithGradesForEachTerm() {
-        JFrame frame = new JFrame("Courses with Grades for Each Term");
-        String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units", "Grades"};
-        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
-
-        JLabel headerLabel = new JLabel("Courses with Grades for Each Term", SwingConstants.CENTER);
-        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
-        headerLabel.setOpaque(true);
-        headerLabel.setBackground(navy);
-        headerLabel.setForeground(pink);
-        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        list.stream().map(course -> new Object[]{
-                course.getYear(),
-                "3".equals(course.getTerm()) ? "Short term" : course.getTerm(),
-                course.getCourseNumber(),
-                course.getDescTitle(),
-                course.getUnits(),
-                course.getGrades() == 0 ? "Not yet graded" : course.getGrades()
-        }).forEach(tableModel::addRow);
-
-        JTable table = new JTable(tableModel);
-        table.setEnabled(false);
-        table.setPreferredScrollableViewportSize(new Dimension(1080, 510));
-
-        JScrollPane scrollPane = new JScrollPane(table);
-
-        // Define a custom header renderer that sets the background color of the column names
-        JTableHeader header = table.getTableHeader();
-        ((JTableHeader) header).setDefaultRenderer(new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value,
-                                                           boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = super.getTableCellRendererComponent(table, value,
-                        isSelected, hasFocus, row, column);
-                c.setBackground(navy);
-                c.setForeground(purple); // set the text color of the column names to purple
-                c.setFont(new Font("Helvetica", Font.BOLD, 15));
-                return c;
-            }
-        });
-
-        // Define a custom cell renderer that sets the background color of the cells in the second column
-        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
-            public Component getTableCellRendererComponent(JTable table, Object value,
-                                                           boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = super.getTableCellRendererComponent(table, value,
-                        isSelected, hasFocus, row, column);
-
-                switch (column) {
-                    case 0:
-                        c.setBackground(lightBlue);
-                        break;
-                    case 1:
-                        c.setBackground(lightBlue);
-                        break;
-                    case 2:
-                        c.setBackground(lightBlue);
-                        break;
-                    case 3:
-                        c.setBackground(lightBlue);
-                        break;
-                    case 4:
-                        c.setBackground(lightBlue);
-                        break;
-                    case 5:
-                        c.setBackground(lightBlue);
-                        break;
-                    default:
-                        c.setBackground(table.getBackground()); // use the default background color for other columns
-                        break;
-                }
-
-                return c;
-            }
-        };
-
-        // Set the custom cell renderer to all columns of the table
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
-        }
-
-        // Set the preferred width of each column
-        table.getColumnModel().getColumn(0).setPreferredWidth(3);
-        table.getColumnModel().getColumn(1).setPreferredWidth(5);
-        table.getColumnModel().getColumn(2).setPreferredWidth(65);
-        table.getColumnModel().getColumn(3).setPreferredWidth(540);
-        table.getColumnModel().getColumn(4).setPreferredWidth(3);
-        table.getColumnModel().getColumn(5).setPreferredWidth(15);
-
-        JPanel tablePanel = new JPanel();
-        tablePanel.add(scrollPane);
-        tablePanel.setBackground(peach);
-        tablePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-
-        frame.add(headerLabel, BorderLayout.NORTH);
-        frame.add(tablePanel, BorderLayout.CENTER);
-        frame.setIconImage(icon.getImage());
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(1190, 655);
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-    } // end of showCoursesWithGradesForEachTerm method
-
     /**
      * Method to display the subjects with grades and remarks for each term
      * where it will print "Failed", if grade is less than 75.
      * And, else it will print "Passed".
-
-     Algorithm:
-     1.	Create a new JFrame with the title "Courses with Grades and Remarks for Each Term".
-     2.	Define an array of column names, including "Year", "Term", "Course number", "Descriptive
-        Title", "Units", "Grades", and "Remarks".
-     3.	Create a new DefaultTableModel with the column names and initial row count of 0.
-     4.	Call the updateTableModel method to populate the tableModel with data from a list of Course objects.
-     5.	Create a new JLabel with the text "Courses with Grades and Remarks for Each Term", centered, and with a font size of 25.
-     6.	Set the background of the headerLabel to navy and the foreground to pink, and create an empty border with 10 pixels on all sides.
-     7.	Use streams to populate the tableModel with data from the list of Course objects. For each Course object, create an array of
-        values for the row in the tableModel, including the year, term, course number, descriptive title, units, grades, and remarks.
-     8.	Create a new JTable with the tableModel.
-     9.Set the preferred scrollable viewport size of the table to 1200 pixels wide and 510 pixels tall.
-     10.Create a new JScrollPane with the table as its view.
-     11.Create a new JLabel with the text "Search: ".
-     12.Create a new JTextField with a width of 15 characters.
-     13.Add a DocumentListener to the searchBar that calls a filterTable method every time the text in the searchBar changes.
-     14.In the filterTable method, get the text from the searchBar and convert it to lowercase. Create a new ArrayList to hold
-        the filtered Course objects. For each Course object in the original list, check if the course number or descriptive
-        title contains the searchText (in lowercase). If it does, add the Course object to the filteredList. Finally, call
-        the updateTableModel method with the filteredList to update the tableModel.
-     15.Create a new JTableHeader from the table, and set its default renderer to a custom DefaultTableCellRenderer
-        that sets the background color of the column names to navy and the text color to purple with a font size of 15.
-     16.Create a custom DefaultTableCellRenderer that sets the background color of the cells in the second column to light
-        blue, and use it to set the renderer for all columns in the table.
-     17.Set the preferred width of each column in the table.
-     18.Create a new JPanel for the searchLabel and searchBar, and set its background color to peach with an empty border
-        of 10 pixels on the top, and add the searchLabel and searchBar to it.
-     19.Create a new JPanel for the scrollPane, set its background color to peach with an empty border of 5 pixels on the t
-        op and 10 pixels on the bottom, and add the scrollPane to it.
-     20.Add the headerLabel to the north region of the JFrame, the searchPanel to the center region, and the tablePanel
-        to the south region.
-     21.Set the icon of the JFrame to an ImageIcon object.
-     22.Display the JFrame.
      */
-
+    /*
+        Algorithm:
+         1.	Create a new JFrame with the title "Courses with Grades and Remarks for Each Term".
+         2.	Define an array of column names, including "Year", "Term", "Course number", "Descriptive
+            Title", "Units", "Grades", and "Remarks".
+         3.	Create a new DefaultTableModel with the column names and initial row count of 0.
+         4.	Call the updateTableModel method to populate the tableModel with data from a list of Course objects.
+         5.	Create a new JLabel with the text "Courses with Grades and Remarks for Each Term",
+            centered, and with a font size of 25.
+         6.	Set the background of the headerLabel to navy and the foreground to pink, and create
+            an empty border with 10 pixels on all sides.
+         7.	Use streams to populate the tableModel with data from the list of Course objects.
+            For each Course object, create an array of values for the row in the tableModel,
+            including the year, term, course number, descriptive title, units, grades, and remarks.
+         8.	Create a new JTable with the tableModel.
+         9. Set the preferred scrollable viewport size of the table to 1200 pixels wide and 510 pixels tall.
+         10. Create a new JScrollPane with the table as its view.
+         11. Create a new JLabel with the text "Search: ".
+         12. Create a new JTextField with a width of 15 characters.
+         13. Add a DocumentListener to the searchBar that calls a filterTable method every time the
+             text in the searchBar changes.
+         14. In the filterTable method, get the text from the searchBar and convert it to lowercase.
+             Create a new ArrayList to hold the filtered Course objects. For each Course object in
+             the original list, check if the course number or descriptive title contains the searchText
+             (in lowercase). If it does, add the Course object to the filteredList. Finally, call
+             the updateTableModel method with the filteredList to update the tableModel.
+         15. Create a new JTableHeader from the table, and set its default renderer to a custom
+             DefaultTableCellRenderer that sets the background color of the column names to navy
+             and the text color to purple with a font size of 15.
+         16. Create a custom DefaultTableCellRenderer that sets the background color of the cells in the
+             second column to light blue, and use it to set the renderer for all columns in the table.
+         17. Set the preferred width of each column in the table.
+         18. Create a new JPanel for the searchLabel and searchBar, and set its background color to
+             peach with an empty border of 10 pixels on the top, and add the searchLabel and searchBar to it.
+         19. Create a new JPanel for the scrollPane, set its background color to peach with an empty
+             border of 5 pixels on the top and 10 pixels on the bottom, and add the scrollPane to it.
+         20. Add the headerLabel to the north region of the JFrame, the searchPanel to the center region,
+             and the tablePanel to the south region.
+         21. Set the icon of the JFrame to an ImageIcon object.
+         22. Display the JFrame.
+     */
     public void showCoursesWithGradesAndRemarksForEachTerm() {
         JFrame frame = new JFrame("Courses with Grades and Remarks for Each Term");
         String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units", "Grades", "Remarks"};
@@ -990,35 +736,38 @@ public class CurriculumMonitoringApplication {
         frame.setLocationRelativeTo(null);
     } // end of showCoursesWithGradesAndRemarksForEachTerm method
 
-
+    /**
+     * The updateTableModel method takes in an ArrayList of Course objects and a
+     * DefaultTableModel object as parameters. It clears the existing data in the
+     * table model and iterates through the Course objects, generating a row of data
+     * for each Course with information such as the course year, term, number, title,
+     * units, grades and remarks. Finally, it adds the row to the table model. <br>
+     *
+     * @param courses    the list of Course objects to populate the table with
+     * @param tableModel the DefaultTableModel to update with the course data
+     */
     /*
-    The updateTableModel method takes in an ArrayList of Course objects and a DefaultTableModel object as parameters.
-    It clears the existing data in the table model and iterates through the Course objects, generating a row of data
-    for each Course with information such as the course year, term, number, title, units, grades and remarks. Finally,
-    it adds the row to the table model.
-
-    Algorithm:
-    1.	Receive an ArrayList of Course objects and a DefaultTableModel object.
-    2.	Clear the current data from the table model by setting the row count to 0 using tableModel.setRowCount(0).
-    3.	Loop through each Course object in the ArrayList using a for-each loop:
-        a. Get the number of grades for the course using course.getGrades().
-        b. Set the remarks variable based on the grades using the following conditions:
-            i. If grades is 0, set remarks to "Not yet graded".
-            ii. If grades is less than 75, set remarks to "Failed".
-            iii. Otherwise, set remarks to "Passed".
-        c. Create an Object array called rowData with the following values:
-            i. Year of the course using course.getYear().
-            ii. Term of the course, mapping "3" to "Short term" using a ternary operator.
-            iii. Course number using course.getCourseNumber().
-            iv. Course description and title using course.getDescTitle().
-            v. Course units using course.getUnits().
-            vi. Grades as a String, mapping 0 to "Not yet graded" using a ternary operator.
-            vii. Remarks.
-        d. Add the rowData array as a new row to the table model using tableModel.addRow(rowData).
-    4.	End the loop.
-    5.	End the method.
-
-
+        Algorithm:
+        1.	Receive an ArrayList of Course objects and a DefaultTableModel object.
+        2.	Clear the current data from the table model by setting the row count to 0
+            using tableModel.setRowCount(0).
+        3.	Loop through each Course object in the ArrayList using a for-each loop:
+            a. Get the number of grades for the course using course.getGrades().
+            b. Set the remarks variable based on the grades using the following conditions:
+                i. If grades is 0, set remarks to "Not yet graded".
+                ii. If grades is less than 75, set remarks to "Failed".
+                iii. Otherwise, set remarks to "Passed".
+            c. Create an Object array called rowData with the following values:
+                i. Year of the course using course.getYear().
+                ii. Term of the course, mapping "3" to "Short term" using a ternary operator.
+                iii. Course number using course.getCourseNumber().
+                iv. Course description and title using course.getDescTitle().
+                v. Course units using course.getUnits().
+                vi. Grades as a String, mapping 0 to "Not yet graded" using a ternary operator.
+                vii. Remarks.
+            d. Add the rowData array as a new row to the table model using tableModel.addRow(rowData).
+        4.	End the loop.
+        5.	End the method.
      */
     private void updateTableModel(ArrayList<Course> courses, DefaultTableModel tableModel) {
         tableModel.setRowCount(0);
@@ -1053,22 +802,21 @@ public class CurriculumMonitoringApplication {
      * will ask to enter the grade for the course.
      */
     /*
-     * Algorithm:
-     * 1. The enterGrades() method creates a JFrame and adds various Swing components to it,
-     *    including a table, a search bar, and input fields for grades.
-     * 2. The table displays information about each course, including its number and title.
-     *    The table is populated using a DefaultTableModel and updated dynamically based on the user's search terms.
-     * 3. The search bar allows the user to filter the table by course number or title.
-     *    When the user types into the search bar, the table is updated to
-     *    show only the rows that match the search terms.
-     * 4. The user can enter a grade for a selected course by typing the grade into an input field
-     *    and clicking a "Submit" button.
-     *      a.If the grade is valid (between 70 and 99), the grade is saved and the course
-     *        is removed from the table of unfinished courses.
-     *      b.If the grade is invalid, an error message is displayed.
-     * 5. The user can save the grades to a file by clicking a "Save" button. The grades are saved in a CSV format.
-     * 6. The user can exit the interface by clicking a "Back" button.
-
+        Algorithm:
+        1. The enterGrades() method creates a JFrame and adds various Swing components to it,
+           including a table, a search bar, and input fields for grades.
+        2. The table displays information about each course, including its number and title.
+           The table is populated using a DefaultTableModel and updated dynamically based on the user's search terms.
+        3. The search bar allows the user to filter the table by course number or title.
+           When the user types into the search bar, the table is updated to
+           show only the rows that match the search terms.
+        4. The user can enter a grade for a selected course by typing the grade into an input field
+           and clicking a "Submit" button.
+           a. If the grade is valid (between 70 and 99), the grade is saved and the course
+              is removed from the table of unfinished courses.
+           b. If the grade is invalid, an error message is displayed.
+        5. The user can save the grades to a file by clicking a "Save" button. The grades are saved in a CSV format.
+        6. The user can exit the interface by clicking a "Back" button.
      */
     public void enterGrades() {
         JFrame frame = new JFrame("Enter Grades");
@@ -1298,37 +1046,43 @@ public class CurriculumMonitoringApplication {
         frame.setSize(980, 645);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
-    }//end of enterGrades method
+    } //end of enterGrades method
 
     /**
-     * This This is a private method that updates a graphical user interface (GUI) table of courses with
+     * Private method that updates a graphical user interface (GUI) table of courses with
      * information from two ArrayLists of Course objects. The method takes four parameters: an ArrayList of
      * incomplete courses (unfinSubs), an ArrayList of all courses (courses), a DefaultTableModel object (tableModel)
      * that represents the table on the GUI, and a HashMap (originalIndices) that maps the original index of a
-     * course in the unfinSubs ArrayList to its new index in the tableModel.
-     * */
+     * course in the unfinSubs ArrayList to its new index in the tableModel.<br>
+     *
+     * @param unfinSubs       the original list of unfinished courses
+     * @param courses         the filtered list of courses to populate the table with
+     * @param tableModel      the DefaultTableModel to update with the course data
+     * @param originalIndices a HashMap to store the mapping between the row indices
+     *                        in the table and the original indices
+     */
     /*
-    * Algorithm:
-    *1. Declare a method named updateCourseTableModel with parameters:
-      - unfinSubs: an ArrayList of Course objects representing unfinished courses
-      - courses: an ArrayList of Course objects representing all courses
-      - tableModel: a DefaultTableModel object representing the table model for the GUI table
-      - originalIndices: a HashMap object that maps the original index of a course to its new index in the table model
-    * 2. Clear the table model by calling the setRowCount method with a value of 0.
-    * 3. Initialize a variable named index to 0.
-    * 4. For each Course object course in the courses ArrayList:
-        a. Find the original index of the course in the unfinSubs ArrayList by calling the indexOf method on the
-           unfinSubs ArrayList and passing in the current course object. Store the result in a variable named originalIndex.
-        b. Create an Object array named rowData with the following values:
-             - ++index: the current index, incremented by 1
-             - course.getCourseNumber(): the course number of the current course object
-             - course.getDescTitle(): the description title of the current course object
-        c. Add the rowData array to the table model by calling the addRow method on the tableModel object and passing in the rowData array.
-        d. Map the original index of the current course object to its new index in the table model by calling the put method on the originalIndices HashMap object and passing in two arguments:
-             - index - 1: the current index, decremented by 1 (since the index variable was already incremented)
-             - originalIndex: the original index of the current course object in the unfinSubs ArrayList.
-   * 5. End the for loop.
-   * 6. End the method.
+        Algorithm:
+        1. Declare a method named updateCourseTableModel with parameters:
+           - unfinSubs: an ArrayList of Course objects representing unfinished courses
+           - courses: an ArrayList of Course objects representing all courses
+           - tableModel: a DefaultTableModel object representing the table model for the GUI table
+           - originalIndices: a HashMap object that maps the original index of a course to its new index in the table model
+        2. Clear the table model by calling the setRowCount method with a value of 0.
+        3. Initialize a variable named index to 0.
+        4. For each Course object course in the courses ArrayList:
+           a. Find the original index of the course in the unfinSubs ArrayList by calling the indexOf method on the
+              unfinSubs ArrayList and passing in the current course object. Store the result in a variable named originalIndex.
+           b. Create an Object array named rowData with the following values:
+              - ++index: the current index, incremented by 1
+              - course.getCourseNumber(): the course number of the current course object
+              - course.getDescTitle(): the description title of the current course object
+           c. Add the rowData array to the table model by calling the addRow method on the tableModel object and passing in the rowData array.
+           d. Map the original index of the current course object to its new index in the table model by calling the put method on the originalIndices HashMap object and passing in two arguments:
+              - index - 1: the current index, decremented by 1 (since the index variable was already incremented)
+              - originalIndex: the original index of the current course object in the unfinSubs ArrayList.
+       5. End the for loop.
+       6. End the method.
    */
     private void updateCourseTableModel(ArrayList<Course> unfinSubs, ArrayList<Course> courses, DefaultTableModel
             tableModel, HashMap<Integer, Integer> originalIndices) {
@@ -1350,30 +1104,28 @@ public class CurriculumMonitoringApplication {
      * This method contains the addFinishedCourse that displays interface of the finished courses, and it would ask the
      * user to provide the input such as the number, Course number, and Descriptive Title
      */
-
     /*
         Algorithm:
         1. The method creates a JFrame object for the dialog window and set the title to "Add Finished Course"
         2. Then it creates an array of column names and a DefaultTableModel object for displaying a table of available
-        courses in the dialog window.
+           courses in the dialog window.
         3. Create two ArrayList objects to store the list of available courses and the index of each course in the table
         4. Iterate through the list of courses and add the ones that have not been graded or have a grade higher than
-        74 to the ArrayList of available courses.
+           74 to the ArrayList of available courses.
         5. Add each available course to the table by creating an Object array with its course number, descriptive title,
-         and index in the table, and adding the array to the table model.
+           and index in the table, and adding the array to the table model.
         6. Create a JTable object with the table model and set its preferred size.
         7. Create a JScrollPane object with the table and add it to the JFrame object.
         8. Create a save button with a round design, add an ActionListener to it that calls a saveFile() method, and
-        add the button to the JFrame object.
+           add the button to the JFrame object.
         9. Create an "Add Course" button with a round design, add an ActionListener to it that creates a JDialog object
-        for entering data about a new completed course, and add the button to the JFrame object.
+           for entering data about a new completed course, and add the button to the JFrame object.
         10. In the ActionListener for the "Add Course" button, create a JDialog object with text fields for entering
-        data about a new course, as well as "Ok" and "Cancel" buttons for confirming or canceling the entry.
+            data about a new course, as well as "Ok" and "Cancel" buttons for confirming or canceling the entry.
         11. Add ActionListeners to the "Ok" and "Cancel" buttons that either create a new Course object and add it to
-        the list of courses, or cancel the dialog and return to the table of available courses.
+            the list of courses, or cancel the dialog and return to the table of available courses.
         12. Display the dialog window with the table and buttons.
      */
-
     public void addFinishedCourse() {
         JFrame frame = new JFrame("Add Finished Course");
         String[] columnNames = {"#", "Course number", "Descriptive Title"};
@@ -1611,32 +1363,57 @@ public class CurriculumMonitoringApplication {
         frame.setLocationRelativeTo(null);
     } //end of addFinishedCourse method
 
-      /*
-      This Java code creates a graphical user interface (GUI) for adding credited courses to a list.
-      The interface includes a table that displays the existing unfinished courses, with columns for course
-       number and title, and a button that opens a new dialog for updating the grade of a selected course.
-       The GUI also has buttons for saving the file and returning to the previous screen.
-
-    addCreditCourse Algorithm:
-    1. Create a JFrame object called "frame" with the title "Add Credited Course".
-    2. Create a String array called "columnNames" with three elements: "#", "Course number", and "Descriptive Title".
-    3. Create a DefaultTableModel object called "tableModel" with "columnNames" and 0 rows.
-    4. Create a JLabel object called "headerLabel" with the text "Add Credited Course" centered and a font of "Helvetica", bold, and size 25. Set its background color to navy, foreground color to pink, and border to empty.
-    5. Create a JLabel object called "guideLabel" with instructions on how to use the program. Set its background color to purple, foreground color to dark gray, font to "Helvetica", italic, and size 12. Set its border to empty.
-    6. Create an ArrayList of Course objects called "unfinishedCourses".
-    7. Create an ArrayList of integers called "limit".
-    8. Create an int array called "index" with a single element set to 0.
-    9. Iterate over each course in "list". If the course grade is 0 or greater than 74, add it to the "unfinishedCourses" list.
-    10. Iterate over each course in "unfinishedCourses" and create an Object array called "rowData" with the course number, descriptive title, and an incrementing index as elements. Add the "rowData" to "tableModel".
-    11. Create a JTable object called "table" with "tableModel" and set its font to "Helvetica", bold, and size 12. Set its preferred size to 900x235.
-    12. Create a JScrollPane object called "scrollPane" with "table" and add it to "frame" using BorderLayout.CENTER.
-    13. Create a RoundButton object called "saveButton" with the text "Save" and add an action listener to it that calls the "saveFile()" method. Set its design using a custom "buttonDesign()" method.
-    14. Create a RoundButton object called "updateGradeButton" with the text "Update Grade" and add an action listener to it that creates a JDialog window called "updateGradeDialog". The dialog window should have two JLabels ("courseNumberLabel" and "gradeLabel"), two JTextFields ("courseNumberField" and "gradeField"), and a RoundButton called "okButton". The okButton should have an action listener that gets the course number entered by the user and searches for the corresponding course in "unfinishedCourses". If found, it should get the grade entered by the user and set it as the grade for the course. It should then remove the course from the "unfinishedCourses" list and "tableModel". If the grade entered is not between 70 and 99, an error message should be displayed. If the grade entered is not a number, an error message should be displayed. If the course number entered is not found, an error message should be displayed. The dialog window should close after the user clicks the okButton. Set the design of the "updateGradeButton" using a custom "buttonDesign()" method.
-    15. Create a RoundButton object called "backButton" with the text "Back" and add an action listener to it that disposes of the "frame". Set the design of the "backButton" using a custom "buttonDesign()" method.
-    16. Add "saveButton", "updateGradeButton", and "backButton" to "frame" using BorderLayout.SOUTH.
-    17.Set the size of "frame
+    /**
+     * Method that creates a graphical user interface (GUI) for adding credited courses to a list.
+     * This includes a table that displays the existing unfinished courses, with columns for course
+     * number and title, and a button that opens a new dialog for updating the grade of a selected course.
+     * It also has buttons for saving the file and returning to the previous screen.
      */
-
+    /*
+        Algorithm:
+        1. Create a JFrame object called "frame" with the title "Add Credited Course".
+        2. Create a String array called "columnNames" with three elements: "#",
+           "Course number", and "Descriptive Title".
+        3. Create a DefaultTableModel object called "tableModel" with "columnNames" and 0 rows.
+        4. Create a JLabel object called "headerLabel" with the text "Add Credited Course"
+           centered and a font of "Helvetica", bold, and size 25. Set its background color
+           to navy, foreground color to pink, and border to empty.
+        5. Create a JLabel object called "guideLabel" with instructions on how to use the program.
+           Set its background color to purple, foreground color to dark gray, font to "Helvetica",
+           italic, and size 12. Set its border to empty.
+        6. Create an ArrayList of Course objects called "unfinishedCourses".
+        7. Create an ArrayList of integers called "limit".
+        8. Create an int array called "index" with a single element set to 0.
+        9. Iterate over each course in "list". If the course grade is 0 or greater than 74,
+           add it to the "unfinishedCourses" list.
+        10. Iterate over each course in "unfinishedCourses" and create an Object array called
+            "rowData" with the course number, descriptive title, and an incrementing index as
+            elements. Add the "rowData" to "tableModel".
+        11. Create a JTable object called "table" with "tableModel" and set its font to "Helvetica",
+            bold, and size 12. Set its preferred size to 900x235.
+        12. Create a JScrollPane object called "scrollPane" with "table" and add it to "frame"
+            using BorderLayout.CENTER.
+        13. Create a RoundButton object called "saveButton" with the text "Save" and add an action
+            listener to it that calls the "saveFile()" method. Set its design using a custom "buttonDesign()" method.
+        14. Create a RoundButton object called "updateGradeButton" with the text "Update Grade" and
+            add an action listener to it that creates a JDialog window called "updateGradeDialog".
+            The dialog window should have two JLabels ("courseNumberLabel" and "gradeLabel"), two
+            JTextFields ("courseNumberField" and "gradeField"), and a RoundButton called "okButton".
+            The okButton should have an action listener that gets the course number entered by the user
+            and searches for the corresponding course in "unfinishedCourses".
+            If found, it should get the grade entered by the user and set it as the grade for the course.
+            It should then remove the course from the "unfinishedCourses" list and "tableModel".
+            If the grade entered is not between 70 and 99, an error message should be displayed.
+            If the grade entered is not a number, an error message should be displayed.
+            If the course number entered is not found, an error message should be displayed.
+            The dialog window should close after the user clicks the okButton.
+            Set the design of the "updateGradeButton" using a custom "buttonDesign()" method.
+        15. Create a RoundButton object called "backButton" with the text "Back" and add an action
+            listener to it that disposes of the "frame". Set the design of the "backButton" using a
+            custom "buttonDesign()" method.
+        16. Add "saveButton", "updateGradeButton", and "backButton" to "frame" using BorderLayout.SOUTH.
+        17. Set the frame's icon, close operation, size, visibility, and location.
+     */
     public void addCreditedCourse() {
         JFrame frame = new JFrame("Add Credited Course");
         String[] columnNames = {"#", "Course number", "Descriptive Title"};
@@ -1652,7 +1429,7 @@ public class CurriculumMonitoringApplication {
         JLabel guideLabel = new JLabel("<html><div style='text-align: center;'>" +
                 "For adding a new completed course, click the \"Add Course\" button that " +
                 "will direct you to another dialog window for entering inputs of data " +
-                "information0 about the course to be added. Remember to save before closing!" +
+                "information about the course to be added. Remember to save before closing!" +
                 "</html>", SwingConstants.CENTER);
         guideLabel.setFont(new Font("Helvetica", Font.ITALIC, 12));
         guideLabel.setOpaque(true);
@@ -2218,11 +1995,6 @@ public class CurriculumMonitoringApplication {
         5. For each course, print the year, term, course number, descriptive title, units, and grades.
            If the course has no grade, print "Not yet graded" instead of the grade.
      */
-
-    /*
-     This method contains the showSortedGrades that would create a sortList that contains the provided input
-     to be sorted in descending order based on the grades of each course
-     */
     public void showSortedGrades() {
         ArrayList<Course> sortList = new ArrayList<>(list);
         Collections.sort(sortList, new Comparator<Course>() {
@@ -2360,28 +2132,30 @@ public class CurriculumMonitoringApplication {
      */
     /*
         Algorithm:
-       1. This method sets a new JFrame with the title "Show Failed Courses"
-       2. Define an array of column names for the table
-       3. Create a new DefaultTableModel object with the column names
-       4. Create a new JLabel with the text "Student's Failed Courses" and set its font, background color, foreground
-       color, and border
-       5. Create a new JLabel with instructions for the user and set its font, background color, foreground color,
-        and border
-       6. Create a new JTable with the DefaultTableModel object
-       7. Set the preferred scrollable viewport size of the JTable
-       8. Create a new JScrollPane with the JTable as its argument
-       9. It then has a loop through each Course object in the list, if the course's grade is less than 75 and not equal
-        to 0, create a new Object array with the course's year, term, course number, descriptive title, units, grade,
-        and remarks (which is set to "Failed"), and add it to the DefaultTableModel
-       10. Define a custom header renderer for the JTable that sets the background color, foreground color, and font of
-       the column names
-       11. Define a custom cell renderer for the JTable that sets the background color of each cell based on its column
-        index
-       12. Set the custom cell renderer to each column of the JTable
-       13. Set the preferred width of each column in the JTable
-       14. Create a new JPanel for the instructions JLabel and set its layout and border
-       15. Create a new JPanel for the JScrollPane and add the JScrollPane to it, and set its background color and
-       border
+        1. This method sets a new JFrame with the title "Show Failed Courses"
+        2. Define an array of column names for the table
+        3. Create a new DefaultTableModel object with the column names
+        4. Create a new JLabel with the text "Student's Failed Courses" and set its font,
+           background color, foreground color, and border
+        5. Create a new JLabel with instructions for the user and set its font,
+           background color, foreground color, and border
+        6. Create a new JTable with the DefaultTableModel object
+        7. Set the preferred scrollable viewport size of the JTable
+        8. Create a new JScrollPane with the JTable as its argument
+        9. It then has a loop through each Course object in the list, if the course's
+           grade is less than 75 and not equal to 0, create a new Object array with the
+           course's year, term, course number, descriptive title, units, grade,
+           and remarks (which is set to "Failed"), and add it to the DefaultTableModel
+        10. Define a custom header renderer for the JTable that sets the background color,
+            foreground color, and font of the column names
+        11. Define a custom cell renderer for the JTable that sets the background color of
+            each cell based on its column index
+        12. Set the custom cell renderer to each column of the JTable
+        13. Set the preferred width of each column in the JTable
+        14. Create a new JPanel for the instructions JLabel and set its layout and border
+        15. Create a new JPanel for the JScrollPane and add the JScrollPane to it,
+            and set its background color and border.
+        16. Set the frame's icon, close operation, size, visibility, and location.
      */
     public void showFailedCourses(){
         JFrame frame = new JFrame("Show Failed Courses");
@@ -2514,47 +2288,29 @@ public class CurriculumMonitoringApplication {
     } // end of showFailedCourses method
 
     /**
-     * Method that sets the font, background, and foreground colors of the button, and adds
-     * a mouse listener to change the button's background color based on the user's mouse hovers.
+     * Method which takes a JButton object as a parameter and sets its properties such
+     * as font, border, and background color. It also adds event listeners for mouse
+     * enter and exit events to change the appearance of the button when the mouse hovers over it. <br>
      *
      * @param button the button to be designed
      */
     /*
-         Algorithm:
-         1. Set the font of the button to "Helvetica" with a bold style and size of 13.
-         2. Set the background color of the button to a pink color.
-         3. Set the foreground color of the button to a navy color.
-         4. Add a mouse listener to the button.
-         5. In the mouseEntered method of the mouse listener:
-            a. Set the cursor to a hand cursor.
-            b. Set the background color of the button to purple to indicate that the
-               button can be clicked.
-         6. In the mouseExited method of the mouse listener:
-            a. Set the background color of the button back to pink.
-            b. Set the foreground color of the button back to navy to indicate that
-               the button is no longer being hovered over.
-     */
-    /*
-    The given code snippet is a method called buttonDesign which takes a JButton object as a parameter and
-    sets its properties such as font, border, and background color. It also adds event listeners for mouse
-    enter and exit events to change the appearance of the button when the mouse hovers over it.
-
-    Algorithm:
-    1.Set the font of the button to "Helvetica", bold, and size 13.
-    2.Disable focus painting on the button to prevent an outline from appearing when the button is clicked.
-    3.Create a compound border with a line border of color navy, thickness 3, and no roundness,
-      and an empty border with 8 pixels of padding on the top, bottom, left, and right sides.
-    4.Set the background color of the button to pink and the foreground color to navy.
-    5.Add a mouse listener to the button with two methods: mouseEntered and mouseExited.
-    6.In the mouseEntered method, set the cursor to a hand cursor, change the border to a
-      compound border with a line border of color pink, thickness 3, and no roundness, and an
-      empty border with 8 pixels of padding on the top, bottom, left, and right sides. Set the
-      background color to navy and the foreground color to pink.
-    7.In the mouseExited method, change the border back to the original compound border with a
-      line border of color navy, thickness 3, and no roundness, and an empty border with 8 pixels
-      of padding on the top, bottom, left, and right sides. Set the background color back to pink
-      and the foreground color back to navy.
-    8.End of the buttonDesign method.
+        Algorithm:
+        1. Set the font of the button to "Helvetica", bold, and size 13.
+        2. Disable focus painting on the button to prevent an outline from appearing when the button is clicked.
+        3. Create a compound border with a line border of color navy, thickness 3, and no roundness,
+           and an empty border with 8 pixels of padding on the top, bottom, left, and right sides.
+        4. Set the background color of the button to pink and the foreground color to navy.
+        5. Add a mouse listener to the button with two methods: mouseEntered and mouseExited.
+        6. In the mouseEntered method, set the cursor to a hand cursor, change the border to a
+           compound border with a line border of color pink, thickness 3, and no roundness, and an
+           empty border with 8 pixels of padding on the top, bottom, left, and right sides. Set the
+           background color to navy and the foreground color to pink.
+        7. In the mouseExited method, change the border back to the original compound border with a
+           line border of color navy, thickness 3, and no roundness, and an empty border with 8 pixels
+           of padding on the top, bottom, left, and right sides. Set the background color back to pink
+           and the foreground color back to navy.
+        8. End of the buttonDesign method.
      */
     private void buttonDesign(JButton button) {
         button.setFont(new Font("Helvetica", Font.BOLD, 13));
@@ -2603,17 +2359,26 @@ public class CurriculumMonitoringApplication {
     } // end of buttonDesign method
 
     /**
-     * Method to read from the csv file and populates
-     * the ArrayList with Course instances.
-     */
-
-    /**
      * The populateArrayList method reads data from a file and stores it in an ArrayList of Course objects.
      * It skips the first line of the file, assumes that each subsequent line contains comma-separated values
      * representing a course, and creates a Course object for each line using the data
-     * Finally, it adds the Course object to the ArrayList.
+     * Finally, it adds the Course object to the ArrayList. <br>
+     *
      * @param list array of objects
-     * @throws IOException throws IOException if exception is encountered while accessing the data
+     * @throws IOException throws IOException if exception is encountered while accessing the data.
+     */
+    /*
+        Algorithm:
+        1. Create a BufferedReader to read from the file.
+        2. Read and discard the first line of the file.
+        3. Create a Course object.
+        4. Read each line from the file.
+        5. Split the line using the comma as a delimiter.
+        6. Create a new Course object using the extracted data.
+        7. Parse and set the relevant fields of the Course object.
+        8. Add the Course object to the ArrayList.
+        9. Repeat steps 4-8 until there are no more lines to read.
+        10. Close the input stream.
      */
     public void populateArrayList(ArrayList<Course> list) throws IOException {
         inputStream = new BufferedReader(new FileReader(file));
