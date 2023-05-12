@@ -23,10 +23,17 @@
  * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
  * Inputs:
- * //TODO: Charles - Add the inputs needed for the program
+ *     username
+ *     password
+ *     course grade
+ *     course data information
+ *     selected elective course
  * <p>
  * Outputs:
- * //TODO: Charles - Add the outputs needed for the program
+ *     list of courses with grades and remarks for each term
+ *     average grade for all finished courses
+ *     sorted list of courses based on grades
+ *     list of failed courses
  * <p>
  * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
@@ -88,7 +95,9 @@ public class CurriculumMonitoringApplication {
      */
     private static RoundButton nextButton;
 
-    //TODO: Charles - add image icon description (javadoc)
+    /**
+     * Declare an ImageIcon object with the specified image file path.
+     */
     ImageIcon icon = new ImageIcon("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/" +
             "res/icon1.png");
 
@@ -145,7 +154,21 @@ public class CurriculumMonitoringApplication {
         }
     } // end of main method
 
-    //TODO:Charles Add run method description (javadoc comment) and algorithm (multi-line comment) after coding the GUI
+    /**
+     * Method to run the program by executing the necessary steps in sequence. <br>
+     *
+     * @throws IOException if an error occurs while reading the input file
+     */
+    /*
+        Algorithm:
+        1. Initialize the variable name as null.
+        2. Call the showLoginDialog method to display a login dialog and assign
+           the entered name to the name variable.
+        3. Convert the name to uppercase using the toUpperCase method.
+        4. Call the showIntroduction method to display an introduction message, passing the name as an argument.
+        5. Invoke the populateArrayList method to populate the list ArrayList by reading data from an input file.
+        6. Call the listOfChoices method to display a list of choices for the user.
+     */
     public void run() throws IOException {
         String name = null;
         name= showLoginDialog().toUpperCase();
@@ -1651,7 +1674,21 @@ public class CurriculumMonitoringApplication {
     /**
      * Method to allow the user to choose an elective course for them to edit.
      */
-    //TODO: Charles - Add method algorithm
+    /*
+        Algorithm:
+        1. Create a JFrame to display the "Edit Elective Course" interface.
+        2. Set up labels for the header, guide, "Elective Courses Table," and "Recommended Courses Table."
+        3. Create a list of recommended courses.
+        4. Create tables for the elective and recommended courses using DefaultTableModel and JTable.
+        5. Populate the elective table with data from the main list.
+        6. Populate the recommended table with the recommended courses.
+        7. Create "Confirm" and "Cancel" buttons with action listeners.
+        8. Customize the appearance of the table headers and cell backgrounds.
+        9. Create panels for the guide, top section, content, and button area.
+        10. Add components to their respective panels.
+        11. Add the panels to the JFrame.
+        12. Set the JFrame size, location, close operation, and visibility.
+     */
     public void editElectiveCourse() {
         JFrame electiveframe = new JFrame("Edit Elective Course");
         electiveframe.setLayout(new BorderLayout());
@@ -1889,14 +1926,18 @@ public class CurriculumMonitoringApplication {
      */
     /*
         Algorithm:
-        1. Calculates the average grade of the student and provides the user with an option to edit grades.
-        2. If the user chooses to edit grades, it will invoke the method to enter grades.
-        3. If the user chooses not to edit grades, it will invoke the method to go back to the main menu.
-        4. Shows a warning pop-up window if there are no grades available to calculate the average grade.
-        5. Shows a warning pop-up window to confirm the user's choice to edit grades.
-        6. Shows a warning pop-up window to confirm the user's choice to go back to the main menu.
+        1. Compute the average grade by iterating through the list of courses and adding up the marked grades.
+        2. Create a JDialog to display the "Average Grade" interface.
+        3. Set up labels for the header, result, grade, and error messages.
+        4. Create a "Back" button with an action listener.
+        5. Create panels for the average calculation, result, and back button.
+        6. Check if there are grades available to calculate the average.
+        7. If there are no grades, display an error message.
+        8. If there are grades, display the average grade result.
+        9. Add components to their respective panels.
+        10. Add the panels to the JDialog.
+        11. Set the JDialog size, location, close operation, and visibility.
      */
-    //TODO: Charles - add updated algorithm
     public void showAverageGrade() throws IOException {
         // Computation of the average grade
         // Declare variables
@@ -2398,7 +2439,18 @@ public class CurriculumMonitoringApplication {
      *
      * @throws IOException
      */
-    //TODO: Charles - Add method algorithm (multi-line comment)
+    /*
+        Algorithm:
+        1. Create a PrintWriter object to write data to a file.
+        2. Open the specified file ("BSCSCurriculumData1.csv") for writing.
+        3. Write the column headers to the file.
+        4. Iterate through each course in the "list" collection.
+        5. Convert each course object to a string representation using the toString() method.
+        6. Write the course data to the file.
+        7. Close the PrintWriter to ensure all data is written to the file.
+        8. Flush the PrintWriter to clear any remaining buffered data.
+        9. The file is now saved with the updated course data.
+     */
     private void saveFile() throws IOException {
         PrintWriter pW = new PrintWriter(new FileOutputStream("" +
                 "AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/BSCSCurriculumData1.csv"));
