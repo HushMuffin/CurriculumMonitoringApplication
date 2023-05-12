@@ -96,6 +96,11 @@ public class CurriculumMonitoringApplication {
     private static RoundButton nextButton;
 
     /**
+     * Holds a custom round button used for navigating to last windows.
+     */
+    private static RoundButton backButton;
+
+    /**
      * Declare an ImageIcon object with the specified image file path.
      */
     ImageIcon icon = new ImageIcon("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/" +
@@ -609,6 +614,12 @@ public class CurriculumMonitoringApplication {
         headerLabel.setForeground(pink);
         headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        backButton = new RoundButton("Back");
+        buttonDesign(backButton);
+        backButton.addActionListener(e -> {
+            frame.dispose();
+        });
+
         // Populate tableModel using streams
         list.stream().map(course -> {
             String remarks;
@@ -634,7 +645,7 @@ public class CurriculumMonitoringApplication {
         }).forEach(tableModel::addRow);
 
         JTable table = new JTable(tableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(1200, 510));
+        table.setPreferredScrollableViewportSize(new Dimension(1200, 470));
 
         JScrollPane scrollPane = new JScrollPane(table);
 
@@ -742,16 +753,22 @@ public class CurriculumMonitoringApplication {
         searchPanel.add(searchLabel);
         searchPanel.add(searchBar);
         searchPanel.setBackground(peach);
-        searchPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+        searchPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
 
         JPanel tablePanel = new JPanel();
+        tablePanel.add(searchPanel);
         tablePanel.add(scrollPane);
         tablePanel.setBackground(peach);
         tablePanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 10, 0));
 
+        JPanel backPanel = new JPanel();
+        backPanel.setBackground(navy);
+        backPanel.add(backButton);
+        backPanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0));
+
         frame.add(headerLabel, BorderLayout.NORTH);
-        frame.add(searchPanel, BorderLayout.CENTER);
-        frame.add(tablePanel, BorderLayout.SOUTH);
+        frame.add(tablePanel, BorderLayout.CENTER);
+        frame.add(backPanel, BorderLayout.SOUTH);
         frame.setIconImage(icon.getImage());
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(1280, 700);
@@ -2051,7 +2068,6 @@ public class CurriculumMonitoringApplication {
             }
         });
 
-
         JFrame frame = new JFrame("Student's Sorted Grades");
         String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units", "Grades"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
@@ -2063,8 +2079,14 @@ public class CurriculumMonitoringApplication {
         headerLabel.setForeground(pink);
         headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        backButton = new RoundButton("Back");
+        buttonDesign(backButton);
+        backButton.addActionListener(e -> {
+            frame.dispose();
+        });
+
         JTable table = new JTable(tableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(1080, 510));
+        table.setPreferredScrollableViewportSize(new Dimension(1080, 460));
 
         JScrollPane scrollPane = new JScrollPane(table);
 
@@ -2159,8 +2181,14 @@ public class CurriculumMonitoringApplication {
         tablePanel.setBackground(peach);
         tablePanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 10, 0));
 
+        JPanel backPanel = new JPanel();
+        backPanel.setBackground(navy);
+        backPanel.add(backButton);
+        backPanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0));
+
         frame.add(headerLabel, BorderLayout.NORTH);
         frame.add(tablePanel, BorderLayout.CENTER);
+        frame.add(backPanel, BorderLayout.SOUTH);
         frame.setIconImage(icon.getImage());
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(1190, 650);
@@ -2219,8 +2247,14 @@ public class CurriculumMonitoringApplication {
         guideLabel.setForeground(Color.darkGray);
         guideLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        backButton = new RoundButton("Back");
+        buttonDesign(backButton);
+        backButton.addActionListener(e -> {
+            frame.dispose();
+        });
+
         JTable table = new JTable(tableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(1080, 510));
+        table.setPreferredScrollableViewportSize(new Dimension(1080, 460));
 
         JScrollPane scrollPane = new JScrollPane(table);
 
@@ -2311,16 +2345,22 @@ public class CurriculumMonitoringApplication {
         JPanel guidePanel = new JPanel(new BorderLayout());
         guidePanel.add(guideLabel);
         guidePanel.setBackground(peach);
-        guidePanel.setBorder(BorderFactory.createEmptyBorder(10, 200, 0, 200));
+        guidePanel.setBorder(BorderFactory.createEmptyBorder(5, 200, 5, 200));
 
         JPanel tablePanel = new JPanel();
+        tablePanel.add(guidePanel);
         tablePanel.add(scrollPane);
         tablePanel.setBackground(peach);
-        tablePanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 10, 0));
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
+
+        JPanel backPanel = new JPanel();
+        backPanel.setBackground(navy);
+        backPanel.add(backButton);
+        backPanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0));
 
         frame.add(headerLabel, BorderLayout.NORTH);
-        frame.add(guidePanel, BorderLayout.CENTER);
-        frame.add(tablePanel, BorderLayout.SOUTH);
+        frame.add(tablePanel, BorderLayout.CENTER);
+        frame.add(backPanel, BorderLayout.SOUTH);
         frame.setIconImage(icon.getImage());
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(1190, 700);
