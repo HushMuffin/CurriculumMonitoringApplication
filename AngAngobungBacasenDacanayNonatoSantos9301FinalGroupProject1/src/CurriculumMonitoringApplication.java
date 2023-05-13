@@ -1071,11 +1071,14 @@ public class CurriculumMonitoringApplication {
         searchPanel.add(searchBar);
         searchPanel.setBackground(peach);
         searchPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
+
+
         tablePanel = new JPanel();
         tablePanel.add(searchPanel);
         tablePanel.add(scrollPane);
         tablePanel.setBackground(peach);
         tablePanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 10, 0));
+
         backPanel = new JPanel();
         backPanel.setBackground(navy);
         backPanel.add(backButton);

@@ -951,10 +951,16 @@ public class MyProgram extends JFrame {
 
         //Panes/Panels
         scrollPane = new JScrollPane(table);
-        scrollPane.setBorder(BorderFactory.createEmptyBorder(20,20,20,15));
 
-        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+
+        JPanel tablePanel = new JPanel();
+        tablePanel.add(scrollPane);
+        tablePanel.setBackground(peach);
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,15));
+
+
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));
         buttonPanel.setBackground(navy);
         buttonDesign(buttonBackPopulation);
         buttonPanel.add(buttonBackPopulation);
@@ -968,12 +974,12 @@ public class MyProgram extends JFrame {
         frame3.setTitle("Population by District");
         frame3.getContentPane();
         frame3.add(title, BorderLayout.NORTH);
-        frame3.add(scrollPane, BorderLayout.CENTER);
+        frame3.add(tablePanel, BorderLayout.CENTER);
         frame3.add(buttonPanel, BorderLayout.SOUTH);
 
         //frame operations
         frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame3.setSize(650, 500);
+        frame3.setSize(650, 550);
         frame3.setLocationRelativeTo(null);
         frame3.setVisible(true);
     } // end of showPopulationByDistrict method
