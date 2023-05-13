@@ -106,6 +106,8 @@ public class CurriculumMonitoringApplication {
     JPanel contentPanel;
     JPanel resultPanel;
     JPanel inputPanel;
+    JPanel quitPanel;
+    JPanel choicePanel;
 
 
     //Buttons
@@ -117,6 +119,7 @@ public class CurriculumMonitoringApplication {
     RoundButton submitButton;
     RoundButton addCourseButton;
     RoundButton updateGradeButton;
+    RoundButton cancelButton;
 
     //Labels
     JLabel exitLabel;
@@ -168,6 +171,7 @@ public class CurriculumMonitoringApplication {
     JFrame frameEnterGrades;
     JFrame frameFinishedCourse;
     JFrame frameCreditedCourse;
+    JFrame frameCoursesWithGrades;
 
     //ArrayLists
     ArrayList<Course> unfinishedCourses;
@@ -581,12 +585,13 @@ public class CurriculumMonitoringApplication {
         buttonPanel.setBackground(lightBlue);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(30, 15, 20, 15));
 
-        JPanel quitPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        quitPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         quitPanel.setBackground(navy);
         quitPanel.add(button11);
         quitPanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0));
 
-        JPanel choicePanel = new JPanel(new BorderLayout());
+
+        choicePanel = new JPanel(new BorderLayout());
         choicePanel.add(topPanel, BorderLayout.NORTH);
         choicePanel.add(buttonPanel, BorderLayout.CENTER);
         choicePanel.add(quitPanel, BorderLayout.SOUTH);
@@ -654,7 +659,7 @@ public class CurriculumMonitoringApplication {
          22. Display the JFrame.
      */
     public void showCoursesWithGradesAndRemarksForEachTerm() {
-        JFrame frameCoursesWithGrades = new JFrame("Courses with Grades and Remarks for Each Term");
+        frameCoursesWithGrades = new JFrame("Courses with Grades and Remarks for Each Term");
         String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units", "Grades", "Remarks"};
         tableModel = new DefaultTableModel(columnNames, 0);
         updateTableModel(list, tableModel);
@@ -1797,15 +1802,12 @@ public class CurriculumMonitoringApplication {
         resultLabel.setForeground(darkPurple);
         resultLabel.setBorder(BorderFactory.createEmptyBorder(5, 100, 5, 0));
 
-
         gradeLabel = new JLabel(String.format("%.2f", finalAverage));
         gradeLabel.setFont(new Font("Helvetica", Font.BOLD, 50));
         gradeLabel.setOpaque(true);
         gradeLabel.setBackground(lightBlue);
         gradeLabel.setForeground(peach);
         gradeLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 0));
-
-
         errorLabel = new JLabel("<html><div style='text-align: center; padding: 5px;'> " +
                 "No grades available to calculate the average grade.");
         errorLabel.setFont(new Font("Helvetica", Font.BOLD, 16));
@@ -1819,10 +1821,7 @@ public class CurriculumMonitoringApplication {
         backButton.addActionListener(e -> {
             averageDialog.dispose();
         });
-
         JPanel averagePanel = new JPanel(new BorderLayout());
-
-
         resultPanel = new JPanel(new GridLayout(1, 1, 5, 5));
         resultPanel.add(resultLabel);
         resultPanel.add(gradeLabel);
@@ -2429,7 +2428,7 @@ public class CurriculumMonitoringApplication {
                     }
                 });
 
-                RoundButton cancelButton = new RoundButton("Cancel");
+                cancelButton = new RoundButton("Cancel");
                 buttonDesign(cancelButton);
                 cancelButton.addActionListener(f -> {
                     addCourseDialog.dispose();
@@ -2522,7 +2521,7 @@ public class CurriculumMonitoringApplication {
                     }
                 });
 
-                JPanel inputPanel = new JPanel(new GridLayout(2, 2, 5, 5));
+                inputPanel = new JPanel(new GridLayout(2, 2, 5, 5));
                 inputPanel.add(courseNumberLabel);
                 inputPanel.add(courseNumberField);
                 inputPanel.add(gradeLabel);
