@@ -30,6 +30,7 @@
  *  @author Nonato, Marius Glenn
  *  @author Santos, Lourdene Eira
  */
+package proj1.prog2.samcis.slu;
 
 /**
  * The Course class represents a specific educational course with attributes,

@@ -71,6 +71,8 @@
  *  @author Nonato, Marius Glenn
  *  @author Santos, Lourdene Eira
  */
+package proj1.prog2.samcis.slu;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -176,22 +178,22 @@ public class CurriculumMonitoringApplication {
     /**
      * Holds a round button used for canceling a login action.
      */
-    RoundButton cancelButtonLogin;
+   RoundButton cancelButtonLogin;
 
     /**
      * Holds a round button used for confirming a login action.
      */
-    RoundButton okButtonLogin;
+   RoundButton okButtonLogin;
 
     /**
      * Holds a round button used for canceling an elective action.
      */
-    RoundButton cancelButtonElective;
+   RoundButton cancelButtonElective;
 
     /**
      * Holds a round button used for confirming an elective action.
      */
-    RoundButton confirmButtonElective;
+   RoundButton confirmButtonElective;
 
     /**
      * Holds a round button used for saving data or performing a save action.
@@ -201,12 +203,12 @@ public class CurriculumMonitoringApplication {
     /**
      * Holds a round button used for submitting data or performing a submit action.
      */
-    RoundButton submitButton;
+   RoundButton submitButton;
 
     /**
      * Holds a round button used for adding a course or performing an add course action.
      */
-    RoundButton addCourseButton;
+   RoundButton addCourseButton;
 
     /**
      * Holds a round button used for updating a grade or performing an update grade action.
@@ -752,42 +754,42 @@ public class CurriculumMonitoringApplication {
         guideLabel.setForeground(Color.darkGray);
         guideLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        RoundButton showCourseAndRemarksButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+       RoundButton showCourseAndRemarksButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "1. Show course with grades and remarks for each term");
         buttonDesign(showCourseAndRemarksButton);
         showCourseAndRemarksButton.addActionListener(e -> {
             showCoursesWithGradesAndRemarksForEachTerm();
         });
 
-        RoundButton enterGradeButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+       RoundButton enterGradeButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "2. Enter grade for course recently finished");
         buttonDesign(enterGradeButton);
         enterGradeButton.addActionListener(e -> {
             enterGrades();
         });
 
-        RoundButton addFinishedCourseButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+       RoundButton addFinishedCourseButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "3. Add a finished course from another program");
         buttonDesign(addFinishedCourseButton);
         addFinishedCourseButton.addActionListener(e -> {
             addFinishedCourse();
         });
 
-        RoundButton addCreditedCourseButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+       RoundButton addCreditedCourseButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "4. Add a BSCS-credited course finished through another program");
         buttonDesign(addCreditedCourseButton);
         addCreditedCourseButton.addActionListener(e -> {
             addCreditedCourse();
         });
 
-        RoundButton editElectiveCourseButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+       RoundButton editElectiveCourseButton = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "5. Edit an elective course");
         buttonDesign(editElectiveCourseButton);
         editElectiveCourseButton.addActionListener(e -> {
             editElectiveCourse();
         });
 
-        RoundButton button8 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+       RoundButton button8 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "6. Show student's average grade for all finished courses");
         buttonDesign(button8);
         button8.addActionListener(e -> {
@@ -798,21 +800,21 @@ public class CurriculumMonitoringApplication {
             }
         });
 
-        RoundButton button9 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+       RoundButton button9 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "7. Show student's sorted grades");
         buttonDesign(button9);
         button9.addActionListener(e -> {
             showSortedGrades();
         });
 
-        RoundButton button10 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+       RoundButton button10 = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
                 "8. Show student's failed courses only");
         buttonDesign(button10);
         button10.addActionListener(e -> {
             showFailedCourses();
         });
 
-        RoundButton button11 = new RoundButton("QUIT");
+       RoundButton button11 = new RoundButton("QUIT");
         buttonDesign(button11);
         button11.addActionListener(e -> {
             showExit();
@@ -2713,7 +2715,7 @@ public class CurriculumMonitoringApplication {
                 JTextField unitsField = new JTextField(20);
                 JTextField gradeField = new JTextField(20);
 
-                RoundButton okButton = new RoundButton("Ok");
+               RoundButton okButton = new RoundButton("Ok");
                 buttonDesign(okButton);
                 okButton.addActionListener(new ActionListener() {
                     @Override

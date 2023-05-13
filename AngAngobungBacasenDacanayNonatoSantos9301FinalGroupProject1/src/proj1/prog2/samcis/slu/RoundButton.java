@@ -30,6 +30,8 @@
  *  @author Nonato, Marius Glenn
  *  @author Santos, Lourdene Eira
  */
+package proj1.prog2.samcis.slu;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;

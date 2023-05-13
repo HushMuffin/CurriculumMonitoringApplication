@@ -1,4 +1,4 @@
-package prog2.finalgroup;
+package proj2.prog2.samcis.slu;
 
 import javax.swing.*;
 import java.awt.*;

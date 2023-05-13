@@ -46,7 +46,7 @@
  *  @author Nonato, Marius Glenn
  *  @author Santos, Lourdene Eira
  */
-package prog2.finalgroup;
+package proj2.prog2.samcis.slu;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;

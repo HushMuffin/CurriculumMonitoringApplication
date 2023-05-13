@@ -33,7 +33,7 @@
  *  @author Nonato, Marius Glenn
  *  @author Santos, Lourdene Eira
  */
-package prog2.finalgroup;
+package proj2.prog2.samcis.slu;
 
 /**
  * The Citizen class represents a specific citizen with attributes used as the reference
