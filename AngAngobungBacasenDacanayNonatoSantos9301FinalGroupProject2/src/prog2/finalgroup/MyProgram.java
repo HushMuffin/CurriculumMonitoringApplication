@@ -103,20 +103,32 @@ public class MyProgram extends JFrame {
     private final RoundButton buttonSeven = new RoundButton("7. Display population per district");
     private final RoundButton buttonEight = new RoundButton("8. Show Number of Seniors");
     private final RoundButton exitButton = new RoundButton("EXIT");
-    private final JButton buttonBack = new JButton("Back");
-    private final JButton buttonBackPopulation = new JButton("Back");
-    private final JButton buttonBackMorF = new JButton("Back");
-    private final JButton buttonBackAge= new JButton("Back");
-    private final JButton buttonFind = new JButton("Find");
-    private final JButton buttonMale = new JButton("Male");
-    private final JButton buttonFemale= new JButton("Female");
-    private final JButton buttonOK= new JButton("Ok");
+    private final RoundButton buttonBack = new RoundButton("Back");
+    private final RoundButton buttonBackPopulation = new RoundButton("Back");
+    private final RoundButton buttonBackMorF = new RoundButton("Back");
+    private final RoundButton buttonBackAge= new RoundButton("Back");
+    private final RoundButton buttonFind = new RoundButton("Find");
+    private final RoundButton buttonMale = new RoundButton("Male");
+    private final RoundButton buttonFemale= new RoundButton("Female");
+    private final RoundButton buttonOK= new RoundButton("Ok");
 
     //Declare the text fields for MyProgram
     //TODO: Julienne - Add text fields descriptions
     private final JTextField textField = new JTextField(5);
     private final JTextField textField2 = new JTextField(5);
 
+    //Declare the Panels
+    //TODO: Add panels descriptions
+    JPanel buttonPanel;
+    JPanel panel;
+    JPanel panel2;
+
+    //Declare ScrollPanels
+    //TODO: add scrollpane descriptions
+    JScrollPane scrollPane;
+
+    //Declare JTables
+    JTable table;
     // Declare the labels for MyProgram
     /**
      * The title label for the program window.
@@ -214,6 +226,7 @@ public class MyProgram extends JFrame {
     static Color lightBlue = new Color(184, 193, 236);
     static Color navy = new Color(58, 79, 122);
     static Color purple = new Color(205, 180, 219);
+    static Color green = new Color(10,221,8);
 
     /**
      * Constructor for creating the main menu.
@@ -255,7 +268,7 @@ public class MyProgram extends JFrame {
         //TODO: add action listener for button 8
         exitButton.addActionListener(buttonAction);
         //Panel for buttons
-        JPanel buttonPanel = new JPanel(new GridLayout(4, 2, 40, 20));
+        buttonPanel = new JPanel(new GridLayout(4, 2, 40, 20));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 20, 50));
         buttonPanel.setBackground(lightBlue);
         buttonPanel.add(buttonOne);
@@ -323,7 +336,7 @@ public class MyProgram extends JFrame {
         };
 
         //table
-        JTable table = new JTable(tableModel);
+        table = new JTable(tableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000,550));
         table.setFillsViewportHeight(true);
         table.getTableHeader().setReorderingAllowed(false);
@@ -349,8 +362,8 @@ public class MyProgram extends JFrame {
         });
 
         //Panes
-        JScrollPane scrollPane = new JScrollPane(table);
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
+        scrollPane = new JScrollPane(table);
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
         buttonPanel.setBounds(20,205,300,50);
         buttonPanel.setBackground(new Color(248,248,255));
         buttonPanel.add(buttonBack).setFocusable(false);
@@ -386,7 +399,7 @@ public class MyProgram extends JFrame {
         String[] column = {"Full Name", "Email", "Address", "Age", "Resident", "District", "Gender"};
 
         //table
-        JTable table = new JTable(data, column){
+        table = new JTable(data, column){
             //makes cells from table non-editable
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -398,8 +411,8 @@ public class MyProgram extends JFrame {
         table.getTableHeader().setReorderingAllowed(false);
 
         //Panes
-        JScrollPane scrollPane = new JScrollPane(table);
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
+        scrollPane = new JScrollPane(table);
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
         buttonPanel.setBounds(20,205,300,50);
         buttonPanel.setBackground(new Color(248,248,255));
         buttonPanel.add(buttonBack).setFocusable(false);
@@ -454,13 +467,13 @@ public class MyProgram extends JFrame {
         numOfFemales.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 
         //Panel for buttons
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
         buttonPanel.setBounds(20,110,300,50);
         buttonPanel.add(buttonBack).setFocusable(false);
         buttonPanel.setBackground(new Color(248,248,255));
 
         //Panel for labels
-        JPanel panel = new JPanel(new GridLayout(2,2));
+        panel = new JPanel(new GridLayout(2,2));
         panel.setBounds(0,50,300,50);
         panel.setBackground(new Color(248,248,255));
         panel.add(males);
@@ -497,7 +510,7 @@ public class MyProgram extends JFrame {
         title.setFont(new Font("Century Gothic", Font.PLAIN, 25));
 
         //Panel for buttons
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
         buttonPanel.setBounds(70,75,200,150);
         buttonPanel.setBackground(new Color(248,248,255));
         buttonPanel.add(buttonMale).setFocusable(false);
@@ -560,7 +573,7 @@ public class MyProgram extends JFrame {
         };
 
         //table
-        JTable table = new JTable(tableModel);
+        table = new JTable(tableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000,550));
         table.setFillsViewportHeight(true);
         table.getTableHeader().setReorderingAllowed(false);
@@ -586,8 +599,8 @@ public class MyProgram extends JFrame {
         });
 
         //Panes
-        JScrollPane scrollPane = new JScrollPane(table);
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
+        scrollPane = new JScrollPane(table);
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
         buttonPanel.setBounds(20,205,300,50);
         buttonPanel.add(buttonBackMorF).setFocusable(false);
         buttonPanel.setBackground(new Color(248,248,255));
@@ -634,7 +647,7 @@ public class MyProgram extends JFrame {
         String[] column = {"Full Name", "Email", "Address", "Age", "Resident", "District", "Gender"};
 
     //create a JTable with the data and column names
-        JTable table = new JTable(data, column){
+        table = new JTable(data, column){
             //makes cells from table non-editable
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -647,8 +660,8 @@ public class MyProgram extends JFrame {
         table.getTableHeader().setReorderingAllowed(false);
 
         //set up the panes for the JTable
-        JScrollPane scrollPane = new JScrollPane(table);
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
+        scrollPane = new JScrollPane(table);
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
         buttonPanel.setBounds(20,205,300,50);
         buttonPanel.add(buttonBackMorF).setFocusable(false);
         buttonPanel.setBackground(new Color(248,248,255));
@@ -686,7 +699,12 @@ public class MyProgram extends JFrame {
     public void findPerson(){
         //labels
         title = new JLabel("Enter the person's name", SwingConstants.CENTER);
-        title.setBounds(50,-100,250,250);
+        title.setFont(new Font("Helvetica", Font.BOLD, 20));
+        title.setOpaque(true);
+        title.setBackground(navy);
+        title.setForeground(pink);
+        title.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
         nameLabel = new JLabel(" Name:", SwingConstants.LEFT);
         email = new JLabel(" Email:", SwingConstants.LEFT);
         address = new JLabel(" Address:", SwingConstants.LEFT);
@@ -699,10 +717,9 @@ public class MyProgram extends JFrame {
 
 
         //Panel for labels
-        JPanel panel = new JPanel(new GridLayout(7,0));
-        panel.setBorder(BorderFactory.createEmptyBorder(20,10,0,20));
-        panel.setBounds(0,50,300,150);
-        panel.setBackground(new Color(248,248,255));
+        panel = new JPanel(new GridLayout(7,0));
+        panel.setBorder(BorderFactory.createEmptyBorder(10,10,10,0));
+        panel.setBackground(peach);
         panel.add(nameLabel);
         panel.add(email);
         panel.add(address);
@@ -714,39 +731,43 @@ public class MyProgram extends JFrame {
         textField.setSize(10,10);
         textField2.setSize(10,10);
 
-        JPanel panel2 = new JPanel(new GridLayout(2,2));
-        panel2.setBorder(BorderFactory.createEmptyBorder(10,10,0,0));
-        panel2.setBounds(0,230,300,50);
-        panel2.setBackground(new Color(248,248,255));
+
+        panel2 = new JPanel(new GridLayout(2,2));
+        panel2.setBorder(BorderFactory.createEmptyBorder(10,10,15,10));
+        panel2.setBackground(peach);
         panel2.add(findFirstName);
         panel2.add(textField);
         panel2.add(findLastName);
         panel2.add(textField2);
 
+        JPanel infoPanel = new JPanel(new BorderLayout());
+        infoPanel.setBackground(lightBlue);
+        infoPanel.add(panel);
+        infoPanel.add(panel2, BorderLayout.SOUTH);
         //add action listeners to buttons
+        buttonDesign(buttonBack);
+        buttonDesign(buttonFind);
         buttonBack.addActionListener(buttonAction);
         buttonFind.addActionListener(buttonAction);
 
 
         //Panel for buttons
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
-        buttonPanel.setBounds(20,300,300,50);
-        buttonPanel.setBackground(new Color(248,248,255));
-        buttonPanel.add(buttonFind).setFocusable(false);
-        buttonPanel.add(buttonBack).setFocusable(false);
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
+        buttonPanel.setBackground(navy);
+        buttonPanel.add(buttonFind);
+        buttonPanel.add(buttonBack);
 
         //frame
         frame2.setTitle("Citizen App");
-        frame2.getContentPane().setBackground(new Color(248,248,255));
+        frame2.setLayout(new BorderLayout());
         frame2.setIconImage(icon.getImage());
-        frame2.add(title);
-        frame2.add(panel);
-        frame2.add(panel2);
-        frame2.add(buttonPanel);
+        frame2.add(title, BorderLayout.NORTH);
+        frame2.add(infoPanel, BorderLayout.CENTER);
+        frame2.add(buttonPanel, BorderLayout.SOUTH);
 
         //frame operations
+
         frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame2.setLayout(null);
         frame2.setSize(360,400);
         frame2.setResizable(false);
         frame2.setLocationRelativeTo(null);
@@ -798,7 +819,7 @@ public class MyProgram extends JFrame {
         String[] column = {"Full Name", "Email", "Address", "Age", "Resident", "District", "Gender"};
 
         //table
-        JTable table = new JTable(data, column){
+        table = new JTable(data, column){
             //makes cells from table non-editable
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -810,8 +831,8 @@ public class MyProgram extends JFrame {
         table.getTableHeader().setReorderingAllowed(false);
 
         //Panes
-        JScrollPane scrollPane = new JScrollPane(table);
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
+        scrollPane = new JScrollPane(table);
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
         buttonPanel.setBounds(20,205,300,50);
         buttonPanel.setBackground(new Color(248,248,255));
         buttonPanel.add(buttonBackAge).setFocusable(false);
@@ -848,7 +869,7 @@ public class MyProgram extends JFrame {
         }
 
         //table
-        JTable table = new JTable(data, column){
+        table = new JTable(data, column){
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -859,8 +880,8 @@ public class MyProgram extends JFrame {
         table.getTableHeader().setReorderingAllowed(false);
 
         //Panes
-        JScrollPane scrollPane = new JScrollPane(table);
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
+        scrollPane = new JScrollPane(table);
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
         buttonPanel.setBackground(new Color(248,248,255));
         buttonPanel.add(buttonBackPopulation).setFocusable(false);
 
@@ -1065,18 +1086,18 @@ public class MyProgram extends JFrame {
                 // Check if the citizen was found
                 if(citizen != null && citizen.getFullName() != null) {
                     title.setText("Person Found!");
-                    title.setForeground(new Color(42,163,42));
-                    nameLabel.setText(" Name:  " + citizen.getFullName().toUpperCase());
-                    email.setText(" Email:  " + citizen.getEmail());
-                    address.setText(" Address:  " + citizen.getAddress());
-                    age.setText(" Age:  " + citizen.getAge());
-                    district.setText(" District:  " + citizen.getDistrict());
-                    gender.setText(" Gender:  " + citizen.getGender());
+                    title.setForeground(green);
+                    nameLabel.setText(" Name:    " + citizen.getFullName().toUpperCase());
+                    email.setText(" Email:    " + citizen.getEmail());
+                    address.setText(" Address:    " + citizen.getAddress());
+                    age.setText(" Age:    " + citizen.getAge());
+                    district.setText(" District:    " + citizen.getDistrict());
+                    gender.setText(" Gender:    " + citizen.getGender());
 
                     if(citizen.getResident()){
-                        resident.setText(" Residency:  Resident");
+                        resident.setText(" Residency:    Resident");
                     }else{
-                        resident.setText(" Residency:  Non-Resident");
+                        resident.setText(" Residency:    Non-Resident");
                     }
                 } else {
                     title.setText("Person Not Found!");
