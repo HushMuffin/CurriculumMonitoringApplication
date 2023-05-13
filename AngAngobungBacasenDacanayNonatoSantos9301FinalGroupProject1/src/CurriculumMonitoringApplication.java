@@ -90,95 +90,362 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class CurriculumMonitoringApplication {
     //Declare instances for CurriculumMonitoringApplication
-
+    //Button Action
+    /**
+     * Holds an action to be performed when a button is clicked.
+     */
     ButtonAction buttonAction = new ButtonAction();
+
     //Panels
+    /**
+     * Holds a panel used as a background container for other components.
+     */
     JPanel backPanel;
+
+    /**
+     * Holds a panel used to display an introduction or welcome message.
+     */
     JPanel introPanel;
+
+    /**
+     * Holds a panel used to display a description or information.
+     */
     JPanel descriptionPanel;
+
+    /**
+     * Holds a panel used for login functionality or user authentication.
+     */
     JPanel loginPanel;
+
+    /**
+     * Holds a panel used to contain buttons or button-related components.
+     */
     JPanel buttonPanel;
+
+    /**
+     * Holds a panel used to display a guide or instructions.
+     */
     JPanel guidePanel;
+
+    /**
+     * Holds a panel used to display a table or tabular data.
+     */
     JPanel tablePanel;
+
+    /**
+     * Holds a panel used to handle application exit functionality.
+     */
     JPanel exitPanel;
+
+    /**
+     * Holds a panel used for search functionality or search-related components.
+     */
     JPanel searchPanel;
+
+    /**
+     * Holds a panel used as the top section or header of a user interface.
+     */
     JPanel topPanel;
+
+    /**
+     * Holds a panel used as a content container for other components.
+     */
     JPanel contentPanel;
+
+    /**
+     * Holds a panel used to display search results or search-related information.
+     */
     JPanel resultPanel;
+
+    /**
+     * Holds a panel used for user input or input-related components.
+     */
     JPanel inputPanel;
+
+    /**
+     * Holds a panel used for quitting or application termination functionality.
+     */
     JPanel quitPanel;
+
+    /**
+     * Holds a panel used for making choices or presenting options to the user.
+     */
     JPanel choicePanel;
 
-
     //Buttons
+    /**
+     * Holds a round button used for canceling a login action.
+     */
     RoundButton cancelButtonLogin;
+
+    /**
+     * Holds a round button used for confirming a login action.
+     */
     RoundButton okButtonLogin;
+
+    /**
+     * Holds a round button used for canceling an elective action.
+     */
     RoundButton cancelButtonElective;
+
+    /**
+     * Holds a round button used for confirming an elective action.
+     */
     RoundButton confirmButtonElective;
+
+    /**
+     * Holds a round button used for saving data or performing a save action.
+     */
     RoundButton saveButton;
+
+    /**
+     * Holds a round button used for submitting data or performing a submit action.
+     */
     RoundButton submitButton;
+
+    /**
+     * Holds a round button used for adding a course or performing an add course action.
+     */
     RoundButton addCourseButton;
+
+    /**
+     * Holds a round button used for updating a grade or performing an update grade action.
+     */
     RoundButton updateGradeButton;
+
+    /**
+     * Holds a round button used for canceling an action.
+     */
     RoundButton cancelButton;
 
     //Labels
+    /**
+     * Holds a label used for displaying an exit message or icon.
+     */
     JLabel exitLabel;
+
+    /**
+     * Holds a label used for displaying a header or title.
+     */
     JLabel headerLabel;
+
+    /**
+     * Holds a label used for displaying a username.
+     */
     JLabel usernameLabel;
+
+    /**
+     * Holds a label used for displaying a password.
+     */
     JLabel passwordLabel;
+
+    /**
+     * Holds a label used for displaying a warning message.
+     */
     JLabel warningLabel;
+
+    /**
+     * Holds a label used for displaying a description.
+     */
     JLabel descriptionLabel;
+
+    /**
+     * Holds a label used for displaying a greeting message.
+     */
     JLabel greetLabel;
+
+    /**
+     * Holds a label used for displaying a guide or instructions.
+     */
     JLabel guideLabel;
+
+    /**
+     * Holds a label used for displaying an elective label or information.
+     */
     JLabel electiveLabel;
+
+    /**
+     * Holds a label used for displaying a result or outcome.
+     */
     JLabel resultLabel;
+
+    /**
+     * Holds a label used for displaying a grade.
+     */
     JLabel gradeLabel;
+
+    /**
+     * Holds a label used for displaying an error message.
+     */
     JLabel errorLabel;
+
+    /**
+     * Holds a label used for displaying a recommended option or suggestion.
+     */
     JLabel recommendedLabel;
+
+    /**
+     * Holds a label used for displaying a search label or text.
+     */
     JLabel searchLabel;
 
     //Tables
-
+    /**
+     * Holds a table used for displaying data.
+     */
     JTable table;
+
+    /**
+     * Holds a table used for displaying electives data.
+     */
     JTable electivesTable;
+
+    /**
+     * Holds a table used for displaying recommended data.
+     */
     JTable recommendedTable;
+
+    /**
+     * Holds a scroll pane used for adding scroll functionality to a component.
+     */
     JScrollPane scrollPane;
+
+    /**
+     * Holds a default table cell renderer for customizing the appearance of table cells.
+     */
     DefaultTableCellRenderer renderer;
+
+    /**
+     * Holds the header of a table.
+     */
     JTableHeader header;
+
+    /**
+     * Holds the model for the main table.
+     */
     DefaultTableModel tableModel;
+
+    /**
+     * Holds the model for the electives table.
+     */
     DefaultTableModel electivesModel;
+
+    /**
+     * Holds the model for the recommended table.
+     */
     DefaultTableModel recommendedModel;
 
-
     //Dialogs
+    /**
+     * Holds a dialog box used for displaying an exit prompt.
+     */
     JDialog exitDialog;
+
+    /**
+     * Holds a dialog box used for displaying a login form.
+     */
     JDialog loginDialog;
+
+    /**
+     * Holds a dialog box used for displaying a warning message.
+     */
     JDialog warningDialog;
+
+    /**
+     * Holds a dialog box used for displaying an introduction message.
+     */
     JDialog introDialog;
+
+    /**
+     * Holds a dialog box used for displaying an average calculation result.
+     */
     JDialog averageDialog;
 
     //TextFields
+    /**
+     * Holds a text field for entering a username.
+     */
     JTextField usernameField;
+
+    /**
+     * Holds a password field for entering a password.
+     */
     JPasswordField passwordField;
+
+    /**
+     * Holds a text field for searching.
+     */
     JTextField searchBar;
+
+    /**
+     * Holds a text field for entering a grade.
+     */
     JTextField gradeField;
 
     //Frames
+    /**
+     * Holds the main frame for displaying choices.
+     */
     JFrame choicesFrame;
+
+    /**
+     * Holds the frame for displaying failed courses.
+     */
     JFrame frameFailedCourses;
+
+    /**
+     * Holds the frame for displaying sorted grades.
+     */
     JFrame frameSortedGrades;
+
+    /**
+     * Holds the frame for elective courses.
+     */
     JFrame frameElective;
+
+    /**
+     * Holds the frame for entering grades.
+     */
     JFrame frameEnterGrades;
+
+    /**
+     * Holds the frame for finished courses.
+     */
     JFrame frameFinishedCourse;
+
+    /**
+     * Holds the frame for credited courses.
+     */
     JFrame frameCreditedCourse;
+
+    /**
+     * Holds the frame for displaying courses with grades.
+     */
     JFrame frameCoursesWithGrades;
 
     //ArrayLists
+    /**
+     * Holds a list of unfinished courses.
+     */
     ArrayList<Course> unfinishedCourses;
 
+    /**
+     * Holds a list of recommended courses.
+     */
     ArrayList<Course> listRecommended;
 
+    /**
+     * Holds an array of indices.
+     */
     int[] index;
+
+    /**
+     * Declare an ImageIcon object with the specified image file path.
+     */
+    ImageIcon icon = new ImageIcon("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/" +
+            "res/icon1.png");
+
+    //Declare static variables for CurriculumMonitoringApplication
     /**
      * Holds a custom round button used for navigating to next windows.
      */
@@ -188,12 +455,6 @@ public class CurriculumMonitoringApplication {
      * Holds a custom round button used for navigating to last windows.
      */
     private static RoundButton backButton;
-
-    /**
-     * Declare an ImageIcon object with the specified image file path.
-     */
-    ImageIcon icon = new ImageIcon("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject1/" +
-            "res/icon1.png");
 
     //Declare the static variables for CurriculumMonitoringApplication
     /**
@@ -2316,7 +2577,16 @@ public class CurriculumMonitoringApplication {
         pW.close();
         pW.flush();
     } // end of saveFile method
+
+    /**
+     * ActionListener implementation for button actions in the user interface.
+     */
     public class ButtonAction implements ActionListener {
+        /**
+         * Performs the appropriate action based on the event source. <br>
+         *
+         * @param e the event to be processed
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             //---------okButtonLogin------------
@@ -2566,5 +2836,5 @@ public class CurriculumMonitoringApplication {
             }
 
         }
-    }
+    } // end of ButtonAction class
 } // end of CurriculumMonitoringApplication class
