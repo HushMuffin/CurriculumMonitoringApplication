@@ -90,7 +90,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class CurriculumMonitoringApplication {
     //Declare instances for CurriculumMonitoringApplication
-
+//TODO: Charles - ADD JAVADOC COMMENTS
     ButtonAction buttonAction = new ButtonAction();
     //Panels
     JPanel backPanel;
@@ -623,7 +623,7 @@ public class CurriculumMonitoringApplication {
          2.	Define an array of column names, including "Year", "Term", "Course number", "Descriptive
             Title", "Units", "Grades", and "Remarks".
          3.	Create a new DefaultTableModel with the column names and initial row count of 0.
-         4.	Call the updateTableModel method to populate the tableModel with data from a list of Course objects.
+         4.	Call the updateCourseWithGradesTableModel method to populate the tableModel with data from a list of Course objects.
          5.	Create a new JLabel with the text "Courses with Grades and Remarks for Each Term",
             centered, and with a font size of 25.
          6.	Set the background of the headerLabel to navy and the foreground to pink, and create
@@ -642,7 +642,7 @@ public class CurriculumMonitoringApplication {
              Create a new ArrayList to hold the filtered Course objects. For each Course object in
              the original list, check if the course number or descriptive title contains the searchText
              (in lowercase). If it does, add the Course object to the filteredList. Finally, call
-             the updateTableModel method with the filteredList to update the tableModel.
+             the updateCourseWithGradesTableModel method with the filteredList to update the tableModel.
          15. Create a new JTableHeader from the table, and set its default renderer to a custom
              DefaultTableCellRenderer that sets the background color of the column names to navy
              and the text color to purple with a font size of 15.
@@ -662,7 +662,7 @@ public class CurriculumMonitoringApplication {
         frameCoursesWithGrades = new JFrame("Courses with Grades and Remarks for Each Term");
         String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units", "Grades", "Remarks"};
         tableModel = new DefaultTableModel(columnNames, 0);
-        updateTableModel(list, tableModel);
+        updateCourseWithGradesTableModel(list, tableModel);
         headerLabel = new JLabel("Courses with Grades and Remarks for Each Term", SwingConstants.CENTER);
         headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
         headerLabel.setOpaque(true);
@@ -729,7 +729,7 @@ public class CurriculumMonitoringApplication {
                         filteredList.add(course);
                     }
                 }
-                updateTableModel(filteredList, tableModel);
+                updateCourseWithGradesTableModel(filteredList, tableModel);
             }
         });
 
@@ -825,7 +825,7 @@ public class CurriculumMonitoringApplication {
     } // end of showCoursesWithGradesAndRemarksForEachTerm method
 
     /**
-     * The updateTableModel method takes in an ArrayList of Course objects and a
+     * The updateCourseWithGradesTableModel method takes in an ArrayList of Course objects and a
      * DefaultTableModel object as parameters. It clears the existing data in the
      * table model and iterates through the Course objects, generating a row of data
      * for each Course with information such as the course year, term, number, title,
@@ -857,7 +857,7 @@ public class CurriculumMonitoringApplication {
         4.	End the loop.
         5.	End the method.
      */
-    private void updateTableModel(ArrayList<Course> courses, DefaultTableModel tableModel) {
+    private void updateCourseWithGradesTableModel(ArrayList<Course> courses, DefaultTableModel tableModel) {
         tableModel.setRowCount(0);
         for (Course course : courses) {
             String remarks;
@@ -882,7 +882,7 @@ public class CurriculumMonitoringApplication {
             };
             tableModel.addRow(rowData);
         }
-    } // end of updateTableModel method
+    } // end of updateCourseWithGradesTableModel method
 
     /**
      * Method to lists all the unfinished course and ask
@@ -921,7 +921,7 @@ public class CurriculumMonitoringApplication {
         unfinishedCourses = new ArrayList<>();
         AtomicInteger index = new AtomicInteger();
         HashMap<Integer, Integer> originalIndices = new HashMap<>();
-        updateCourseTableModel(unfinishedCourses, unfinishedCourses, tableModel, originalIndices);
+        updateEnterGradesTableModel(unfinishedCourses, unfinishedCourses, tableModel, originalIndices);
 
         for (Course course : list) {
             if (course.getGrades() == 0 || course.getGrades() > 74) {
@@ -964,7 +964,7 @@ public class CurriculumMonitoringApplication {
                         filteredList.add(course);
                     }
                 }
-                updateCourseTableModel(unfinishedCourses, filteredList, tableModel, originalIndices);
+                updateEnterGradesTableModel(unfinishedCourses, filteredList, tableModel, originalIndices);
             }
         });
 
@@ -1117,7 +1117,7 @@ public class CurriculumMonitoringApplication {
      */
     /*
         Algorithm:
-        1. Declare a method named updateCourseTableModel with parameters:
+        1. Declare a method named updateEnterGradesTableModel with parameters:
            - unfinSubs: an ArrayList of Course objects representing unfinished courses
            - courses: an ArrayList of Course objects representing all courses
            - tableModel: a DefaultTableModel object representing the table model for the GUI table
@@ -1138,7 +1138,7 @@ public class CurriculumMonitoringApplication {
        5. End the for loop.
        6. End the method.
    */
-    private void updateCourseTableModel(ArrayList<Course> unfinSubs, ArrayList<Course> courses, DefaultTableModel
+    private void updateEnterGradesTableModel(ArrayList<Course> unfinSubs, ArrayList<Course> courses, DefaultTableModel
             tableModel, HashMap<Integer, Integer> originalIndices) {
         tableModel.setRowCount(0);
         int index = 0;
@@ -1152,7 +1152,7 @@ public class CurriculumMonitoringApplication {
             tableModel.addRow(rowData);
             originalIndices.put(index - 1, originalIndex);
         }
-    } // end of updateCourseTableModel method
+    } // end of updateEnterGradesTableModel method
 
     /**
      * This method contains the addFinishedCourse that displays interface of the finished courses, and it would ask the
