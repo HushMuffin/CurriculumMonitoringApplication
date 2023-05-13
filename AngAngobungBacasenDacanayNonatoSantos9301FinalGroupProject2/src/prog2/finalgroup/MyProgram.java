@@ -51,7 +51,9 @@ package prog2.finalgroup;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -885,12 +887,74 @@ public class MyProgram extends JFrame {
         table.setFillsViewportHeight(true);
         table.getTableHeader().setReorderingAllowed(false);
 
+
+
+
+        // Define a custom header renderer that sets the background color of the column names
+        JTableHeader header = table.getTableHeader();
+        ((JTableHeader) header).setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+                c.setBackground(navy);
+                c.setForeground(purple); // set the text color of the column names to purple
+                c.setFont(new Font("Helvetica", Font.BOLD, 15));
+                return c;
+            }
+        });
+
+        // Define a custom cell renderer that sets the background color of the cells in the second column
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+
+                switch (column) {
+                    case 0:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 1:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 2:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 3:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 4:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 5:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 6:
+                        c.setBackground(lightBlue);
+                        break;
+                    default:
+                        c.setBackground(table.getBackground()); // use the default background color for other columns
+                        break;
+                }
+
+                return c;
+            }
+        };
+
+        // Set the custom cell renderer to all columns of the table
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
+        }
+
+
         //Panes/Panels
         scrollPane = new JScrollPane(table);
-        scrollPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(20,20,20,15));
 
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10,20,10,20));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         buttonPanel.setBackground(navy);
         buttonDesign(buttonBackPopulation);
         buttonPanel.add(buttonBackPopulation);
@@ -909,7 +973,7 @@ public class MyProgram extends JFrame {
 
         //frame operations
         frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame3.setSize(550, 500);
+        frame3.setSize(650, 500);
         frame3.setLocationRelativeTo(null);
         frame3.setVisible(true);
     } // end of showPopulationByDistrict method
