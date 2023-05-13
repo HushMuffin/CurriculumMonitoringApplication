@@ -1171,7 +1171,7 @@ public class CurriculumMonitoringApplication {
            show only the rows that match the search terms.
         4. The user can enter a grade for a selected course by typing the grade into an input field
            and clicking a "Submit" button.
-           a. If the grade is valid (between 70 and 99), the grade is saved and the course
+           a. If the grade is valid (between 65 and 99), the grade is saved and the course
               is removed from the table of unfinished courses.
            b. If the grade is invalid, an error message is displayed.
         5. The user can save the grades to a file by clicking a "Save" button. The grades are saved in a CSV format.
@@ -1200,7 +1200,7 @@ public class CurriculumMonitoringApplication {
         updateCourseTableModel(unfinishedCourses, unfinishedCourses, tableModel, originalIndices);
 
         for (Course course : list) {
-            if (course.getGrades() == 0 || course.getGrades() > 74) {
+            if (course.getGrades() == 0 || course.getGrades() > 64) {
                 unfinishedCourses.add(course);
             }
         }
@@ -1649,7 +1649,7 @@ public class CurriculumMonitoringApplication {
             and searches for the corresponding course in "unfinishedCourses".
             If found, it should get the grade entered by the user and set it as the grade for the course.
             It should then remove the course from the "unfinishedCourses" list and "tableModel".
-            If the grade entered is not between 70 and 99, an error message should be displayed.
+            If the grade entered is not between 65 and 99, an error message should be displayed.
             If the grade entered is not a number, an error message should be displayed.
             If the course number entered is not found, an error message should be displayed.
             The dialog window should close after the user clicks the okButton.
@@ -2678,19 +2678,19 @@ public class CurriculumMonitoringApplication {
                     try {
                         int grade = Integer.parseInt(gradeField.getText());
 
-                        if (grade == 0 || grade >= 70 && grade <= 99) {
+                        if (grade == 0 || grade >= 65 && grade <= 99) {
                             Course selectedCourse = unfinishedCourses.get(selectedRow);
                             selectedCourse.setGrades(grade);
                             tableModel.removeRow(selectedRow);
                             unfinishedCourses.remove(selectedRow);
                             gradeField.setText("");
                         } else {
-                            JOptionPane.showMessageDialog(frameEnterGrades, "Enter a grade between 70 and 99.",
+                            JOptionPane.showMessageDialog(frameEnterGrades, "Enter a grade from 65 to 99.",
                                     "Error", JOptionPane.ERROR_MESSAGE);
                         }
                     } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(frameEnterGrades, "Invalid grade. Enter a number between " +
-                                "70 and 99.", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(frameEnterGrades, "Invalid grade. Enter a number from " +
+                                "65 to 99.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
                     JOptionPane.showMessageDialog(frameEnterGrades, "Please select a course from the table.",
@@ -2730,7 +2730,7 @@ public class CurriculumMonitoringApplication {
 
                             Course newCourse = new Course(year, term, courseNumber, descTitle, units, grade);
                             list.add(newCourse);
-                            if (grade == 0 || grade > 74) {
+                            if (grade == 0 || grade > 64) {
                                 unfinishedCourses.add(newCourse);
                                 tableModel.addRow(new Object[]{++index[0], newCourse.getCourseNumber(),
                                         newCourse.getDescTitle()});
@@ -2806,7 +2806,7 @@ public class CurriculumMonitoringApplication {
                         if (courseToUpdate != null) {
                             try {
                                 int grade = Integer.parseInt(gradeField.getText());
-                                if (grade == 0 || grade >= 70 && grade <= 99) {
+                                if (grade == 0 || grade >= 65 && grade <= 99) {
                                     courseToUpdate.setGrades(grade);
                                     tableModel.removeRow(rowIndex);
                                     unfinishedCourses.remove(rowIndex);
@@ -2817,7 +2817,7 @@ public class CurriculumMonitoringApplication {
                                     unfinishedCourses.remove(courseToUpdate);
                                     gradeField.setText("");
                                 } else {
-                                    JOptionPane.showMessageDialog(frameCreditedCourse, "Enter a grade between 70 and 99.",
+                                    JOptionPane.showMessageDialog(frameCreditedCourse, "Enter a grade from 65 to 99.",
                                             "Error", JOptionPane.ERROR_MESSAGE);
                                     return; // Don't close the main updateGradeDialog
                                 }
