@@ -922,7 +922,12 @@ public class CurriculumMonitoringApplication {
     public void showCoursesWithGradesAndRemarksForEachTerm() {
         frameCoursesWithGrades = new JFrame("Courses with Grades and Remarks for Each Term");
         String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units", "Grades", "Remarks"};
-        tableModel = new DefaultTableModel(columnNames, 0);
+        tableModel = new DefaultTableModel(columnNames, 0){
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
         updateTableModel(list, tableModel);
         headerLabel = new JLabel("Courses with Grades and Remarks for Each Term", SwingConstants.CENTER);
         headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
@@ -1170,7 +1175,12 @@ public class CurriculumMonitoringApplication {
     public void enterGrades() {
         frameEnterGrades = new JFrame("Enter Grades");
         String[] columnNames = {"#", "Course number", "Descriptive Title"};
-        tableModel = new DefaultTableModel(columnNames, 0);
+        tableModel = new DefaultTableModel(columnNames, 0){
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
 
         headerLabel = new JLabel("Enter Grades", SwingConstants.CENTER);
         headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
@@ -1444,7 +1454,12 @@ public class CurriculumMonitoringApplication {
     public void addFinishedCourse() {
         frameFinishedCourse = new JFrame("Add Finished Course");
         String[] columnNames = {"#", "Course number", "Descriptive Title"};
-        tableModel = new DefaultTableModel(columnNames, 0);
+        tableModel = new DefaultTableModel(columnNames, 0){
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
 
         headerLabel = new JLabel("Add Finished Course", SwingConstants.CENTER);
         headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
@@ -1643,7 +1658,12 @@ public class CurriculumMonitoringApplication {
     public void addCreditedCourse() {
         frameCreditedCourse = new JFrame("Add Credited Course");
         String[] columnNames = {"#", "Course number", "Descriptive Title"};
-        tableModel = new DefaultTableModel(columnNames, 0);
+        tableModel = new DefaultTableModel(columnNames, 0){
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
 
         headerLabel = new JLabel("Add Credited Course", SwingConstants.CENTER);
         headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
@@ -1861,7 +1881,12 @@ public class CurriculumMonitoringApplication {
 
         // Set up the tables and their models
 
-        electivesModel = new DefaultTableModel(new Object[]{"Year", "Term", "Course number", "Descriptive Title", "Units"}, 0);
+        electivesModel = new DefaultTableModel(new Object[]{"Year", "Term", "Course number", "Descriptive Title", "Units"}, 0){
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
 
         electivesTable = new JTable(electivesModel);
         electivesTable.setFont(new Font("Helvetica", Font.BOLD, 12));
@@ -1882,7 +1907,12 @@ public class CurriculumMonitoringApplication {
             electivesModel.addRow(rowData);
         }
 
-        recommendedModel = new DefaultTableModel(new Object[]{"Course number", "Descriptive Title", "Units"}, 0);
+        recommendedModel = new DefaultTableModel(new Object[]{"Course number", "Descriptive Title", "Units"}, 0){
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
 
         recommendedTable = new JTable(recommendedModel);
         recommendedTable.setFont(new Font("Helvetica", Font.BOLD, 12));
@@ -2142,7 +2172,12 @@ public class CurriculumMonitoringApplication {
 
         frameSortedGrades = new JFrame("Student's Sorted Grades");
         String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units", "Grades"};
-        tableModel = new DefaultTableModel(columnNames, 0);
+        tableModel = new DefaultTableModel(columnNames, 0){
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
 
         headerLabel = new JLabel("Student's Sorted Grades", SwingConstants.CENTER);
         headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
@@ -2301,7 +2336,12 @@ public class CurriculumMonitoringApplication {
     public void showFailedCourses(){
         frameFailedCourses = new JFrame("Show Failed Courses");
         String[] columnNames = {"Year", "Term", "Course number", "Descriptive Title", "Units", "Grades", "Remarks"};
-        tableModel = new DefaultTableModel(columnNames, 0);
+        tableModel = new DefaultTableModel(columnNames, 0){
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
 
         headerLabel = new JLabel("Student's Failed Courses", SwingConstants.CENTER);
         headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));

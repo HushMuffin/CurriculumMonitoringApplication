@@ -867,7 +867,13 @@ public class MyProgram extends JFrame {
             data[index][1] = String.valueOf(entry.getValue());
             index++;
         }
-
+        //labels
+        title = new JLabel("Population Per District", SwingConstants.CENTER);
+        title.setFont(new Font("Helvetica", Font.BOLD, 20));
+        title.setOpaque(true);
+        title.setBackground(navy);
+        title.setForeground(pink);
+        title.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         //table
         table = new JTable(data, column){
             @Override
@@ -879,27 +885,31 @@ public class MyProgram extends JFrame {
         table.setFillsViewportHeight(true);
         table.getTableHeader().setReorderingAllowed(false);
 
-        //Panes
+        //Panes/Panels
         scrollPane = new JScrollPane(table);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
-        buttonPanel.setBackground(new Color(248,248,255));
-        buttonPanel.add(buttonBackPopulation).setFocusable(false);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10,20,10,20));
+        buttonPanel.setBackground(navy);
+        buttonDesign(buttonBackPopulation);
+        buttonPanel.add(buttonBackPopulation);
 
         //add action listeners to buttons
         buttonBackPopulation.addActionListener(buttonAction);
 
         //frame
-        frame3.setLayout(new FlowLayout());
+        frame3.setLayout(new BorderLayout());
         frame3.setIconImage(icon.getImage());
         frame3.setTitle("Population by District");
-        frame3.getContentPane().setBackground(new Color(248,248,255));
-        frame3.add(scrollPane);
-        frame3.add(buttonPanel);
+        frame3.getContentPane();
+        frame3.add(title, BorderLayout.NORTH);
+        frame3.add(scrollPane, BorderLayout.CENTER);
+        frame3.add(buttonPanel, BorderLayout.SOUTH);
 
         //frame operations
         frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame3.setSize(550, 400);
-        frame3.setResizable(false);
+        frame3.setSize(550, 500);
         frame3.setLocationRelativeTo(null);
         frame3.setVisible(true);
     } // end of showPopulationByDistrict method
