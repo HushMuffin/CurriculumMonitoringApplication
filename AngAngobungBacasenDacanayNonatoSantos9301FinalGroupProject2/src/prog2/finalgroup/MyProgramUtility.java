@@ -476,10 +476,25 @@ public class MyProgramUtility {
 
         return data;
     } // end of listWithAgeGroup method
-    //TODO Katelyn - add javadoc and algorithm multiline comment
+    /**
+     Returns a map of population count by district, based on the data from a CSV file of citizens.
+     @return a map of district IDs to population counts.
+     */
+    /*
+    * Algorithm:
+    * 1. Convert the CSV data to a list of Citizen objects using the csvToList() helper method.
+    * 2. Group the Citizen objects by district ID using the Collectors.groupingBy() method to
+    *    return a Map<Integer, List<Citizen>> object, where each key is a district ID,
+    *    and each value is a list of Citizen objects in that district.
+    * 3. Transform the Map<Integer, List<Citizen>> object into a Map<Integer, Long> object using
+    *    the Collectors.counting() method to count the number of Citizen objects in each list, and return a map
+    *    that maps each district ID to the number of Citizen objects in that district.
+    * 4. Return the resulting map from step 3 as the output of the method.
+    * */
+
     public Map<Integer, Long> countPopulationByDistrict() {
-        ArrayList<Citizen> list = csvToList();
-        return list.stream()
+        ArrayList<Citizen> list = csvToList();// Convert the CSV data to a list of Citizen objects.
+        return list.stream() // Group the Citizen objects by district ID, and count the number of Citizens in each group.
                 .collect(Collectors.groupingBy(Citizen::getDistrict, Collectors.counting()));
     }
 

@@ -956,7 +956,19 @@ public class MyProgram extends JFrame {
         exitDialog.setVisible(true);
         exitDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     } // end of showExit method
-    //TODO: Katelyn - add javadoc and algorithm comments
+    /**
+     * This method creates a JDialog window with a title "Citizen App" and a message "PERSON NOT FOUND!" in the
+     * center of the window.
+     * */
+    /*
+    * Algorithm:
+    * 1. Create a JDialog with a title "Citizen App" and set it to modal.
+    * 2. Create a JLabel with the text "PERSON NOT FOUND!" and center alignment, and set its font to bold, size 20, and color to pink.
+    * 3. Create a JPanel with BorderLayout and set its background color to navy.
+    * 4. Add the JLabel to the center of the JPanel.
+    * 5. Add the JPanel to the content pane of the JDialog.
+    * 6. Set the icon image, size, location, visibility, and default close operation of the JDialog..
+    */
     private void showPersonNotFound() {
         JDialog exitDialog = new JDialog();
         exitDialog.setTitle("Citizen App");
