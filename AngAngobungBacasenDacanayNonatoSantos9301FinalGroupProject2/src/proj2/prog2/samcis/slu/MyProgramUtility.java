@@ -159,7 +159,27 @@ public class MyProgramUtility {
 
         return data;
     } //end of defaultList method
-    //TODO Charles - add javadoc and algorithm comment
+    /**
+
+     Filters the default list based on the provided search text.
+
+     @param searchText the text to search for in the default list
+
+     @return a filtered 2D array containing the rows that match the search text
+     */
+
+    /**
+     * Algorithm:
+    1. Obtain the default data as a 2D array using the defaultList() method.
+    2. Convert the search text to lowercase for case-insensitive search.
+    3. Use Java 8 Streams to filter the data:
+        a. Iterate over each row in the 2D array.
+        b. For each row, iterate over each cell and check if it contains the search text (case-insensitive).
+        c. If any cell matches the search text, include the row in the filtered list.
+    4. Convert the filtered list to a 2D array.
+    5. Return the filtered data as the result.
+     */
+
     public String[][] filterDefaultList(String searchText) {
         String[][] allData = defaultList(); // Get all default data
         searchText = searchText.toLowerCase(); // Convert search text to lowercase for case-insensitive search
