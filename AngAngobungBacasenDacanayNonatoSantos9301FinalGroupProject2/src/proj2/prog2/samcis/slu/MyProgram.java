@@ -26,10 +26,10 @@
  * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
  * Inputs:
- * //TODO: Lourdene - Add the inputs needed for the program
+ * //TODO: Charles - Add the inputs needed for the program
  * <p>
  * Outputs:
- * //TODO: Lourdene - Add the outputs needed for the program
+ * //TODO: Charles - Add the outputs needed for the program
  * <p>
  * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
@@ -55,24 +55,17 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+/*
+    Improvements:
+    //TODO: Marius - Improve the GUI design for option 4 and 6
 
-/* Improvements: (refer to the google doc guide)
-//TODO: Lourdene & Marius & Nash - Whole Design/Format of the GUI
-//TODO: Lourdene & Marius - Windows
-//TODO: Julienne - Improve warning message for inputs
-//TODO: Marius & Lourdene - Improve the show number of male & female citizens option
-//TODO: Lourdene - Improve the program by adding menu bar on the windows after the main menu window
- */
-/* Others:
-//TODO: Lourdene - Stretch the list of citizen list window so that the emails
-        are displayed fully or at least make the window stretchable
+    Issues:
+    //TODO: Marius - Fix each option panels where the gui components are rearranging and disappearing
  */
 
 /**
@@ -80,62 +73,238 @@ import java.util.Map;
  * citizen information and providing the user with options to interact with it.
  */
 public class MyProgram extends JFrame {
-    //Declare the field for MyProgram
-    //TODO: Lourdene - Add field descriptions
-    ImageIcon icon = new ImageIcon("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject2/res/icon2.png");
+    //Declare the instance field for MyProgram
+    /**
+     * ImageIcon object representing the icon used in the program.
+     */
+    ImageIcon icon = new ImageIcon("AngAngobungBacasenDacanayNonatoSantos9301FinalGroupProject2/" +
+            "res/icon2.png");
+
+    /**
+     * Instance of MyProgramUtility class used for program-specific utility functions.
+     */
     MyProgramUtility myProgramUtility = new MyProgramUtility();
+
+    /**
+     * Citizen object representing a citizen in the program.
+     */
     Citizen citizen;
 
+    /**
+     * Holds a default table cell renderer for customizing the appearance of table cells.
+     */
+    DefaultTableCellRenderer renderer;
+
+    /**
+     * Holds the header of a table.
+     */
+    JTableHeader header;
+
     //Declare the action listener for MyProgram
-    //TODO: Lourdene - Add action listener descriptions
+    /**
+     * ActionListener object that handles button actions in the program.
+     */
     ButtonAction buttonAction = new ButtonAction();
 
     //Declare the list for MyProgram
-    //TODO: Lourdene - Add list descriptions
+    /**
+     * List of Citizen objects representing the data loaded from a CSV file.
+     */
     private final ArrayList<Citizen> list = myProgramUtility.csvToList();
 
     //Declare the buttons for MyProgram
-    //TODO: Julienne - Add button descriptions
-    private final RoundButton buttonOne = new RoundButton(" 1. Show the list of citizens");
-    private final RoundButton buttonTwo = new RoundButton("2. Show sorted list of names of the citizens");
-    private final RoundButton buttonThree = new RoundButton("3. Show number of male & female citizens");
-    private final RoundButton buttonFour = new RoundButton("4. Show list of male/female citizens only");
-    private final RoundButton buttonFive = new RoundButton("5. Find a person in the list");
-    private final RoundButton buttonSix= new RoundButton("6. Display citizens with a certain age group");
-    private final RoundButton buttonSeven = new RoundButton("7. Display population per district");
-    private final RoundButton buttonEight = new RoundButton("8. Show Number of Seniors");
+    /**
+     * Button for showing the list of citizens.
+     */
+    private final RoundButton buttonOne = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+            "1. Show the list of citizens");
+
+    /**
+     * Button for showing the sorted list of names of the citizens.
+     */
+    private final RoundButton buttonTwo = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+            "2. Show sorted list of names of the citizens");
+
+    /**
+     * Button for showing the number of male and female citizens.
+     */
+    private final RoundButton buttonThree = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+            "3. Show number of male and female citizens");
+
+    /**
+     * Button for showing the list of male or female citizens only.
+     */
+    private final RoundButton buttonFour = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+            "4. Show list of male or female citizens only");
+
+    /**
+     * Button for finding a person in the list.
+     */
+    private final RoundButton buttonFive = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+            "5. Find a person in the list");
+
+    /**
+     * Button for displaying citizens with a certain age group.
+     */
+    private final RoundButton buttonSix = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+            "6. Display citizens with a certain age group");
+
+    /**
+     * Button for displaying the population per district.
+     */
+    private final RoundButton buttonSeven = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+            "7. Display population per district");
+
+    /**
+     * Button for showing the number of seniors.
+     */
+    private final RoundButton buttonEight = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+            "8. Show Number of Seniors");
+
+    /**
+     * Button for exiting the program.
+     */
     private final RoundButton exitButton = new RoundButton("EXIT");
+
+    /**
+     * Holds a custom round button used for navigating to next windows.
+     */
+    private final RoundButton nextButton = new RoundButton("NEXT");
+
+    /**
+     * Button for going back to the previous menu.
+     */
     private final RoundButton buttonBack = new RoundButton("Back");
+
+    /**
+     * Button for going back to the previous population menu.
+     */
     private final RoundButton buttonBackPopulation = new RoundButton("Back");
+
+    /**
+     * Button for going back to the previous window.
+     */
+    private final RoundButton buttonBackSort = new RoundButton("Back");
+
+    /**
+     * Button for going back to the previous male/female menu.
+     */
     private final RoundButton buttonBackMorF = new RoundButton("Back");
-    private final RoundButton buttonBackAge= new RoundButton("Back");
+
+    /**
+     * Button for going back to the previous age group menu.
+     */
+    private final RoundButton buttonBackAge = new RoundButton("Back");
+
+    /**
+     * Button for finding a person in the list.
+     */
     private final RoundButton buttonFind = new RoundButton("Find");
+
+    /**
+     * Button for selecting male citizens.
+     */
     private final RoundButton buttonMale = new RoundButton("Male");
-    private final RoundButton buttonFemale= new RoundButton("Female");
-    private final RoundButton buttonOK= new RoundButton("Ok");
+
+    /**
+     * Button for selecting female citizens.
+     */
+    private final RoundButton buttonFemale = new RoundButton("Female");
+
+    /**
+     * Button for confirming an action or selection.
+     */
+    private final RoundButton buttonOK = new RoundButton("Ok");
 
     //Declare the text fields for MyProgram
-    //TODO: Julienne - Add text fields descriptions
+    /**
+     * Text field for input or display of text.
+     */
     private final JTextField textField = new JTextField(5);
+
+    /**
+     * Second text field for input or display of text.
+     */
     private final JTextField textField2 = new JTextField(5);
 
+    /**
+     * Holds a text field for searching.
+     */
+    private final JTextField searchField = new JTextField(20);
+
     //Declare the Panels
-    //TODO: Add panels descriptions
+    /**
+     * Holds a panel used to display an introduction or welcome message.
+     */
+    JPanel introPanel;
+
+    /**
+     * Holds a panel used to display a description or information.
+     */
+    JPanel descriptionPanel;
+
+    /**
+     * Holds a panel to display the buttons.
+     */
     JPanel buttonPanel;
+
+    /**
+     * Holds a panel used to display a guide or instructions.
+     */
+    JPanel guidePanel;
+
+    /**
+     * Holds a panel used to display a table or tabular data.
+     */
+    JPanel tablePanel;
+
+    /**
+     * Holds a panel used to handle application exit functionality.
+     */
+    JPanel exitPanel;
+
+    /**
+     * Holds a panel used for search functionality or search-related components.
+     */
+    JPanel searchPanel;
+
+    /**
+     * Holds a panel used as the top section or header of a user interface.
+     */
+    JPanel topPanel;
+
+    /**
+     * Holds the first panel for layout and component placement.
+     */
     JPanel panel;
+
+    /**
+     * Holds the second panel for layout and component placement.
+     */
     JPanel panel2;
 
     //Declare ScrollPanels
-    //TODO: add scrollpane descriptions
+    /**
+     * Scroll pane to provide scrollable view for a component.
+     */
     JScrollPane scrollPane;
 
     //Declare JTables
+    /**
+     * Table component used for displaying data in tabular form.
+     */
     JTable table;
+
     // Declare the labels for MyProgram
     /**
      * The title label for the program window.
      */
     JLabel title;
+
+    /**
+     * Holds a label used for displaying a guide or instructions.
+     */
+    JLabel guideLabel;
 
     /**
      * The label for the name field in the program window.
@@ -178,34 +347,65 @@ public class MyProgram extends JFrame {
     JLabel findFirstName;
 
     /**
+     * Holds a label used for displaying a description.
+     */
+    JLabel descriptionLabel;
+
+    /**
+     * Holds a label used for displaying a header or title.
+     */
+    JLabel headerLabel;
+
+    /**
+     * Holds a label used for displaying a search label or text.
+     */
+    JLabel searchLabel;
+
+    /**
+     * Holds a label used for displaying a greeting message.
+     */
+    JLabel greetLabel;
+
+    /**
+     * Holds a label used for displaying an exit message or icon.
+     */
+    JLabel exitLabel;
+
+    /**
      * The label for the last name search field in the program window.
      */
     JLabel findLastName;
 
+    // Declare the dialogs for MyProgram
+    /**
+     * Holds a dialog box used for displaying an exit prompt.
+     */
+    JDialog exitDialog;
+
+    /**
+     * Holds a dialog box used for displaying an introduction message.
+     */
+    JDialog introDialog = new JDialog();
+    JDialog defaultListDialog = new JDialog();
+    JDialog popuByDistrictDialog = new JDialog();
+    JDialog sortedListDialog = new JDialog();
+    JDialog numOfMAndFDialog = new JDialog();
+    JDialog numOfSenDialog = new JDialog();
+    JDialog findPersonDialog = new JDialog();
+    JDialog selectMOrFDialog = new JDialog();
+    JDialog showMaleDialog = new JDialog();
+    JDialog showFemaleDialog = new JDialog();
+    JDialog askAgeDialog = new JDialog();
+    JDialog showAgeGroupDialog = new JDialog();
 
     // Declare the frames for MyProgram
-    /**
-     * The variable "frame2" is of type JFrame, which represents a GUI window in a Java program. It is used to create a frame for the Citizen App.
-     */
-    JFrame frame2 = new JFrame("Citizen App");
-    /**
-     * The variable "frame3" is of type JFrame, which represents a GUI window in a Java program. It is used to create a frame for the Citizen App.
-     */
-    JFrame frame3 = new JFrame("Citizen App");
-    /**
-     * The variable "chooseFrame" is of type JFrame, which represents yet another GUI window in a Java program. It is used to create a frame for the Citizen App.
-     */
-    JFrame frameMorF = new JFrame("Citizen App");
-
-    /**
-     * The variable "chooseFrame" is of type JFrame, which represents yet another GUI window in a Java program. It is used to create a frame for the Citizen App.
-     */
-    JFrame chooseFrame = new JFrame("Citizen App");
-
+    //TODO: Javadoc comment
+    JFrame mainMenu = new JFrame("Citizen Application");
 
     //Declare the Strings for MyProgram
     /**
-     * The variable "firstName" is of type String, which represents a sequence of characters in a Java program. It is used to store the first name of a citizen.
+     * The variable "firstName" is of type String, which represents a sequence of characters in a Java program.
+     * It is used to store the first name of a citizen.
      */
     String firstName = "";
 
@@ -215,10 +415,14 @@ public class MyProgram extends JFrame {
     String lastName = "";
 
     //Declare the ints for MyProgram
-    /**The variable "ageGroup" is of type int, which represents a numerical value that can hold a range of integers.
-    *It is used to store the age group of a citizen, which may be determined by their age or some other relevant criteria.
-    */
+    /**
+     * The variable "ageGroup" is of type int, which represents a numerical
+     * value that can hold a range of integers. It is used to store the age
+     * group of a citizen, which may be determined by their age or some other
+     * relevant criteria.
+     */
     int ageGroup;
+
     /**
      * Holds the colors used in the GUI of the program.
      */
@@ -231,23 +435,29 @@ public class MyProgram extends JFrame {
     static Color green = new Color(10,221,8);
 
     /**
-     * Constructor for creating the main menu.
+     * Method for creating the main menu.
+     *
+     * @return null
      */
-    public MyProgram() {
+    public MyProgram mainMenu() {
         //Labels
-        JLabel titleLabel = new JLabel("Welcome to the Citizen App", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Helvetica", Font.BOLD, 18));
+        JLabel titleLabel = new JLabel("MAIN MENU", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Helvetica", Font.BOLD, 30));
         titleLabel.setOpaque(true);
         titleLabel.setBackground(navy);
         titleLabel.setForeground(pink);
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(20,0,20,0));
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(10,0,20,0));
 
-        JLabel instruction = new JLabel(" Choose an action", SwingConstants.CENTER);
-        instruction.setFont(new Font("Helvetica", Font.BOLD, 20));
-        instruction.setForeground(darkPurple);
-        instruction.setBackground(lightBlue);
-        instruction.setOpaque(true);
-        instruction.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 20));
+        guideLabel = new JLabel("<html><div style='text-align: center;'>" +
+                "Please select your desired option provided below and it will direct " +
+                "you to another window. To prevent the windows from stacking up, you " +
+                "can close the window and select another option from this main menu.</html>",
+                SwingConstants.CENTER);
+        guideLabel.setFont(new Font("Helvetica", Font.ITALIC, 12));
+        guideLabel.setOpaque(true);
+        guideLabel.setBackground(peach);
+        guideLabel.setForeground(Color.darkGray);
+        guideLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         //Implement button design to buttons
         buttonDesign(buttonOne);
@@ -259,6 +469,7 @@ public class MyProgram extends JFrame {
         buttonDesign(buttonSeven);
         buttonDesign(buttonEight);
         buttonDesign(exitButton);
+
         //Add action listeners to buttons
         buttonOne.addActionListener(buttonAction);
         buttonTwo.addActionListener(buttonAction);
@@ -267,11 +478,12 @@ public class MyProgram extends JFrame {
         buttonFive.addActionListener(buttonAction);
         buttonSix.addActionListener(buttonAction);
         buttonSeven.addActionListener(buttonAction);
-        //TODO: add action listener for button 8
+        buttonEight.addActionListener(buttonAction);
         exitButton.addActionListener(buttonAction);
+
         //Panel for buttons
-        buttonPanel = new JPanel(new GridLayout(4, 2, 40, 20));
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 20, 50));
+        buttonPanel = new JPanel(new GridLayout(4, 2, 20, 20));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(15, 50, 20, 50));
         buttonPanel.setBackground(lightBlue);
         buttonPanel.add(buttonOne);
         buttonPanel.add(buttonTwo);
@@ -281,28 +493,44 @@ public class MyProgram extends JFrame {
         buttonPanel.add(buttonSix);
         buttonPanel.add(buttonSeven);
         buttonPanel.add(buttonEight);
-        //Panel for instructions
-        JPanel instructionPanel = new JPanel(new BorderLayout());
-        instructionPanel.add(instruction);
-        instructionPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        //Panel for instructions and frame content
+        guidePanel = new JPanel(new BorderLayout());
+        guidePanel.add(guideLabel, BorderLayout.CENTER);
+        guidePanel.setBackground(lightBlue);
+        guidePanel.setBorder(BorderFactory.createEmptyBorder(15, 100, 0, 100));
+
+        topPanel = new JPanel(new BorderLayout());
+        topPanel.add(titleLabel,BorderLayout.NORTH);
+        topPanel.add(guidePanel, BorderLayout.CENTER);
+
         //Panel for exit button
-        JPanel exitPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        exitPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         exitPanel.add(exitButton);
         exitPanel.setBackground(navy);
-        //Frame
-        this.setTitle("Citizen App");
-        this.setIconImage(icon.getImage());
-        this.setLayout(new BorderLayout());
-        this.add(titleLabel, BorderLayout.NORTH);
-        this.add(instructionPanel);
-        this.add(exitPanel, BorderLayout.SOUTH);
+
+        //Frame Properties
+        mainMenu.setIconImage(icon.getImage());
+        mainMenu.setLayout(new BorderLayout());
+        mainMenu.add(topPanel, BorderLayout.NORTH);
+        mainMenu.add(buttonPanel, BorderLayout.CENTER);
+        mainMenu.add(exitPanel, BorderLayout.SOUTH);
 
         //Frame operations
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(760,580);
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
-    } // end of MyProgram constructor
+        mainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainMenu.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                showExit();
+                System.exit(0);
+            }
+        });
+        mainMenu.setSize(640,570);
+        mainMenu.setLocationRelativeTo(null);
+        mainMenu.setVisible(true);
+
+        return null;
+    } // end of mainMenu method
 
     /**
      * Method to display the default citizen list.
@@ -328,6 +556,7 @@ public class MyProgram extends JFrame {
     public void showDefaultList(){
         String[][] data = myProgramUtility.defaultList(); //calls method defaultList() from MyProgramUtility
         String[] column = {"Full Name", "Email", "Address", "Age", "Resident", "District", "Gender"};
+
         //table model
         DefaultTableModel tableModel = new DefaultTableModel(data, column){
             //makes cells from table non-editable
@@ -337,14 +566,22 @@ public class MyProgram extends JFrame {
             }
         };
 
+        headerLabel = new JLabel("Default Citizen List", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
+        headerLabel.setOpaque(true);
+        headerLabel.setBackground(navy);
+        headerLabel.setForeground(pink);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        buttonDesign(buttonBack);
+        buttonBack.addActionListener(buttonAction);
+
         //table
         table = new JTable(tableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(1000,550));
-        table.setFillsViewportHeight(true);
-        table.getTableHeader().setReorderingAllowed(false);
+        table.setPreferredScrollableViewportSize(new Dimension(1200, 470));
 
-        //Search TextField
-        JTextField searchField = new JTextField(20);
+        //Search
+        searchLabel = new JLabel("Search: ");
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent e) {
                 updateTable();
@@ -363,146 +600,357 @@ public class MyProgram extends JFrame {
             }
         });
 
-        //Panes
+        // Define a custom header renderer that sets the background color of the column names
+        header = table.getTableHeader();
+        ((JTableHeader) header).setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+                c.setBackground(navy);
+                c.setForeground(purple); // set the text color of the column names to purple
+                c.setFont(new Font("Helvetica", Font.BOLD, 15));
+                return c;
+            }
+        });
+
+        // Define a custom cell renderer that sets the background color of the cells in the second column
+        renderer = new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+
+                switch (column) {
+                    case 0:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 1:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 2:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 3:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 4:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 5:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 6:
+                        c.setBackground(lightBlue);
+                        break;
+                    default:
+                        c.setBackground(table.getBackground()); // use the default background color for other columns
+                        break;
+                }
+
+                return c;
+            }
+        };
+
+        // Set the custom cell renderer to all columns of the table
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
+        }
+
+        // Set the preferred width of each column
+        table.getColumnModel().getColumn(0).setPreferredWidth(90);
+        table.getColumnModel().getColumn(1).setPreferredWidth(250);
+        table.getColumnModel().getColumn(2).setPreferredWidth(150);
+        table.getColumnModel().getColumn(3).setPreferredWidth(3);
+        table.getColumnModel().getColumn(4).setPreferredWidth(3);
+        table.getColumnModel().getColumn(5).setPreferredWidth(3);
+        table.getColumnModel().getColumn(6).setPreferredWidth(3);
+
+        //Panels
         scrollPane = new JScrollPane(table);
-        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
-        buttonPanel.setBounds(20,205,300,50);
-        buttonPanel.setBackground(new Color(248,248,255));
-        buttonPanel.add(buttonBack).setFocusable(false);
 
-        //add action listeners to buttons
-        buttonBack.addActionListener(buttonAction);
+        searchPanel = new JPanel();
+        searchPanel.add(searchLabel);
+        searchPanel.add(searchField);
+        searchPanel.setBackground(peach);
+        searchPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
 
-        //frame
-        frame2.setLayout(new FlowLayout());
-        frame2.setIconImage(icon.getImage());
-        frame2.setTitle("Citizen App");
-        frame2.getContentPane().setBackground(new Color(248,248,255));
-        frame2.add(searchField);
-        frame2.add(scrollPane);
-        frame2.add(buttonPanel);
+        tablePanel = new JPanel();
+        tablePanel.add(searchPanel);
+        tablePanel.add(scrollPane);
+        tablePanel.setBackground(peach);
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 10, 0));
+
+        buttonPanel = new JPanel();
+        buttonPanel.setBackground(navy);
+        buttonPanel.add(buttonBack);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0));
+
+        //frame properties
+        defaultListDialog.setTitle("Citizen Application");
+        defaultListDialog.add(headerLabel, BorderLayout.NORTH);
+        defaultListDialog.add(tablePanel, BorderLayout.CENTER);
+        defaultListDialog.add(buttonPanel, BorderLayout.SOUTH);
+        defaultListDialog.setIconImage(icon.getImage());
 
         //frame operations
-        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame2.setSize(1100,675);
-        frame2.setResizable(false);
-        frame2.setLocationRelativeTo(null);
-        frame2.setVisible(true);
+        defaultListDialog.setSize(1280, 700);
+        defaultListDialog.setLocationRelativeTo(null);
+        defaultListDialog.setResizable(false);
+        defaultListDialog.setVisible(true);
+        defaultListDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     } // end of showDefaultList method
-
-
 
     /**
      * Method to display the sorted citizen list.
      */
-    //TODO: Lourdene - Add showSortedList method algorithm
+    /*
+        Algorithm:
+        1. Retrieve the sorted data from myProgramUtility.sortedList().
+        2. Create a table with the sorted data and make the cells non-editable.
+        3. Set the table's appearance and behavior.
+        4. Create a scroll pane and a button panel.
+        5. Add a "Back" button to the button panel.
+        6. Configure the frame's layout, icon, title, and background color.
+        7. Add the scroll pane and button panel to the frame.
+        8. Configure frame operations such as close operation, size, and visibility.
+     */
     public void showSortedList(){
         String[][] data = myProgramUtility.sortedList(); //calls method defaultList() from MyProgramUtility
         String[] column = {"Full Name", "Email", "Address", "Age", "Resident", "District", "Gender"};
 
-        //table
-        table = new JTable(data, column){
+        //table model
+        DefaultTableModel tableModel = new DefaultTableModel(data, column){
             //makes cells from table non-editable
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        table.setPreferredScrollableViewportSize(new Dimension(1000,550));
-        table.setFillsViewportHeight(true);
-        table.getTableHeader().setReorderingAllowed(false);
 
-        //Panes
+        headerLabel = new JLabel("Sorted Citizen List", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
+        headerLabel.setOpaque(true);
+        headerLabel.setBackground(navy);
+        headerLabel.setForeground(pink);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        buttonDesign(buttonBackSort);
+        buttonBackSort.addActionListener(buttonAction);
+
+        //table
+        table = new JTable(tableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(1200, 470));
+
+        //Search
+        searchLabel = new JLabel("Search: ");
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                updateTable();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                updateTable();
+            }
+            public void insertUpdate(DocumentEvent e) {
+                updateTable();
+            }
+
+            public void updateTable() {
+                String searchText = searchField.getText();
+                String[][] filteredData = myProgramUtility.filterDefaultList(searchText);
+                updateTableData(table, filteredData);
+            }
+        });
+
+        // Define a custom header renderer that sets the background color of the column names
+        header = table.getTableHeader();
+        ((JTableHeader) header).setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+                c.setBackground(navy);
+                c.setForeground(purple); // set the text color of the column names to purple
+                c.setFont(new Font("Helvetica", Font.BOLD, 15));
+                return c;
+            }
+        });
+
+        // Define a custom cell renderer that sets the background color of the cells in the second column
+        renderer = new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+
+                switch (column) {
+                    case 0:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 1:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 2:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 3:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 4:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 5:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 6:
+                        c.setBackground(lightBlue);
+                        break;
+                    default:
+                        c.setBackground(table.getBackground()); // use the default background color for other columns
+                        break;
+                }
+
+                return c;
+            }
+        };
+
+        // Set the custom cell renderer to all columns of the table
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
+        }
+
+        // Set the preferred width of each column
+        table.getColumnModel().getColumn(0).setPreferredWidth(90);
+        table.getColumnModel().getColumn(1).setPreferredWidth(250);
+        table.getColumnModel().getColumn(2).setPreferredWidth(150);
+        table.getColumnModel().getColumn(3).setPreferredWidth(3);
+        table.getColumnModel().getColumn(4).setPreferredWidth(3);
+        table.getColumnModel().getColumn(5).setPreferredWidth(3);
+        table.getColumnModel().getColumn(6).setPreferredWidth(3);
+
+        //Panels
         scrollPane = new JScrollPane(table);
-        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
-        buttonPanel.setBounds(20,205,300,50);
-        buttonPanel.setBackground(new Color(248,248,255));
-        buttonPanel.add(buttonBack).setFocusable(false);
 
-        //add action listeners to buttons
-        buttonBack.addActionListener(buttonAction);
+        searchPanel = new JPanel();
+        searchPanel.add(searchLabel);
+        searchPanel.add(searchField);
+        searchPanel.setBackground(peach);
+        searchPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
 
-        //frame
-        frame2.setLayout(new FlowLayout());
-        frame2.setIconImage(icon.getImage());
-        frame2.setTitle("Citizen App");
-        frame2.getContentPane().setBackground(new Color(248,248,255));
-        frame2.add(scrollPane);
-        frame2.add(buttonPanel);
+        tablePanel = new JPanel();
+        tablePanel.add(searchPanel);
+        tablePanel.add(scrollPane);
+        tablePanel.setBackground(peach);
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 10, 0));
+
+        buttonPanel = new JPanel();
+        buttonPanel.setBackground(navy);
+        buttonPanel.add(buttonBackSort);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0));
+
+        //frame properties
+        sortedListDialog.setTitle("Citizen Application");
+        sortedListDialog.add(headerLabel, BorderLayout.NORTH);
+        sortedListDialog.add(tablePanel, BorderLayout.CENTER);
+        sortedListDialog.add(buttonPanel, BorderLayout.SOUTH);
+        sortedListDialog.setIconImage(icon.getImage());
 
         //frame operations
-        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame2.setSize(1100,675);
-        frame2.setResizable(false);
-        frame2.setLocationRelativeTo(null);
-        frame2.setVisible(true);
+        sortedListDialog.setSize(1280, 700);
+        sortedListDialog.setLocationRelativeTo(null);
+        sortedListDialog.setVisible(true);
+        sortedListDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     } // end of showSortedList method
 
     /**
      * Method to display the number of males and females.
-
-     numOfMaleAndFemale Algorithm:
-     1.Create a JLabel for the title of the window, and JLabels for displaying the number of males and females in the citizen data.
-     2.Set the text of the JLabels for the number of males and females by calling the numberOfMale() and numberOfFemale() methods of an instance of the myProgramUtility class, respectively, and converting the results to String values using the valueOf() method.
-     3.Set the font of the JLabels for the title, number of males, and number of females to a specific font using the setFont() method.
-     4.Create a JPanel for the buttons, add the "Back" button to the panel, and set the background color of the panel.
-     5.Create a JPanel for the labels, set the layout to a 2x2 GridLayout, and set the background color of the panel.
-     6.Add the JLabels for the number of males and females to the panel.
-     7.Add action listeners to the "Back" button using an ActionListener object that defines the actionPerformed() method to close the current JFrame and open the main menu JFrame.
-     8.Set the properties of the JFrame, including the background color, size, and position.
-     9.Add the JLabels and JPanels to the JFrame using the add() method.
-     10.Display the JFrame using the setVisible() method.
+     */
+    /*
+        Algorithm: //TODO: Nash - update algo
+        1.Create a JLabel for the title of the window, and JLabels for displaying the number of males and females in the citizen data.
+        2.Set the text of the JLabels for the number of males and females by calling the numberOfMale() and numberOfFemale() methods of an instance of the myProgramUtility class, respectively, and converting the results to String values using the valueOf() method.
+        3.Set the font of the JLabels for the title, number of males, and number of females to a specific font using the setFont() method.
+        4.Create a JPanel for the buttons, add the "Back" button to the panel, and set the background color of the panel.
+        5.Create a JPanel for the labels, set the layout to a 2x2 GridLayout, and set the background color of the panel.
+        6.Add the JLabels for the number of males and females to the panel.
+        7.Add action listeners to the "Back" button using an ActionListener object that defines the actionPerformed() method to close the current JFrame and open the main menu JFrame.
+        8.Set the properties of the JFrame, including the background color, size, and position.
+        9.Add the JLabels and JPanels to the JFrame using the add() method.
+        10.Display the JFrame using the setVisible() method.
      */
     public void numOfMaleAndFemale(){
         //label
-        title = new JLabel("Number of Males and Females", SwingConstants.CENTER);
-        JLabel males = new JLabel(" Males:  ", SwingConstants.LEFT);
-        JLabel females = new JLabel(" Females:  ", SwingConstants.LEFT);
-        JLabel numOfMales = new JLabel(String.valueOf(myProgramUtility.numberOfMale()), SwingConstants.LEFT);
-        JLabel numOfFemales = new JLabel(String.valueOf(myProgramUtility.numberOfFemale()), SwingConstants.LEFT);
+        title = new JLabel("Number of Male and Female", SwingConstants.CENTER);
+        title.setFont(new Font("Helvetica", Font.BOLD, 25));
+        title.setOpaque(true);
+        title.setBackground(navy);
+        title.setForeground(pink);
+        title.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        title.setBounds(50,-100,250,250);
-        title.setFont(new Font("Century Gothic", Font.PLAIN, 15));
-        males.setFont(new Font("Century Gothic", Font.PLAIN, 20));
-        females.setFont(new Font("Century Gothic", Font.PLAIN, 20));
-        numOfMales.setFont(new Font("Century Gothic", Font.PLAIN, 20));
-        numOfFemales.setFont(new Font("Century Gothic", Font.PLAIN, 20));
+        JLabel males = new JLabel("Males:  ", SwingConstants.LEFT);
+        males.setFont(new Font("Century Gothic", Font.BOLD, 20));
+        males.setOpaque(true);
+        males.setBackground(lightBlue);
+        males.setForeground(darkPurple);
+        males.setBorder(BorderFactory.createEmptyBorder(5, 100, 5, 0));
+
+        JLabel females = new JLabel("Females:  ", SwingConstants.LEFT);
+        females.setFont(new Font("Century Gothic", Font.BOLD, 20));
+        females.setOpaque(true);
+        females.setBackground(lightBlue);
+        females.setForeground(darkPurple);
+        females.setBorder(BorderFactory.createEmptyBorder(5, 100, 5, 0));
+
+        JLabel numOfMales = new JLabel(String.valueOf(myProgramUtility.numberOfMale()), SwingConstants.LEFT);
+        numOfMales.setFont(new Font("Century Gothic", Font.BOLD, 20));
+        numOfMales.setOpaque(true);
+        numOfMales.setBackground(lightBlue);
+        numOfMales.setForeground(peach);
+        numOfMales.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 0));
+
+        JLabel numOfFemales = new JLabel(String.valueOf(myProgramUtility.numberOfFemale()), SwingConstants.LEFT);
+        numOfFemales.setFont(new Font("Century Gothic", Font.BOLD, 20));
+        numOfFemales.setOpaque(true);
+        numOfFemales.setBackground(lightBlue);
+        numOfFemales.setForeground(peach);
+        numOfFemales.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 0));
+
+        //add action listeners to buttons
+        buttonDesign(buttonBack);
+        buttonBack.addActionListener(buttonAction);
 
         //Panel for buttons
-        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
-        buttonPanel.setBounds(20,110,300,50);
-        buttonPanel.add(buttonBack).setFocusable(false);
-        buttonPanel.setBackground(new Color(248,248,255));
+        buttonPanel = new JPanel();
+        buttonPanel.setBackground(navy);
+        buttonPanel.add(buttonBack);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0));
 
         //Panel for labels
         panel = new JPanel(new GridLayout(2,2));
-        panel.setBounds(0,50,300,50);
-        panel.setBackground(new Color(248,248,255));
         panel.add(males);
         panel.add(numOfMales);
         panel.add(females);
         panel.add(numOfFemales);
 
-        //add action listeners to buttons
-        buttonBack.addActionListener(buttonAction);
+        //dialog
+        numOfMAndFDialog.setTitle("Citizen Application");
+        numOfMAndFDialog.setIconImage(icon.getImage());
+        numOfMAndFDialog.getContentPane().setBackground(lightBlue);
+        numOfMAndFDialog.add(title, BorderLayout.NORTH);
+        numOfMAndFDialog.add(panel, BorderLayout.CENTER);
+        numOfMAndFDialog.add(buttonPanel, BorderLayout.SOUTH);
 
-        //frame
-        frame2.setIconImage(icon.getImage());
-        frame2.getContentPane().setBackground(new Color(248,248,255));
-        frame2.add(title);
-        frame2.add(panel);
-        frame2.add(buttonPanel);
-
-        //frame operations
-        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame2.setLayout(null);
-        frame2.setSize(360,200);
-        frame2.setResizable(false);
-        frame2.setLocationRelativeTo(null);
-        frame2.setVisible(true);
+        //dialog operations
+        numOfMAndFDialog.setSize(470, 300);
+        numOfMAndFDialog.setLocationRelativeTo(null);
+        numOfMAndFDialog.setResizable(false);
+        numOfMAndFDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        numOfMAndFDialog.setVisible(true);
     } // end of numOfMaleAndFemale method
 
-    /** //TODO: Subject for improvements
+    /**
      * Method to open up a choice if user wants to show male or female.
      */
     public void selectMaleOrFemale(){
@@ -524,45 +972,45 @@ public class MyProgram extends JFrame {
         buttonBack.addActionListener(buttonAction);
 
         //frame
-        chooseFrame.setIconImage(icon.getImage());
-        chooseFrame.getContentPane().setBackground(new Color(248,248,255));
-        chooseFrame.add(title);
-        chooseFrame.add(buttonPanel);
+        selectMOrFDialog.setIconImage(icon.getImage());
+        selectMOrFDialog.getContentPane().setBackground(new Color(248,248,255));
+        selectMOrFDialog.add(title);
+        selectMOrFDialog.add(buttonPanel);
 
         //frame operations
-        chooseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        chooseFrame.setLayout(null);
-        chooseFrame.setSize(360,200);
-        chooseFrame.setResizable(false);
-        chooseFrame.setLocationRelativeTo(null);
-        chooseFrame.setVisible(true);
+        selectMOrFDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        selectMOrFDialog.setLayout(null);
+        selectMOrFDialog.setSize(360,300);
+        selectMOrFDialog.setResizable(false);
+        selectMOrFDialog.setLocationRelativeTo(null);
+        selectMOrFDialog.setVisible(true);
     } // end of selectMaleOrFemale
 
     /**
      * Method display the male list.
-     Algorithm for the showMalesOnly() method:
-     1.Call the listMaleOnly() method from MyProgramUtility class to get a two-dimensional string array of male citizens' information.
-     2.Create a string array called column which contains the column headers for the JTable.
-     3.Create a new JTable with the data and column arrays as parameters, and override the isCellEditable method of the table to make the cells non-editable.
-     4.Set the preferred size and fill height properties of the table, and disallow the reordering of columns.
-     5.Create a new JScrollPane with the table as parameter.
-     6.Create a new JPanel called buttonPanel with a FlowLayout, and add the buttonBackMorF button to it.
-     7.Set the background color of buttonPanel to a light gray.
-     8.Add an action listener to buttonBackMorF button.
-     9.Set the layout of frameMorF to FlowLayout.
-     10.Set the title of the frameMorF to "Citizen App".
-     11.Set the background color of the frameMorF to a light gray.
-     12.Add the scrollPane and buttonPanel to the frameMorF.
-     13.Set the default close operation of the frameMorF to JFrame.EXIT_ON_CLOSE.
-     14.Set the size of the frameMorF to (1100, 675).
-     15.Disallow the frame to be resizable.
-     16.Set the location of the frameMorF to be in the center of the screen.
-     17.Set the visibility of the frameMorF to true.
-
      */
-
+    /*
+        Algorithm: //TODO: Nash - Update algo
+         1.Call the listMaleOnly() method from MyProgramUtility class to get a two-dimensional string array of male citizens' information.
+         2.Create a string array called column which contains the column headers for the JTable.
+         3.Create a new JTable with the data and column arrays as parameters, and override the isCellEditable method of the table to make the cells non-editable.
+         4.Set the preferred size and fill height properties of the table, and disallow the reordering of columns.
+         5.Create a new JScrollPane with the table as parameter.
+         6.Create a new JPanel called buttonPanel with a FlowLayout, and add the buttonBackMorF button to it.
+         7.Set the background color of buttonPanel to a light gray.
+         8.Add an action listener to buttonBackMorF button.
+         9.Set the layout of frameMorF to FlowLayout.
+         10.Set the title of the frameMorF to "Citizen App".
+         11.Set the background color of the frameMorF to a light gray.
+         12.Add the scrollPane and buttonPanel to the frameMorF.
+         13.Set the default close operation of the frameMorF to JFrame.EXIT_ON_CLOSE.
+         14.Set the size of the frameMorF to (1100, 675).
+         15.Disallow the frame to be resizable.
+         16.Set the location of the frameMorF to be in the center of the screen.
+         17.Set the visibility of the frameMorF to true.
+     */
     public void showMalesOnly(){
-        String[][] data = myProgramUtility.listMaleOnly(); //calls method defaultList() from MyProgramUtility
+        String[][] data = myProgramUtility.listMaleOnly(); //calls method listMaleOnly() from MyProgramUtility
         String[] column = {"Full Name", "Email", "Address", "Age", "Resident", "District", "Gender"};
 
         //table model
@@ -574,14 +1022,22 @@ public class MyProgram extends JFrame {
             }
         };
 
+        headerLabel = new JLabel("Male Citizen List", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
+        headerLabel.setOpaque(true);
+        headerLabel.setBackground(navy);
+        headerLabel.setForeground(pink);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        buttonDesign(buttonBackMorF);
+        buttonBackMorF.addActionListener(buttonAction);
+
         //table
         table = new JTable(tableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(1000,550));
-        table.setFillsViewportHeight(true);
-        table.getTableHeader().setReorderingAllowed(false);
+        table.setPreferredScrollableViewportSize(new Dimension(1200, 470));
 
-        //Search TextField
-        JTextField searchField = new JTextField(20);
+        //Search
+        searchLabel = new JLabel("Search: ");
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent e) {
                 updateTable();
@@ -595,39 +1051,128 @@ public class MyProgram extends JFrame {
 
             public void updateTable() {
                 String searchText = searchField.getText();
-                String[][] filteredData = myProgramUtility.filterMaleOnly(searchText);
+                String[][] filteredData = myProgramUtility.filterDefaultList(searchText);
                 updateTableData(table, filteredData);
             }
         });
 
-        //Panes
+        // Define a custom header renderer that sets the background color of the column names
+        header = table.getTableHeader();
+        ((JTableHeader) header).setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+                c.setBackground(navy);
+                c.setForeground(purple); // set the text color of the column names to purple
+                c.setFont(new Font("Helvetica", Font.BOLD, 15));
+                return c;
+            }
+        });
+
+        // Define a custom cell renderer that sets the background color of the cells in the second column
+        renderer = new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+
+                switch (column) {
+                    case 0:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 1:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 2:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 3:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 4:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 5:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 6:
+                        c.setBackground(lightBlue);
+                        break;
+                    default:
+                        c.setBackground(table.getBackground()); // use the default background color for other columns
+                        break;
+                }
+
+                return c;
+            }
+        };
+
+        // Set the custom cell renderer to all columns of the table
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
+        }
+
+        // Set the preferred width of each column
+        table.getColumnModel().getColumn(0).setPreferredWidth(90);
+        table.getColumnModel().getColumn(1).setPreferredWidth(250);
+        table.getColumnModel().getColumn(2).setPreferredWidth(150);
+        table.getColumnModel().getColumn(3).setPreferredWidth(3);
+        table.getColumnModel().getColumn(4).setPreferredWidth(3);
+        table.getColumnModel().getColumn(5).setPreferredWidth(3);
+        table.getColumnModel().getColumn(6).setPreferredWidth(3);
+
+        //Panels
         scrollPane = new JScrollPane(table);
-        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
-        buttonPanel.setBounds(20,205,300,50);
-        buttonPanel.add(buttonBackMorF).setFocusable(false);
-        buttonPanel.setBackground(new Color(248,248,255));
 
-        //add action listeners to buttons
-        buttonBackMorF.addActionListener(buttonAction);
+        searchPanel = new JPanel();
+        searchPanel.add(searchLabel);
+        searchPanel.add(searchField);
+        searchPanel.setBackground(peach);
+        searchPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
 
-        //frame
-        frameMorF.setLayout(new FlowLayout());
-        frameMorF.setIconImage(icon.getImage());
-        frameMorF.getContentPane().setBackground(new Color(248,248,255));
-        frameMorF.setTitle("Citizen App");
-        frameMorF.add(searchField);
-        frameMorF.add(scrollPane);
-        frameMorF.add(buttonPanel);
+        tablePanel = new JPanel();
+        tablePanel.add(searchPanel);
+        tablePanel.add(scrollPane);
+        tablePanel.setBackground(peach);
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 10, 0));
+
+        buttonPanel = new JPanel();
+        buttonPanel.setBackground(navy);
+        buttonPanel.add(buttonBackMorF);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0));
+
+        //frame properties
+        showMaleDialog.setTitle("Citizen Application");
+        showMaleDialog.add(headerLabel, BorderLayout.NORTH);
+        showMaleDialog.add(tablePanel, BorderLayout.CENTER);
+        showMaleDialog.add(buttonPanel, BorderLayout.SOUTH);
+        showMaleDialog.setIconImage(icon.getImage());
 
         //frame operations
-        frameMorF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frameMorF.setSize(1100,675);
-        frameMorF.setResizable(false);
-        frameMorF.setLocationRelativeTo(null);
-        frameMorF.setVisible(true);
+        showMaleDialog.setSize(1280, 700);
+        showMaleDialog.setLocationRelativeTo(null);
+        showMaleDialog.setResizable(false);
+        showMaleDialog.setVisible(true);
+        showMaleDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     } // end of showMalesOnly method
 
-
+    /**
+     * Method that updates the data in a given JTable with
+     * the provided two-dimensional array of data. <br>
+     *
+     * @param table The JTable to update
+     * @param data  The two-dimensional array of data to populate the table with
+     */
+    /*
+        Algorithm:
+        1. Obtain the DefaultTableModel associated with the JTable.
+        2. Set the row count of the table model to zero, effectively clearing the table.
+        3. Iterate through each row in the data array.
+           - Add the current row to the table model, appending it to the existing data.
+        4. After iterating through all rows, the table will be updated with the new data.
+     */
     private void updateTableData(JTable table, String[][] data) {
         DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
         tableModel.setRowCount(0); // clear the table
@@ -635,72 +1180,176 @@ public class MyProgram extends JFrame {
         for (String[] row : data) {
             tableModel.addRow(row); // add rows to the table
         }
-    }
+    } // end of updateTableData method
 
     /**
-     This method retrieves the female citizens list from the MyProgramUtility and displays the information in a JTable.
-     It also sets up the graphical user interface for the table display.
+     * Method that  retrieves the female citizens list from the MyProgramUtility
+     * and displays the information in a JTable. It also sets up the graphical
+     * user interface for the table display.
      */
     public void showFemalesOnly(){
-    //retrieve the female citizens list from the MyProgramUtility
-        String[][] data = myProgramUtility.listFemaleOnly();
-
-    //column names for the table
+        String[][] data = myProgramUtility.listFemaleOnly(); //calls method listMaleOnly() from MyProgramUtility
         String[] column = {"Full Name", "Email", "Address", "Age", "Resident", "District", "Gender"};
 
-    //create a JTable with the data and column names
-        table = new JTable(data, column){
+        //table model
+        DefaultTableModel tableModel = new DefaultTableModel(data, column){
             //makes cells from table non-editable
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-    //set up the display for the JTable
-        table.setPreferredScrollableViewportSize(new Dimension(1000,550));
-        table.setFillsViewportHeight(true);
-        table.getTableHeader().setReorderingAllowed(false);
 
-        //set up the panes for the JTable
-        scrollPane = new JScrollPane(table);
-        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
-        buttonPanel.setBounds(20,205,300,50);
-        buttonPanel.add(buttonBackMorF).setFocusable(false);
-        buttonPanel.setBackground(new Color(248,248,255));
+        headerLabel = new JLabel("Female Citizen List", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
+        headerLabel.setOpaque(true);
+        headerLabel.setBackground(navy);
+        headerLabel.setForeground(pink);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        //add action listeners to buttons
+        buttonDesign(buttonBackMorF);
         buttonBackMorF.addActionListener(buttonAction);
 
-        //frame
-        frameMorF.setLayout(new FlowLayout());
-        frameMorF.setIconImage(icon.getImage());
-        frameMorF.getContentPane().setBackground(new Color(248,248,255));
-        frameMorF.setTitle("Citizen App");
-        frameMorF.add(scrollPane);
-        frameMorF.add(buttonPanel);
+        //table
+        table = new JTable(tableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(1200, 470));
+
+        //Search
+        searchLabel = new JLabel("Search: ");
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                updateTable();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                updateTable();
+            }
+            public void insertUpdate(DocumentEvent e) {
+                updateTable();
+            }
+
+            public void updateTable() {
+                String searchText = searchField.getText();
+                String[][] filteredData = myProgramUtility.filterDefaultList(searchText);
+                updateTableData(table, filteredData);
+            }
+        });
+
+        // Define a custom header renderer that sets the background color of the column names
+        header = table.getTableHeader();
+        ((JTableHeader) header).setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+                c.setBackground(navy);
+                c.setForeground(purple); // set the text color of the column names to purple
+                c.setFont(new Font("Helvetica", Font.BOLD, 15));
+                return c;
+            }
+        });
+
+        // Define a custom cell renderer that sets the background color of the cells in the second column
+        renderer = new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+
+                switch (column) {
+                    case 0:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 1:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 2:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 3:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 4:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 5:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 6:
+                        c.setBackground(lightBlue);
+                        break;
+                    default:
+                        c.setBackground(table.getBackground()); // use the default background color for other columns
+                        break;
+                }
+
+                return c;
+            }
+        };
+
+        // Set the custom cell renderer to all columns of the table
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
+        }
+
+        // Set the preferred width of each column
+        table.getColumnModel().getColumn(0).setPreferredWidth(90);
+        table.getColumnModel().getColumn(1).setPreferredWidth(250);
+        table.getColumnModel().getColumn(2).setPreferredWidth(150);
+        table.getColumnModel().getColumn(3).setPreferredWidth(3);
+        table.getColumnModel().getColumn(4).setPreferredWidth(3);
+        table.getColumnModel().getColumn(5).setPreferredWidth(3);
+        table.getColumnModel().getColumn(6).setPreferredWidth(3);
+
+        //Panels
+        scrollPane = new JScrollPane(table);
+
+        searchPanel = new JPanel();
+        searchPanel.add(searchLabel);
+        searchPanel.add(searchField);
+        searchPanel.setBackground(peach);
+        searchPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
+
+        tablePanel = new JPanel();
+        tablePanel.add(searchPanel);
+        tablePanel.add(scrollPane);
+        tablePanel.setBackground(peach);
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 10, 0));
+
+        buttonPanel = new JPanel();
+        buttonPanel.setBackground(navy);
+        buttonPanel.add(buttonBackMorF);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0));
+
+        //frame properties
+        showFemaleDialog.setTitle("Citizen Application");
+        showFemaleDialog.add(headerLabel, BorderLayout.NORTH);
+        showFemaleDialog.add(tablePanel, BorderLayout.CENTER);
+        showFemaleDialog.add(buttonPanel, BorderLayout.SOUTH);
+        showFemaleDialog.setIconImage(icon.getImage());
 
         //frame operations
-        frameMorF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frameMorF.setSize(1100,675);
-        frameMorF.setResizable(false);
-        frameMorF.setLocationRelativeTo(null);
-        frameMorF.setVisible(true);
+        showFemaleDialog.setSize(1280, 700);
+        showFemaleDialog.setLocationRelativeTo(null);
+        showFemaleDialog.setResizable(false);
+        showFemaleDialog.setVisible(true);
+        showFemaleDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     } // end of showFemalesOnly method
 
     /**
      * Method to let the user enter a name in a text field and find if person exists
      */
     /*
-    * Algorithm:
-    * 1. Gets the first name and last name of the person to search from the two text fields.
-    * 2. Allopws the user to search for a person in the list of citizens with matching first and last names.
-    *    a. If a matching person is found, display their details (name, email, address, age, residency,
-    *       district, gender) in the corresponding label fields.
-    *    b. If a matching person is not found, display an error message indicating that the person could not be found.
-    * 3. A back button is created to allow the user to return to the main menu.*/
+     * Algorithm:
+     * 1. Gets the first name and last name of the person to search from the two text fields.
+     * 2. Allows the user to search for a person in the list of citizens with matching first and last names.
+     *    a. If a matching person is found, display their details (name, email, address, age, residency,
+     *       district, gender) in the corresponding label fields.
+     *    b. If a matching person is not found, display an error message indicating that the person could not be found.
+     * 3. A back button is created to allow the user to return to the main menu.*/
     public void findPerson(){
         //labels
-        title = new JLabel("Enter the person's name", SwingConstants.CENTER);
+        title = new JLabel("Find Person", SwingConstants.CENTER);
         title.setFont(new Font("Helvetica", Font.BOLD, 20));
         title.setOpaque(true);
         title.setBackground(navy);
@@ -717,7 +1366,6 @@ public class MyProgram extends JFrame {
         findFirstName = new JLabel(" Enter first name: ");
         findLastName = new JLabel(" Enter last name: ");
 
-
         //Panel for labels
         panel = new JPanel(new GridLayout(7,0));
         panel.setBorder(BorderFactory.createEmptyBorder(10,10,10,0));
@@ -733,8 +1381,7 @@ public class MyProgram extends JFrame {
         textField.setSize(10,10);
         textField2.setSize(10,10);
 
-
-        panel2 = new JPanel(new GridLayout(2,2));
+        panel2 = new JPanel(new GridLayout(2,2, 5, 5));
         panel2.setBorder(BorderFactory.createEmptyBorder(10,10,15,10));
         panel2.setBackground(peach);
         panel2.add(findFirstName);
@@ -746,12 +1393,13 @@ public class MyProgram extends JFrame {
         infoPanel.setBackground(lightBlue);
         infoPanel.add(panel);
         infoPanel.add(panel2, BorderLayout.SOUTH);
+
         //add action listeners to buttons
         buttonDesign(buttonBack);
         buttonDesign(buttonFind);
+
         buttonBack.addActionListener(buttonAction);
         buttonFind.addActionListener(buttonAction);
-
 
         //Panel for buttons
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
@@ -760,26 +1408,25 @@ public class MyProgram extends JFrame {
         buttonPanel.add(buttonBack);
 
         //frame
-        frame2.setTitle("Citizen App");
-        frame2.setLayout(new BorderLayout());
-        frame2.setIconImage(icon.getImage());
-        frame2.add(title, BorderLayout.NORTH);
-        frame2.add(infoPanel, BorderLayout.CENTER);
-        frame2.add(buttonPanel, BorderLayout.SOUTH);
+        findPersonDialog.setTitle("Citizen Application");
+        findPersonDialog.setLayout(new BorderLayout());
+        findPersonDialog.setIconImage(icon.getImage());
+        findPersonDialog.add(title, BorderLayout.NORTH);
+        findPersonDialog.add(infoPanel, BorderLayout.CENTER);
+        findPersonDialog.add(buttonPanel, BorderLayout.SOUTH);
 
         //frame operations
-
-        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame2.setSize(360,400);
-        frame2.setResizable(false);
-        frame2.setLocationRelativeTo(null);
-        frame2.setVisible(true);
+        findPersonDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        findPersonDialog.setSize(360,400);
+        findPersonDialog.setResizable(false);
+        findPersonDialog.setLocationRelativeTo(null);
+        findPersonDialog.setVisible(true);
     } // end of findPerson method
 
     /**
      * Method to open up a text field for user to enter the age
      */
-    //TODO: Julienne - Add askAge method algorithm
+    //TODO: Julienne - update algo
     public void askAge(){
         //labels
         title = new JLabel("Enter the age", SwingConstants.CENTER);
@@ -798,66 +1445,177 @@ public class MyProgram extends JFrame {
         buttonBack.addActionListener(buttonAction);
 
         //frame
-        chooseFrame.setIconImage(icon.getImage());
-        chooseFrame.getContentPane().setBackground(new Color(248,248,255));
-        chooseFrame.add(title);
-        chooseFrame.add(buttonAndField);
+        askAgeDialog.setIconImage(icon.getImage());
+        askAgeDialog.getContentPane().setBackground(new Color(248,248,255));
+        askAgeDialog.add(title);
+        askAgeDialog.add(buttonAndField);
 
         //frame operations
-        chooseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        chooseFrame.setLayout(null);
-        chooseFrame.setSize(360,200);
-        chooseFrame.setResizable(false);
-        chooseFrame.setLocationRelativeTo(null);
-        chooseFrame.setVisible(true);
+        askAgeDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        askAgeDialog.setLayout(null);
+        askAgeDialog.setSize(360,300);
+        askAgeDialog.setResizable(false);
+        askAgeDialog.setLocationRelativeTo(null);
+        askAgeDialog.setVisible(true);
     } // end of askAge method
 
     /**
      * Method to display the people with the entered age from askAge method
      */
-    //TODO: Julienne - Add showAgeGroup method algorithm
+    //TODO: Julienne - update algo
     public void showAgeGroup(){
-        String[][] data = myProgramUtility.listWithAgeGroup(ageGroup); //calls method defaultList() from MyProgramUtility
+        String[][] data = myProgramUtility.listWithAgeGroup(ageGroup); //calls method listWithAgeGroup() from MyProgramUtility
         String[] column = {"Full Name", "Email", "Address", "Age", "Resident", "District", "Gender"};
 
-        //table
-        table = new JTable(data, column){
+        //table model
+        DefaultTableModel tableModel = new DefaultTableModel(data, column){
             //makes cells from table non-editable
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        table.setPreferredScrollableViewportSize(new Dimension(1000,550));
-        table.setFillsViewportHeight(true);
-        table.getTableHeader().setReorderingAllowed(false);
 
-        //Panes
-        scrollPane = new JScrollPane(table);
-        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
-        buttonPanel.setBounds(20,205,300,50);
-        buttonPanel.setBackground(new Color(248,248,255));
-        buttonPanel.add(buttonBackAge).setFocusable(false);
+        headerLabel = new JLabel("Citizen Age Group List", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 25));
+        headerLabel.setOpaque(true);
+        headerLabel.setBackground(navy);
+        headerLabel.setForeground(pink);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        //add action listeners to buttons
+        buttonDesign(buttonBackAge);
         buttonBackAge.addActionListener(buttonAction);
 
-        //frame
-        frame2.setLayout(new FlowLayout());
-        frame2.setIconImage(icon.getImage());
-        frame2.setTitle("Citizen App");
-        frame2.getContentPane().setBackground(new Color(248,248,255));
-        frame2.add(scrollPane);
-        frame2.add(buttonPanel);
+        //table
+        table = new JTable(tableModel);
+        table.setPreferredScrollableViewportSize(new Dimension(1200, 470));
+
+        //Search
+        searchLabel = new JLabel("Search: ");
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                updateTable();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                updateTable();
+            }
+            public void insertUpdate(DocumentEvent e) {
+                updateTable();
+            }
+
+            public void updateTable() {
+                String searchText = searchField.getText();
+                String[][] filteredData = myProgramUtility.filterDefaultList(searchText);
+                updateTableData(table, filteredData);
+            }
+        });
+
+        // Define a custom header renderer that sets the background color of the column names
+        header = table.getTableHeader();
+        ((JTableHeader) header).setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+                c.setBackground(navy);
+                c.setForeground(purple); // set the text color of the column names to purple
+                c.setFont(new Font("Helvetica", Font.BOLD, 15));
+                return c;
+            }
+        });
+
+        // Define a custom cell renderer that sets the background color of the cells in the second column
+        renderer = new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value,
+                        isSelected, hasFocus, row, column);
+
+                switch (column) {
+                    case 0:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 1:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 2:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 3:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 4:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 5:
+                        c.setBackground(lightBlue);
+                        break;
+                    case 6:
+                        c.setBackground(lightBlue);
+                        break;
+                    default:
+                        c.setBackground(table.getBackground()); // use the default background color for other columns
+                        break;
+                }
+
+                return c;
+            }
+        };
+
+        // Set the custom cell renderer to all columns of the table
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
+        }
+
+        // Set the preferred width of each column
+        table.getColumnModel().getColumn(0).setPreferredWidth(90);
+        table.getColumnModel().getColumn(1).setPreferredWidth(250);
+        table.getColumnModel().getColumn(2).setPreferredWidth(150);
+        table.getColumnModel().getColumn(3).setPreferredWidth(3);
+        table.getColumnModel().getColumn(4).setPreferredWidth(3);
+        table.getColumnModel().getColumn(5).setPreferredWidth(3);
+        table.getColumnModel().getColumn(6).setPreferredWidth(3);
+
+        //Panels
+        scrollPane = new JScrollPane(table);
+
+        searchPanel = new JPanel();
+        searchPanel.add(searchLabel);
+        searchPanel.add(searchField);
+        searchPanel.setBackground(peach);
+        searchPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
+
+        tablePanel = new JPanel();
+        tablePanel.add(searchPanel);
+        tablePanel.add(scrollPane);
+        tablePanel.setBackground(peach);
+        tablePanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 10, 0));
+
+        buttonPanel = new JPanel();
+        buttonPanel.setBackground(navy);
+        buttonPanel.add(buttonBackAge);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0));
+
+        //frame properties
+        showAgeGroupDialog.setTitle("Citizen Application");
+        showAgeGroupDialog.add(headerLabel, BorderLayout.NORTH);
+        showAgeGroupDialog.add(tablePanel, BorderLayout.CENTER);
+        showAgeGroupDialog.add(buttonPanel, BorderLayout.SOUTH);
+        showAgeGroupDialog.setIconImage(icon.getImage());
 
         //frame operations
-        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame2.setSize(1100,675);
-        frame2.setResizable(false);
-        frame2.setLocationRelativeTo(null);
-        frame2.setVisible(true);
+        showAgeGroupDialog.setSize(1280, 700);
+        showAgeGroupDialog.setLocationRelativeTo(null);
+        showAgeGroupDialog.setResizable(false);
+        showAgeGroupDialog.setVisible(true);
+        showAgeGroupDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     } // end of showAgeGroup method
-    //TODO Nash - Add javadoc and algorithm multiline comment
+
+    /**
+     * Method to display the population per district in a table format.
+     */
+    //TODO: Nash - update algo
     public void showPopulationByDistrict() {
         Map<Integer, Long> populationByDistrict = myProgramUtility.countPopulationByDistrict();
         String[] column = {"District", "Population"};
@@ -869,13 +1627,18 @@ public class MyProgram extends JFrame {
             data[index][1] = String.valueOf(entry.getValue());
             index++;
         }
+
         //labels
         title = new JLabel("Population Per District", SwingConstants.CENTER);
-        title.setFont(new Font("Helvetica", Font.BOLD, 20));
+        title.setFont(new Font("Helvetica", Font.BOLD, 25));
         title.setOpaque(true);
         title.setBackground(navy);
         title.setForeground(pink);
         title.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        buttonDesign(buttonBackPopulation);
+        buttonBackPopulation.addActionListener(buttonAction);
+
         //table
         table = new JTable(data, column){
             @Override
@@ -886,9 +1649,6 @@ public class MyProgram extends JFrame {
         table.setPreferredScrollableViewportSize(new Dimension(500, 300));
         table.setFillsViewportHeight(true);
         table.getTableHeader().setReorderingAllowed(false);
-
-
-
 
         // Define a custom header renderer that sets the background color of the column names
         JTableHeader header = table.getTableHeader();
@@ -948,41 +1708,115 @@ public class MyProgram extends JFrame {
             table.getColumnModel().getColumn(i).setCellRenderer(renderer);
         }
 
-
         //Panes/Panels
         scrollPane = new JScrollPane(table);
-
 
         JPanel tablePanel = new JPanel();
         tablePanel.add(scrollPane);
         tablePanel.setBackground(peach);
         tablePanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,15));
 
-
-        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));
+        buttonPanel = new JPanel();
         buttonPanel.setBackground(navy);
-        buttonDesign(buttonBackPopulation);
         buttonPanel.add(buttonBackPopulation);
-
-        //add action listeners to buttons
-        buttonBackPopulation.addActionListener(buttonAction);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0));
 
         //frame
-        frame3.setLayout(new BorderLayout());
-        frame3.setIconImage(icon.getImage());
-        frame3.setTitle("Population by District");
-        frame3.getContentPane();
-        frame3.add(title, BorderLayout.NORTH);
-        frame3.add(tablePanel, BorderLayout.CENTER);
-        frame3.add(buttonPanel, BorderLayout.SOUTH);
+        popuByDistrictDialog.setLayout(new BorderLayout());
+        popuByDistrictDialog.setIconImage(icon.getImage());
+        popuByDistrictDialog.setTitle("Citizen Application");
+        popuByDistrictDialog.getContentPane();
+        popuByDistrictDialog.add(title, BorderLayout.NORTH);
+        popuByDistrictDialog.add(tablePanel, BorderLayout.CENTER);
+        popuByDistrictDialog.add(buttonPanel, BorderLayout.SOUTH);
 
         //frame operations
-        frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame3.setSize(650, 550);
-        frame3.setLocationRelativeTo(null);
-        frame3.setVisible(true);
+        popuByDistrictDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        popuByDistrictDialog.setSize(650, 520);
+        popuByDistrictDialog.setLocationRelativeTo(null);
+        popuByDistrictDialog.setVisible(true);
     } // end of showPopulationByDistrict method
+
+    //TODO: Javadoc and multi-line comment
+    public void numOfSeniors(){
+        //label
+        title = new JLabel("Number of Seniors", SwingConstants.CENTER);
+        title.setFont(new Font("Helvetica", Font.BOLD, 25));
+        title.setOpaque(true);
+        title.setBackground(navy);
+        title.setForeground(pink);
+        title.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JLabel seniors = new JLabel("Seniors:  ", SwingConstants.LEFT);
+        seniors.setFont(new Font("Century Gothic", Font.BOLD, 20));
+        seniors.setOpaque(true);
+        seniors.setBackground(lightBlue);
+        seniors.setForeground(darkPurple);
+        seniors.setBorder(BorderFactory.createEmptyBorder(5, 100, 5, 0));
+
+        JLabel numOfSeniors = new JLabel(String.valueOf(myProgramUtility.numberOfSenior()), SwingConstants.LEFT);
+        numOfSeniors.setFont(new Font("Century Gothic", Font.BOLD, 20));
+        numOfSeniors.setOpaque(true);
+        numOfSeniors.setBackground(lightBlue);
+        numOfSeniors.setForeground(peach);
+        numOfSeniors.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 0));
+
+        //add action listeners to buttons
+        buttonDesign(buttonBack);
+        buttonBack.addActionListener(buttonAction);
+
+        //Panel for buttons
+        buttonPanel = new JPanel();
+        buttonPanel.setBackground(navy);
+        buttonPanel.add(buttonBack);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0));
+
+        //Panel for labels
+        panel = new JPanel(new GridLayout(1,2));
+        panel.add(seniors);
+        panel.add(numOfSeniors);
+
+        //dialog
+        numOfSenDialog.setTitle("Citizen Application");
+        numOfSenDialog.setIconImage(icon.getImage());
+        numOfSenDialog.getContentPane().setBackground(lightBlue);
+        numOfSenDialog.add(title, BorderLayout.NORTH);
+        numOfSenDialog.add(panel, BorderLayout.CENTER);
+        numOfSenDialog.add(buttonPanel, BorderLayout.SOUTH);
+
+        //dialog operations
+        numOfSenDialog.setSize(450, 250);
+        numOfSenDialog.setLocationRelativeTo(null);
+        numOfSenDialog.setResizable(false);
+        numOfSenDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        numOfSenDialog.setVisible(true);
+    } // end of numOfSeniors method
+
+    /**
+     * Method which takes a JButton object as a parameter and sets its properties such
+     * as font, border, and background color. It also adds event listeners for mouse
+     * enter and exit events to change the appearance of the button when the mouse hovers over it. <br>
+     *
+     * @param button the button to be designed
+     */
+    /*
+        Algorithm:
+        1. Set the font of the button to "Helvetica", bold, and size 13.
+        2. Disable focus painting on the button to prevent an outline from appearing when the button is clicked.
+        3. Create a compound border with a line border of color navy, thickness 3, and no roundness,
+           and an empty border with 8 pixels of padding on the top, bottom, left, and right sides.
+        4. Set the background color of the button to pink and the foreground color to navy.
+        5. Add a mouse listener to the button with two methods: mouseEntered and mouseExited.
+        6. In the mouseEntered method, set the cursor to a hand cursor, change the border to a
+           compound border with a line border of color pink, thickness 3, and no roundness, and an
+           empty border with 8 pixels of padding on the top, bottom, left, and right sides. Set the
+           background color to navy and the foreground color to pink.
+        7. In the mouseExited method, change the border back to the original compound border with a
+           line border of color navy, thickness 3, and no roundness, and an empty border with 8 pixels
+           of padding on the top, bottom, left, and right sides. Set the background color back to pink
+           and the foreground color back to navy.
+        8. End of the buttonDesign method.
+     */
     private void buttonDesign(JButton button) {
         button.setFont(new Font("Helvetica", Font.BOLD, 13));
         button.setFocusPainted(false);
@@ -1028,6 +1862,42 @@ public class MyProgram extends JFrame {
             } // end of mouseExited method
         });
     } // end of buttonDesign method
+
+    /**
+     * Method to create a JDialog window with a title "Citizen App" and
+     * a message "PERSON NOT FOUND!" in the center of the window.
+     */
+    /*
+     * Algorithm:
+     * 1. Create a JDialog with a title "Citizen App" and set it to modal.
+     * 2. Create a JLabel with the text "PERSON NOT FOUND!" and center alignment,
+     *    and set its font to bold, size 20, and color to pink.
+     * 3. Create a JPanel with BorderLayout and set its background color to navy.
+     * 4. Add the JLabel to the center of the JPanel.
+     * 5. Add the JPanel to the content pane of the JDialog.
+     * 6. Set the icon image, size, location, visibility, and default close operation of the JDialog.
+     */
+    private void showPersonNotFound() {
+        JDialog exitDialog = new JDialog();
+        exitDialog.setTitle("Citizen App");
+        exitDialog.setModal(true);
+
+        JLabel exitL = new JLabel("PERSON NOT FOUND!", SwingConstants.CENTER);
+        exitL.setFont(new Font("Helvetica", Font.BOLD, 20));
+        exitL.setForeground(darkPurple);
+
+        JPanel exitPanel = new JPanel(new BorderLayout()); // use BorderLayout for exitPanel
+        exitPanel.setBackground(peach);
+        exitPanel.add(exitL, BorderLayout.CENTER); // add exitL to the center of exitPanel
+
+        exitDialog.getContentPane().add(exitPanel); // add exitPanel to the content pane of exitDialog
+        exitDialog.setIconImage(icon.getImage());
+        exitDialog.setSize(400, 120);
+        exitDialog.setLocationRelativeTo(null);
+        exitDialog.setVisible(true);
+        exitDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    } // end of showPersonNotFound method
+
     /**
      * Method to display the program closing statement.
      */
@@ -1038,17 +1908,18 @@ public class MyProgram extends JFrame {
        3. Terminate the program.
      */
     private void showExit() {
-        JDialog exitDialog = new JDialog();
-        exitDialog.setTitle("Citizen App");
+        exitDialog = new JDialog();
+        exitDialog.setTitle("Citizen Application");
         exitDialog.setModal(true);
 
-        JLabel exitL = new JLabel("Thank you for using the program!", SwingConstants.CENTER);
-        exitL.setFont(new Font("Helvetica", Font.BOLD, 20));
-        exitL.setForeground(pink);
+        exitLabel = new JLabel("Thank you for using the program!", SwingConstants.CENTER);
+        exitLabel.setFont(new Font("Helvetica", Font.BOLD, 20));
+        exitLabel.setForeground(pink);
 
-        JPanel exitPanel = new JPanel(new BorderLayout()); // use BorderLayout for exitPanel
+        // use BorderLayout for exitPanel
+        exitPanel = new JPanel(new BorderLayout());
         exitPanel.setBackground(navy);
-        exitPanel.add(exitL, BorderLayout.CENTER); // add exitL to the center of exitPanel
+        exitPanel.add(exitLabel, BorderLayout.CENTER); // add exitLabel to the center of exitPanel
 
         exitDialog.getContentPane().add(exitPanel); // add exitPanel to the content pane of exitDialog
         exitDialog.setIconImage(icon.getImage());
@@ -1057,106 +1928,157 @@ public class MyProgram extends JFrame {
         exitDialog.setVisible(true);
         exitDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     } // end of showExit method
+
     /**
-     * This method creates a JDialog window with a title "Citizen App" and a message "PERSON NOT FOUND!" in the
-     * center of the window.
-     * */
+     * Method to display an introduction window that shows
+     * information about the purpose of the program.
+     */
     /*
-    * Algorithm:
-    * 1. Create a JDialog with a title "Citizen App" and set it to modal.
-    * 2. Create a JLabel with the text "PERSON NOT FOUND!" and center alignment, and set its font to bold, size 20, and color to pink.
-    * 3. Create a JPanel with BorderLayout and set its background color to navy.
-    * 4. Add the JLabel to the center of the JPanel.
-    * 5. Add the JPanel to the content pane of the JDialog.
-    * 6. Set the icon image, size, location, visibility, and default close operation of the JDialog..
-    */
-    private void showPersonNotFound() {
-        JDialog exitDialog = new JDialog();
-        exitDialog.setTitle("Citizen App");
-        exitDialog.setModal(true);
+       Algorithm:
+       1. Display an introduction statement of the program in a new window.
+       2. Dispose the dialog box once the "Next" button is clicked or when closed by the user
+     */
+    public void showIntroduction() {
+        introDialog = new JDialog();
+        introDialog.setTitle("Citizen Application");
+        introDialog.setModal(true);
 
-        JLabel exitL = new JLabel("PERSON NOT FOUND!", SwingConstants.CENTER);
-        exitL.setFont(new Font("Helvetica", Font.BOLD, 20));
-        exitL.setForeground(pink);
+        headerLabel = new JLabel("Citizen Application", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Helvetica", Font.BOLD, 30));
+        headerLabel.setOpaque(true);
+        headerLabel.setBackground(navy);
+        headerLabel.setForeground(pink);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JPanel exitPanel = new JPanel(new BorderLayout()); // use BorderLayout for exitPanel
-        exitPanel.setBackground(navy);
-        exitPanel.add(exitL, BorderLayout.CENTER); // add exitL to the center of exitPanel
+        greetLabel = new JLabel("WELCOME!", SwingConstants.CENTER);
+        greetLabel.setFont(new Font("Helvetica", Font.BOLD, 30));
+        greetLabel.setForeground(darkPurple);
+        greetLabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 20));
 
-        exitDialog.getContentPane().add(exitPanel); // add exitPanel to the content pane of exitDialog
-        exitDialog.setIconImage(icon.getImage());
-        exitDialog.setSize(400, 120);
-        exitDialog.setLocationRelativeTo(null);
-        exitDialog.setVisible(true);
-        exitDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-    } // end of showExit method
+        descriptionLabel = new JLabel("<html><div style='text-align: justify;'>" +
+                "The application is designed to monitor and manage data related " +
+                "to citizens. It provides a platform to retrieve information " +
+                "about individuals, such as their full name, email, address, age, " +
+                "resident status, district, and gender. Please proceed to the next window for the Main Menu.</html>",
+                SwingConstants.CENTER);
+        descriptionLabel.setFont(new Font("Helvetica", Font.BOLD, 18));
+        descriptionLabel.setForeground(Color.darkGray);
+        descriptionLabel.setBorder(BorderFactory.createEmptyBorder(8, 20, 20, 20));
 
-    //TODO: Lourdene - Add run method description (javadoc comment) and algorithm (multi-line comment)
-    //TODO: Lourdene - Make sure an introduction and exit method is included here
-    public static void run(){
-        MyProgram program = new MyProgram();
+        buttonDesign(nextButton);
+        nextButton.addActionListener(buttonAction);
+
+        introPanel = new JPanel(new BorderLayout());
+        descriptionPanel = new JPanel(new BorderLayout());
+        descriptionPanel.setBackground(lightBlue);
+        descriptionPanel.add(greetLabel);
+        descriptionPanel.add(descriptionLabel, BorderLayout.SOUTH);
+        descriptionPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
+        buttonPanel.setBackground(navy);
+        buttonPanel.add(nextButton);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0));
+
+        introPanel.add(headerLabel, BorderLayout.NORTH);
+        introPanel.add(descriptionPanel, BorderLayout.CENTER);
+        introPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        introDialog.getContentPane().add(introPanel);
+        introDialog.setIconImage(icon.getImage());
+        introDialog.setSize(657, 378);
+        introDialog.setLocationRelativeTo(null);
+        introDialog.setVisible(true);
+        introDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+    } // end of showIntroduction method
+
+    /**
+     * Method to run the application program.
+     */
+    /*
+        Algorithm:
+        1. Show the introduction of the application.
+        2. Display the main menu for managing and monitoring citizen data.
+        3. Allow the user to interact with various features such as viewing lists, sorting
+           data, counting population, finding individuals, and analyzing demographics.
+        4. Continue application execution until the user exits or performs other actions.
+        5. Ensure responsiveness and navigation through menus for efficient data management.
+        6. Terminate program execution when the user exits or completes tasks.
+     */
+    public void run() {
+        showIntroduction();
+        mainMenu();
     } // end of run method
 
     /**
      * Main method for running the main functionality of the application program.
      *
-     * @param args
+     * @param args String array of arguments
      */
     /*
         Algorithm:
-        1. Invoke the "run" method.
+        1. Declare a new object of CurriculumMonitoringApplication
+        2. Invoke the "run" method.
     */
-    public static void main(String[] args) {
-        run();
+    public static void main(String[] args) throws IOException {
+        MyProgram program;
+        try {
+            program = new MyProgram();
+            program.run();
+        }catch (ArithmeticException exx){
+            System.out.println(exx.getMessage());
+        }
     } // end of main method
 
-    //TODO: Lourdene - Add ButtonAction class description and algorithm
     //---Action Listener class for buttons---
+    /**
+     * The ButtonAction Class is a ActionListener implementation for handling button actions in the GUI.
+     * Handles button clicks and performs corresponding actions, such as opening different GUI screens,
+     * finding a person, displaying filtered lists, and showing population statistics.
+     * Manages navigation and frame closure.
+     */
     public class ButtonAction implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-        //------buttonOne--------
+            //------buttonOne--------
             if(e.getSource() == buttonOne){
                 showDefaultList(); //opens showDefaultList GUI
-                dispose(); //closes the main menu
-        //------buttonTwo--------
+                //------buttonTwo--------
             }else if(e.getSource() == buttonTwo){
                 showSortedList(); //opens showSortedList GUI
-                dispose(); //closes the main menu
-        //------buttonThree--------
+                //------buttonThree--------
             }else if(e.getSource() == buttonThree){
                 numOfMaleAndFemale(); //opens numOfMaleAndFemale GUI
-                dispose(); //closes the main menu
-        //------buttonFour--------
+                //------buttonFour--------
             }else if(e.getSource() == buttonFour){
                 selectMaleOrFemale(); //opens selectMaleOrFemale GUI
-                dispose();//closes the main menu
-        //------buttonFive--------
+                //------buttonFive--------
             }else if(e.getSource() == buttonFive){
                 findPerson(); //opens findPerson GUI
-                dispose();//closes the main menu
-        //------buttonSix--------
+                //------buttonSix--------
             }else if(e.getSource() == buttonSix){
                 askAge(); //opens askAge GUI
-                dispose();//closes the main menu
-        //-----buttonSeven---------
+                //-----buttonSeven---------
             }else if(e.getSource() == buttonSeven){
                 showPopulationByDistrict(); //opens showPopulationByDistrict GUI
-                dispose();//closes the main menu
-            }
-        //TODO: Lourdene - add buttonEight function
-        //-----exitButton---------
-            else if(e.getSource() == exitButton){
+                //-----buttonEight---------
+            }else if(e.getSource() == buttonEight) {
+                numOfSeniors(); //opens numOfSeniors GUI
+                //-----exitButton---------
+            }else if(e.getSource() == exitButton) {
                 showExit();
                 System.exit(0);
-
-        //-----buttonBack----------
+            } else if(e.getSource() == nextButton){
+                introDialog.dispose();
+                //-----buttonBack----------
             }else if(e.getSource() == buttonBack){
-                frame2.dispose(); //closes the current frame
-                frameMorF.dispose();
-                chooseFrame.dispose();
-                new MyProgram(); //opens up the main menu again
-        //------buttonFind--------
+                defaultListDialog.dispose(); //closes the current frame
+                numOfMAndFDialog.dispose();
+                numOfSenDialog.dispose();
+                findPersonDialog.dispose();
+                askAgeDialog.dispose();
+                selectMOrFDialog.dispose();
+                //------buttonFind--------
             }else if(e.getSource() == buttonFind) {
                 firstName = textField.getText().trim().toLowerCase();
                 lastName = textField2.getText().trim().toLowerCase();
@@ -1185,23 +2107,21 @@ public class MyProgram extends JFrame {
                     showPersonNotFound();
                 }
 
-            //------buttonMale--------
-            }else if(e.getSource() == buttonMale){
+                //------buttonMale--------
+            } else if(e.getSource() == buttonMale){
                 showMalesOnly(); //opens showMalesOnly GUI
-                chooseFrame.dispose(); //closes the current frame
-                dispose(); //closes the main frame
-        //------buttonFemale--------
-            }else if(e.getSource() == buttonFemale){
+                selectMOrFDialog.dispose(); //closes the current frame
+                //------buttonFemale--------
+            } else if(e.getSource() == buttonFemale){
                 showFemalesOnly(); //opens showFemalesOnly GUI
-                chooseFrame.dispose(); //closes the current frame
-                dispose(); //closes the main frame
-        //------buttonOK--------
-            }else if(e.getSource() == buttonOK){
+                selectMOrFDialog.dispose(); //closes the current frame
+                //------buttonOK--------
+            } else if(e.getSource() == buttonOK){
                 boolean b = false; //boolean for if statements
                 //catches Number Format Exception
                 try {
                     ageGroup = Integer.parseInt(textField.getText());
-                }catch (NumberFormatException exception){
+                } catch (NumberFormatException exception){
                     b = true;
                 }
 
@@ -1209,12 +2129,9 @@ public class MyProgram extends JFrame {
                 if(table.length == 0){ //if table has no result, prompt an error
                     title.setText("No result found");
                     title.setForeground(Color.red);
-                }
-
-                else if(!b){ //displays the table if no error occurred
+                } else if(!b) { //displays the table if no error occurred
                     showAgeGroup();
-                    chooseFrame.dispose();
-                    dispose();
+                    selectMOrFDialog.dispose();
                 }
 
                 if (b){ //if NumberFormatException caught, prompt an error
@@ -1222,27 +2139,22 @@ public class MyProgram extends JFrame {
                     title.setForeground(Color.red);
                 }
 
-
-        //------buttonBackAge--------
+                //------buttonBackAge--------
             }else if(e.getSource() == buttonBackAge){
-                MyProgram p = new MyProgram(); //opens up main menu
-                frame2.dispose(); //closes the current frame
-                p.dispose(); //closes the main menu
-                p.askAge(); //opens askAge GUI
-        //------buttonBackMorF--------
+                showAgeGroupDialog.dispose(); //closes the current frame
+                askAge(); //opens askAge GUI
+                //------buttonBackMorF--------
             }else if(e.getSource() == buttonBackMorF){
-                MyProgram p = new MyProgram(); //opens up main menu
-                frameMorF.dispose(); //closes the current frame
-                p.dispose(); //closes the main menu
-                p.selectMaleOrFemale(); //opens selectMaleOrFemale GUI
-        //-----buttonBackPopulation
+                showMaleDialog.dispose(); //closes the current frame
+                showFemaleDialog.dispose();
+                selectMaleOrFemale(); //opens selectMaleOrFemale GUI
+                //-----buttonBackPopulation
             }else if(e.getSource() == buttonBackPopulation){
-                MyProgram p = new MyProgram();//opens up main menu
-                frame3.dispose(); //closes the current frame
+                popuByDistrictDialog.dispose(); //closes the current frame
+            } else if(e.getSource() == buttonBackSort) {
+                sortedListDialog.dispose(); //closes the current frame
             }
 
         } //end of actionPerformed method
     } //end of ButtonAction class
-
-
 }//end of MyProgram class
