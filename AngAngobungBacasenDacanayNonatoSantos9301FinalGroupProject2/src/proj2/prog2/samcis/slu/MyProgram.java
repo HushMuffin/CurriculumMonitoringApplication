@@ -49,6 +49,7 @@
 package proj2.prog2.samcis.slu;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -59,20 +60,11 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
-
-/*
-    Improvements:
-    //TODO: Marius - Improve the GUI design for option 4 and 6
-
-    Issues:
-    //TODO: Marius - Fix each option panels where the gui components are rearranging and disappearing
- */
-
 /**
  * The MyProgram Class is the main class that is responsible for managing the
  * citizen information and providing the user with options to interact with it.
  */
-public class MyProgram extends JFrame {
+public class MyProgram{
     //Declare the instance field for MyProgram
     /**
      * ImageIcon object representing the icon used in the program.
@@ -110,127 +102,118 @@ public class MyProgram extends JFrame {
     /**
      * List of Citizen objects representing the data loaded from a CSV file.
      */
-    private final ArrayList<Citizen> list = myProgramUtility.csvToList();
+    private ArrayList<Citizen> list = myProgramUtility.csvToList();
 
     //Declare the buttons for MyProgram
     /**
      * Button for showing the list of citizens.
      */
-    private final RoundButton buttonOne = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-            "1. Show the list of citizens");
+    private RoundButton buttonOne;
 
     /**
      * Button for showing the sorted list of names of the citizens.
      */
-    private final RoundButton buttonTwo = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-            "2. Show sorted list of names of the citizens");
+    private RoundButton buttonTwo;
 
     /**
      * Button for showing the number of male and female citizens.
      */
-    private final RoundButton buttonThree = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-            "3. Show number of male and female citizens");
+    private RoundButton buttonThree;
 
     /**
      * Button for showing the list of male or female citizens only.
      */
-    private final RoundButton buttonFour = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-            "4. Show list of male or female citizens only");
+    private RoundButton buttonFour;
 
     /**
      * Button for finding a person in the list.
      */
-    private final RoundButton buttonFive = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-            "5. Find a person in the list");
+    private RoundButton buttonFive;
 
     /**
      * Button for displaying citizens with a certain age group.
      */
-    private final RoundButton buttonSix = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-            "6. Display citizens with a certain age group");
+    private RoundButton buttonSix;
 
     /**
      * Button for displaying the population per district.
      */
-    private final RoundButton buttonSeven = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-            "7. Display population per district");
+    private RoundButton buttonSeven;
 
     /**
      * Button for showing the number of seniors.
      */
-    private final RoundButton buttonEight = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
-            "8. Show Number of Seniors");
+    private RoundButton buttonEight;
 
     /**
      * Button for exiting the program.
      */
-    private final RoundButton exitButton = new RoundButton("EXIT");
+    private RoundButton exitButton;
 
     /**
      * Holds a custom round button used for navigating to next windows.
      */
-    private final RoundButton nextButton = new RoundButton("NEXT");
+    private RoundButton nextButton;
 
     /**
      * Button for going back to the previous menu.
      */
-    private final RoundButton buttonBack = new RoundButton("Back");
+    private RoundButton buttonBack;
 
     /**
      * Button for going back to the previous population menu.
      */
-    private final RoundButton buttonBackPopulation = new RoundButton("Back");
+    private RoundButton buttonBackPopulation;
 
     /**
      * Button for going back to the previous window.
      */
-    private final RoundButton buttonBackSort = new RoundButton("Back");
+    private RoundButton buttonBackSort;
 
     /**
      * Button for going back to the previous male/female menu.
      */
-    private final RoundButton buttonBackMorF = new RoundButton("Back");
+    private RoundButton buttonBackMorF;
 
     /**
      * Button for going back to the previous age group menu.
      */
-    private final RoundButton buttonBackAge = new RoundButton("Back");
+    private RoundButton buttonBackAge;
 
     /**
      * Button for finding a person in the list.
      */
-    private final RoundButton buttonFind = new RoundButton("Find");
+    private RoundButton buttonFind;
 
     /**
      * Button for selecting male citizens.
      */
-    private final RoundButton buttonMale = new RoundButton("Male");
+    private RoundButton buttonMale;
 
     /**
      * Button for selecting female citizens.
      */
-    private final RoundButton buttonFemale = new RoundButton("Female");
+    private RoundButton buttonFemale;
 
     /**
      * Button for confirming an action or selection.
      */
-    private final RoundButton buttonOK = new RoundButton("Ok");
+    private RoundButton buttonOK;
 
     //Declare the text fields for MyProgram
     /**
      * Text field for input or display of text.
      */
-    private final JTextField textField = new JTextField(5);
-
+    private JTextField textField;
     /**
      * Second text field for input or display of text.
      */
-    private final JTextField textField2 = new JTextField(5);
+    private JTextField textField2;
 
     /**
      * Holds a text field for searching.
      */
-    private final JTextField searchField = new JTextField(20);
+    private JTextField searchField;
 
     //Declare the Panels
     /**
@@ -385,10 +368,10 @@ public class MyProgram extends JFrame {
     /**
      * Holds a dialog box used for displaying an introduction message.
      */
-    JDialog introDialog = new JDialog();
+    JDialog introDialog;
     JDialog defaultListDialog = new JDialog();
+    JDialog sortedListDialog =  new JDialog();
     JDialog popuByDistrictDialog = new JDialog();
-    JDialog sortedListDialog = new JDialog();
     JDialog numOfMAndFDialog = new JDialog();
     JDialog numOfSenDialog = new JDialog();
     JDialog findPersonDialog = new JDialog();
@@ -398,9 +381,6 @@ public class MyProgram extends JFrame {
     JDialog askAgeDialog = new JDialog();
     JDialog showAgeGroupDialog = new JDialog();
 
-    // Declare the frames for MyProgram
-    //TODO: Javadoc comment
-    JFrame mainMenu = new JFrame("Citizen Application");
 
     //Declare the Strings for MyProgram
     /**
@@ -434,12 +414,15 @@ public class MyProgram extends JFrame {
     static Color purple = new Color(205, 180, 219);
     static Color green = new Color(10,221,8);
 
+    JFrame mainMenuFrame;
+
     /**
      * Method for creating the main menu.
      *
      * @return null
      */
-    public MyProgram mainMenu() {
+    public void mainMenu() {
+        mainMenuFrame = new JFrame("MAIN MENU");
         //Labels
         JLabel titleLabel = new JLabel("MAIN MENU", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Helvetica", Font.BOLD, 30));
@@ -459,6 +442,26 @@ public class MyProgram extends JFrame {
         guideLabel.setForeground(Color.darkGray);
         guideLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        buttonOne = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+                "1. Show the list of citizens");
+
+
+        buttonTwo = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+                "2. Show sorted list of names of the citizens");
+        buttonThree = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+                "3. Show number of male and female citizens");
+        buttonFour = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+                "4. Show list of male or female citizens only");
+        buttonFive = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+                "5. Find a person in the list");
+        buttonSix = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+                "6. Display citizens with a certain age group");
+        buttonSeven = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+                "7. Display population per district");
+        buttonEight = new RoundButton("<html><div style='text-align: center; padding: 10px;'>" +
+                "8. Show Number of Seniors");
+
+        exitButton = new RoundButton("EXIT");
         //Implement button design to buttons
         buttonDesign(buttonOne);
         buttonDesign(buttonTwo);
@@ -510,26 +513,24 @@ public class MyProgram extends JFrame {
         exitPanel.setBackground(navy);
 
         //Frame Properties
-        mainMenu.setIconImage(icon.getImage());
-        mainMenu.setLayout(new BorderLayout());
-        mainMenu.add(topPanel, BorderLayout.NORTH);
-        mainMenu.add(buttonPanel, BorderLayout.CENTER);
-        mainMenu.add(exitPanel, BorderLayout.SOUTH);
+        mainMenuFrame.setIconImage(icon.getImage());
+        mainMenuFrame.setLayout(new BorderLayout());
+        mainMenuFrame.add(topPanel, BorderLayout.NORTH);
+        mainMenuFrame.add(buttonPanel, BorderLayout.CENTER);
+        mainMenuFrame.add(exitPanel, BorderLayout.SOUTH);
 
         //Frame operations
-        mainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainMenu.addWindowListener(new WindowAdapter() {
+        mainMenuFrame.setDefaultCloseOperation(mainMenuFrame.EXIT_ON_CLOSE);
+        mainMenuFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 showExit();
                 System.exit(0);
             }
         });
-        mainMenu.setSize(640,570);
-        mainMenu.setLocationRelativeTo(null);
-        mainMenu.setVisible(true);
-
-        return null;
+        mainMenuFrame.setSize(640,570);
+        mainMenuFrame.setLocationRelativeTo(null);
+        mainMenuFrame.setVisible(true);
     } // end of mainMenu method
 
     /**
@@ -554,6 +555,7 @@ public class MyProgram extends JFrame {
      * 12. Make the JFrame visible.
      */
     public void showDefaultList(){
+        defaultListDialog = new JDialog();
         String[][] data = myProgramUtility.defaultList(); //calls method defaultList() from MyProgramUtility
         String[] column = {"Full Name", "Email", "Address", "Age", "Resident", "District", "Gender"};
 
@@ -573,6 +575,7 @@ public class MyProgram extends JFrame {
         headerLabel.setForeground(pink);
         headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        buttonBack = new RoundButton("BACK");
         buttonDesign(buttonBack);
         buttonBack.addActionListener(buttonAction);
 
@@ -582,6 +585,7 @@ public class MyProgram extends JFrame {
 
         //Search
         searchLabel = new JLabel("Search: ");
+        searchField = new JTextField(20);
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent e) {
                 updateTable();
@@ -681,7 +685,6 @@ public class MyProgram extends JFrame {
         tablePanel.add(scrollPane);
         tablePanel.setBackground(peach);
         tablePanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 10, 0));
-
         buttonPanel = new JPanel();
         buttonPanel.setBackground(navy);
         buttonPanel.add(buttonBack);
@@ -717,6 +720,7 @@ public class MyProgram extends JFrame {
         8. Configure frame operations such as close operation, size, and visibility.
      */
     public void showSortedList(){
+        sortedListDialog = new JDialog();
         String[][] data = myProgramUtility.sortedList(); //calls method defaultList() from MyProgramUtility
         String[] column = {"Full Name", "Email", "Address", "Age", "Resident", "District", "Gender"};
 
@@ -736,6 +740,8 @@ public class MyProgram extends JFrame {
         headerLabel.setForeground(pink);
         headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+
+        buttonBackSort = new RoundButton("Back");
         buttonDesign(buttonBackSort);
         buttonBackSort.addActionListener(buttonAction);
 
@@ -745,6 +751,7 @@ public class MyProgram extends JFrame {
 
         //Search
         searchLabel = new JLabel("Search: ");
+        searchField = new JTextField(20);
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent e) {
                 updateTable();
@@ -881,6 +888,7 @@ public class MyProgram extends JFrame {
         10.Display the JFrame using the setVisible() method.
      */
     public void numOfMaleAndFemale(){
+        numOfMAndFDialog = new JDialog();
         //label
         title = new JLabel("Number of Male and Female", SwingConstants.CENTER);
         title.setFont(new Font("Helvetica", Font.BOLD, 25));
@@ -918,6 +926,7 @@ public class MyProgram extends JFrame {
         numOfFemales.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 0));
 
         //add action listeners to buttons
+        buttonBack = new RoundButton("BACK");
         buttonDesign(buttonBack);
         buttonBack.addActionListener(buttonAction);
 
@@ -954,33 +963,43 @@ public class MyProgram extends JFrame {
      * Method to open up a choice if user wants to show male or female.
      */
     public void selectMaleOrFemale(){
+        selectMOrFDialog = new JDialog();
         //labels
-        title = new JLabel("Male or Female?");
-        title.setBounds(70,-80,250,250);
+        title = new JLabel("Male or Female?", SwingConstants.CENTER);
+        title.setForeground(navy);
+        title.setBackground(peach);
+        title.setOpaque(true);
         title.setFont(new Font("Century Gothic", Font.PLAIN, 25));
-
+        title.setBorder(BorderFactory.createEmptyBorder(50,20,0,20));
+        //Buttons
+        buttonBack = new RoundButton("BACK");
+        buttonMale = new RoundButton("MALE");
+        buttonFemale = new RoundButton("FEMALE");
+        buttonDesign(buttonBack);
+        buttonDesign(buttonMale);
+        buttonDesign(buttonFemale);
         //Panel for buttons
-        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
-        buttonPanel.setBounds(70,75,200,150);
-        buttonPanel.setBackground(new Color(248,248,255));
-        buttonPanel.add(buttonMale).setFocusable(false);
-        buttonPanel.add(buttonFemale).setFocusable(false);
-        buttonPanel.add(buttonBack).setFocusable(false);
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,10,10));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+        buttonPanel.setBackground(peach);
+        buttonPanel.add(buttonMale);
+        buttonPanel.add(buttonFemale);
+        buttonPanel.add(buttonBack);
 
         buttonMale.addActionListener(buttonAction);
         buttonFemale.addActionListener(buttonAction);
         buttonBack.addActionListener(buttonAction);
 
         //frame
+        selectMOrFDialog.setTitle("Select Male or Female");
+        selectMOrFDialog.setLayout(new BorderLayout());
+        selectMOrFDialog.add(title, BorderLayout.NORTH);
+        selectMOrFDialog.add(buttonPanel, BorderLayout.CENTER);
         selectMOrFDialog.setIconImage(icon.getImage());
-        selectMOrFDialog.getContentPane().setBackground(new Color(248,248,255));
-        selectMOrFDialog.add(title);
-        selectMOrFDialog.add(buttonPanel);
-
+        selectMOrFDialog.getContentPane();
         //frame operations
         selectMOrFDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        selectMOrFDialog.setLayout(null);
-        selectMOrFDialog.setSize(360,300);
+        selectMOrFDialog.setSize(360,260);
         selectMOrFDialog.setResizable(false);
         selectMOrFDialog.setLocationRelativeTo(null);
         selectMOrFDialog.setVisible(true);
@@ -1010,6 +1029,8 @@ public class MyProgram extends JFrame {
          17.Set the visibility of the frameMorF to true.
      */
     public void showMalesOnly(){
+        showMaleDialog = new JDialog();
+
         String[][] data = myProgramUtility.listMaleOnly(); //calls method listMaleOnly() from MyProgramUtility
         String[] column = {"Full Name", "Email", "Address", "Age", "Resident", "District", "Gender"};
 
@@ -1029,6 +1050,7 @@ public class MyProgram extends JFrame {
         headerLabel.setForeground(pink);
         headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        buttonBackMorF = new RoundButton("Back");
         buttonDesign(buttonBackMorF);
         buttonBackMorF.addActionListener(buttonAction);
 
@@ -1038,6 +1060,7 @@ public class MyProgram extends JFrame {
 
         //Search
         searchLabel = new JLabel("Search: ");
+        searchField = new JTextField(20);
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent e) {
                 updateTable();
@@ -1188,6 +1211,7 @@ public class MyProgram extends JFrame {
      * user interface for the table display.
      */
     public void showFemalesOnly(){
+        showFemaleDialog = new JDialog();
         String[][] data = myProgramUtility.listFemaleOnly(); //calls method listMaleOnly() from MyProgramUtility
         String[] column = {"Full Name", "Email", "Address", "Age", "Resident", "District", "Gender"};
 
@@ -1207,6 +1231,8 @@ public class MyProgram extends JFrame {
         headerLabel.setForeground(pink);
         headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+
+        buttonBackMorF = new RoundButton("Back");
         buttonDesign(buttonBackMorF);
         buttonBackMorF.addActionListener(buttonAction);
 
@@ -1216,6 +1242,7 @@ public class MyProgram extends JFrame {
 
         //Search
         searchLabel = new JLabel("Search: ");
+        searchField = new JTextField(20);
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent e) {
                 updateTable();
@@ -1348,6 +1375,7 @@ public class MyProgram extends JFrame {
      *    b. If a matching person is not found, display an error message indicating that the person could not be found.
      * 3. A back button is created to allow the user to return to the main menu.*/
     public void findPerson(){
+        findPersonDialog = new JDialog();
         //labels
         title = new JLabel("Find Person", SwingConstants.CENTER);
         title.setFont(new Font("Helvetica", Font.BOLD, 20));
@@ -1378,6 +1406,8 @@ public class MyProgram extends JFrame {
         panel.add(district);
         panel.add(gender);
 
+        textField = new JTextField(5);
+        textField2 = new JTextField(5);
         textField.setSize(10,10);
         textField2.setSize(10,10);
 
@@ -1393,7 +1423,9 @@ public class MyProgram extends JFrame {
         infoPanel.setBackground(lightBlue);
         infoPanel.add(panel);
         infoPanel.add(panel2, BorderLayout.SOUTH);
-
+        //Buttons
+        buttonFind = new RoundButton("FIND");
+        buttonBack = new RoundButton("BACK");
         //add action listeners to buttons
         buttonDesign(buttonBack);
         buttonDesign(buttonFind);
@@ -1428,32 +1460,46 @@ public class MyProgram extends JFrame {
      */
     //TODO: Julienne - update algo
     public void askAge(){
+        askAgeDialog = new JDialog();
         //labels
         title = new JLabel("Enter the age", SwingConstants.CENTER);
-        title.setBounds(50,-80,250,250);
+        title.setBorder(BorderFactory.createEmptyBorder(50,20,20,20));
+        title.setForeground(navy);
+        title.setBackground(peach);
+        title.setOpaque(true);
         title.setFont(new Font("Century Gothic", Font.PLAIN, 25));
 
+        //Buttons
+        buttonBack = new RoundButton("BACK");
+        buttonOK = new RoundButton("OK");
+        buttonDesign(buttonBack);
+        buttonDesign(buttonOK);
+        //Textfield
+        textField = new JTextField(5);
         //Panel for buttons
-        JPanel buttonAndField = new JPanel(new FlowLayout(FlowLayout.CENTER,9,9));
-        buttonAndField.setBounds(70,75,200,150);
-        buttonAndField.setBackground(new Color(248,248,255));
-        buttonAndField.add(textField);
-        buttonAndField.add(buttonOK).setFocusable(false);
-        buttonAndField.add(buttonBack);
+        JPanel buttonAndFieldPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,10,10));
+        buttonAndFieldPanel.setBackground(peach);
+        buttonAndFieldPanel.add(textField);
+        buttonAndFieldPanel.add(buttonOK).setFocusable(false);
+        buttonAndFieldPanel.add(buttonBack);
 
+
+        //Add action listeners
         buttonOK.addActionListener(buttonAction);
         buttonBack.addActionListener(buttonAction);
 
         //frame
+        askAgeDialog.setTitle("ENTER AGE");
+        askAgeDialog.setLayout(new BorderLayout());
+        askAgeDialog.add(title, BorderLayout.NORTH);
+        askAgeDialog.add(buttonAndFieldPanel, BorderLayout.CENTER);
         askAgeDialog.setIconImage(icon.getImage());
-        askAgeDialog.getContentPane().setBackground(new Color(248,248,255));
-        askAgeDialog.add(title);
-        askAgeDialog.add(buttonAndField);
+        askAgeDialog.getContentPane();
+
 
         //frame operations
         askAgeDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        askAgeDialog.setLayout(null);
-        askAgeDialog.setSize(360,300);
+        askAgeDialog.setSize(360,260);
         askAgeDialog.setResizable(false);
         askAgeDialog.setLocationRelativeTo(null);
         askAgeDialog.setVisible(true);
@@ -1464,6 +1510,7 @@ public class MyProgram extends JFrame {
      */
     //TODO: Julienne - update algo
     public void showAgeGroup(){
+        showAgeGroupDialog = new JDialog();
         String[][] data = myProgramUtility.listWithAgeGroup(ageGroup); //calls method listWithAgeGroup() from MyProgramUtility
         String[] column = {"Full Name", "Email", "Address", "Age", "Resident", "District", "Gender"};
 
@@ -1483,6 +1530,7 @@ public class MyProgram extends JFrame {
         headerLabel.setForeground(pink);
         headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        buttonBackAge = new RoundButton("Back");
         buttonDesign(buttonBackAge);
         buttonBackAge.addActionListener(buttonAction);
 
@@ -1492,6 +1540,7 @@ public class MyProgram extends JFrame {
 
         //Search
         searchLabel = new JLabel("Search: ");
+        searchField = new JTextField(20);
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent e) {
                 updateTable();
@@ -1617,6 +1666,7 @@ public class MyProgram extends JFrame {
      */
     //TODO: Nash - update algo
     public void showPopulationByDistrict() {
+        popuByDistrictDialog = new JDialog();
         Map<Integer, Long> populationByDistrict = myProgramUtility.countPopulationByDistrict();
         String[] column = {"District", "Population"};
         String[][] data = new String[populationByDistrict.size()][2];
@@ -1636,6 +1686,7 @@ public class MyProgram extends JFrame {
         title.setForeground(pink);
         title.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        buttonBackPopulation = new RoundButton("Back");
         buttonDesign(buttonBackPopulation);
         buttonBackPopulation.addActionListener(buttonAction);
 
@@ -1739,6 +1790,7 @@ public class MyProgram extends JFrame {
 
     //TODO: Javadoc and multi-line comment
     public void numOfSeniors(){
+        numOfSenDialog = new JDialog();
         //label
         title = new JLabel("Number of Seniors", SwingConstants.CENTER);
         title.setFont(new Font("Helvetica", Font.BOLD, 25));
@@ -1762,6 +1814,7 @@ public class MyProgram extends JFrame {
         numOfSeniors.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 0));
 
         //add action listeners to buttons
+        buttonBack = new RoundButton("BACK");
         buttonDesign(buttonBack);
         buttonBack.addActionListener(buttonAction);
 
@@ -1878,13 +1931,13 @@ public class MyProgram extends JFrame {
      * 6. Set the icon image, size, location, visibility, and default close operation of the JDialog.
      */
     private void showPersonNotFound() {
-        JDialog exitDialog = new JDialog();
+        exitDialog = new JDialog();
         exitDialog.setTitle("Citizen App");
         exitDialog.setModal(true);
 
         JLabel exitL = new JLabel("PERSON NOT FOUND!", SwingConstants.CENTER);
         exitL.setFont(new Font("Helvetica", Font.BOLD, 20));
-        exitL.setForeground(darkPurple);
+        exitL.setForeground(Color.RED);
 
         JPanel exitPanel = new JPanel(new BorderLayout()); // use BorderLayout for exitPanel
         exitPanel.setBackground(peach);
@@ -1965,6 +2018,7 @@ public class MyProgram extends JFrame {
         descriptionLabel.setForeground(Color.darkGray);
         descriptionLabel.setBorder(BorderFactory.createEmptyBorder(8, 20, 20, 20));
 
+        nextButton = new RoundButton("NEXT");
         buttonDesign(nextButton);
         nextButton.addActionListener(buttonAction);
 
@@ -2043,27 +2097,35 @@ public class MyProgram extends JFrame {
             //------buttonOne--------
             if(e.getSource() == buttonOne){
                 showDefaultList(); //opens showDefaultList GUI
+                mainMenuFrame.dispose();
                 //------buttonTwo--------
             }else if(e.getSource() == buttonTwo){
                 showSortedList(); //opens showSortedList GUI
+                mainMenuFrame.dispose();
                 //------buttonThree--------
             }else if(e.getSource() == buttonThree){
                 numOfMaleAndFemale(); //opens numOfMaleAndFemale GUI
+                mainMenuFrame.dispose();
                 //------buttonFour--------
             }else if(e.getSource() == buttonFour){
                 selectMaleOrFemale(); //opens selectMaleOrFemale GUI
+                mainMenuFrame.dispose();
                 //------buttonFive--------
             }else if(e.getSource() == buttonFive){
                 findPerson(); //opens findPerson GUI
+                mainMenuFrame.dispose();
                 //------buttonSix--------
             }else if(e.getSource() == buttonSix){
                 askAge(); //opens askAge GUI
+                mainMenuFrame.dispose();
                 //-----buttonSeven---------
             }else if(e.getSource() == buttonSeven){
                 showPopulationByDistrict(); //opens showPopulationByDistrict GUI
+                mainMenuFrame.dispose();
                 //-----buttonEight---------
             }else if(e.getSource() == buttonEight) {
                 numOfSeniors(); //opens numOfSeniors GUI
+                mainMenuFrame.dispose();
                 //-----exitButton---------
             }else if(e.getSource() == exitButton) {
                 showExit();
@@ -2078,6 +2140,7 @@ public class MyProgram extends JFrame {
                 findPersonDialog.dispose();
                 askAgeDialog.dispose();
                 selectMOrFDialog.dispose();
+                mainMenu();
                 //------buttonFind--------
             }else if(e.getSource() == buttonFind) {
                 firstName = textField.getText().trim().toLowerCase();
@@ -2109,12 +2172,12 @@ public class MyProgram extends JFrame {
 
                 //------buttonMale--------
             } else if(e.getSource() == buttonMale){
-                showMalesOnly(); //opens showMalesOnly GUI
                 selectMOrFDialog.dispose(); //closes the current frame
+                showMalesOnly(); //opens showMalesOnly GUI
                 //------buttonFemale--------
             } else if(e.getSource() == buttonFemale){
-                showFemalesOnly(); //opens showFemalesOnly GUI
                 selectMOrFDialog.dispose(); //closes the current frame
+                showFemalesOnly(); //opens showFemalesOnly GUI
                 //------buttonOK--------
             } else if(e.getSource() == buttonOK){
                 boolean b = false; //boolean for if statements
@@ -2151,8 +2214,10 @@ public class MyProgram extends JFrame {
                 //-----buttonBackPopulation
             }else if(e.getSource() == buttonBackPopulation){
                 popuByDistrictDialog.dispose(); //closes the current frame
+                mainMenu();
             } else if(e.getSource() == buttonBackSort) {
                 sortedListDialog.dispose(); //closes the current frame
+                mainMenu();
             }
 
         } //end of actionPerformed method
