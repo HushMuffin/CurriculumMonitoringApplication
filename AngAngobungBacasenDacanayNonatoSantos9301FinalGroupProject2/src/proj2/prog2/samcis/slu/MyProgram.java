@@ -937,7 +937,15 @@ public class MyProgram{
      */
     /*
         Algorithm:
-        //TODO: Julienne - ADD BRIEF ALGORITHM IN NUMBERED LIST THAT SHOWCASES THE FUNCTIONALITY OF THIS METHOD
+        1. Create a JDialog named "numOfMAndFDialog".
+        2. Set up the title label with a customized style.
+        3. Create labels for displaying the number of males and females.
+        4. Retrieve the count of males and females using "numberOfMale()" and "numberOfFemale()" methods.
+        5. Set styles for the labels.
+        6. Create a "Back" button and add an action listener to it.
+        7. Create panels for the buttons and labels.
+        8. Add components to the numOfMAndFDialog frame.
+        9. Set frame properties and display it.
      */
     public void numOfMaleAndFemale(){
         numOfMAndFDialog = new JDialog();
@@ -1016,10 +1024,18 @@ public class MyProgram{
      */
     /*
         Algorithm:
-        //TODO: Julienne - ADD BRIEF ALGORITHM IN NUMBERED LIST THAT SHOWCASES THE FUNCTIONALITY OF THIS METHOD
+        1. Create a JDialog named "selectMOrFDialog".
+        2. Set up the title label with customized styling.
+        3. Create buttons for "BACK", "MALE", and "FEMALE".
+        4. Apply a common design to the buttons using the "buttonDesign" method.
+        5. Create a panel to hold the buttons.
+        6. Add action listeners to the buttons.
+        7. Set up the frame by adding the title label and button panel.
+        8. Set frame properties and display it.
      */
     public void selectMaleOrFemale(){
         selectMOrFDialog = new JDialog();
+
         //labels
         title = new JLabel("Male or Female?", SwingConstants.CENTER);
         title.setForeground(navy);
@@ -1027,6 +1043,7 @@ public class MyProgram{
         title.setOpaque(true);
         title.setFont(new Font("Century Gothic", Font.PLAIN, 25));
         title.setBorder(BorderFactory.createEmptyBorder(50,20,0,20));
+
         //Buttons
         buttonBack = new RoundButton("BACK");
         buttonMale = new RoundButton("MALE");
@@ -1034,6 +1051,7 @@ public class MyProgram{
         buttonDesign(buttonBack);
         buttonDesign(buttonMale);
         buttonDesign(buttonFemale);
+
         //Panel for buttons
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,10,10));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
@@ -1053,6 +1071,7 @@ public class MyProgram{
         selectMOrFDialog.add(buttonPanel, BorderLayout.CENTER);
         selectMOrFDialog.setIconImage(icon.getImage());
         selectMOrFDialog.getContentPane();
+
         //frame operations
         selectMOrFDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         selectMOrFDialog.setSize(360,260);
