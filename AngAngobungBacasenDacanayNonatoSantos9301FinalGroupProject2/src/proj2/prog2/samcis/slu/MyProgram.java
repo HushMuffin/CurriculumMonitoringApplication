@@ -26,14 +26,14 @@
  * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
  * Inputs:
- * //TODO: Charles - Add the inputs needed for the program
+ * //TODO: Lourdene - Add the inputs needed for the program
  * <p>
  * Outputs:
- * //TODO: Charles - Add the outputs needed for the program
+ * //TODO: Lourdene - Add the outputs needed for the program
  * <p>
  * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
- * General Algorithm: //TODO: Katelyn - Create the General Algorithm
+ * General Algorithm: //TODO: Lourdene - Create the General Algorithm
  * 1.
  * <p>
  * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
@@ -60,6 +60,7 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+
 /**
  * The MyProgram Class is the main class that is responsible for managing the
  * citizen information and providing the user with options to interact with it.
@@ -369,18 +370,67 @@ public class MyProgram{
      * Holds a dialog box used for displaying an introduction message.
      */
     JDialog introDialog;
-    JDialog defaultListDialog = new JDialog();
-    JDialog sortedListDialog =  new JDialog();
-    JDialog popuByDistrictDialog = new JDialog();
-    JDialog numOfMAndFDialog = new JDialog();
-    JDialog numOfSenDialog = new JDialog();
-    JDialog findPersonDialog = new JDialog();
-    JDialog selectMOrFDialog = new JDialog();
-    JDialog showMaleDialog = new JDialog();
-    JDialog showFemaleDialog = new JDialog();
-    JDialog askAgeDialog = new JDialog();
-    JDialog showAgeGroupDialog = new JDialog();
 
+    /**
+     * Holds a dialog for displaying the default list.
+     */
+    JDialog defaultListDialog;
+
+    /**
+     * Holds a dialog for displaying the sorted list.
+     */
+    JDialog sortedListDialog;
+
+    /**
+     * Holds a dialog for displaying the population by district.
+     */
+    JDialog popuByDistrictDialog;
+
+    /**
+     * Holds a dialog for displaying the number of males and females.
+     */
+    JDialog numOfMAndFDialog;
+
+    /**
+     * Holds a dialog for displaying the number of seniors.
+     */
+    JDialog numOfSenDialog;
+
+    /**
+     * Holds a dialog for finding a person.
+     */
+    JDialog findPersonDialog;
+
+    /**
+     * Holds a dialog for selecting males or females.
+     */
+    JDialog selectMOrFDialog;
+
+    /**
+     * Holds a dialog for displaying the male records.
+     */
+    JDialog showMaleDialog;
+
+    /**
+     * Holds a dialog for displaying the female records.
+     */
+    JDialog showFemaleDialog;
+
+    /**
+     * Holds a dialog for asking the age.
+     */
+    JDialog askAgeDialog;
+
+    /**
+     * Holds a dialog for displaying records based on age groups.
+     */
+    JDialog showAgeGroupDialog;
+
+    //Declare the frame for MyProgram
+    /**
+     * Holds the main menu frame of the application.
+     */
+    JFrame mainMenuFrame;
 
     //Declare the Strings for MyProgram
     /**
@@ -414,12 +464,23 @@ public class MyProgram{
     static Color purple = new Color(205, 180, 219);
     static Color green = new Color(10,221,8);
 
-    JFrame mainMenuFrame;
-
     /**
      * Method for creating the main menu.
      *
      * @return null
+     */
+    /*
+        Algorithm:
+        1. Create a frame for the main menu.
+        2. Create and customize the title label.
+        3. Create buttons for each menu option and apply a common button design.
+        4. Add action listeners to the buttons.
+        5. Create panels to organize the buttons and instructions.
+        6. Set the layout and background color of the panels.
+        7. Add the labels and panels to the frame.
+        8. Set the frame properties and size.
+        9. Set the default close operation to exit the application.
+        10. Show the main menu frame.
      */
     public void mainMenu() {
         mainMenuFrame = new JFrame("MAIN MENU");
@@ -875,17 +936,8 @@ public class MyProgram{
      * Method to display the number of males and females.
      */
     /*
-        Algorithm: //TODO: Nash - update algo
-        1.Create a JLabel for the title of the window, and JLabels for displaying the number of males and females in the citizen data.
-        2.Set the text of the JLabels for the number of males and females by calling the numberOfMale() and numberOfFemale() methods of an instance of the myProgramUtility class, respectively, and converting the results to String values using the valueOf() method.
-        3.Set the font of the JLabels for the title, number of males, and number of females to a specific font using the setFont() method.
-        4.Create a JPanel for the buttons, add the "Back" button to the panel, and set the background color of the panel.
-        5.Create a JPanel for the labels, set the layout to a 2x2 GridLayout, and set the background color of the panel.
-        6.Add the JLabels for the number of males and females to the panel.
-        7.Add action listeners to the "Back" button using an ActionListener object that defines the actionPerformed() method to close the current JFrame and open the main menu JFrame.
-        8.Set the properties of the JFrame, including the background color, size, and position.
-        9.Add the JLabels and JPanels to the JFrame using the add() method.
-        10.Display the JFrame using the setVisible() method.
+        Algorithm:
+        //TODO: Julienne - ADD BRIEF ALGORITHM IN NUMBERED LIST THAT SHOWCASES THE FUNCTIONALITY OF THIS METHOD
      */
     public void numOfMaleAndFemale(){
         numOfMAndFDialog = new JDialog();
@@ -962,6 +1014,10 @@ public class MyProgram{
     /**
      * Method to open up a choice if user wants to show male or female.
      */
+    /*
+        Algorithm:
+        //TODO: Julienne - ADD BRIEF ALGORITHM IN NUMBERED LIST THAT SHOWCASES THE FUNCTIONALITY OF THIS METHOD
+     */
     public void selectMaleOrFemale(){
         selectMOrFDialog = new JDialog();
         //labels
@@ -1009,25 +1065,17 @@ public class MyProgram{
      * Method display the male list.
      */
     /*
-        Algorithm: //TODO: Nash - Update algo
-         1.Call the listMaleOnly() method from MyProgramUtility class to get a two-dimensional string array of male citizens' information.
-         2.Create a string array called column which contains the column headers for the JTable.
-         3.Create a new JTable with the data and column arrays as parameters, and override the isCellEditable method of the table to make the cells non-editable.
-         4.Set the preferred size and fill height properties of the table, and disallow the reordering of columns.
-         5.Create a new JScrollPane with the table as parameter.
-         6.Create a new JPanel called buttonPanel with a FlowLayout, and add the buttonBackMorF button to it.
-         7.Set the background color of buttonPanel to a light gray.
-         8.Add an action listener to buttonBackMorF button.
-         9.Set the layout of frameMorF to FlowLayout.
-         10.Set the title of the frameMorF to "Citizen App".
-         11.Set the background color of the frameMorF to a light gray.
-         12.Add the scrollPane and buttonPanel to the frameMorF.
-         13.Set the default close operation of the frameMorF to JFrame.EXIT_ON_CLOSE.
-         14.Set the size of the frameMorF to (1100, 675).
-         15.Disallow the frame to be resizable.
-         16.Set the location of the frameMorF to be in the center of the screen.
-         17.Set the visibility of the frameMorF to true.
-     */
+        Algorithm:
+        1. Create a JDialog named "showMaleDialog".
+        2. Retrieve male citizen data using "listMaleOnly()" method.
+        3. Create a table model with the data and column names.
+        4. Set up the header label, "Back" button, and table with custom styles.
+        5. Add search functionality to filter the table data.
+        6. Set the preferred width for each table column.
+        7. Create panels for the table, search, and buttons.
+        8. Add components to the showMaleDialog frame.
+        9. Set frame properties and display it.
+    */
     public void showMalesOnly(){
         showMaleDialog = new JDialog();
 
@@ -1209,6 +1257,17 @@ public class MyProgram{
      * Method that  retrieves the female citizens list from the MyProgramUtility
      * and displays the information in a JTable. It also sets up the graphical
      * user interface for the table display.
+     */
+    /*
+        Algorithm:
+        1. Create a dialog box for displaying the list of female citizens.
+        2. Retrieve the data for the female citizens.
+        3. Create a table with the data and column names.
+        4. Customize the appearance of the table, including header and cell renderers.
+        5. Add a search field for filtering the table data dynamically.
+        6. Add a button for going back.
+        7. Set the properties of the dialog box.
+        8. Show the dialog box for displaying the female citizen list.
      */
     public void showFemalesOnly(){
         showFemaleDialog = new JDialog();
@@ -1458,11 +1517,23 @@ public class MyProgram{
     /**
      * Method to open up a text field for user to enter the age
      */
-    //TODO: Julienne - update algo
+    /*
+        Algorithm:
+        1. Create a dialog box for asking the user to enter an age.
+        2. Create a label for displaying the title.
+        3. Create buttons for "OK" and "BACK".
+        4. Design the buttons with a specific style.
+        5. Create a text field for entering the age.
+        6. Create a panel for the buttons and text field.
+        7. Add action listeners to the buttons.
+        8. Set the properties of the dialog box.
+        9. Show the dialog box for asking the user to enter an age.
+     */
     public void askAge(){
         askAgeDialog = new JDialog();
+
         //labels
-        title = new JLabel("Enter the age", SwingConstants.CENTER);
+        title = new JLabel("Enter the age:", SwingConstants.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(50,20,20,20));
         title.setForeground(navy);
         title.setBackground(peach);
@@ -1474,28 +1545,33 @@ public class MyProgram{
         buttonOK = new RoundButton("OK");
         buttonDesign(buttonBack);
         buttonDesign(buttonOK);
+
         //Textfield
         textField = new JTextField(5);
-        //Panel for buttons
-        JPanel buttonAndFieldPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,10,10));
-        buttonAndFieldPanel.setBackground(peach);
-        buttonAndFieldPanel.add(textField);
-        buttonAndFieldPanel.add(buttonOK).setFocusable(false);
-        buttonAndFieldPanel.add(buttonBack);
 
+        topPanel = new JPanel(new BorderLayout());
+        topPanel.add(title, BorderLayout.NORTH);
+        topPanel.add(textField, BorderLayout.SOUTH);
+        topPanel.setBackground(peach);
+        topPanel.setBorder(BorderFactory.createEmptyBorder(0,20,0,20));
+
+        //Panel for buttons
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,10,10));
+        buttonPanel.setBackground(peach);
+        buttonPanel.add(buttonOK).setFocusable(false);
+        buttonPanel.add(buttonBack);
 
         //Add action listeners
         buttonOK.addActionListener(buttonAction);
         buttonBack.addActionListener(buttonAction);
 
         //frame
-        askAgeDialog.setTitle("ENTER AGE");
+        askAgeDialog.setTitle("Citizen Application");
         askAgeDialog.setLayout(new BorderLayout());
-        askAgeDialog.add(title, BorderLayout.NORTH);
-        askAgeDialog.add(buttonAndFieldPanel, BorderLayout.CENTER);
+        askAgeDialog.add(topPanel, BorderLayout.NORTH);
+        askAgeDialog.add(buttonPanel, BorderLayout.CENTER);
         askAgeDialog.setIconImage(icon.getImage());
         askAgeDialog.getContentPane();
-
 
         //frame operations
         askAgeDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -1508,7 +1584,17 @@ public class MyProgram{
     /**
      * Method to display the people with the entered age from askAge method
      */
-    //TODO: Julienne - update algo
+    /*
+        Algorithm:
+        1. Create a dialog box for displaying age group information.
+        2. Retrieve the data for the specified age group.
+        3. Set up the table model with the data and column names, making cells non-editable.
+        4. Customize the header and cell renderers for the table.
+        5. Set the preferred width of each column.
+        6. Create panels for search functionality and table display.
+        7. Add components to the dialog box and set its properties.
+        8. Show the dialog box to display the age group information.
+     */
     public void showAgeGroup(){
         showAgeGroupDialog = new JDialog();
         String[][] data = myProgramUtility.listWithAgeGroup(ageGroup); //calls method listWithAgeGroup() from MyProgramUtility
@@ -1664,7 +1750,17 @@ public class MyProgram{
     /**
      * Method to display the population per district in a table format.
      */
-    //TODO: Nash - update algo
+    /*
+        Algorithm:
+        1. Create a dialog box for displaying population by district information.
+        2. Calculate the population count for each district using the utility method `countPopulationByDistrict()`.
+        3. Prepare the data and column names for the table.
+        4. Customize the header and cell renderers for the table.
+        5. Set up the table with the data and properties.
+        6. Create panels for table display and buttons.
+        7. Add components to the dialog box and set its properties.
+        8. Show the dialog box to display the population by district information.
+     */
     public void showPopulationByDistrict() {
         popuByDistrictDialog = new JDialog();
         Map<Integer, Long> populationByDistrict = myProgramUtility.countPopulationByDistrict();
@@ -1788,7 +1884,24 @@ public class MyProgram{
         popuByDistrictDialog.setVisible(true);
     } // end of showPopulationByDistrict method
 
-    //TODO: Javadoc and multi-line comment
+    /**
+     * Method that displays the number of seniors in a dialog box.
+     * The dialog box shows the total count of seniors.
+     */
+    /*
+        Algorithm:
+        1. Create a JDialog to display the number of seniors.
+        2. Set the title and customize the appearance of the title label.
+        3. Create a label for "Seniors" and a label to display the actual count of seniors.
+        4. Create a "BACK" button and add an ActionListener to handle its action.
+        5. Customize the appearance of the labels and button.
+        6. Arrange the labels and button in panels.
+        7. Customize the JDialog's title, icon, and background color.
+        8. Add the labels and button panels to the JDialog.
+        9. Set the size, position, and other properties of the JDialog.
+        10. Set the default close operation for the JDialog.
+        11. Make the JDialog visible.
+     */
     public void numOfSeniors(){
         numOfSenDialog = new JDialog();
         //label
@@ -2133,13 +2246,20 @@ public class MyProgram{
             } else if(e.getSource() == nextButton){
                 introDialog.dispose();
                 //-----buttonBack----------
-            }else if(e.getSource() == buttonBack){
-                defaultListDialog.dispose(); //closes the current frame
-                numOfMAndFDialog.dispose();
-                numOfSenDialog.dispose();
-                findPersonDialog.dispose();
-                askAgeDialog.dispose();
-                selectMOrFDialog.dispose();
+            }else if(e.getSource() == buttonBack) {
+                if (defaultListDialog != null && defaultListDialog.isVisible()) {
+                    defaultListDialog.dispose();
+                } else if (numOfMAndFDialog != null && numOfMAndFDialog.isVisible()) {
+                    numOfMAndFDialog.dispose();
+                } else if (numOfSenDialog != null && numOfSenDialog.isVisible()) {
+                    numOfSenDialog.dispose();
+                } else if (findPersonDialog != null && findPersonDialog.isVisible()) {
+                    findPersonDialog.dispose();
+                } else if (askAgeDialog != null && askAgeDialog.isVisible()) {
+                    askAgeDialog.dispose();
+                } else if (selectMOrFDialog != null && selectMOrFDialog.isVisible()) {
+                    selectMOrFDialog.dispose();
+                }
                 mainMenu();
                 //------buttonFind--------
             }else if(e.getSource() == buttonFind) {
@@ -2180,6 +2300,7 @@ public class MyProgram{
                 showFemalesOnly(); //opens showFemalesOnly GUI
                 //------buttonOK--------
             } else if(e.getSource() == buttonOK){
+                askAgeDialog.dispose();
                 boolean b = false; //boolean for if statements
                 //catches Number Format Exception
                 try {
@@ -2192,14 +2313,16 @@ public class MyProgram{
                 if(table.length == 0){ //if table has no result, prompt an error
                     title.setText("No result found");
                     title.setForeground(Color.red);
+                    askAgeDialog.setVisible(true);
                 } else if(!b) { //displays the table if no error occurred
                     showAgeGroup();
-                    selectMOrFDialog.dispose();
+                    askAgeDialog.dispose();
                 }
 
                 if (b){ //if NumberFormatException caught, prompt an error
                     title.setText("Enter a valid age");
                     title.setForeground(Color.red);
+                    askAgeDialog.setVisible(true);
                 }
 
                 //------buttonBackAge--------
@@ -2207,9 +2330,12 @@ public class MyProgram{
                 showAgeGroupDialog.dispose(); //closes the current frame
                 askAge(); //opens askAge GUI
                 //------buttonBackMorF--------
-            }else if(e.getSource() == buttonBackMorF){
-                showMaleDialog.dispose(); //closes the current frame
-                showFemaleDialog.dispose();
+            }else if (e.getSource() == buttonBackMorF) {
+                if (showMaleDialog != null && showMaleDialog.isVisible()) {
+                    showMaleDialog.dispose();
+                } else if (showFemaleDialog != null && showFemaleDialog.isVisible()) {
+                    showFemaleDialog.dispose();
+                }
                 selectMaleOrFemale(); //opens selectMaleOrFemale GUI
                 //-----buttonBackPopulation
             }else if(e.getSource() == buttonBackPopulation){

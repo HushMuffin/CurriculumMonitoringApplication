@@ -71,7 +71,8 @@ public class Citizen implements Comparable<Citizen>{
     char gender;
 
     /**
-     * Constructor that creates the default values of fullName, email, address, age, resident, district, and gender
+     * Default Constructor that creates the default values of fullName, email,
+     * address, age, resident, district, and gender.
      */
     public Citizen(){
         fullName = "Im Nayeon";
@@ -105,71 +106,158 @@ public class Citizen implements Comparable<Citizen>{
         this.gender = gender;
     } // end of Citizen constructor
 
+    //Getter/Accessor methods
+    /**
+     * Method that returns the full name of the person. <br>
+     *
+     * @return The full name of the person.
+     */
+    public String getFullName() {
+        return this.fullName;
+    }
 
     /**
-     Sets the full name of the object.
-     @param fullName the full name to be set
+     * Method that returns address of the person. <br>
+     *
+     * @return The address of the person.
+     */
+    public String getAddress() {
+        return this.address;
+    }
+
+    /**
+     * Method that returns the email address of the person. <br>
+     *
+     * @return The email address of the person.
+     */
+    public String getEmail() {
+        return this.email;
+    }
+
+    /**
+     * Method that returns the age of the person. <br>
+     *
+     * @return The age of the person.
+     */
+    public int getAge() {
+        return this.age;
+    }
+
+    /**
+     * Method that returns the district of the person. <br>
+     *
+     * @return The district of the person.
+     */
+    public int getDistrict() {
+        return this.district;
+    }
+
+    /**
+     * Method that returns the gender of the person. <br>
+     *
+     * @return The gender of the person.
+     */
+    public char getGender() {
+        return this.gender;
+    }
+
+    /**
+     * Method that returns the resident status of the person. <br>
+     *
+     * @return The resident status of the person.
+     */
+    public boolean getResident() {
+        return resident;
+    }
+
+    //Setter/Mutator methods
+    /**
+     * Method that sets the full name of the object. <br>
+     *
+     * @param fullName the full name to be set
      */
     public void setFullName(String fullName){
         this.fullName = fullName;
     }
 
     /**
-     Sets the address of the object.
-     @param address the address to be set
+     * Method that sets the address of the object.<br>
+     *
+     * @param address the address to be set
      */
     public void setAddress(String address){
         this.address = address;
     }
+
     /**
-     Sets the email address of the object.
-     @param email the email address to be set
+     * Method that sets the email address of the object. <br>
+     *
+     * @param email the email address to be set
      */
     public void setEmail(String email){
         this.email = email;
     }
+
     /**
-     Sets the age of the object.
-     @param age the age to be set
+     * Method that sets the age of the object. <br>
+     *
+     * @param age the age to be set
      */
     public void setAge(int age){
         this.age = age;
     }
+
     /**
-     Sets whether the object is a resident or not.
-     @param resident true if the object is a resident, false otherwise
+     * Method that sets whether the object is a resident or not. <br>
+     *
+     * @param resident true if the object is a resident, false otherwise
      */
     public void setResident(boolean resident) {
         this.resident = resident;
     }
+
     /**
-     Sets the district of the object.
-     @param district the district to be set
+     * Method that sets the district of the object. <br>
+     *
+     * @param district the district to be set
      */
     public void setDistrict(int district){
         this.district = district;
     }
+
     /**
-     Sets the gender of the object.
-     @param gender the gender to be set ('M' for male, 'F' for female, or 'O' for other)
+     * Method that sets the gender of the object. <br>
+     *
+     * @param gender the gender to be set ('M' for male, 'F' for female, or 'O' for other)
      */
     public void setGender(char gender){
         this.gender = gender;
     }
 
+    /**
+     * Method which takes in 7 parameters and sets the values of various instance
+     * variables to the values passed as parameters, and has a void return type. <br>
+     *
+     *
+     * @param fullName The full name of the person
+     * @param email The email address of the person
+     * @param address The address of the person
+     * @param age The age of the person
+     * @param resident The resident status of the person
+     * @param district The district of the person
+     * @param gender The gender of the person
+     */
     /*
-    The code defines a method named setAll() which takes in 7 parameters and sets the values of various instance
-    variables to the values passed as parameters, and has a void return type.
-    setAll Algorithm:
-    1.Begin the setAll() method.
-    2.Set the fullName variable to the passed fullName parameter using "this" keyword.
-    3.Set the email variable to the passed email parameter using "this" keyword.
-    4.Set the address variable to the passed address parameter using "this" keyword.
-    5.Set the age variable to the passed age parameter using "this" keyword.
-    6.Set the resident variable to the passed resident parameter using "this" keyword.
-    7.Set the district variable to the passed district parameter using "this" keyword.
-    8.Set the gender variable to the passed gender parameter using "this" keyword.
-    9.End the setAll() method.
+        Algorithm:
+        1. Begin the setAll() method.
+        2. Set the fullName variable to the passed fullName parameter using "this" keyword.
+        3. Set the email variable to the passed email parameter using "this" keyword.
+        4. Set the address variable to the passed address parameter using "this" keyword.
+        5. Set the age variable to the passed age parameter using "this" keyword.
+        6. Set the resident variable to the passed resident parameter using "this" keyword.
+        7. Set the district variable to the passed district parameter using "this" keyword.
+        8. Set the gender variable to the passed gender parameter using "this" keyword.
+        9. End the setAll() method.
      */
     public void setAll(String fullName, String email, String address, int age, boolean resident, int district, char gender){
         this.fullName = fullName;
@@ -181,36 +269,21 @@ public class Citizen implements Comparable<Citizen>{
         this.gender = gender;
     } // end of setAll method
 
-    //TODO: Julienne - Add getters description (javadoc comment)
-    public String getFullName(){
-        return this.fullName;
-    }
-
-    public String getAddress(){
-        return this.address;
-    }
-
-    public String getEmail(){
-        return this.email;
-    }
-
-    public int getAge(){
-        return this.age;
-    }
-
-    public int getDistrict(){
-        return this.district;
-    }
-
-    public char getGender(){
-        return this.gender;
-    }
-
-    public boolean getResident() {
-        return resident;
-    }
-
-    //TODO: Julienne - Add method description (javadoc comment) and algorithm (multi-line comment)
+    /**
+     * Method that compares this Citizen object with the specified
+     * Citizen object for order based on their full names. <br>
+     *
+     * @param o The Citizen object to be compared.
+     * @return 0 if the full names are equal, a positive integer
+     *         if this full name comes after the specified full name
+     */
+    /*
+        Algorithm:
+        1. Compare the full names of two Citizen objects.
+        2. If the full names are equal, return 0.
+        3. If this full name is greater (comes after) the specified full name, return a positive integer.
+        4. If this full name is smaller (comes before) the specified full name, return a negative integer.
+     */
     @Override
     public int compareTo(Citizen o) {
         if(this.fullName.equals(o.fullName)){
@@ -222,19 +295,20 @@ public class Citizen implements Comparable<Citizen>{
         }
     } // end of compareTo method
 
-
-
     /**
-     *The code consists of a method named toString(), which returns a concatenated string of a person's
-     *information and has no parameters, with a return type of String.
-     * @return
-     toString() Algorithm:
-    1.Begin the toString() method.
-    2.Concatenate the fullName, email, address, age, resident, district, and gender variables using the concatenation operator (+).
-    3.Separate each variable with a comma (,).
-    4.Return the concatenated string as the output of the method.
-    5.End the toString() method.
-
+     * Method that returns a concatenated string of a person's
+     * information and has no parameters, with a return type of String. <br>
+     *
+     * @return A string containing the full name, email, address, age, resident status, district, and gender
+    */
+    /*
+        Algorithm:
+        1. Begin the toString() method.
+        2. Concatenate the fullName, email, address, age, resident, district,
+           and gender variables using the concatenation operator (+).
+        3. Separate each variable with a comma (,).
+        4. Return the concatenated string as the output of the method.
+        5. End the toString() method.
      */
     @Override
     public String toString(){
