@@ -26,15 +26,50 @@
  * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
  * Inputs:
- * //TODO: Lourdene - Add the inputs needed for the program
+ *     selected main menu option
+ *     input for search text field
+ *     first name of a citizen
+ *     second name of a citizen
+ *     citizen age group input
  * <p>
  * Outputs:
- * //TODO: Lourdene - Add the outputs needed for the program
+ *     default citizen list
+ *     sorted citizen list
+ *     number of male and female citizens
+ *     male citizen list
+ *     female citizen list
+ *     information about found citizen
+ *     age group citizen list
+ *     population per district list
+ *     nymber of senior citizen list
  * <p>
  * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
- * General Algorithm: //TODO: Lourdene - Create the General Algorithm
- * 1.
+ * General Algorithm:
+ * 1. Display the introduction window.
+ * 2. Display the main menu with the following options:
+ *     2.1. Show the list of citizens:
+ *          - Display a default table listing of citizens with a search functionality.
+ *     2.2. Show the sorted list of names of the citizens:
+ *          - Display a sorted table listing of citizens with a search functionality.
+ *     2.3. Show the number of male and female citizens:
+ *          - Display another window showing the number of male and female citizens.
+ *     2.4. Show a list of male or female citizens only:
+ *          - Display a dialog asking if the user wants either a list of male or female citizens.
+ *          - Display a table listing of male citizens with a search functionality, if the user chooses the male option.
+ *          - Display a table listing of female citizens with a search functionality, if the user chooses the female option.
+ *     2.5. Find a person in the list:
+ *          - Display another window asking the user for the first and second name of the citizen they are trying to find.
+ *          - Show the citizen information if the citizen is found, otherwise show a warning message.
+ *     2.6. Display citizens with a certain age group:
+ *          - Display a dialog asking the user for the citizen group age.
+ *          - Display a table listing of citizen age group with a search functionality, based on the entered citizen group age.
+ *          - Otherwise, show a warning message.
+ *     2.7. Display population per district:
+ *          - Display a default table listing of the population per district.
+ *     2.8. Show the number of seniors:
+ *          - Display another window showing the number of senior citizens.
+ * 3. Terminate the program if the user chooses to quit.
  * <p>
  * 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
  * <p>
@@ -483,7 +518,7 @@ public class MyProgram{
         10. Show the main menu frame.
      */
     public void mainMenu() {
-        mainMenuFrame = new JFrame("MAIN MENU");
+        mainMenuFrame = new JFrame("Citizen Application");
         //Labels
         JLabel titleLabel = new JLabel("MAIN MENU", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Helvetica", Font.BOLD, 30));
@@ -1065,7 +1100,7 @@ public class MyProgram{
         buttonBack.addActionListener(buttonAction);
 
         //frame
-        selectMOrFDialog.setTitle("Select Male or Female");
+        selectMOrFDialog.setTitle("Citizen Application");
         selectMOrFDialog.setLayout(new BorderLayout());
         selectMOrFDialog.add(title, BorderLayout.NORTH);
         selectMOrFDialog.add(buttonPanel, BorderLayout.CENTER);
